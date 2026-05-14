@@ -14,7 +14,7 @@ export default function AuthorLayout({ children, content }: Props) {
   return (
     <>
       <div className="animate-fade-up pt-8 pb-10">
-        <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">About</p>
+        <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">个人介绍</p>
         <h1 className="mt-2 text-4xl leading-tight font-black tracking-tight text-gray-950 sm:text-5xl md:text-6xl dark:text-white">
           关于
         </h1>
