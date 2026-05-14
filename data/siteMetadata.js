@@ -1,7 +1,7 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
   title: 'Kieran Space',
-  author: '欧阳志远',
+  author: 'Kieran',
   headerTitle: 'Kieran Space',
   description: '个人随笔与学习笔记',
   language: 'zh-cn',
