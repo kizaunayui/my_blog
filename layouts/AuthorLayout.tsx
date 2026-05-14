@@ -14,7 +14,7 @@ export default function AuthorLayout({ children, content }: Props) {
   return (
     <>
       <div className="animate-fade-up pt-8 pb-10">
-        <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">个人介绍</p>
+        <p className="text-primary-600 dark:text-primary-300 text-sm font-semibold">个人介绍</p>
         <h1 className="mt-2 text-4xl leading-tight font-black tracking-tight text-gray-950 sm:text-5xl md:text-6xl dark:text-white">
           关于
         </h1>
@@ -22,7 +22,7 @@ export default function AuthorLayout({ children, content }: Props) {
       <div className="items-start gap-8 xl:grid xl:grid-cols-3">
         <aside className="post-card-motion rounded-3xl border border-gray-200/80 bg-white/75 p-8 text-center shadow-xl shadow-gray-200/50 backdrop-blur dark:border-gray-800/80 dark:bg-gray-900/60 dark:shadow-black/30">
           <div className="relative mx-auto h-48 w-48">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary-300 via-teal-300 to-primary-500 opacity-70 blur-xl" />
+            <div className="from-primary-300 to-primary-500 absolute inset-0 rounded-full bg-gradient-to-tr via-teal-300 opacity-70 blur-xl" />
             {avatar && (
               <Image
                 src={avatar}
@@ -46,7 +46,7 @@ export default function AuthorLayout({ children, content }: Props) {
             <SocialIcon kind="bluesky" href={bluesky} />
           </div>
         </aside>
-        <div className="prose dark:prose-invert post-card-motion mt-8 max-w-none rounded-3xl border border-gray-200/80 bg-white/75 p-8 shadow-sm backdrop-blur dark:border-gray-800/80 dark:bg-gray-900/60 xl:col-span-2 xl:mt-0">
+        <div className="prose dark:prose-invert post-card-motion mt-8 max-w-none rounded-3xl border border-gray-200/80 bg-white/75 p-8 shadow-sm backdrop-blur xl:col-span-2 xl:mt-0 dark:border-gray-800/80 dark:bg-gray-900/60">
           {children}
         </div>
       </div>

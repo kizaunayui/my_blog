@@ -18,7 +18,7 @@ const Header = () => {
             <Logo />
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="hidden h-6 bg-gradient-to-r from-gray-950 via-primary-600 to-teal-500 bg-clip-text text-2xl font-black text-transparent sm:block dark:from-white dark:via-primary-300 dark:to-teal-300">
+            <div className="via-primary-600 dark:via-primary-300 hidden h-6 bg-gradient-to-r from-gray-950 to-teal-500 bg-clip-text text-2xl font-black text-transparent sm:block dark:from-white dark:to-teal-300">
               {siteMetadata.headerTitle}
             </div>
           ) : (
@@ -34,7 +34,7 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
-                className="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:bg-primary-50 hover:text-primary-600 dark:text-gray-200 dark:hover:bg-primary-950/40 dark:hover:text-primary-300"
+                className="hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-950/40 dark:hover:text-primary-300 rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition dark:text-gray-200"
               >
                 {link.title}
               </Link>

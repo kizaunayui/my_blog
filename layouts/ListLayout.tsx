@@ -88,7 +88,7 @@ export default function ListLayout({
       <div>
         <div className="animate-fade-up space-y-6 pt-8 pb-10 md:pt-12 md:pb-12">
           <div>
-            <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">Archive</p>
+            <p className="text-primary-600 dark:text-primary-300 text-sm font-semibold">Archive</p>
             <h1 className="mt-2 text-4xl leading-tight font-black tracking-tight text-gray-950 sm:text-5xl md:text-6xl dark:text-white">
               {title}
             </h1>
@@ -125,8 +125,12 @@ export default function ListLayout({
           {displayPosts.map((post, index) => {
             const { path, date, title, summary, tags } = post
             return (
-              <li key={path} className="post-card-motion" style={{ animationDelay: `${index * 60}ms` }}>
-                <article className="group rounded-2xl border border-gray-200/80 bg-white/75 p-6 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-100/70 dark:border-gray-800/80 dark:bg-gray-900/60 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30 md:grid md:grid-cols-4 md:gap-8">
+              <li
+                key={path}
+                className="post-card-motion"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                <article className="group hover:border-primary-200 hover:shadow-primary-100/70 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30 rounded-2xl border border-gray-200/80 bg-white/75 p-6 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-xl md:grid md:grid-cols-4 md:gap-8 dark:border-gray-800/80 dark:bg-gray-900/60">
                   <dl>
                     <dt className="sr-only">发布时间</dt>
                     <dd className="text-sm font-semibold text-gray-500 dark:text-gray-400">
@@ -135,12 +139,17 @@ export default function ListLayout({
                   </dl>
                   <div className="mt-4 md:col-span-3 md:mt-0">
                     <h3 className="text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
-                      <Link href={`/${path}`} className="transition group-hover:text-primary-600 dark:group-hover:text-primary-300">
+                      <Link
+                        href={`/${path}`}
+                        className="group-hover:text-primary-600 dark:group-hover:text-primary-300 transition"
+                      >
                         {title}
                       </Link>
                     </h3>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                      {tags?.map((tag) => (
+                        <Tag key={tag} text={tag} />
+                      ))}
                     </div>
                     <p className="mt-4 text-gray-600 dark:text-gray-300">{summary}</p>
                   </div>
