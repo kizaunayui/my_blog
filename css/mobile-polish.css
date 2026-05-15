@@ -1,0 +1,249 @@
+/* Mobile polish: keep the glass style, but reduce crowding on small screens. */
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .site-fixed-bg {
+    background-position: 62% center !important;
+  }
+
+  header {
+    width: calc(100% + 1.5rem) !important;
+    margin-top: 0.5rem !important;
+    margin-left: -0.75rem !important;
+    margin-right: -0.75rem !important;
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  header > a > div > div:first-child {
+    margin-right: 0.5rem !important;
+    padding: 0.35rem !important;
+    border-radius: 1rem !important;
+  }
+
+  header svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  header > div:last-child {
+    gap: 0.35rem !important;
+    column-gap: 0.35rem !important;
+  }
+
+  .home-hero {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-top: 4.25rem !important;
+    padding-bottom: 4.25rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  .home-hero-content h1 {
+    font-size: clamp(2.65rem, 13vw, 4.25rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .home-hero-content > p:last-of-type {
+    max-width: 100% !important;
+    font-size: 1rem !important;
+    line-height: 1.75rem !important;
+  }
+
+  .home-hero-content .button-primary,
+  .home-hero-content .button-secondary {
+    min-height: 2.75rem;
+    padding-left: 1.05rem;
+    padding-right: 1.05rem;
+  }
+
+  .home-featured-card,
+  .home-hero + section .post-card-motion,
+  .list-post-card,
+  .tags-page-card,
+  .tags-page-hero,
+  .author-profile-card,
+  .author-content-card,
+  .post-title-card,
+  .post-side-card,
+  .post-content-card,
+  .post-meta-card,
+  .home-newsletter-panel,
+  .footer-glass-panel {
+    border-radius: 1.45rem !important;
+    box-shadow: 0 18px 48px rgba(2, 6, 23, 0.22) !important;
+  }
+
+  .home-featured-card,
+  .home-hero + section .post-card-motion,
+  .list-post-card,
+  .tags-page-card,
+  .author-profile-card,
+  .author-content-card,
+  .post-title-card,
+  .post-side-card,
+  .post-content-card,
+  .post-meta-card {
+    padding: 1.2rem !important;
+  }
+
+  .home-hero + section {
+    padding-top: 2.5rem !important;
+  }
+
+  .home-hero + section > div:first-child {
+    align-items: flex-start !important;
+  }
+
+  .home-hero + section > div:first-child h2,
+  .list-layout-heading h1,
+  .tags-page-hero h1,
+  .author-heading h1,
+  .post-title-card h1 {
+    font-size: clamp(2.15rem, 10vw, 3.25rem) !important;
+    line-height: 1.05 !important;
+  }
+
+  .home-hero + section .post-card-motion h3,
+  .list-post-card h2,
+  .tags-page-card h2 {
+    font-size: 1.35rem !important;
+    line-height: 1.75rem !important;
+  }
+
+  .list-layout-page,
+  .tags-page,
+  .author-page {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .list-layout-heading,
+  .tags-page-hero {
+    padding: 1.5rem !important;
+  }
+
+  .list-layout-grid {
+    display: block !important;
+  }
+
+  .list-content {
+    width: 100% !important;
+  }
+
+  .tags-page-hero > div:last-child,
+  .tags-page-hero .grid {
+    width: 100%;
+  }
+
+  .tags-page-card {
+    min-height: auto !important;
+  }
+
+  .tags-page-card h2 {
+    word-break: break-word;
+  }
+
+  .author-profile-card {
+    margin-bottom: 1.25rem;
+  }
+
+  .author-profile-card .relative.mx-auto.h-48.w-48 {
+    height: 9.5rem !important;
+    width: 9.5rem !important;
+  }
+
+  .author-profile-card img {
+    height: 9.5rem !important;
+    width: 9.5rem !important;
+  }
+
+  .post-title-card {
+    margin-bottom: 1.25rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .post-side-card {
+    position: static !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .post-content-card {
+    font-size: 0.98rem !important;
+  }
+
+  .post-content-card pre,
+  .post-content-card table {
+    max-width: 100%;
+  }
+
+  .post-content-card pre {
+    padding: 1rem !important;
+  }
+
+  .post-content-card table {
+    font-size: 0.88rem;
+  }
+
+  .post-content-card img,
+  .post-content-card video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .home-newsletter-panel {
+    margin: 2rem 0.25rem 0.75rem !important;
+    padding: 1.2rem !important;
+  }
+
+  .footer-glass-panel {
+    padding: 1.35rem !important;
+  }
+
+  .site-footer {
+    margin-top: 2.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-hero-content > p:first-child {
+    font-size: 0.78rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .home-hero-content .mt-9 {
+    gap: 0.6rem !important;
+  }
+
+  .home-hero-content .button-primary,
+  .home-hero-content .button-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tags-page-hero h1 span {
+    display: block;
+    margin-left: 0 !important;
+    margin-top: 0.25rem;
+  }
+
+  .tags-page-card > div:last-child {
+    align-items: flex-start !important;
+  }
+
+  .post-meta-card {
+    font-size: 0.85rem !important;
+    line-height: 1.6;
+  }
+
+  .footer-glass-panel > div:first-child {
+    gap: 0.85rem !important;
+  }
+}
