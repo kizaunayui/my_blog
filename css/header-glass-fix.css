@@ -1,4 +1,4 @@
-/* Header-only glass style: rounded, integrated, with gradient navigation pills. */
+/* Header-only glass style: rounded, integrated, with gradient desktop navigation pills. */
 header {
   margin-top: 0.75rem !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -53,8 +53,10 @@ header .no-scrollbar a:hover {
   transform: translateY(-1px);
 }
 
+header button,
 header svg {
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18));
+  color: white !important;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.22));
 }
 
 .dark header {
@@ -75,4 +77,17 @@ header svg {
 
 .dark header .no-scrollbar a:hover {
   background: linear-gradient(135deg, rgba(219, 39, 119, 0.76), rgba(14, 165, 233, 0.6)) !important;
+}
+
+@media (max-width: 640px) {
+  header {
+    margin-top: 0.5rem !important;
+    border-radius: 1.25rem !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+
+  header .no-scrollbar {
+    display: none !important;
+  }
 }
