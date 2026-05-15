@@ -12,14 +12,14 @@ export default function Home({ posts }) {
 
   return (
     <>
-      <section className="relative overflow-hidden pt-10 pb-14 sm:pt-16 md:pb-20">
-        <div className="pointer-events-none absolute inset-0 -z-10">
+      <section className="home-hero relative overflow-hidden pt-10 pb-14 sm:pt-16 md:pb-20">
+        <div className="home-hero-bg pointer-events-none absolute inset-0 -z-10">
           <div className="hero-aurora hero-aurora-one" />
           <div className="hero-aurora hero-aurora-two" />
           <div className="hero-grid" />
         </div>
 
-        <div className="animate-fade-up max-w-3xl">
+        <div className="home-hero-content animate-fade-up max-w-3xl">
           <p className="mb-5 inline-flex rounded-full border border-primary-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-primary-600 shadow-sm backdrop-blur dark:border-primary-500/20 dark:bg-gray-900/60 dark:text-primary-300">
             随笔 · 学习 · 项目实践
           </p>
@@ -43,7 +43,7 @@ export default function Home({ posts }) {
         {featuredPost && (
           <Link
             href={`/blog/${featuredPost.slug}`}
-            className="featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-primary-950/40"
+            className="home-featured-card featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-primary-950/40"
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
