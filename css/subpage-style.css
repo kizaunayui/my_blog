@@ -1,4 +1,4 @@
-/* Shared subpage support styles. Most visual styling now lives in scoped component classes. */
+/* Shared subpage support styles. Visual rules are scoped to explicit page/component classes. */
 main {
   position: relative;
   z-index: 1;
@@ -34,6 +34,11 @@ main > div:not(.site-fixed-bg) {
 }
 
 /* Tags index page */
+.tags-page {
+  position: relative;
+  z-index: 2;
+}
+
 .tags-page-card,
 .tags-page-hero {
   -webkit-backdrop-filter: blur(22px) saturate(1.16);
@@ -41,54 +46,49 @@ main > div:not(.site-fixed-bg) {
 }
 
 /* About page / author layout */
-main aside.post-card-motion,
-main .prose.post-card-motion {
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-radius: 2rem !important;
-  background: rgba(255, 255, 255, 0.42) !important;
-  box-shadow: 0 28px 72px rgba(2, 6, 23, 0.24) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(1.16) !important;
-  backdrop-filter: blur(22px) saturate(1.16) !important;
+.author-page {
+  position: relative;
+  z-index: 2;
 }
 
-main aside.post-card-motion h3,
-main aside.post-card-motion div,
-main .prose.post-card-motion,
-main .prose.post-card-motion p,
-main .prose.post-card-motion li,
-main .prose.post-card-motion h1,
-main .prose.post-card-motion h2,
-main .prose.post-card-motion h3,
-main .prose.post-card-motion h4 {
-  color: rgb(15, 23, 42) !important;
-  text-shadow: none !important;
+.author-profile-card,
+.author-content-card {
+  -webkit-backdrop-filter: blur(22px) saturate(1.16);
+  backdrop-filter: blur(22px) saturate(1.16);
 }
 
-/* Dark mode variants */
-.dark main aside.post-card-motion,
-.dark main .prose.post-card-motion {
-  border-color: rgba(148, 163, 184, 0.24) !important;
-  background: rgba(15, 23, 42, 0.52) !important;
+.author-content-card,
+.author-content-card p,
+.author-content-card li,
+.author-content-card h1,
+.author-content-card h2,
+.author-content-card h3,
+.author-content-card h4 {
+  color: rgb(15, 23, 42);
+  text-shadow: none;
 }
 
-.dark main aside.post-card-motion h3,
-.dark main aside.post-card-motion div,
-.dark main .prose.post-card-motion,
-.dark main .prose.post-card-motion p,
-.dark main .prose.post-card-motion li,
-.dark main .prose.post-card-motion h1,
-.dark main .prose.post-card-motion h2,
-.dark main .prose.post-card-motion h3,
-.dark main .prose.post-card-motion h4 {
-  color: rgb(241, 245, 249) !important;
+.dark .author-content-card,
+.dark .author-content-card p,
+.dark .author-content-card li,
+.dark .author-content-card h1,
+.dark .author-content-card h2,
+.dark .author-content-card h3,
+.dark .author-content-card h4 {
+  color: rgb(241, 245, 249);
 }
 
 @media (max-width: 768px) {
-  .list-layout-page {
+  .list-layout-page,
+  .tags-page,
+  .author-page {
     padding-top: 2rem;
   }
 
-  .list-post-card {
+  .list-post-card,
+  .tags-page-card,
+  .author-profile-card,
+  .author-content-card {
     padding: 1.25rem !important;
   }
 }
