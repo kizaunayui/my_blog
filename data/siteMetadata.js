@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'Kieran Space',
   author: 'Kieran',
   headerTitle: 'Kieran Space',
-  description: '个人随笔与学习笔记',
+  description: 'Kieran Space：记录技术学习、项目实践和个人随笔的数字空间。',
   language: 'zh-cn',
   theme: 'system',
   siteUrl: 'https://oyzy666.com',
