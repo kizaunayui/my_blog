@@ -40,6 +40,24 @@ footer {
   z-index: 1;
 }
 
+header {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.1);
+}
+
+.dark header {
+  background: rgba(2, 6, 23, 0.76) !important;
+}
+
+header > div,
+header nav,
+header a,
+header button {
+  position: relative;
+  z-index: 2;
+}
+
 .home-hero {
   isolation: isolate;
   width: 100vw;
@@ -164,8 +182,26 @@ footer {
   box-shadow: 0 28px 72px rgba(2, 6, 23, 0.28);
 }
 
+.home-newsletter-panel {
+  position: relative;
+  z-index: 3;
+  margin: 3rem auto 1rem;
+  max-width: 42rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.58);
+  padding: 1.5rem;
+  backdrop-filter: blur(22px) saturate(1.18);
+  box-shadow: 0 24px 64px rgba(2, 6, 23, 0.26);
+}
+
+.home-newsletter-panel input {
+  background: rgba(255, 255, 255, 0.86) !important;
+}
+
 .dark .home-featured-card,
-.dark .home-hero + section .post-card-motion {
+.dark .home-hero + section .post-card-motion,
+.dark .home-newsletter-panel {
   border-color: rgba(148, 163, 184, 0.24) !important;
   background: rgba(15, 23, 42, 0.52) !important;
 }
@@ -185,5 +221,10 @@ footer {
   .home-hero::after {
     bottom: -7rem;
     height: 14rem;
+  }
+
+  .home-newsletter-panel {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 }
