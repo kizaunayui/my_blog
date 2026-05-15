@@ -12,8 +12,10 @@ export default function Home({ posts }) {
 
   return (
     <>
+      <div className="site-fixed-bg hero-aurora-one pointer-events-none fixed inset-0" />
+
       <section className="home-hero relative overflow-hidden pt-10 pb-14 sm:pt-16 md:pb-20">
-        <div className="home-hero-bg hero-aurora-one pointer-events-none fixed inset-0">
+        <div className="home-hero-bg pointer-events-none absolute inset-0">
           <div className="hero-grid" />
         </div>
 
