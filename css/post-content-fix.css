@@ -1,0 +1,169 @@
+/* Article content polish: scoped to the post detail glass card only. */
+.post-content-card {
+  color: rgb(15, 23, 42);
+}
+
+.post-content-card :where(h1, h2, h3, h4, h5, h6) {
+  color: rgb(15, 23, 42) !important;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  text-shadow: none !important;
+}
+
+.post-content-card :where(p, li, td, th) {
+  color: rgb(30, 41, 59) !important;
+  line-height: 1.85;
+}
+
+.post-content-card a {
+  color: rgb(219, 39, 119) !important;
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(219, 39, 119, 0.28);
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.post-content-card a:hover {
+  color: rgb(14, 165, 233) !important;
+  border-color: rgba(14, 165, 233, 0.45);
+}
+
+.post-content-card blockquote {
+  margin: 1.75rem 0;
+  border-left: 0;
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(14, 165, 233, 0.1)),
+    rgba(255, 255, 255, 0.34);
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 16px 42px rgba(2, 6, 23, 0.1);
+}
+
+.post-content-card blockquote p {
+  color: rgb(30, 41, 59) !important;
+  font-weight: 650;
+}
+
+.post-content-card :not(pre) > code {
+  border: 1px solid rgba(219, 39, 119, 0.18);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: rgb(190, 24, 93) !important;
+  padding: 0.15rem 0.4rem;
+  font-weight: 800;
+}
+
+.post-content-card pre {
+  overflow-x: auto;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.94) !important;
+  box-shadow: 0 22px 58px rgba(2, 6, 23, 0.24);
+}
+
+.post-content-card pre code {
+  color: rgb(226, 232, 240) !important;
+  background: transparent !important;
+}
+
+.post-content-card table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow: 0 18px 48px rgba(2, 6, 23, 0.12);
+}
+
+.post-content-card thead {
+  background: linear-gradient(135deg, rgba(219, 39, 119, 0.18), rgba(14, 165, 233, 0.14));
+}
+
+.post-content-card th {
+  color: rgb(15, 23, 42) !important;
+  font-weight: 900;
+}
+
+.post-content-card td,
+.post-content-card th {
+  border-color: rgba(148, 163, 184, 0.3) !important;
+  padding: 0.85rem 1rem;
+}
+
+.post-content-card img,
+.post-content-card video {
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 68px rgba(2, 6, 23, 0.22);
+}
+
+.post-content-card hr {
+  border-color: rgba(148, 163, 184, 0.34);
+}
+
+.post-content-card .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.48);
+  padding: 1rem;
+}
+
+.post-meta-card,
+.post-side-card,
+.post-title-card {
+  -webkit-backdrop-filter: blur(22px) saturate(1.16);
+  backdrop-filter: blur(22px) saturate(1.16);
+}
+
+.dark .post-content-card {
+  color: rgb(241, 245, 249);
+}
+
+.dark .post-content-card :where(h1, h2, h3, h4, h5, h6) {
+  color: rgb(248, 250, 252) !important;
+}
+
+.dark .post-content-card :where(p, li, td, th),
+.dark .post-content-card blockquote p {
+  color: rgb(226, 232, 240) !important;
+}
+
+.dark .post-content-card blockquote {
+  background:
+    linear-gradient(135deg, rgba(236, 72, 153, 0.18), rgba(14, 165, 233, 0.14)),
+    rgba(15, 23, 42, 0.52);
+}
+
+.dark .post-content-card :not(pre) > code {
+  border-color: rgba(244, 114, 182, 0.28);
+  background: rgba(15, 23, 42, 0.62);
+  color: rgb(244, 114, 182) !important;
+}
+
+.dark .post-content-card table,
+.dark .post-content-card .katex-display {
+  background: rgba(15, 23, 42, 0.52);
+}
+
+.dark .post-content-card th {
+  color: rgb(248, 250, 252) !important;
+}
+
+@media (max-width: 640px) {
+  .post-content-card {
+    border-radius: 1.5rem !important;
+    padding: 1.25rem !important;
+  }
+
+  .post-content-card pre,
+  .post-content-card blockquote,
+  .post-content-card table,
+  .post-content-card img,
+  .post-content-card video {
+    border-radius: 1rem;
+  }
+}
