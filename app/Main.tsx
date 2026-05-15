@@ -127,7 +127,7 @@ export default function Home({ posts }) {
       </section>
 
       {siteMetadata.newsletter?.provider && (
-        <div className="flex items-center justify-center pt-8">
+        <div className="home-newsletter-panel flex items-center justify-center pt-8">
           <NewsletterForm />
         </div>
       )}
