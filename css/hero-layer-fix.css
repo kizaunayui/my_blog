@@ -1,4 +1,4 @@
-/* Fixed full-page background for the home page. */
+/* Fixed full-page background and home-page glass styling. */
 html,
 body {
   background: transparent !important;
@@ -32,30 +32,10 @@ body {
   display: none;
 }
 
-body > section,
-header,
 main,
 footer {
   position: relative;
   z-index: 1;
-}
-
-header {
-  background: rgba(255, 255, 255, 0.82) !important;
-  backdrop-filter: blur(22px) saturate(1.2);
-  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.1);
-}
-
-.dark header {
-  background: rgba(2, 6, 23, 0.76) !important;
-}
-
-header > div,
-header nav,
-header a,
-header button {
-  position: relative;
-  z-index: 2;
 }
 
 .home-hero {
@@ -159,8 +139,23 @@ header button {
 
 .home-featured-card h2,
 .home-featured-card p,
-.home-featured-card span {
+.home-featured-card div,
+.home-featured-card span,
+.home-hero + section .post-card-motion h3,
+.home-hero + section .post-card-motion p,
+.home-hero + section .post-card-motion dl,
+.home-hero + section .post-card-motion dd,
+.home-hero + section .post-card-motion div {
+  color: rgb(15, 23, 42) !important;
   text-shadow: none;
+}
+
+.home-featured-card > div > div > p:first-child,
+.home-featured-card span,
+.home-hero + section .post-card-motion a,
+.home-hero + section .post-card-motion .text-primary-600,
+.home-hero + section .post-card-motion .dark\:text-primary-300 {
+  color: rgb(219, 39, 119) !important;
 }
 
 .home-hero + section {
@@ -182,6 +177,13 @@ header button {
   box-shadow: 0 28px 72px rgba(2, 6, 23, 0.28);
 }
 
+.home-hero + section .post-card-motion time,
+.home-hero + section .post-card-motion dd,
+.home-hero + section .post-card-motion .text-gray-500,
+.home-hero + section .post-card-motion .text-gray-600 {
+  color: rgb(71, 85, 105) !important;
+}
+
 .home-newsletter-panel {
   position: relative;
   z-index: 3;
@@ -195,69 +197,20 @@ header button {
   box-shadow: 0 24px 64px rgba(2, 6, 23, 0.26);
 }
 
-.home-newsletter-panel input {
-  background: rgba(255, 255, 255, 0.86) !important;
-}
-
-.dark .home-featured-card,
-.dark .home-hero + section .post-card-motion,
-.dark .home-newsletter-panel {
-  border-color: rgba(148, 163, 184, 0.24) !important;
-  background: rgba(15, 23, 42, 0.52) !important;
-}
-
-/* Readability pass: prevent low-contrast text over the fixed image background. */
-header a,
-header button,
-header svg {
-  color: rgb(15, 23, 42) !important;
-}
-
-.dark header a,
-.dark header button,
-.dark header svg {
-  color: rgb(248, 250, 252) !important;
-}
-
-.home-featured-card h2,
-.home-featured-card p,
-.home-featured-card div,
-.home-hero + section .post-card-motion h3,
-.home-hero + section .post-card-motion p,
-.home-hero + section .post-card-motion dl,
-.home-hero + section .post-card-motion dd,
-.home-hero + section .post-card-motion div {
-  color: rgb(15, 23, 42) !important;
-}
-
-.home-featured-card > div > div > p:first-child,
-.home-featured-card span,
-.home-hero + section .post-card-motion a,
-.home-hero + section .post-card-motion .text-primary-600,
-.home-hero + section .post-card-motion .dark\:text-primary-300 {
-  color: rgb(219, 39, 119) !important;
-}
-
-.home-hero + section .post-card-motion time,
-.home-hero + section .post-card-motion dd,
-.home-hero + section .post-card-motion .text-gray-500,
-.home-hero + section .post-card-motion .text-gray-600 {
-  color: rgb(71, 85, 105) !important;
-}
-
 .home-newsletter-panel,
 .home-newsletter-panel h1,
 .home-newsletter-panel h2,
 .home-newsletter-panel h3,
 .home-newsletter-panel p,
 .home-newsletter-panel label,
-.home-newsletter-panel div {
-  color: rgb(15, 23, 42) !important;
-}
-
+.home-newsletter-panel div,
 .home-newsletter-panel input,
 .home-newsletter-panel input::placeholder {
   color: rgb(15, 23, 42) !important;
+}
+
+.home-newsletter-panel input {
+  background: rgba(255, 255, 255, 0.86) !important;
 }
 
 footer,
@@ -266,6 +219,13 @@ footer div,
 footer svg {
   color: rgba(255, 255, 255, 0.9) !important;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.72);
+}
+
+.dark .home-featured-card,
+.dark .home-hero + section .post-card-motion,
+.dark .home-newsletter-panel {
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  background: rgba(15, 23, 42, 0.52) !important;
 }
 
 .dark .home-featured-card h2,
