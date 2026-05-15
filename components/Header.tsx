@@ -8,7 +8,7 @@ import SearchButton from './SearchButton'
 
 const Header = () => {
   const headerClass =
-    'sticky top-0 z-[9999] -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-gray-200/90 bg-white/95 px-4 py-4 shadow-lg shadow-gray-900/10 backdrop-blur-2xl dark:border-gray-700/80 dark:bg-gray-950/90 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6'
+    'sticky top-0 z-[9999] -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-white/10 bg-transparent px-4 py-4 shadow-lg shadow-black/10 backdrop-blur-2xl sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6'
 
   return (
     <header
@@ -17,18 +17,28 @@ const Header = () => {
         position: 'sticky',
         top: 0,
         zIndex: 9999,
-        backgroundColor: 'rgba(255, 255, 255, 0.96)',
-        WebkitBackdropFilter: 'blur(24px) saturate(1.2)',
-        backdropFilter: 'blur(24px) saturate(1.2)',
+        color: '#f8fafc',
+        backgroundColor: 'rgba(2, 6, 23, 0.34)',
+        borderColor: 'rgba(255, 255, 255, 0.12)',
+        boxShadow: '0 18px 48px rgba(2, 6, 23, 0.18)',
+        WebkitBackdropFilter: 'blur(24px) saturate(1.22)',
+        backdropFilter: 'blur(24px) saturate(1.22)',
       }}
     >
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between transition duration-300 hover:scale-[1.02]">
-          <div className="mr-3 rounded-2xl bg-white/90 p-1.5 shadow-sm ring-1 ring-gray-200/90 dark:bg-gray-900/90 dark:ring-gray-700">
+          <div
+            className="mr-3 rounded-2xl p-1.5 shadow-sm ring-1"
+            style={{
+              backgroundColor: 'rgba(15, 23, 42, 0.32)',
+              borderColor: 'rgba(255, 255, 255, 0.12)',
+              boxShadow: '0 10px 30px rgba(2, 6, 23, 0.18)',
+            }}
+          >
             <Logo />
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="hidden h-6 bg-gradient-to-r from-gray-950 via-primary-600 to-teal-500 bg-clip-text text-2xl font-black text-transparent sm:block dark:from-white dark:via-primary-300 dark:to-teal-300">
+            <div className="hidden h-6 bg-gradient-to-r from-white via-pink-200 to-sky-200 bg-clip-text text-2xl font-black text-transparent sm:block">
               {siteMetadata.headerTitle}
             </div>
           ) : (
@@ -38,13 +48,14 @@ const Header = () => {
       </Link>
       <div className="flex items-center space-x-3 leading-5 sm:-mr-2 sm:space-x-4">
         <div
-          className="no-scrollbar flex items-center gap-x-2 overflow-visible rounded-full border border-gray-300/90 bg-white/95 p-1 shadow-md shadow-gray-900/10 backdrop-blur-2xl dark:border-gray-600/90 dark:bg-gray-950/90"
+          className="no-scrollbar flex items-center gap-x-1.5 overflow-visible rounded-full border p-1 shadow-md backdrop-blur-2xl"
           style={{
             display: 'flex',
             visibility: 'visible',
             opacity: 1,
-            backgroundColor: 'rgba(255, 255, 255, 0.98)',
-            borderColor: 'rgba(203, 213, 225, 0.98)',
+            backgroundColor: 'rgba(15, 23, 42, 0.36)',
+            borderColor: 'rgba(255, 255, 255, 0.16)',
+            boxShadow: '0 14px 36px rgba(2, 6, 23, 0.16)',
             position: 'relative',
             zIndex: 10000,
           }}
@@ -55,12 +66,12 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
-                className="rounded-full px-3 py-1.5 text-sm font-extrabold text-gray-950 opacity-100 transition hover:bg-primary-50 hover:text-primary-600 dark:text-gray-50 dark:hover:bg-primary-950/50 dark:hover:text-primary-200"
+                className="rounded-full px-3 py-1.5 text-sm font-bold opacity-100 transition hover:bg-white/15 hover:text-pink-100"
                 style={{
-                  color: '#0f172a',
+                  color: 'rgba(255, 255, 255, 0.92)',
                   opacity: 1,
-                  fontWeight: 900,
-                  textShadow: 'none',
+                  fontWeight: 800,
+                  textShadow: '0 8px 24px rgba(0, 0, 0, 0.32)',
                   whiteSpace: 'nowrap',
                   position: 'relative',
                   zIndex: 10001,
