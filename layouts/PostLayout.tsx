@@ -4,7 +4,6 @@ import type { Blog, Authors } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
-import SectionContainer from '@/components/SectionContainer'
 import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
@@ -34,7 +33,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   const basePath = path.split('/')[0]
 
   return (
-    <SectionContainer>
+    <>
       <ScrollTopAndComment />
       <article className="py-10 sm:py-12">
         <header className="post-title-card animate-fade-up mb-10 rounded-[2rem] border border-white/25 bg-white/22 px-6 py-10 text-center shadow-2xl shadow-slate-950/25 backdrop-blur-2xl sm:px-10 dark:border-slate-400/20 dark:bg-slate-950/45">
@@ -164,6 +163,6 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </div>
         </div>
       </article>
-    </SectionContainer>
+    </>
   )
 }
