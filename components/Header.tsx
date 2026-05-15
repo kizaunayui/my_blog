@@ -8,10 +8,20 @@ import SearchButton from './SearchButton'
 
 const Header = () => {
   const headerClass =
-    'sticky top-0 z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-gray-200/90 bg-white/95 px-4 py-4 shadow-lg shadow-gray-900/10 backdrop-blur-2xl dark:border-gray-700/80 dark:bg-gray-950/90 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6'
+    'sticky top-0 z-[9999] -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-gray-200/90 bg-white/95 px-4 py-4 shadow-lg shadow-gray-900/10 backdrop-blur-2xl dark:border-gray-700/80 dark:bg-gray-950/90 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6'
 
   return (
-    <header className={headerClass}>
+    <header
+      className={headerClass}
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 9999,
+        backgroundColor: 'rgba(255, 255, 255, 0.96)',
+        WebkitBackdropFilter: 'blur(24px) saturate(1.2)',
+        backdropFilter: 'blur(24px) saturate(1.2)',
+      }}
+    >
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between transition duration-300 hover:scale-[1.02]">
           <div className="mr-3 rounded-2xl bg-white/90 p-1.5 shadow-sm ring-1 ring-gray-200/90 dark:bg-gray-900/90 dark:ring-gray-700">
@@ -27,7 +37,18 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex items-center space-x-3 leading-5 sm:-mr-2 sm:space-x-4">
-        <div className="no-scrollbar hidden max-w-40 items-center gap-x-2 overflow-x-auto rounded-full border border-gray-300/90 bg-white/95 p-1 shadow-md shadow-gray-900/10 backdrop-blur-2xl sm:flex md:max-w-72 lg:max-w-96 dark:border-gray-600/90 dark:bg-gray-950/90">
+        <div
+          className="no-scrollbar flex items-center gap-x-2 overflow-visible rounded-full border border-gray-300/90 bg-white/95 p-1 shadow-md shadow-gray-900/10 backdrop-blur-2xl dark:border-gray-600/90 dark:bg-gray-950/90"
+          style={{
+            display: 'flex',
+            visibility: 'visible',
+            opacity: 1,
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            borderColor: 'rgba(203, 213, 225, 0.98)',
+            position: 'relative',
+            zIndex: 10000,
+          }}
+        >
           {headerNavLinks
             .filter((link) => link.href !== '/')
             .map((link) => (
@@ -35,6 +56,15 @@ const Header = () => {
                 key={link.title}
                 href={link.href}
                 className="rounded-full px-3 py-1.5 text-sm font-extrabold text-gray-950 opacity-100 transition hover:bg-primary-50 hover:text-primary-600 dark:text-gray-50 dark:hover:bg-primary-950/50 dark:hover:text-primary-200"
+                style={{
+                  color: '#0f172a',
+                  opacity: 1,
+                  fontWeight: 900,
+                  textShadow: 'none',
+                  whiteSpace: 'nowrap',
+                  position: 'relative',
+                  zIndex: 10001,
+                }}
               >
                 {link.title}
               </Link>
