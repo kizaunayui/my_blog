@@ -5,6 +5,7 @@ import 'css/header-glass-fix.css'
 import 'css/subpage-style.css'
 import 'css/search-glass-fix.css'
 import 'css/post-content-fix.css'
+import 'css/mobile-polish.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
