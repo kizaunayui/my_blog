@@ -1,10 +1,19 @@
 /* Fixed full-page background for the home page. */
+html,
+body {
+  background: transparent !important;
+}
+
 .site-fixed-bg {
-  z-index: 0;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  opacity: 1 !important;
   background-size: cover !important;
   background-position: 72% center !important;
   background-repeat: no-repeat !important;
-  opacity: 1;
+  filter: none !important;
+  transform: none !important;
 }
 
 .site-fixed-bg::before {
@@ -14,18 +23,21 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 72% 38%, rgba(96, 165, 250, 0.12), transparent 30rem),
-    linear-gradient(90deg, rgba(2, 6, 23, 0.72) 0%, rgba(2, 6, 23, 0.58) 34%, rgba(2, 6, 23, 0.2) 66%, rgba(2, 6, 23, 0.44) 100%),
-    linear-gradient(180deg, rgba(2, 6, 23, 0.06) 0%, rgba(2, 6, 23, 0.2) 52%, rgba(2, 6, 23, 0.58) 100%);
+    radial-gradient(circle at 72% 38%, rgba(96, 165, 250, 0.08), transparent 30rem),
+    linear-gradient(90deg, rgba(2, 6, 23, 0.62) 0%, rgba(2, 6, 23, 0.48) 34%, rgba(2, 6, 23, 0.16) 66%, rgba(2, 6, 23, 0.36) 100%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.04) 0%, rgba(2, 6, 23, 0.16) 52%, rgba(2, 6, 23, 0.42) 100%);
 }
 
 .site-fixed-bg::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  backdrop-filter: blur(1.5px);
+  display: none;
+}
+
+body > section,
+header,
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 .home-hero {
@@ -56,9 +68,9 @@
   z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 35%, rgba(148, 163, 184, 0.12), transparent 34rem),
-    linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(15, 23, 42, 0.22) 44%, rgba(15, 23, 42, 0.06) 100%);
-  backdrop-filter: blur(8px);
+    radial-gradient(circle at 50% 35%, rgba(148, 163, 184, 0.1), transparent 34rem),
+    linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(15, 23, 42, 0.2) 44%, rgba(15, 23, 42, 0.04) 100%);
+  backdrop-filter: blur(6px);
 }
 
 .home-hero-bg {
@@ -68,7 +80,7 @@
 
 .home-hero .hero-grid {
   z-index: 2;
-  opacity: 0.14;
+  opacity: 0.12;
   background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
@@ -122,8 +134,8 @@
 
 .home-featured-card {
   border-color: rgba(255, 255, 255, 0.28) !important;
-  background: rgba(255, 255, 255, 0.38) !important;
-  backdrop-filter: blur(24px) saturate(1.22);
+  background: rgba(255, 255, 255, 0.34) !important;
+  backdrop-filter: blur(20px) saturate(1.16);
   box-shadow: 0 28px 72px rgba(2, 6, 23, 0.32);
 }
 
@@ -147,8 +159,8 @@
 
 .home-hero + section .post-card-motion {
   border-color: rgba(255, 255, 255, 0.28) !important;
-  background: rgba(255, 255, 255, 0.5) !important;
-  backdrop-filter: blur(22px) saturate(1.18);
+  background: rgba(255, 255, 255, 0.46) !important;
+  backdrop-filter: blur(20px) saturate(1.14);
   box-shadow: 0 28px 72px rgba(2, 6, 23, 0.28);
 }
 
