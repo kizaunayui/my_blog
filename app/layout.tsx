@@ -1,4 +1,8 @@
 import 'css/tailwind.css'
+import 'css/hero-background.css'
+import 'css/hero-layer-fix.css'
+import 'css/header-glass-fix.css'
+import 'css/subpage-style.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
@@ -96,6 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       <body className="bg-transparent pl-[calc(100vw-100%)] text-black antialiased dark:text-white">
         <ThemeProviders>
+          <div className="site-fixed-bg hero-aurora-one pointer-events-none fixed inset-0" />
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
