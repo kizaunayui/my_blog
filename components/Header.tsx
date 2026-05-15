@@ -8,14 +8,13 @@ import SearchButton from './SearchButton'
 
 const Header = () => {
   const headerClass =
-    'sticky top-0 z-[9999] -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-white/10 bg-transparent px-4 py-4 shadow-lg shadow-black/10 backdrop-blur-2xl sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6'
+    'relative z-[9999] -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-white/10 bg-transparent px-4 py-4 shadow-lg shadow-black/10 backdrop-blur-2xl sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6'
 
   return (
     <header
       className={headerClass}
       style={{
-        position: 'sticky',
-        top: 0,
+        position: 'relative',
         zIndex: 9999,
         color: '#f8fafc',
         backgroundColor: 'rgba(2, 6, 23, 0.34)',
