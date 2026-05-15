@@ -1,13 +1,7 @@
-/* Shared subpage style: align blog/tags/about pages with the home glass aesthetic. */
+/* Shared subpage support styles. Most visual styling now lives in scoped component classes. */
 main {
   position: relative;
   z-index: 1;
-}
-
-/* Generic page titles on subpages */
-main h1 {
-  color: white !important;
-  text-shadow: 0 18px 48px rgba(0, 0, 0, 0.72);
 }
 
 main > div:not(.site-fixed-bg) {
@@ -15,73 +9,35 @@ main > div:not(.site-fixed-bg) {
   z-index: 2;
 }
 
-/* Blog list layout */
-main .sm\:space-x-24 > div:first-child {
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-radius: 1.75rem !important;
-  background: rgba(255, 255, 255, 0.34) !important;
-  box-shadow: 0 28px 72px rgba(2, 6, 23, 0.24) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(1.16) !important;
-  backdrop-filter: blur(20px) saturate(1.16) !important;
+/* Blog/tag list layout */
+.list-layout-page {
+  position: relative;
+  z-index: 2;
 }
 
-main .sm\:space-x-24 > div:first-child a,
-main .sm\:space-x-24 > div:first-child h3 {
-  color: white !important;
+.list-sidebar,
+.list-post-card,
+.list-layout-heading,
+.list-pagination nav {
+  -webkit-backdrop-filter: blur(20px) saturate(1.16);
+  backdrop-filter: blur(20px) saturate(1.16);
+}
+
+.list-pagination nav {
+  color: white;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
 }
 
-main .sm\:space-x-24 > div:first-child .text-primary-500 {
-  color: rgb(244, 114, 182) !important;
+.list-pagination nav a {
+  color: rgb(244, 114, 182);
+  font-weight: 800;
 }
 
-main .sm\:space-x-24 > div:nth-child(2) li article {
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-radius: 1.75rem !important;
-  background: rgba(255, 255, 255, 0.46) !important;
-  padding: 1.5rem !important;
-  box-shadow: 0 28px 72px rgba(2, 6, 23, 0.24) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(1.16) !important;
-  backdrop-filter: blur(20px) saturate(1.16) !important;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-}
-
-main .sm\:space-x-24 > div:nth-child(2) li article:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.54) !important;
-  box-shadow: 0 32px 86px rgba(2, 6, 23, 0.3) !important;
-}
-
-main .sm\:space-x-24 > div:nth-child(2) li article h2 a {
-  color: rgb(15, 23, 42) !important;
-}
-
-main .sm\:space-x-24 > div:nth-child(2) li article dd,
-main .sm\:space-x-24 > div:nth-child(2) li article time,
-main .sm\:space-x-24 > div:nth-child(2) li article .prose {
-  color: rgb(51, 65, 85) !important;
-  font-weight: 600;
-}
-
-/* Tags page */
-main > div.flex.flex-col.items-start {
-  margin-top: 4rem !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-radius: 2rem !important;
-  background: rgba(255, 255, 255, 0.38) !important;
-  padding: clamp(1.5rem, 4vw, 3rem) !important;
-  box-shadow: 0 28px 72px rgba(2, 6, 23, 0.24) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(1.16) !important;
-  backdrop-filter: blur(22px) saturate(1.16) !important;
-}
-
-main > div.flex.flex-col.items-start a {
-  color: rgb(15, 23, 42) !important;
-  font-weight: 800 !important;
-}
-
-main > div.flex.flex-col.items-start a:hover {
-  color: rgb(219, 39, 119) !important;
+/* Tags index page */
+.tags-page-card,
+.tags-page-hero {
+  -webkit-backdrop-filter: blur(22px) saturate(1.16);
+  backdrop-filter: blur(22px) saturate(1.16);
 }
 
 /* About page / author layout */
@@ -108,32 +64,13 @@ main .prose.post-card-motion h4 {
   text-shadow: none !important;
 }
 
-/* Pagination */
-main nav {
-  color: white !important;
-  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
-}
-
-main nav a {
-  color: rgb(244, 114, 182) !important;
-  font-weight: 800;
-}
-
 /* Dark mode variants */
-.dark main .sm\:space-x-24 > div:first-child,
-.dark main .sm\:space-x-24 > div:nth-child(2) li article,
-.dark main > div.flex.flex-col.items-start,
 .dark main aside.post-card-motion,
 .dark main .prose.post-card-motion {
   border-color: rgba(148, 163, 184, 0.24) !important;
   background: rgba(15, 23, 42, 0.52) !important;
 }
 
-.dark main .sm\:space-x-24 > div:nth-child(2) li article h2 a,
-.dark main .sm\:space-x-24 > div:nth-child(2) li article dd,
-.dark main .sm\:space-x-24 > div:nth-child(2) li article time,
-.dark main .sm\:space-x-24 > div:nth-child(2) li article .prose,
-.dark main > div.flex.flex-col.items-start a,
 .dark main aside.post-card-motion h3,
 .dark main aside.post-card-motion div,
 .dark main .prose.post-card-motion,
@@ -147,11 +84,11 @@ main nav a {
 }
 
 @media (max-width: 768px) {
-  main > div.flex.flex-col.items-start {
-    margin-top: 2rem !important;
+  .list-layout-page {
+    padding-top: 2rem;
   }
 
-  main .sm\:space-x-24 > div:nth-child(2) li article {
+  .list-post-card {
     padding: 1.25rem !important;
   }
 }
