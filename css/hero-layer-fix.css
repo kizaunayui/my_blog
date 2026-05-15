@@ -1,6 +1,5 @@
-/* Full-bleed fixed glass hero polish for the home page background.
-   Scope only to the real home hero section. Do not match the outer layout section. */
-main > section:has(> .pointer-events-none .hero-aurora-one) {
+/* Full-bleed fixed glass hero polish for the home page background. */
+.home-hero {
   isolation: isolate;
   width: 100vw;
   min-height: 100svh;
@@ -15,39 +14,51 @@ main > section:has(> .pointer-events-none .hero-aurora-one) {
   justify-content: center;
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .pointer-events-none {
+.home-hero-bg {
   z-index: 0 !important;
   inset: 0;
   overflow: hidden;
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .pointer-events-none::before {
+.home-hero-bg::before {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: -2;
   pointer-events: none;
-  backdrop-filter: blur(3px);
   background:
-    radial-gradient(circle at 72% 38%, rgba(96, 165, 250, 0.16), transparent 28rem),
     linear-gradient(90deg, rgba(2, 6, 23, 0.88) 0%, rgba(2, 6, 23, 0.7) 34%, rgba(2, 6, 23, 0.32) 66%, rgba(2, 6, 23, 0.48) 100%),
     linear-gradient(180deg, rgba(2, 6, 23, 0.1) 0%, rgba(2, 6, 23, 0.28) 52%, rgba(2, 6, 23, 0.76) 100%);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) .hero-aurora {
-  z-index: 0;
+.home-hero-bg::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: inherit;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 72% center;
+  filter: blur(3px) saturate(1.06) brightness(0.9);
+  transform: scale(1.04);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) .hero-aurora-one {
-  inset: -6vh 0 !important;
+.home-hero .hero-aurora-one {
+  inset: -8vh 0 !important;
   transform: scale(1.08);
-  filter: saturate(1.06) brightness(0.9);
+  filter: blur(3px) saturate(1.06) brightness(0.9);
   background-attachment: fixed !important;
   background-size: cover !important;
   background-position: 72% center !important;
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) .hero-grid {
+.home-hero .hero-aurora-two {
+  display: none;
+}
+
+.home-hero .hero-grid {
   z-index: 2;
   opacity: 0.18;
   background-image:
@@ -56,79 +67,84 @@ main > section:has(> .pointer-events-none .hero-aurora-one) .hero-grid {
   mask-image: linear-gradient(to bottom, black, transparent 92%);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .animate-fade-up,
-main > section:has(> .pointer-events-none .hero-aurora-one) > .featured-card {
+.home-hero-content,
+.home-featured-card {
   position: relative;
   z-index: 3;
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .animate-fade-up {
+.home-hero-content {
   padding-top: clamp(1rem, 3vw, 3rem);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .animate-fade-up > p:first-child {
+.home-hero-content > p:first-child {
   border-color: rgba(255, 255, 255, 0.24);
   background: rgba(255, 255, 255, 0.14);
   color: rgb(244 114 182);
   backdrop-filter: blur(18px);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .animate-fade-up h1 {
+.home-hero-content h1 {
   color: white;
   text-shadow: 0 22px 58px rgba(0, 0, 0, 0.72);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .animate-fade-up > p:last-of-type {
+.home-hero-content > p:last-of-type {
   color: rgba(226, 232, 240, 0.94);
   text-shadow: 0 14px 36px rgba(0, 0, 0, 0.72);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) .gradient-text {
+.home-hero .gradient-text {
   background: linear-gradient(120deg, #93c5fd, #c4b5fd, #60a5fa);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) .button-primary {
+.home-hero .button-primary {
   box-shadow: 0 20px 42px rgba(236, 72, 153, 0.28);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) .button-secondary {
+.home-hero .button-secondary {
   border-color: rgba(255, 255, 255, 0.28);
   background: rgba(15, 23, 42, 0.3);
   color: white;
   backdrop-filter: blur(16px);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .featured-card {
+.home-featured-card {
   border-color: rgba(255, 255, 255, 0.28) !important;
   background: rgba(255, 255, 255, 0.42) !important;
   backdrop-filter: blur(24px) saturate(1.22);
   box-shadow: 0 28px 72px rgba(2, 6, 23, 0.32);
 }
 
-main > section:has(> .pointer-events-none .hero-aurora-one) > .featured-card h2,
-main > section:has(> .pointer-events-none .hero-aurora-one) > .featured-card p,
-main > section:has(> .pointer-events-none .hero-aurora-one) > .featured-card span {
+.home-featured-card h2,
+.home-featured-card p,
+.home-featured-card span {
   text-shadow: none;
 }
 
-.dark main > section:has(> .pointer-events-none .hero-aurora-one) > .featured-card {
+.dark .home-featured-card {
   border-color: rgba(148, 163, 184, 0.24) !important;
   background: rgba(15, 23, 42, 0.48) !important;
 }
 
 @media (max-width: 768px) {
-  main > section:has(> .pointer-events-none .hero-aurora-one) {
+  .home-hero {
     min-height: 100svh;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
 
-  main > section:has(> .pointer-events-none .hero-aurora-one) .hero-aurora-one {
+  .home-hero .hero-aurora-one {
     inset: -8vh 0 !important;
     background-attachment: scroll !important;
     background-position: 66% center !important;
+  }
+
+  .home-hero-bg::before,
+  .home-hero-bg::after {
+    position: absolute;
   }
 }
