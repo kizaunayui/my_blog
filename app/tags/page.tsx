@@ -12,8 +12,8 @@ export default async function Page() {
   const totalTagUses = Object.values(tagCounts).reduce((sum, count) => sum + count, 0)
 
   return (
-    <section className="animate-fade-up py-12 sm:py-16">
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/25 bg-white/28 p-8 shadow-2xl shadow-slate-950/25 backdrop-blur-2xl sm:p-10 dark:border-slate-400/20 dark:bg-slate-950/45">
+    <section className="tags-page animate-fade-up py-12 sm:py-16">
+      <div className="tags-page-hero relative overflow-hidden rounded-[2rem] border border-white/25 bg-white/28 p-8 shadow-2xl shadow-slate-950/25 backdrop-blur-2xl sm:p-10 dark:border-slate-400/20 dark:bg-slate-950/45">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(236,72,153,0.18),transparent_24rem),radial-gradient(circle_at_86%_18%,rgba(14,165,233,0.16),transparent_26rem)]" />
         <div className="relative flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
@@ -46,7 +46,7 @@ export default async function Page() {
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {tagKeys.length === 0 && (
-          <div className="rounded-3xl border border-white/25 bg-white/40 p-6 text-slate-900 shadow-xl shadow-slate-950/20 backdrop-blur-2xl">
+          <div className="tags-page-card rounded-3xl border border-white/25 bg-white/40 p-6 text-slate-900 shadow-xl shadow-slate-950/20 backdrop-blur-2xl">
             No tags found.
           </div>
         )}
@@ -55,7 +55,7 @@ export default async function Page() {
           <Link
             key={t}
             href={`/tags/${slug(t)}`}
-            className="group relative overflow-hidden rounded-3xl border border-white/25 bg-white/42 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:bg-white/52 hover:shadow-2xl hover:shadow-pink-950/20 dark:border-slate-400/20 dark:bg-slate-950/45 dark:hover:bg-slate-900/60"
+            className="tags-page-card group relative overflow-hidden rounded-3xl border border-white/25 bg-white/42 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:bg-white/52 hover:shadow-2xl hover:shadow-pink-950/20 dark:border-slate-400/20 dark:bg-slate-950/45 dark:hover:bg-slate-900/60"
             aria-label={`View posts tagged ${t}`}
           >
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(236,72,153,0.18),rgba(14,165,233,0.14),transparent_72%)] opacity-70 transition group-hover:opacity-100" />
