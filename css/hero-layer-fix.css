@@ -1,4 +1,4 @@
-/* Full-bleed fixed glass hero polish for the home page background. */
+/* Fixed full-page background for the home page. */
 .home-hero {
   isolation: isolate;
   width: 100vw;
@@ -16,46 +16,24 @@
 
 .home-hero-bg {
   z-index: 0 !important;
-  inset: 0;
   overflow: hidden;
+  background-size: cover !important;
+  background-position: 72% center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  filter: blur(3px) saturate(1.06) brightness(0.9);
+  transform: scale(1.04);
 }
 
 .home-hero-bg::before {
   content: '';
   position: fixed;
-  inset: 0;
-  z-index: -2;
+  inset: -2rem;
+  z-index: 1;
   pointer-events: none;
   background:
     linear-gradient(90deg, rgba(2, 6, 23, 0.88) 0%, rgba(2, 6, 23, 0.7) 34%, rgba(2, 6, 23, 0.32) 66%, rgba(2, 6, 23, 0.48) 100%),
     linear-gradient(180deg, rgba(2, 6, 23, 0.1) 0%, rgba(2, 6, 23, 0.28) 52%, rgba(2, 6, 23, 0.76) 100%);
-}
-
-.home-hero-bg::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-  pointer-events: none;
-  background: inherit;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: 72% center;
-  filter: blur(3px) saturate(1.06) brightness(0.9);
-  transform: scale(1.04);
-}
-
-.home-hero .hero-aurora-one {
-  inset: -8vh 0 !important;
-  transform: scale(1.08);
-  filter: blur(3px) saturate(1.06) brightness(0.9);
-  background-attachment: fixed !important;
-  background-size: cover !important;
-  background-position: 72% center !important;
-}
-
-.home-hero .hero-aurora-two {
-  display: none;
 }
 
 .home-hero .hero-grid {
@@ -137,14 +115,12 @@
     padding-right: 1.25rem;
   }
 
-  .home-hero .hero-aurora-one {
-    inset: -8vh 0 !important;
+  .home-hero-bg {
     background-attachment: scroll !important;
     background-position: 66% center !important;
   }
 
-  .home-hero-bg::before,
-  .home-hero-bg::after {
+  .home-hero-bg::before {
     position: absolute;
   }
 }
