@@ -13,9 +13,7 @@ export default function Home({ posts }) {
   return (
     <>
       <section className="home-hero relative overflow-hidden pt-10 pb-14 sm:pt-16 md:pb-20">
-        <div className="home-hero-bg pointer-events-none absolute inset-0 -z-10">
-          <div className="hero-aurora hero-aurora-one" />
-          <div className="hero-aurora hero-aurora-two" />
+        <div className="home-hero-bg hero-aurora-one pointer-events-none fixed inset-0">
           <div className="hero-grid" />
         </div>
 
