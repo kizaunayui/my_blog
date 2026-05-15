@@ -1,0 +1,57 @@
+/* Home hero background generated from the uploaded concert image. */
+.hero-aurora {
+  position: absolute;
+  inset: -20px;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  filter: none;
+  opacity: 1;
+  animation: none;
+  transform: none;
+}
+
+.hero-aurora-one {
+  top: auto;
+  right: auto;
+  background:
+    linear-gradient(90deg, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.66) 38%, rgba(2, 6, 23, 0.34) 72%, rgba(2, 6, 23, 0.46) 100%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.15), rgba(2, 6, 23, 0.8)),
+    url("data:image/webp;base64,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") center center / cover no-repeat;
+}
+
+.hero-aurora-two {
+  display: none;
+}
+
+section:has(.hero-aurora-one) {
+  min-height: 34rem;
+}
+
+section:has(.hero-aurora-one) > .animate-fade-up h1 {
+  color: white;
+  text-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+section:has(.hero-aurora-one) > .animate-fade-up > p:last-of-type {
+  color: rgb(226 232 240);
+  text-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+}
+
+section:has(.hero-aurora-one) .gradient-text {
+  background: linear-gradient(120deg, #93c5fd, #c4b5fd, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+section:has(.hero-aurora-one) .hero-grid {
+  opacity: 0.14;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+section:has(.hero-aurora-one) .button-secondary {
+  border-color: rgba(226, 232, 240, 0.28);
+  background: rgba(15, 23, 42, 0.42);
+  color: white;
+}
