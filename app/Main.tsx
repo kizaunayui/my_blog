@@ -26,7 +26,7 @@ export default function Home({ posts }) {
             <span className="gradient-text">{siteMetadata.title}</span>
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl dark:text-gray-300">
-            {siteMetadata.description}。这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
+            {siteMetadata.description}这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href="/blog" className="button-primary">
