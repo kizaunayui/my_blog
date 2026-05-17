@@ -30,7 +30,7 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags } = content
+  const { filePath, path, slug, date, title, tags, recordedAt } = content
   const basePath = path.split('/')[0]
 
   return (
@@ -93,7 +93,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </dd>
             </dl>
 
-            <PostSideInfo date={date} />
+            <PostSideInfo recordedAt={recordedAt} />
 
             {tags && (
               <div className="mt-8 border-t border-white/25 pt-6">
