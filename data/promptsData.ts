@@ -210,7 +210,7 @@ export const promptsData: PromptItem[] = [
   {
     title: '博客随机背景图添加 Prompt',
     category: 'Codex / Agent',
-    tags: ['GitHub', '博客', '背景图'],
+    tags: ['blog'],
     description: '把新图片加入博客随机背景池，避免只上传图片但没有修改 RandomBackground 逻辑。',
     updatedAt: '2026-05-17',
     prompt: `你要帮我把这张图片加入我的 GitHub 博客随机背景池，不是只上传图片。
