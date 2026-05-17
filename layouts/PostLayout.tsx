@@ -6,6 +6,7 @@ import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import Image from '@/components/Image'
 import Tag from '@/components/Tag'
+import PostSideInfo from '@/components/PostSideInfo'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
@@ -91,6 +92,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </ul>
               </dd>
             </dl>
+
+            <PostSideInfo date={date} />
 
             {tags && (
               <div className="mt-8 border-t border-white/25 pt-6">
