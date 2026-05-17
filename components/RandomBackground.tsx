@@ -2,11 +2,38 @@
 
 import { useEffect, useState } from 'react'
 
-const backgroundPool = [
-  '/static/images/taeyeon_background.png',
-  '/static/images/taeyeon_gravity.png',
-  '/static/images/若叶睦background.png',
-  '/static/images/若叶睦background 2.png',
+type BackgroundOption = {
+  src: string
+  position?: string
+  mobilePosition?: string
+  size?: string
+}
+
+const backgroundPool: BackgroundOption[] = [
+  {
+    src: '/static/images/taeyeon_background.png',
+    position: 'center center',
+    mobilePosition: 'center center',
+    size: 'cover',
+  },
+  {
+    src: '/static/images/taeyeon_gravity.png',
+    position: '72% center',
+    mobilePosition: '66% center',
+    size: 'cover',
+  },
+  {
+    src: '/static/images/若叶睦background.png',
+    position: '72% center',
+    mobilePosition: '66% center',
+    size: 'cover',
+  },
+  {
+    src: '/static/images/若叶睦background 2.png',
+    position: '72% center',
+    mobilePosition: '66% center',
+    size: 'cover',
+  },
 ]
 
 type RandomBackgroundProps = {
@@ -18,18 +45,23 @@ function toBackgroundImage(basePath: string, imagePath: string) {
 }
 
 export default function RandomBackground({ basePath = '' }: RandomBackgroundProps) {
-  const [imagePath, setImagePath] = useState(backgroundPool[0])
+  const [background, setBackground] = useState(backgroundPool[0])
 
   useEffect(() => {
     const index = Math.floor(Math.random() * backgroundPool.length)
-    setImagePath(backgroundPool[index] || backgroundPool[0])
+    setBackground(backgroundPool[index] || backgroundPool[0])
   }, [])
 
   return (
     <div
       aria-hidden="true"
       className="site-fixed-bg hero-aurora-one pointer-events-none fixed inset-0"
-      style={{ backgroundImage: toBackgroundImage(basePath, imagePath) }}
+      style={{
+        backgroundImage: toBackgroundImage(basePath, background.src),
+        '--site-bg-position': background.position || '72% center',
+        '--site-bg-mobile-position': background.mobilePosition || background.position || '66% center',
+        '--site-bg-size': background.size || 'cover',
+      } as React.CSSProperties}
     />
   )
 }
