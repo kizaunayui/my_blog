@@ -14,7 +14,7 @@ const Header = () => {
         <div className="flex items-center justify-between transition duration-300 hover:scale-[1.02]">
           <div className="mr-3 rounded-2xl p-1.5 shadow-sm ring-1">
             <img
-              src={`${basePath}/static/favicons/kieran-icon.svg`}
+              src={`${basePath}/static/images/kieran-icon.jpg`}
               alt=""
               aria-hidden="true"
               className="h-[38px] w-[38px] rounded-2xl object-cover"
