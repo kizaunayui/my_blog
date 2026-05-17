@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 
 const backgroundPool = [
+  '/static/images/taeyeon_background.png',
   '/static/images/taeyeon_gravity.png',
   '/static/images/若叶睦background.png',
   '/static/images/若叶睦background 2.png',
-  '/static/images/spotlight-serenade-16x9.jpg',
 ]
 
 type RandomBackgroundProps = {
