@@ -207,4 +207,51 @@ export const promptsData: PromptItem[] = [
 - 如果原文没有明确说明某一项，请写“原文未明确说明”。
 - 路径规划内容可以提，但不要把重点放在具体路径怎么画上，要重点分析其对协同调度的作用。`,
   },
+  {
+    title: '博客随机背景图添加 Prompt',
+    category: 'Codex / Agent',
+    tags: ['GitHub', '博客', '背景图'],
+    description: '把新图片加入博客随机背景池，避免只上传图片但没有修改 RandomBackground 逻辑。',
+    updatedAt: '2026-05-17',
+    prompt: `你要帮我把这张图片加入我的 GitHub 博客随机背景池，不是只上传图片。
+
+请严格按下面步骤做：
+
+1. 先确认博客仓库是 kizaunayui/my_blog，背景逻辑文件是：
+   components/RandomBackground.tsx
+
+2. 先读取当前 RandomBackground.tsx，查看 backgroundPool 里现在有哪些背景图，不要盲改。
+
+3. 把我发的图片上传到：
+   public/static/images/
+   文件名按图片内容起一个清楚的英文名，优先用 .png 或 .jpg，不要用 SVG 包 base64 的方式伪装成图片。
+
+4. 上传后必须把图片路径加入 backgroundPool，例如：
+   /static/images/xxx.png
+
+5. 不要删除原有背景图，除非我明确说删除。新图应该加入随机池，而不是替换全部。
+
+6. 检查 css/hero-layer-fix.css 里 .site-fixed-bg 的设置。
+   如果背景图可能因为比例不同被裁切，必须让 RandomBackground.tsx 支持每张图单独配置：
+   - src
+   - position
+   - mobilePosition
+   - size
+
+7. 对新增图片单独设置合适的显示方式：
+   - 普通横图：size: 'cover', position: 'center center'
+   - 人物在右侧：position: '72% center' 或 '66% center'
+   - 如果截图显示主体被裁掉，改成 center center 或 contain
+
+8. 修改后提交到 main 分支，并告诉我：
+   - 图片实际上传路径
+   - RandomBackground.tsx 里新增的路径
+   - 是否改了 CSS
+   - commit hash
+
+9. 最后提醒我等 Vercel production 部署完成后再刷新测试。
+
+特别注意：
+不要只把图片复制进 public/static/images 就说完成。我的博客背景是由 RandomBackground.tsx 里的 backgroundPool 控制的，图片必须加入这个数组才会随机出现。`,
+  },
 ]
