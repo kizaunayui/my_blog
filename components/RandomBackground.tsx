@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-const backgroundPool = ['/static/images/ocean.jpeg', '/static/images/time-machine.jpg']
+const backgroundPool = [
+  '/static/images/taeyeon_gravity.png',
+  '/static/images/若叶睦background.png',
+  '/static/images/若叶睦background 2.png',
+]
 
 type RandomBackgroundProps = {
   basePath?: string
