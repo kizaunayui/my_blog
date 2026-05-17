@@ -1,18 +1,24 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
-import Logo from '@/data/logo.svg'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
 
 const Header = () => {
+  const basePath = process.env.BASE_PATH || ''
+
   return (
     <header className="relative z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between border-b border-white/10 bg-transparent px-4 py-4 shadow-lg shadow-black/10 backdrop-blur-2xl sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6">
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center justify-between transition duration-300 hover:scale-[1.02]">
           <div className="mr-3 rounded-2xl p-1.5 shadow-sm ring-1">
-            <Logo />
+            <img
+              src={`${basePath}/static/favicons/kieran-icon.svg`}
+              alt=""
+              aria-hidden="true"
+              className="h-[38px] w-[38px] rounded-2xl object-cover"
+            />
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
             <div className="hidden h-6 bg-gradient-to-r from-white via-pink-200 to-sky-200 bg-clip-text text-2xl font-black text-transparent sm:block">
