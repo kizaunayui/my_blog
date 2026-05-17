@@ -6,6 +6,23 @@ import NewsletterForm from 'pliny/ui/NewsletterForm'
 
 const MAX_DISPLAY = 6
 
+type RecordedAt = {
+  location?: string
+  weather?: string
+}
+
+function formatRecordedAt(recordedAt?: RecordedAt | string) {
+  if (!recordedAt) {
+    return null
+  }
+
+  if (typeof recordedAt === 'string') {
+    return recordedAt
+  }
+
+  return [recordedAt.location, recordedAt.weather].filter(Boolean).join(' · ') || null
+}
+
 export default function Home({ posts }) {
   const featuredPost = posts[0]
   const recentPosts = posts.slice(0, MAX_DISPLAY)
@@ -79,7 +96,9 @@ export default function Home({ posts }) {
         <div className="grid gap-5">
           {!posts.length && '暂无文章。'}
           {recentPosts.map((post, index) => {
-            const { slug, date, title, summary, tags } = post
+            const { slug, date, title, summary, tags, recordedAt } = post
+            const recordedText = formatRecordedAt(recordedAt)
+
             return (
               <article
                 key={slug}
@@ -92,6 +111,11 @@ export default function Home({ posts }) {
                     <dd className="text-sm font-semibold text-gray-500 dark:text-gray-400">
                       <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                     </dd>
+                    {recordedText && (
+                      <dd className="mt-2 text-xs font-bold tracking-wide text-gray-500/90 dark:text-gray-300/90">
+                        {recordedText}
+                      </dd>
+                    )}
                   </dl>
                   <div className="md:col-span-3">
                     <h3 className="text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
