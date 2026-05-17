@@ -1,8 +1,6 @@
 type RecordedAt = {
   location?: string
   weather?: string
-  ip?: string
-  time?: string
 }
 
 type PostSideInfoProps = {
@@ -24,7 +22,7 @@ function normalizeRecordedAt(recordedAt?: RecordedAt | string): RecordedAt | nul
 export default function PostSideInfo({ recordedAt }: PostSideInfoProps) {
   const record = normalizeRecordedAt(recordedAt)
 
-  if (!record || (!record.location && !record.weather && !record.ip && !record.time)) {
+  if (!record || (!record.location && !record.weather)) {
     return null
   }
 
@@ -33,9 +31,7 @@ export default function PostSideInfo({ recordedAt }: PostSideInfoProps) {
       <h2 className="text-xs font-black tracking-[0.22em] text-slate-200 uppercase">记于</h2>
       <div className="mt-3 space-y-2 text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)]">
         {record.location && <p>{record.location}</p>}
-        {record.time && <p className="text-slate-200">{record.time}</p>}
         {record.weather && <p className="text-slate-200">{record.weather}</p>}
-        {record.ip && <p className="break-all text-slate-200">IP: {record.ip}</p>}
       </div>
     </div>
   )
