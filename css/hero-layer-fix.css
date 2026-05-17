@@ -9,8 +9,8 @@ body {
   inset: 0 !important;
   z-index: 0 !important;
   opacity: 1 !important;
-  background-size: cover !important;
-  background-position: 72% center !important;
+  background-size: var(--site-bg-size, cover) !important;
+  background-position: var(--site-bg-position, 72% center) !important;
   background-repeat: no-repeat !important;
   filter: none !important;
   transform: none !important;
@@ -85,7 +85,7 @@ footer {
 }
 
 .home-hero-content,
-.home-featured-card {
+home-featured-card {
   position: relative;
   z-index: 3;
 }
@@ -254,7 +254,7 @@ footer svg {
 
 @media (max-width: 768px) {
   .site-fixed-bg {
-    background-position: 66% center !important;
+    background-position: var(--site-bg-mobile-position, var(--site-bg-position, 66% center)) !important;
   }
 
   .home-hero {
