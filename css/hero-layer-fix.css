@@ -65,10 +65,9 @@ footer {
   height: 18rem;
   z-index: 2;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(148, 163, 184, 0.1), transparent 34rem),
-    linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(15, 23, 42, 0.2) 44%, rgba(15, 23, 42, 0.04) 100%);
-  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(15, 23, 42, 0.08) 52%, rgba(15, 23, 42, 0) 100%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .home-hero-bg {
