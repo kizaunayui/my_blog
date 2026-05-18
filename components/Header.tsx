@@ -30,44 +30,42 @@ const Header = () => {
       </Link>
       <div className="flex items-center space-x-3 leading-5 sm:-mr-2 sm:space-x-4">
         <nav className="no-scrollbar hidden items-center gap-x-1.5 overflow-visible rounded-full border p-1 shadow-md backdrop-blur-2xl sm:flex">
-          {headerNavLinks
-            .filter((link) => link.href !== '/')
-            .map((link) =>
-              link.children ? (
-                <div key={link.title} className="group relative">
-                  <Link
-                    href={link.href}
-                    className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-bold opacity-100 transition hover:bg-white/15 hover:text-pink-100"
-                  >
-                    {link.title}
-                    <span aria-hidden="true" className="text-xs leading-none">
-                      ▾
-                    </span>
-                  </Link>
-                  <div className="invisible absolute left-1/2 top-full min-w-56 -translate-x-1/2 pt-3 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                    <div className="rounded-2xl border border-white/25 bg-slate-950/75 p-2 shadow-2xl shadow-slate-950/30 backdrop-blur-2xl">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-100 transition hover:bg-white/12 hover:text-white"
-                        >
-                          {child.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : (
+          {headerNavLinks.map((link) =>
+            link.children ? (
+              <div key={link.title} className="group relative">
                 <Link
-                  key={link.title}
                   href={link.href}
-                  className="rounded-full px-3 py-1.5 text-sm font-bold opacity-100 transition hover:bg-white/15 hover:text-pink-100"
+                  className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-bold opacity-100 transition hover:bg-white/15 hover:text-pink-100"
                 >
                   {link.title}
+                  <span aria-hidden="true" className="text-xs leading-none">
+                    ▾
+                  </span>
                 </Link>
-              )
-            )}
+                <div className="invisible absolute left-1/2 top-full min-w-56 -translate-x-1/2 pt-3 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div className="rounded-2xl border border-white/25 bg-slate-950/75 p-2 shadow-2xl shadow-slate-950/30 backdrop-blur-2xl">
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-100 transition hover:bg-white/12 hover:text-white"
+                      >
+                        {child.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="rounded-full px-3 py-1.5 text-sm font-bold opacity-100 transition hover:bg-white/15 hover:text-pink-100"
+              >
+                {link.title}
+              </Link>
+            )
+          )}
         </nav>
         <ThemeSwitch />
         <MobileNav />
