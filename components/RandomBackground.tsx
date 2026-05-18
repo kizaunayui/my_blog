@@ -52,6 +52,12 @@ const backgroundPool: BackgroundOption[] = [
     mobilePosition: 'center center',
     size: 'cover',
   },
+  {
+    src: '/static/images/mint_hair_beach.png',
+    position: 'center center',
+    mobilePosition: 'center center',
+    size: 'cover',
+  },
 ]
 
 type RandomBackgroundProps = {
