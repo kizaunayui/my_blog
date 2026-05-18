@@ -46,7 +46,7 @@ export default function Home({ posts }) {
             {siteMetadata.description}这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <Link href="/blog" className="button-primary">
+            <Link href="/articles" className="button-primary">
               浏览文章
             </Link>
             {contentSections.map((section) => (
@@ -62,7 +62,7 @@ export default function Home({ posts }) {
 
         {featuredPost && (
           <Link
-            href={`/blog/${featuredPost.slug}`}
+            href={`/articles/${featuredPost.slug}`}
             className="home-featured-card featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-primary-950/40"
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -92,7 +92,7 @@ export default function Home({ posts }) {
             </h2>
           </div>
           {posts.length > MAX_DISPLAY && (
-            <Link href="/blog" className="hidden text-sm font-semibold text-primary-600 hover:text-primary-700 sm:block dark:text-primary-300">
+            <Link href="/articles" className="hidden text-sm font-semibold text-primary-600 hover:text-primary-700 sm:block dark:text-primary-300">
               全部文章 →
             </Link>
           )}
@@ -124,7 +124,7 @@ export default function Home({ posts }) {
                   </dl>
                   <div className="md:col-span-3">
                     <h3 className="text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
-                      <Link href={`/blog/${slug}`} className="transition group-hover:text-primary-600 dark:group-hover:text-primary-300">
+                      <Link href={`/articles/${slug}`} className="transition group-hover:text-primary-600 dark:group-hover:text-primary-300">
                         {title}
                       </Link>
                     </h3>
@@ -146,7 +146,7 @@ export default function Home({ posts }) {
 
         {posts.length > MAX_DISPLAY && (
           <div className="mt-8 flex justify-center sm:hidden">
-            <Link href="/blog" className="button-secondary">
+            <Link href="/articles" className="button-secondary">
               全部文章
             </Link>
           </div>
