@@ -34,12 +34,6 @@ const siteMetadata = {
       lang: 'zh-CN',
     },
   },
-  search: {
-    provider: 'kbar',
-    kbarConfig: {
-      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`,
-    },
-  },
 }
 
 module.exports = siteMetadata
