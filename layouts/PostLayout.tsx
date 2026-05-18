@@ -11,8 +11,8 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
-const discussUrl = (path) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
+const discussUrl = (slug) =>
+  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/articles/${slug}`)}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -24,14 +24,13 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 interface LayoutProps {
   content: CoreContent<Blog>
   authorDetails: CoreContent<Authors>[]
-  next?: { path: string; title: string }
-  prev?: { path: string; title: string }
+  next?: { slug: string; title: string }
+  prev?: { slug: string; title: string }
   children: ReactNode
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags, recordedAt } = content
-  const basePath = path.split('/')[0]
+  const { filePath, slug, date, title, tags, recordedAt, category, pdf } = content
 
   return (
     <>
@@ -46,6 +45,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </time>
             </dd>
           </dl>
+          {category && (
+            <div className="mt-4 inline-flex rounded-full bg-gradient-to-r from-pink-500/80 to-sky-400/70 px-4 py-1.5 text-sm font-black text-white shadow-lg shadow-pink-950/20">
+              {category}
+            </div>
+          )}
           <div className="mt-4 text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.65)]">
             <PageTitle>{title}</PageTitle>
           </div>
@@ -95,6 +99,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
             <PostSideInfo recordedAt={recordedAt} />
 
+            {pdf && (
+              <div className="mt-8 border-t border-white/25 pt-6">
+                <h2 className="text-xs font-black tracking-[0.22em] text-slate-200 uppercase">PDF</h2>
+                <Link
+                  href={pdf}
+                  className="mt-3 inline-flex rounded-full bg-white/90 px-4 py-2 text-sm font-black text-slate-950 shadow-lg shadow-slate-950/20 transition hover:bg-white dark:bg-slate-100"
+                >
+                  下载 PDF
+                </Link>
+              </div>
+            )}
+
             {tags && (
               <div className="mt-8 border-t border-white/25 pt-6">
                 <h2 className="text-xs font-black tracking-[0.22em] text-slate-200 uppercase">Tags</h2>
@@ -108,20 +124,20 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
             {(next || prev) && (
               <div className="mt-8 space-y-5 border-t border-white/25 pt-6 text-sm font-bold">
-                {prev && prev.path && (
+                {prev && prev.slug && (
                   <div>
                     <h2 className="text-xs font-black tracking-[0.18em] text-slate-300 uppercase">
                       Previous
                     </h2>
-                    <Link href={`/${prev.path}`} className="mt-1 block text-pink-200 hover:text-white">
+                    <Link href={`/articles/${prev.slug}`} className="mt-1 block text-pink-200 hover:text-white">
                       {prev.title}
                     </Link>
                   </div>
                 )}
-                {next && next.path && (
+                {next && next.slug && (
                   <div>
                     <h2 className="text-xs font-black tracking-[0.18em] text-slate-300 uppercase">Next</h2>
-                    <Link href={`/${next.path}`} className="mt-1 block text-pink-200 hover:text-white">
+                    <Link href={`/articles/${next.slug}`} className="mt-1 block text-pink-200 hover:text-white">
                       {next.title}
                     </Link>
                   </div>
@@ -131,22 +147,43 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
             <div className="mt-8 border-t border-white/25 pt-6">
               <Link
-                href={`/${basePath}`}
+                href="/articles"
                 className="text-sm font-black text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)] hover:text-pink-100"
-                aria-label="Back to the blog"
+                aria-label="Back to articles"
               >
-                ← Back to the blog
+                ← 返回文章列表
               </Link>
             </div>
           </aside>
 
           <div className="space-y-6 xl:col-span-3">
+            {pdf && (
+              <section className="post-content-card rounded-[2rem] border border-white/30 bg-white/68 p-6 shadow-2xl shadow-slate-950/24 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/62">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-2xl font-black tracking-tight text-slate-950 dark:text-white">
+                      PDF 复习资料
+                    </h2>
+                    <p className="mt-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                      支持在线预览；手机端阅读不便时可直接下载 PDF。
+                    </p>
+                  </div>
+                  <Link href={pdf} className="button-primary shrink-0">
+                    下载 PDF
+                  </Link>
+                </div>
+                <div className="mt-5 hidden overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-inner shadow-slate-200/60 md:block dark:border-slate-700 dark:bg-slate-950">
+                  <iframe src={pdf} title={`${title} PDF 预览`} className="h-[720px] w-full" />
+                </div>
+              </section>
+            )}
+
             <div className="post-content-card prose max-w-none rounded-[2rem] border border-white/30 bg-white/68 p-7 shadow-2xl shadow-slate-950/24 backdrop-blur-2xl sm:p-9 dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/62">
               {children}
             </div>
 
             <div className="post-meta-card rounded-3xl border border-white/25 bg-white/38 p-5 text-sm font-bold text-slate-800 shadow-xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/52 dark:text-slate-100">
-              <Link href={discussUrl(path)} rel="nofollow" className="text-pink-600 hover:text-pink-700 dark:text-pink-200 dark:hover:text-white">
+              <Link href={discussUrl(slug)} rel="nofollow" className="text-pink-600 hover:text-pink-700 dark:text-pink-200 dark:hover:text-white">
                 Discuss on Twitter
               </Link>
               {` • `}
