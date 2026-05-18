@@ -1,7 +1,7 @@
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
-import ArticleList from '@/components/ArticleList'
+import ContentPostList from '@/components/ContentPostList'
 
 const category = '项目研究'
 
@@ -11,11 +11,11 @@ export default async function ResearchContentPage() {
   const posts = allCoreContent(sortPosts(allBlogs)).filter((post) => post.category === category)
 
   return (
-    <ArticleList
+    <ContentPostList
       posts={posts}
       title={category}
-      fixedCategory={category}
-      description="用于展示医院院内物流机器人、多智能体协同调度、MARL、任务分配、通信机制和文献阅读等研究笔记。"
+      description="这里用于记录项目研究内容和阶段性研究笔记，样式保持接近文章列表。"
+      emptyText="暂无项目研究内容。后续添加 category 为“项目研究”的 MDX 文章后会显示在这里。"
     />
   )
 }
