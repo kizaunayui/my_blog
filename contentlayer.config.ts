@@ -58,9 +58,6 @@ const computedFields: ComputedFields = {
   toc: { type: 'json', resolve: (doc) => extractTocHeadings(doc.body.raw) },
 }
 
-/**
- * Count the occurrences of all tags across blog posts and write to json file
- */
 async function createTagCount(allBlogs) {
   const tagCount: Record<string, number> = {}
   allBlogs.forEach((file) => {
@@ -86,7 +83,7 @@ export const Blog = defineDocumentType(() => ({
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
-    category: { type: 'string', default: '项目研究' },
+    category: { type: 'string', default: '文章' },
     tags: { type: 'list', of: { type: 'string' }, default: [] },
     lastmod: { type: 'date' },
     draft: { type: 'boolean' },
@@ -112,7 +109,7 @@ export const Blog = defineDocumentType(() => ({
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/articles/${doc._raw.flattenedPath.replace(/^.+?(\/)/, '')}`,
+        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
       }),
     },
   },
