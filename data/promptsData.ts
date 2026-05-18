@@ -212,46 +212,55 @@ export const promptsData: PromptItem[] = [
     category: '博客 / blog',
     tags: ['GitHub', '博客', '背景图'],
     description: '把新图片加入博客随机背景池，避免只上传图片但没有修改 RandomBackground 逻辑。',
-    updatedAt: '2026-05-17',
-    prompt: `你要帮我把这张图片加入我的 GitHub 博客随机背景池，不是只上传图片。
+    updatedAt: '2026-05-18',
+    prompt: `你要帮我把这张图片加入我的 GitHub 博客随机背景池，而不是只上传图片。
 
-请严格按下面步骤做：
+仓库：kizaunayui/my_blog
+分支：main
+背景逻辑文件：components/RandomBackground.tsx
+背景图片目录：public/static/images/
+CSS 文件：css/hero-layer-fix.css
 
-1. 先确认博客仓库是 kizaunayui/my_blog，背景逻辑文件是：
-   components/RandomBackground.tsx
+请严格执行：
 
-2. 先读取当前 RandomBackground.tsx，查看 backgroundPool 里现在有哪些背景图，不要盲改。
+1. 先读取 components/RandomBackground.tsx，查看 backgroundPool 当前有哪些背景图，不要盲改。
 
-3. 把我发的图片上传到：
-   public/static/images/
-   文件名按图片内容起一个清楚的英文名，优先用 .png 或 .jpg，不要用 SVG 包 base64 的方式伪装成图片。
-
-4. 上传后必须把图片路径加入 backgroundPool，例如：
-   /static/images/xxx.png
-
-5. 不要删除原有背景图，除非我明确说删除。新图应该加入随机池，而不是替换全部。
-
-6. 检查 css/hero-layer-fix.css 里 .site-fixed-bg 的设置。
-   如果背景图可能因为比例不同被裁切，必须让 RandomBackground.tsx 支持每张图单独配置：
+2. 读取 css/hero-layer-fix.css，检查 .site-fixed-bg 是否已经支持通过 CSS 变量控制：
+   - background-size
+   - background-position
+   如果已经支持，不要改 CSS。
+   如果不支持，再修改 CSS 和 RandomBackground.tsx，让每张图可以单独配置：
    - src
    - position
    - mobilePosition
    - size
 
-7. 对新增图片单独设置合适的显示方式：
-   - 普通横图：size: 'cover', position: 'center center'
+3. 将我提供的图片上传到：
+   public/static/images/
+   文件名根据图片内容起清楚的英文名，使用 .jpg 或 .png。
+   不要使用 SVG 包 base64 的方式伪装图片。
+
+4. 在 RandomBackground.tsx 的 backgroundPool 中追加新图片对象，不要删除原有背景图。
+   示例格式：
+   {
+     src: '/static/images/xxx.jpg',
+     position: 'center center',
+     mobilePosition: 'center center',
+     size: 'cover',
+   }
+
+5. 根据图片主体位置设置显示方式：
+   - 普通横图：position: 'center center', mobilePosition: 'center center', size: 'cover'
    - 人物在右侧：position: '72% center' 或 '66% center'
-   - 如果截图显示主体被裁掉，改成 center center 或 contain
+   - 如果主体容易被裁切，可以改成 center center 或 contain
 
-8. 修改后提交到 main 分支，并告诉我：
-   - 图片实际上传路径
-   - RandomBackground.tsx 里新增的路径
-   - 是否改了 CSS
-   - commit hash
+6. 直接提交到 main 分支。
 
-9. 最后提醒我等 Vercel production 部署完成后再刷新测试。
-
-特别注意：
-不要只把图片复制进 public/static/images 就说完成。我的博客背景是由 RandomBackground.tsx 里的 backgroundPool 控制的，图片必须加入这个数组才会随机出现。`,
+完成后告诉我：
+- 图片实际上传路径
+- RandomBackground.tsx 里新增的路径
+- 是否修改了 CSS
+- commit hash
+- 提醒我等 Vercel production 部署完成后再刷新测试`,
   },
 ]
