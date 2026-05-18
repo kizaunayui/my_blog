@@ -47,7 +47,7 @@ export default function ContentPostList({ posts, title, description, emptyText }
                 </time>
                 <div>
                   <h2 className="text-2xl font-black tracking-tight text-slate-950 dark:text-white">
-                    <Link href={`/blog/${post.slug}`} className="hover:text-pink-600 dark:hover:text-pink-200">
+                    <Link href={`/articles/${post.slug}`} className="hover:text-pink-600 dark:hover:text-pink-200">
                       {post.title}
                     </Link>
                   </h2>
