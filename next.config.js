@@ -90,6 +90,25 @@ module.exports = () => {
       ],
       unoptimized,
     },
+    async redirects() {
+      return [
+        {
+          source: '/blog',
+          destination: '/articles',
+          permanent: true,
+        },
+        {
+          source: '/blog/:slug*',
+          destination: '/articles/:slug*',
+          permanent: true,
+        },
+        {
+          source: '/prompts',
+          destination: '/content/prompts',
+          permanent: true,
+        },
+      ]
+    },
     async headers() {
       return [
         {
