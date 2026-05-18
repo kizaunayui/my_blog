@@ -13,7 +13,7 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
-  frame-src giscus.app
+  frame-src 'self' giscus.app
 `
 
 const securityHeaders = [
@@ -27,7 +27,7 @@ const securityHeaders = [
   },
   {
     key: 'X-Frame-Options',
-    value: 'DENY',
+    value: 'SAMEORIGIN',
   },
   {
     key: 'X-Content-Type-Options',
@@ -88,6 +88,29 @@ module.exports = () => {
         {
           source: '/(.*)',
           headers: securityHeaders,
+        },
+      ]
+    },
+    async redirects() {
+      if (output === 'export') {
+        return []
+      }
+
+      return [
+        {
+          source: '/blog',
+          destination: '/articles',
+          permanent: true,
+        },
+        {
+          source: '/blog/:slug*',
+          destination: '/articles/:slug*',
+          permanent: true,
+        },
+        {
+          source: '/prompts',
+          destination: '/content/prompts',
+          permanent: true,
         },
       ]
     },
