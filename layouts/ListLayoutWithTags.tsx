@@ -90,11 +90,11 @@ export default function ListLayoutWithTags({
 
       <div className="list-layout-grid flex gap-8 sm:gap-10">
         <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-[1.75rem] border border-white/25 bg-white/30 p-6 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl sm:block dark:border-slate-400/20 dark:bg-slate-950/45">
-          {pathname.startsWith('/articles') ? (
+          {pathname.startsWith('/blog') ? (
             <h3 className="text-sm font-black uppercase tracking-[0.18em] text-pink-200">All Posts</h3>
           ) : (
             <Link
-              href={`/articles`}
+              href={`/blog`}
               className="text-sm font-black uppercase tracking-[0.18em] text-white hover:text-pink-100"
             >
               All Posts
@@ -127,7 +127,7 @@ export default function ListLayoutWithTags({
         <div className="list-content min-w-0 flex-1">
           <ul className="space-y-5">
             {displayPosts.map((post) => {
-              const { slug: postSlug, path, date, title, summary, tags } = post
+              const { path, date, title, summary, tags } = post
               return (
                 <li key={path}>
                   <article className="list-post-card rounded-[1.75rem] border border-white/28 bg-white/48 p-6 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl transition duration-300 hover:-translate-y-0.5 hover:bg-white/56 hover:shadow-pink-950/20 dark:border-slate-400/20 dark:bg-slate-950/45 dark:hover:bg-slate-900/60">
@@ -142,7 +142,7 @@ export default function ListLayoutWithTags({
                     <div className="mt-3 space-y-3">
                       <div>
                         <h2 className="text-2xl leading-8 font-black tracking-tight">
-                          <Link href={`/articles/${postSlug}`} className="text-slate-950 hover:text-pink-600 dark:text-white dark:hover:text-pink-200">
+                          <Link href={`/${path}`} className="text-slate-950 hover:text-pink-600 dark:text-white dark:hover:text-pink-200">
                             {title}
                           </Link>
                         </h2>
