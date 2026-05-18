@@ -34,6 +34,12 @@ const backgroundPool: BackgroundOption[] = [
     mobilePosition: '66% center',
     size: 'cover',
   },
+  {
+    src: '/static/images/anmi_ukai.jpg',
+    position: 'center center',
+    mobilePosition: 'center center',
+    size: 'cover',
+  },
 ]
 
 type RandomBackgroundProps = {
