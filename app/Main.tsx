@@ -1,5 +1,6 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
+import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
@@ -48,6 +49,11 @@ export default function Home({ posts }) {
             <Link href="/blog" className="button-primary">
               浏览文章
             </Link>
+            {contentSections.map((section) => (
+              <Link key={section.href} href={section.href} className="button-secondary">
+                {section.title}
+              </Link>
+            ))}
             <Link href="/about" className="button-secondary">
               关于我
             </Link>
