@@ -1,7 +1,7 @@
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
-import ArticleList from '@/components/ArticleList'
+import ContentPostList from '@/components/ContentPostList'
 
 const category = '作品展示'
 
@@ -11,11 +11,11 @@ export default async function WorksContentPage() {
   const posts = allCoreContent(sortPosts(allBlogs)).filter((post) => post.category === category)
 
   return (
-    <ArticleList
+    <ContentPostList
       posts={posts}
       title={category}
-      fixedCategory={category}
-      description="用于展示个人博客、软件著作权、PPT / 文档作品、GitHub 项目、AI 辅助创作案例和小工具。"
+      description="这里用于展示个人作品和成果，样式保持接近文章列表。"
+      emptyText="暂无作品展示内容。后续添加 category 为“作品展示”的 MDX 文章后会显示在这里。"
     />
   )
 }
