@@ -46,6 +46,12 @@ const backgroundPool: BackgroundOption[] = [
     mobilePosition: 'center center',
     size: 'cover',
   },
+  {
+    src: '/static/images/ask_shaohua.png',
+    position: 'center center',
+    mobilePosition: 'center center',
+    size: 'cover',
+  },
 ]
 
 type RandomBackgroundProps = {
