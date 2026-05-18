@@ -1,5 +1,9 @@
-import { redirect } from 'next/navigation'
+import { genPageMetadata } from 'app/seo'
+import PromptLibrary from '@/components/PromptLibrary'
+import { promptsData } from '@/data/promptsData'
+
+export const metadata = genPageMetadata({ title: 'Prompt Library' })
 
 export default function PromptsPage() {
-  redirect('/content/prompts')
+  return <PromptLibrary prompts={promptsData} />
 }
