@@ -3,15 +3,12 @@ import 'css/hero-background.css'
 import 'css/hero-layer-fix.css'
 import 'css/header-glass-fix.css'
 import 'css/subpage-style.css'
-import 'css/search-glass-fix.css'
 import 'css/post-content-fix.css'
 import 'css/mobile-polish.css'
-import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 import { Space_Grotesk } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
@@ -100,10 +97,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <RandomBackground basePath={basePath} />
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
-            <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-              <Header />
-              <main className="mb-auto">{children}</main>
-            </SearchProvider>
+            <Header />
+            <main className="mb-auto">{children}</main>
             <Footer />
           </SectionContainer>
         </ThemeProviders>
