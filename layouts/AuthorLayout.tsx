@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
 import Image from '@/components/Image'
+import Link from '@/components/Link'
 
 interface Props {
   children: ReactNode
@@ -47,6 +48,17 @@ export default function AuthorLayout({ children, content }: Props) {
             <SocialIcon kind="x" href={twitter} />
             <SocialIcon kind="bluesky" href={bluesky} />
           </div>
+          <Link
+            href="/about/me"
+            className="mt-7 block rounded-2xl border border-white/35 bg-white/38 px-5 py-4 text-left shadow-lg shadow-slate-950/10 transition duration-200 hover:-translate-y-0.5 hover:bg-white/58 dark:border-slate-400/20 dark:bg-slate-900/45 dark:hover:bg-slate-900/68"
+          >
+            <span className="block text-sm font-black tracking-[0.18em] text-primary-700 dark:text-primary-300">
+              个人记录
+            </span>
+            <span className="mt-2 block text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
+              关于我本人的一些事
+            </span>
+          </Link>
         </aside>
         <div className="author-content-card prose mt-8 max-w-none rounded-[2rem] border border-white/28 bg-white/68 p-8 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/62 xl:col-span-2 xl:mt-0">
           {children}
