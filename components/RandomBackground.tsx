@@ -64,6 +64,12 @@ const backgroundPool: BackgroundOption[] = [
     mobilePosition: 'center center',
     size: 'cover',
   },
+  {
+    src: '/static/images/taeyeon_concert_purple.png',
+    position: 'center center',
+    mobilePosition: 'center center',
+    size: 'cover',
+  },
 ]
 
 type RandomBackgroundProps = {
