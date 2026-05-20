@@ -23,8 +23,8 @@ export default function AuthorLayout({ children, content }: Props) {
         </h1>
       </div>
       <div className="items-start gap-8 xl:grid xl:grid-cols-3">
-        <aside className="author-profile-card flex min-h-[38rem] flex-col rounded-[2rem] border border-white/28 bg-white/42 p-8 text-center shadow-2xl shadow-slate-950/24 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/52">
-          <div>
+        <div className="space-y-5">
+          <aside className="author-profile-card rounded-[2rem] border border-white/28 bg-white/42 p-8 text-center shadow-2xl shadow-slate-950/24 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/52">
             <div className="relative mx-auto h-48 w-48">
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary-300 via-teal-300 to-primary-500 opacity-70 blur-xl" />
               {avatar && (
@@ -49,15 +49,15 @@ export default function AuthorLayout({ children, content }: Props) {
               <SocialIcon kind="x" href={twitter} />
               <SocialIcon kind="bluesky" href={bluesky} />
             </div>
-          </div>
+          </aside>
           <Link
             href="/about/me"
             aria-label="reflexion"
-            className="mt-auto inline-flex w-full items-center justify-center rounded-2xl border border-white/45 bg-white/34 px-5 py-4 text-sm font-black uppercase tracking-[0.24em] text-primary-600 shadow-xl shadow-slate-950/12 transition duration-200 hover:-translate-y-0.5 hover:border-primary-200 hover:bg-white/58 dark:border-slate-400/20 dark:bg-slate-900/38 dark:text-primary-300 dark:hover:bg-slate-900/65"
+            className="mx-auto inline-flex w-full items-center justify-center rounded-2xl border border-white/45 bg-white/34 px-5 py-4 text-sm font-black uppercase tracking-[0.24em] text-primary-600 shadow-xl shadow-slate-950/12 backdrop-blur-2xl transition duration-200 hover:-translate-y-0.5 hover:border-primary-200 hover:bg-white/58 dark:border-slate-400/20 dark:bg-slate-900/38 dark:text-primary-300 dark:hover:bg-slate-900/65"
           >
             reflexion
           </Link>
-        </aside>
+        </div>
         <div className="author-content-card prose mt-8 max-w-none rounded-[2rem] border border-white/28 bg-white/68 p-8 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/62 xl:col-span-2 xl:mt-0">
           {children}
         </div>
