@@ -24,7 +24,7 @@ const defaultPostContentClassName =
   'post-content-card prose max-w-none rounded-[2rem] border border-white/30 bg-white/68 p-7 shadow-2xl shadow-slate-950/24 backdrop-blur-2xl sm:p-9 dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/62'
 
 const reflexionPostContentClassName =
-  'post-content-card prose max-w-none rounded-[2rem] border border-white/35 bg-white/78 p-7 shadow-2xl shadow-slate-950/24 backdrop-blur-2xl sm:p-10 dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/66 prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-800 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-primary-300 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-slate-950 dark:prose-h2:border-primary-400/60 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-primary-700 dark:prose-strong:text-primary-200 prose-blockquote:rounded-2xl prose-blockquote:border-l-4 prose-blockquote:border-primary-300 prose-blockquote:bg-primary-50/70 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-primary-400/60 dark:prose-blockquote:bg-primary-400/10 prose-hr:my-14 prose-hr:border-primary-200/70 dark:prose-hr:border-primary-400/20'
+  'post-content-card prose max-w-none rounded-[2rem] border border-white/35 bg-white/78 p-7 shadow-2xl shadow-slate-950/24 backdrop-blur-2xl sm:p-10 dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/66 prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-800 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-cyan-300 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-slate-950 dark:prose-h2:border-cyan-400/60 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-cyan-800 dark:prose-strong:text-cyan-200 prose-blockquote:rounded-2xl prose-blockquote:border-l-4 prose-blockquote:border-cyan-300 prose-blockquote:bg-cyan-50/70 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-cyan-400/60 dark:prose-blockquote:bg-cyan-400/10 prose-hr:my-14 prose-hr:border-cyan-200/70 dark:prose-hr:border-cyan-400/20'
 
 type RecordedAt = {
   location?: string
@@ -100,7 +100,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   <div className="text-sm leading-5 font-bold whitespace-nowrap">
                     <p className="text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)]">{author.name}</p>
                     {author.twitter && (
-                      <Link href={author.twitter} className="text-pink-200 hover:text-white">
+                      <Link href={author.twitter} className="text-cyan-100 hover:text-white">
                         {author.twitter
                           .replace('https://twitter.com/', '@')
                           .replace('https://x.com/', '@')}
@@ -132,18 +132,18 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
             <div className="flex flex-wrap items-center gap-3 text-sm font-black xl:justify-end">
               {prev && (prev.slug || prev.path) && (
-                <Link href={articleHref(prev)} className="text-pink-200 hover:text-white">
+                <Link href={articleHref(prev)} className="text-cyan-100 hover:text-white">
                   上一篇：{prev.title}
                 </Link>
               )}
               {next && (next.slug || next.path) && (
-                <Link href={articleHref(next)} className="text-pink-200 hover:text-white">
+                <Link href={articleHref(next)} className="text-cyan-100 hover:text-white">
                   下一篇：{next.title}
                 </Link>
               )}
               <Link
                 href="/articles"
-                className="rounded-full border border-white/25 bg-white/16 px-4 py-2 text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)] transition hover:bg-white/24 hover:text-pink-100"
+                className="rounded-full border border-white/25 bg-white/16 px-4 py-2 text-white drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)] transition hover:bg-white/24 hover:text-cyan-100"
                 aria-label="Back to articles"
               >
                 返回文章
@@ -178,11 +178,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <div className={postContentClassName}>{children}</div>
 
           <div className="post-meta-card rounded-3xl border border-white/25 bg-white/38 p-5 text-sm font-bold text-slate-800 shadow-xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/52 dark:text-slate-100">
-            <Link href={discussUrl(slug)} rel="nofollow" className="text-pink-600 hover:text-pink-700 dark:text-pink-200 dark:hover:text-white">
+            <Link href={discussUrl(slug)} rel="nofollow" className="text-cyan-800 hover:text-cyan-900 dark:text-cyan-200 dark:hover:text-white">
               Discuss on Twitter
             </Link>
             {` • `}
-            <Link href={editUrl(filePath)} className="text-pink-600 hover:text-pink-700 dark:text-pink-200 dark:hover:text-white">
+            <Link href={editUrl(filePath)} className="text-cyan-800 hover:text-cyan-900 dark:text-cyan-200 dark:hover:text-white">
               View on GitHub
             </Link>
           </div>
