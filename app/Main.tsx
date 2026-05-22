@@ -12,6 +12,11 @@ type RecordedAt = {
   weather?: string
 }
 
+type ReadingTime = {
+  minutes?: number
+  time?: number
+}
+
 function formatRecordedAt(recordedAt?: RecordedAt | string) {
   if (!recordedAt) {
     return null
@@ -22,6 +27,25 @@ function formatRecordedAt(recordedAt?: RecordedAt | string) {
   }
 
   return [recordedAt.location, recordedAt.weather].filter(Boolean).join(' · ') || null
+}
+
+function formatReadingTime(readingTime?: ReadingTime) {
+  if (!readingTime) {
+    return null
+  }
+
+  const totalSeconds = Math.max(
+    0,
+    Math.round(
+      typeof readingTime.time === 'number'
+        ? readingTime.time / 1000
+        : (readingTime.minutes || 0) * 60
+    )
+  )
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+
+  return `(${minutes}分钟)${seconds}秒`
 }
 
 export default function Home({ posts }) {
@@ -101,8 +125,9 @@ export default function Home({ posts }) {
         <div className="grid gap-5">
           {!posts.length && '暂无文章。'}
           {recentPosts.map((post, index) => {
-            const { slug, date, title, summary, tags, recordedAt } = post
+            const { slug, date, title, summary, tags, recordedAt, readingTime } = post
             const recordedText = formatRecordedAt(recordedAt)
+            const readingTimeText = formatReadingTime(readingTime)
 
             return (
               <article
@@ -116,6 +141,11 @@ export default function Home({ posts }) {
                     <dd className="text-sm font-semibold text-gray-500 dark:text-gray-400">
                       <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                     </dd>
+                    {readingTimeText && (
+                      <dd className="mt-2 text-xs font-bold tracking-wide text-primary-600 dark:text-primary-300">
+                        {readingTimeText}
+                      </dd>
+                    )}
                     {recordedText && (
                       <dd className="mt-2 text-xs font-bold tracking-wide text-gray-500/90 dark:text-gray-300/90">
                         {recordedText}
