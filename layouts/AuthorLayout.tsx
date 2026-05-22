@@ -15,7 +15,7 @@ export default function AuthorLayout({ children, content }: Props) {
   return (
     <section className="author-page py-10 sm:py-14">
       <div className="author-heading animate-fade-up pb-10">
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-200 drop-shadow-[0_10px_26px_rgba(0,0,0,0.55)]">
+        <p className="text-sm font-black uppercase tracking-[0.22em] text-white drop-shadow-[0_10px_26px_rgba(0,0,0,0.62)]">
           个人介绍
         </p>
         <h1 className="mt-3 text-4xl leading-tight font-black tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
@@ -26,7 +26,7 @@ export default function AuthorLayout({ children, content }: Props) {
         <div className="space-y-5">
           <aside className="author-profile-card rounded-[2rem] border border-white/28 bg-white/42 p-8 text-center shadow-2xl shadow-slate-950/24 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/52">
             <div className="relative mx-auto h-48 w-48">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary-300 via-teal-300 to-primary-500 opacity-70 blur-xl" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-300 via-teal-300 to-cyan-500 opacity-70 blur-xl" />
               {avatar && (
                 <Image
                   src={avatar}
@@ -53,7 +53,7 @@ export default function AuthorLayout({ children, content }: Props) {
           <Link
             href="/about/me"
             aria-label="reflexion"
-            className="mx-auto inline-flex w-full items-center justify-center rounded-2xl border border-white/45 bg-white/34 px-5 py-4 text-sm font-black uppercase tracking-[0.24em] text-primary-600 shadow-xl shadow-slate-950/12 backdrop-blur-2xl transition duration-200 hover:-translate-y-0.5 hover:border-primary-200 hover:bg-white/58 dark:border-slate-400/20 dark:bg-slate-900/38 dark:text-primary-300 dark:hover:bg-slate-900/65"
+            className="mx-auto inline-flex w-full items-center justify-center rounded-2xl border border-white/45 bg-white/34 px-5 py-4 text-sm font-black uppercase tracking-[0.24em] text-cyan-800 shadow-xl shadow-slate-950/12 backdrop-blur-2xl transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-white/58 dark:border-slate-400/20 dark:bg-slate-900/38 dark:text-cyan-200 dark:hover:bg-slate-900/65"
           >
             reflexion
           </Link>
