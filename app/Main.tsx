@@ -45,7 +45,11 @@ function formatReadingTime(readingTime?: ReadingTime) {
   const minutes = Math.floor(totalSeconds / 60)
   const seconds = totalSeconds % 60
 
-  return `(${minutes}分钟)${seconds}秒`
+  if (minutes <= 0) {
+    return `${seconds}秒`
+  }
+
+  return `${minutes}分钟${seconds}秒`
 }
 
 export default function Home({ posts }) {
