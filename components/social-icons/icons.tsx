@@ -146,3 +146,15 @@ export function Bangumi({ className, ...props }: { className?: string }) {
     />
   )
 }
+
+export function Bilibili({ className, ...props }: { className?: string }) {
+  return (
+    <img
+      src="/static/images/bili-avatar.jpg"
+      alt="Bilibili"
+      className={`rounded-full object-cover ${className || ''}`}
+      style={{ width: '2rem', height: '2rem' }}
+      {...props}
+    />
+  )
+}

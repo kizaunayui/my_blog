@@ -132,6 +132,7 @@ export const Authors = defineDocumentType(() => ({
     steam: { type: 'string' },
     netease: { type: 'string' },
     bangumi: { type: 'string' },
+    bilibili: { type: 'string' },
     layout: { type: 'string' },
   },
   computedFields,

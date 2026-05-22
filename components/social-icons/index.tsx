@@ -14,6 +14,7 @@ import {
   Steam,
   Netease,
   Bangumi,
+  Bilibili,
 } from './icons'
 
 const components = {
@@ -32,6 +33,7 @@ const components = {
   steam: Steam,
   netease: Netease,
   bangumi: Bangumi,
+  bilibili: Bilibili,
 }
 
 type SocialIconProps = {
