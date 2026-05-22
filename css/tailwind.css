@@ -67,6 +67,7 @@
 
   html {
     min-height: 100%;
+    font-size: 106.25%;
     background:
       radial-gradient(circle at top left, color-mix(in oklch, var(--color-primary-200) 36%, transparent), transparent 34rem),
       radial-gradient(circle at top right, color-mix(in oklch, oklch(0.86 0.12 190) 35%, transparent), transparent 32rem),
