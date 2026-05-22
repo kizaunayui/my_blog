@@ -1,326 +1,326 @@
 ---
-title: '?????????? MDP ? Actor-Critic'
+title: '强化学习学习笔记：从 MDP 到 Actor-Critic'
 date: '2026-05-22'
-tags: ['????', '????', '????']
-category: '????'
+tags: ['强化学习', '项目研究', '学习笔记']
+category: '项目研究'
 draft: false
-summary: '?????????????????MDP?Bellman ???Monte Carlo?TD?Sarsa?Q-Learning ? DQN?Policy Gradient ? Actor-Critic?'
+summary: '整理强化学习课程笔记，从基础概念、MDP、Bellman 方程、Monte Carlo、TD、Sarsa、Q-Learning 到 DQN、Policy Gradient 与 Actor-Critic。'
 ---
 
-????????????? Word ??????????????????????????? DQN?Policy Gradient ? Actor-Critic??????????????????????????????????????????????????????????????????????????
+这份笔记原本是一份比较长的 Word 课程整理，内容从强化学习的基本交互语言开始，一路推进到 DQN、Policy Gradient 和 Actor-Critic。为了放进项目研究页，我没有把它处理成纯资料堆叠，而是按算法脉络重新整理为一篇可以顺着读下来的长文；原文中的公式、表格和流程图也按章节顺序保留下来。
 
-????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+强化学习最核心的问题，是智能体如何在环境中通过试错学习策略。它不像监督学习那样直接拿到标准答案，而是在状态、动作、奖励和未来回报之间不断权衡：当前一步要不要贪心，长期收益要不要等待，已有经验要不要复用，策略本身又该如何被评估和改进。
 
-## ????????????????
+## 强化学习基础：先把交互语言说清楚
 
-?????????????????State ?????????Action ????????????Reward ???????????Return ?????????????Policy ????????????Episode ??????????????????
+强化学习的语言由几个基本对象构成：State 描述环境当前情况，Action 是智能体可以做出的选择，Reward 是环境给出的即时反馈，Return 则把未来奖励一起纳入考虑。Policy 是智能体采取行动的规则，Episode 则是一段从开始到结束的完整交互轨迹。
 
-???????????????????????????????????????????????????????????????????????????????????????????
+网格世界是理解这些概念最直接的例子：智能体在棋盘式环境中移动，目标点给出正奖励，陷阱给出负奖励，每一步可能还有轻微惩罚。通过这个模型，可以直观看到策略如何从随机探索逐渐变成稳定路径。
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-01.png" alt="?????????????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 01??????????????????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-01.png" alt="强化学习核心概念表：状态、动作、奖励、策略与回报。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 01：强化学习核心概念表：状态、动作、奖励、策略与回报。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-03.png" alt="MDP ?????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 03?MDP ?????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-03.png" alt="MDP 五元组与符号含义。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 03：MDP 五元组与符号含义。</figcaption>
 </figure>
 
-## MDP?????? Bellman ??
+## MDP、价值函数与 Bellman 方程
 
-MDP ??????????????????????????????????????????????????????????????????????????????????????????????????????????
+MDP 是强化学习的数学基石，由状态集合、动作集合、状态转移概率、奖励函数和折扣因子组成。它的核心假设是马尔可夫性：未来只取决于当前状态，而不依赖更早的历史。只要当前状态包含了足够信息，智能体就可以基于当前状态完成决策。
 
-?????????????????????????????State Value ??????????????????Action Value ???????????Bellman ?????????????????????????????????????????????????
-
-<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-02.png" alt="????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 02?????????????</figcaption>
-</figure>
+价值函数把“一个状态有多好”或“一个动作有多好”量化出来。State Value 关注从某个状态开始能得到的期望回报，Action Value 则进一步固定当前动作。Bellman 方程把当前价值拆成即时奖励和后续状态价值，是策略评估、策略改进、价值迭代和后续很多算法的共同基础。
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-04.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 04???????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-02.png" alt="状态价值函数的期望定义。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 02：状态价值函数的期望定义。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-05.png" alt="Bellman ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 05?Bellman ????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-04.png" alt="状态价值的递推形式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 04：状态价值的递推形式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-06.png" alt="Bellman ???????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 06?Bellman ???????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-05.png" alt="Bellman 方程的矩阵形式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 05：Bellman 方程的矩阵形式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-07.png" alt="Bellman Equation ???????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 07?Bellman Equation ???????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-06.png" alt="Bellman 方程中状态转移与奖励项的拆解。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 06：Bellman 方程中状态转移与奖励项的拆解。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-08.png" alt="Bellman Equation ???????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 08?Bellman Equation ???????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-07.png" alt="Bellman Equation 的推导与构成。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 07：Bellman Equation 的推导与构成。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-09.png" alt="Action Value ? State Value ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 09?Action Value ? State Value ????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-08.png" alt="Bellman Equation 的进一步说明。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 08：Bellman Equation 的进一步说明。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-10.png" alt="?????? q?(s,a) ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 10??????? q?(s,a) ????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-09.png" alt="Action Value 与 State Value 的关系。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 09：Action Value 与 State Value 的关系。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-11.png" alt="Bellman ??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 11?Bellman ??????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-10.png" alt="动作价值函数 qπ(s,a) 的定义。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 10：动作价值函数 qπ(s,a) 的定义。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-12.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 12???????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-11.png" alt="Bellman 最优方程的基本形式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 11：Bellman 最优方程的基本形式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-13.png" alt="???????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 13????????????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-12.png" alt="价值迭代的更新结构。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 12：价值迭代的更新结构。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-14.png" alt="Value Iteration ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 14?Value Iteration ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-13.png" alt="策略迭代、价值迭代与截断策略迭代对比。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 13：策略迭代、价值迭代与截断策略迭代对比。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-15.png" alt="Policy Iteration?Value Iteration ? Truncated Policy Iteration ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 15?Policy Iteration?Value Iteration ? Truncated Policy Iteration ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-14.png" alt="Value Iteration 的更新公式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 14：Value Iteration 的更新公式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-16.png" alt="?????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 16??????????????</figcaption>
-</figure>
-
-## ?????????Monte Carlo ??
-
-?????????????????State ?????????Action ????????????Reward ???????????Return ?????????????Policy ????????????Episode ??????????????????
-
-???????????????????????????????????????????????????????????????????????????????????????????
-
-<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-17.png" alt="Model-based ? Model-free ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 17?Model-based ? Model-free ?????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-15.png" alt="Policy Iteration、Value Iteration 与 Truncated Policy Iteration 的过程差异。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 15：Policy Iteration、Value Iteration 与 Truncated Policy Iteration 的过程差异。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-18.png" alt="Episode ???????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 18?Episode ???????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-16.png" alt="不同迭代方法收敛趋势示意。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 16：不同迭代方法收敛趋势示意。</figcaption>
+</figure>
+
+## 从有模型到免模型：Monte Carlo 方法
+
+前面的 Bellman 推导默认环境模型已知，也就是状态转移概率和奖励结构可以被写出来。但实际问题里，我们往往并不知道完整模型。Monte Carlo 方法转向从经验中估计价值：让智能体跑完整个 episode，再用实际回报的平均值估计状态或动作价值。
+
+MC Basic 把策略迭代改造成免模型形式：初始化策略，收集回合，估计动作价值，再贪心改进策略。Exploring Starts 通过让每个状态-动作对都有机会作为起点来保证覆盖；ε-Greedy 则通过保留一定随机探索来换取更高的数据利用效率。
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-17.png" alt="Model-based 与 Model-free 方法对比。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 17：Model-based 与 Model-free 方法对比。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-19.png" alt="?-Greedy ??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 19??-Greedy ??????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-18.png" alt="Episode 中状态、动作与奖励序列的表达。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 18：Episode 中状态、动作与奖励序列的表达。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-20.png" alt="??????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 20???????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-19.png" alt="ε-Greedy 策略下动作选择概率。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 19：ε-Greedy 策略下动作选择概率。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-21.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 21???????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-20.png" alt="批量式与增量式估计方法对比。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 20：批量式与增量式估计方法对比。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-22.png" alt="Robbins-Monro ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 22?Robbins-Monro ?????</figcaption>
-</figure>
-
-## TD?Sarsa ? Q-Learning
-
-TD ????????? Monte Carlo ??????????? episode ??????????????????????????????????????? MC?TD ?????????? Bellman ??????? model-free ???
-
-Sarsa ? Q-Learning ??? TD ????? Action Value?Sarsa ? on-policy??????????????Q-Learning ? off-policy??????????????????????????????????????? TD Target ????????????????
-
-<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-23.png" alt="TD ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 23?TD ????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-21.png" alt="增量平均的更新公式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 21：增量平均的更新公式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-24.png" alt="TD Target ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 24?TD Target ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-22.png" alt="Robbins-Monro 算法说明。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 22：Robbins-Monro 算法说明。</figcaption>
+</figure>
+
+## TD、Sarsa 与 Q-Learning
+
+TD 方法介于动态规划和 Monte Carlo 之间。它不需要等到完整 episode 结束，也不需要已知环境模型，而是用当前奖励加上下一个状态的估计值作为目标。相比 MC，TD 可以在线更新；相比纯 Bellman 解析解，它适合 model-free 场景。
+
+Sarsa 和 Q-Learning 都是在 TD 框架下学习 Action Value。Sarsa 是 on-policy：学习的是当前行为策略本身；Q-Learning 是 off-policy：行为策略可以负责探索，而目标策略始终朝向最优动作更新。二者最关键的区别，就是 TD Target 中下一步动作价值的选择方式不同。
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-23.png" alt="TD 算法的基本步骤。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 23：TD 算法的基本步骤。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-25.png" alt="TD ? MC ????????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 25?TD ? MC ????????????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-24.png" alt="TD Target 的结构示意。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 24：TD Target 的结构示意。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-26.png" alt="TD ? MC ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 26?TD ? MC ????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-25.png" alt="TD 与 MC 在在线性、完整回合、偏差和方差上的差异。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 25：TD 与 MC 在在线性、完整回合、偏差和方差上的差异。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-27.png" alt="Sarsa ?????S, A, R, S, A?" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 27?Sarsa ?????S, A, R, S, A?</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-26.png" alt="TD 与 MC 的估计性质对比。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 26：TD 与 MC 的估计性质对比。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-28.png" alt="Sarsa ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 28?Sarsa ?????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-27.png" alt="Sarsa 数据链条：S, A, R, S, A。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 27：Sarsa 数据链条：S, A, R, S, A。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-29.png" alt="Expected Sarsa ? n-step Sarsa?" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 29?Expected Sarsa ? n-step Sarsa?</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-28.png" alt="Sarsa 算法步骤。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 28：Sarsa 算法步骤。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-30.png" alt="n-step Sarsa ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 30?n-step Sarsa ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-29.png" alt="Expected Sarsa 与 n-step Sarsa。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 29：Expected Sarsa 与 n-step Sarsa。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-31.png" alt="Sarsa ? Q-Learning ? TD Target ???" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 31?Sarsa ? Q-Learning ? TD Target ???</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-30.png" alt="n-step Sarsa 的回报展开。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 30：n-step Sarsa 的回报展开。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-32.png" alt="Q-Learning ? off-policy ???" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 32?Q-Learning ? off-policy ???</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-31.png" alt="Sarsa 与 Q-Learning 的 TD Target 对比。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 31：Sarsa 与 Q-Learning 的 TD Target 对比。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-33.png" alt="Q-Learning ? Sarsa ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 33?Q-Learning ? Sarsa ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-32.png" alt="Q-Learning 的 off-policy 说明。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 32：Q-Learning 的 off-policy 说明。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-34.png" alt="Q-Learning ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 34?Q-Learning ?????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-33.png" alt="Q-Learning 与 Sarsa 的策略差异。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 33：Q-Learning 与 Sarsa 的策略差异。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-35.png" alt="TD ??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 35?TD ??????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-34.png" alt="Q-Learning 更新公式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 34：Q-Learning 更新公式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-36.png" alt="?? TD ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 36??? TD ????????</figcaption>
-</figure>
-
-## ?????DQN ?????
-
-??? Bellman ????????????????????????????????????????????????????Monte Carlo ????????????????????? episode?????????????????????
-
-MC Basic ????????????????????????????????????????Exploring Starts ???????-??????????????????-Greedy ????????????????????????
-
-<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-37.png" alt="????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 37?????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-35.png" alt="TD 方法的统一更新结构。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 35：TD 方法的统一更新结构。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-38.png" alt="???????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 38????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-36.png" alt="常见 TD 算法目标项总结。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 36：常见 TD 算法目标项总结。</figcaption>
+</figure>
+
+## 函数近似、DQN 与策略梯度
+
+当状态空间变大时，用表格保存每个状态或动作价值会失效，于是需要函数近似。线性近似用特征向量表示状态，DQN 则进一步用深度神经网络替代 Q-Table，让网络输入状态并输出各动作的 Q 值。Target Network 和 Experience Replay 都是为了解决训练不稳定、样本相关性过强等问题。
+
+Policy Gradient 换了一个角度：不再先学价值表再间接得到策略，而是直接优化策略参数。REINFORCE 使用完整回报估计梯度，Actor-Critic 则把策略更新和价值评估拆给 Actor 与 Critic 两个部分，兼顾策略学习和价值估计。
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-37.png" alt="表格法与函数近似的区别。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 37：表格法与函数近似的区别。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-39.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 39???????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-38.png" alt="线性价值函数近似形式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 38：线性价值函数近似形式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-40.png" alt="DQN ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 40?DQN ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-39.png" alt="线性函数近似的说明。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 39：线性函数近似的说明。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-41.png" alt="????? q?(S,A,w)?" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 41?????? q?(S,A,w)?</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-40.png" alt="DQN 的目标函数。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 40：DQN 的目标函数。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-42.png" alt="DQN ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 42?DQN ????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-41.png" alt="当前预测值 q̂(S,A,w)。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 41：当前预测值 q̂(S,A,w)。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-43.png" alt="Target Network ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 43?Target Network ????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-42.png" alt="DQN 的训练目标写法。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 42：DQN 的训练目标写法。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-44.png" alt="Experience Replay ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 44?Experience Replay ????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-43.png" alt="Target Network 的作用。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 43：Target Network 的作用。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-45.png" alt="?????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 45??????????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-44.png" alt="Experience Replay 的作用。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 44：Experience Replay 的作用。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-46.png" alt="Average reward ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 46?Average reward ????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-45.png" alt="表格形式与函数形式的策略表达对比。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 45：表格形式与函数形式的策略表达对比。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-47.png" alt="?????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 47??????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-46.png" alt="Average reward 的状态分布表达。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 46：Average reward 的状态分布表达。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-48.png" alt="????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 48?????????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-47.png" alt="策略下状态奖励的期望表达。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 47：策略下状态奖励的期望表达。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-49.png" alt="Policy Gradient ?????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 49?Policy Gradient ?????????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-48.png" alt="动作奖励函数的期望定义。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 48：动作奖励函数的期望定义。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-50.png" alt="REINFORCE ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 50?REINFORCE ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-49.png" alt="Policy Gradient 的统一梯度表达式。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 49：Policy Gradient 的统一梯度表达式。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-51.png" alt="REINFORCE ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 51?REINFORCE ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-50.png" alt="REINFORCE 算法伪代码。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 50：REINFORCE 算法伪代码。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-52.png" alt="Actor-Critic ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 52?Actor-Critic ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-51.png" alt="REINFORCE 的步骤说明。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 51：REINFORCE 的步骤说明。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-53.png" alt="QAC ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 53?QAC ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-52.png" alt="Actor-Critic 算法流程图。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 52：Actor-Critic 算法流程图。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-54.png" alt="Baseline b(s) ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 54?Baseline b(s) ????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-53.png" alt="QAC 算法伪代码。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 53：QAC 算法伪代码。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-55.png" alt="A2C ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 55?A2C ??????</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-54.png" alt="Baseline b(s) 的定义。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 54：Baseline b(s) 的定义。</figcaption>
 </figure>
 
 <figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
-  <img src="/static/images/research/reinforcement-learning-note/rl-note-56.png" alt="AC with off-policy importance sampling ???" className="mx-auto h-auto w-full rounded-xl object-contain" />
-  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 56?AC with off-policy importance sampling ???</figcaption>
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-55.png" alt="A2C 算法伪代码。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 55：A2C 算法伪代码。</figcaption>
 </figure>
 
-## ??
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-56.png" alt="AC with off-policy importance sampling 算法。" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">图 56：AC with off-policy importance sampling 算法。</figcaption>
+</figure>
 
-??????????????? MDP ? Bellman ????????? MC ? TD ??????????????? Sarsa ? Q-Learning ????????????????DQN ???????????????????????????????????????????????????????
+## 小结
+
+这份笔记的脉络可以概括为：先用 MDP 与 Bellman 方程定义问题，再用 MC 和 TD 在未知模型中估计价值，随后通过 Sarsa 与 Q-Learning 学习动作价值，最后进入函数近似、DQN 和策略梯度方法。它不是一份最终版教材，更像是把强化学习从“概念能看懂”推进到“算法之间能连起来”的阶段性整理。
