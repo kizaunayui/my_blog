@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { name, avatar, occupation, company, email, twitter, bluesky, linkedin, github } = content
+  const { name, avatar, occupation, company, email, twitter, bluesky, linkedin, github, steam, netease, bangumi } = content
 
   return (
     <section className="author-page py-10 sm:py-14">
@@ -48,6 +48,9 @@ export default function AuthorLayout({ children, content }: Props) {
               <SocialIcon kind="linkedin" href={linkedin} />
               <SocialIcon kind="x" href={twitter} />
               <SocialIcon kind="bluesky" href={bluesky} />
+              <SocialIcon kind="steam" href={steam} />
+              <SocialIcon kind="netease" href={netease} />
+              <SocialIcon kind="bangumi" href={bangumi} />
             </div>
           </aside>
           <Link

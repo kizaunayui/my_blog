@@ -11,6 +11,9 @@ import {
   Instagram,
   Medium,
   Bluesky,
+  Steam,
+  Netease,
+  Bangumi,
 } from './icons'
 
 const components = {
@@ -26,6 +29,9 @@ const components = {
   instagram: Instagram,
   medium: Medium,
   bluesky: Bluesky,
+  steam: Steam,
+  netease: Netease,
+  bangumi: Bangumi,
 }
 
 type SocialIconProps = {

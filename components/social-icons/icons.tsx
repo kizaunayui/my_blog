@@ -110,3 +110,39 @@ export function Bluesky(svgProps: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function Steam({ className, ...props }: { className?: string }) {
+  return (
+    <img
+      src="/static/images/steam-avatar.jpg"
+      alt="Steam"
+      className={`rounded-full object-cover ${className || ''}`}
+      style={{ width: '2rem', height: '2rem' }}
+      {...props}
+    />
+  )
+}
+
+export function Netease({ className, ...props }: { className?: string }) {
+  return (
+    <img
+      src="/static/images/netease-avatar.jpg"
+      alt="Netease"
+      className={`rounded-full object-cover ${className || ''}`}
+      style={{ width: '2rem', height: '2rem' }}
+      {...props}
+    />
+  )
+}
+
+export function Bangumi({ className, ...props }: { className?: string }) {
+  return (
+    <img
+      src="/static/images/bangumi-avatar.jpg"
+      alt="Bangumi"
+      className={`rounded-full object-cover ${className || ''}`}
+      style={{ width: '2rem', height: '2rem' }}
+      {...props}
+    />
+  )
+}
