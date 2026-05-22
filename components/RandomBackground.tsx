@@ -70,6 +70,12 @@ const backgroundPool: BackgroundOption[] = [
     mobilePosition: 'center center',
     size: 'cover',
   },
+  {
+    src: '/static/images/liz_blue_bird.jpeg',
+    position: 'center center',
+    mobilePosition: 'center center',
+    size: 'cover',
+  },
 ]
 
 type RandomBackgroundProps = {
