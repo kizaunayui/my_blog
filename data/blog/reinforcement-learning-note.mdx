@@ -1,0 +1,326 @@
+---
+title: '?????????? MDP ? Actor-Critic'
+date: '2026-05-22'
+tags: ['????', '????', '????']
+category: '????'
+draft: false
+summary: '?????????????????MDP?Bellman ???Monte Carlo?TD?Sarsa?Q-Learning ? DQN?Policy Gradient ? Actor-Critic?'
+---
+
+????????????? Word ??????????????????????????? DQN?Policy Gradient ? Actor-Critic??????????????????????????????????????????????????????????????????????????
+
+????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+
+## ????????????????
+
+?????????????????State ?????????Action ????????????Reward ???????????Return ?????????????Policy ????????????Episode ??????????????????
+
+???????????????????????????????????????????????????????????????????????????????????????????
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-01.png" alt="?????????????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 01??????????????????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-03.png" alt="MDP ?????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 03?MDP ?????????</figcaption>
+</figure>
+
+## MDP?????? Bellman ??
+
+MDP ??????????????????????????????????????????????????????????????????????????????????????????????????????????
+
+?????????????????????????????State Value ??????????????????Action Value ???????????Bellman ?????????????????????????????????????????????????
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-02.png" alt="????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 02?????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-04.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 04???????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-05.png" alt="Bellman ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 05?Bellman ????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-06.png" alt="Bellman ???????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 06?Bellman ???????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-07.png" alt="Bellman Equation ???????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 07?Bellman Equation ???????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-08.png" alt="Bellman Equation ???????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 08?Bellman Equation ???????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-09.png" alt="Action Value ? State Value ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 09?Action Value ? State Value ????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-10.png" alt="?????? q?(s,a) ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 10??????? q?(s,a) ????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-11.png" alt="Bellman ??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 11?Bellman ??????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-12.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 12???????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-13.png" alt="???????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 13????????????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-14.png" alt="Value Iteration ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 14?Value Iteration ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-15.png" alt="Policy Iteration?Value Iteration ? Truncated Policy Iteration ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 15?Policy Iteration?Value Iteration ? Truncated Policy Iteration ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-16.png" alt="?????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 16??????????????</figcaption>
+</figure>
+
+## ?????????Monte Carlo ??
+
+?????????????????State ?????????Action ????????????Reward ???????????Return ?????????????Policy ????????????Episode ??????????????????
+
+???????????????????????????????????????????????????????????????????????????????????????????
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-17.png" alt="Model-based ? Model-free ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 17?Model-based ? Model-free ?????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-18.png" alt="Episode ???????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 18?Episode ???????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-19.png" alt="?-Greedy ??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 19??-Greedy ??????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-20.png" alt="??????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 20???????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-21.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 21???????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-22.png" alt="Robbins-Monro ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 22?Robbins-Monro ?????</figcaption>
+</figure>
+
+## TD?Sarsa ? Q-Learning
+
+TD ????????? Monte Carlo ??????????? episode ??????????????????????????????????????? MC?TD ?????????? Bellman ??????? model-free ???
+
+Sarsa ? Q-Learning ??? TD ????? Action Value?Sarsa ? on-policy??????????????Q-Learning ? off-policy??????????????????????????????????????? TD Target ????????????????
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-23.png" alt="TD ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 23?TD ????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-24.png" alt="TD Target ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 24?TD Target ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-25.png" alt="TD ? MC ????????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 25?TD ? MC ????????????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-26.png" alt="TD ? MC ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 26?TD ? MC ????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-27.png" alt="Sarsa ?????S, A, R, S, A?" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 27?Sarsa ?????S, A, R, S, A?</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-28.png" alt="Sarsa ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 28?Sarsa ?????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-29.png" alt="Expected Sarsa ? n-step Sarsa?" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 29?Expected Sarsa ? n-step Sarsa?</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-30.png" alt="n-step Sarsa ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 30?n-step Sarsa ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-31.png" alt="Sarsa ? Q-Learning ? TD Target ???" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 31?Sarsa ? Q-Learning ? TD Target ???</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-32.png" alt="Q-Learning ? off-policy ???" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 32?Q-Learning ? off-policy ???</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-33.png" alt="Q-Learning ? Sarsa ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 33?Q-Learning ? Sarsa ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-34.png" alt="Q-Learning ?????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 34?Q-Learning ?????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-35.png" alt="TD ??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 35?TD ??????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-36.png" alt="?? TD ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 36??? TD ????????</figcaption>
+</figure>
+
+## ?????DQN ?????
+
+??? Bellman ????????????????????????????????????????????????????Monte Carlo ????????????????????? episode?????????????????????
+
+MC Basic ????????????????????????????????????????Exploring Starts ???????-??????????????????-Greedy ????????????????????????
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-37.png" alt="????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 37?????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-38.png" alt="???????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 38????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-39.png" alt="??????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 39???????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-40.png" alt="DQN ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 40?DQN ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-41.png" alt="????? q?(S,A,w)?" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 41?????? q?(S,A,w)?</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-42.png" alt="DQN ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 42?DQN ????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-43.png" alt="Target Network ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 43?Target Network ????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-44.png" alt="Experience Replay ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 44?Experience Replay ????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-45.png" alt="?????????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 45??????????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-46.png" alt="Average reward ????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 46?Average reward ????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-47.png" alt="?????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 47??????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-48.png" alt="????????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 48?????????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-49.png" alt="Policy Gradient ?????????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 49?Policy Gradient ?????????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-50.png" alt="REINFORCE ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 50?REINFORCE ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-51.png" alt="REINFORCE ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 51?REINFORCE ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-52.png" alt="Actor-Critic ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 52?Actor-Critic ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-53.png" alt="QAC ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 53?QAC ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-54.png" alt="Baseline b(s) ????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 54?Baseline b(s) ????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-55.png" alt="A2C ??????" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 55?A2C ??????</figcaption>
+</figure>
+
+<figure className="my-8 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/40">
+  <img src="/static/images/research/reinforcement-learning-note/rl-note-56.png" alt="AC with off-policy importance sampling ???" className="mx-auto h-auto w-full rounded-xl object-contain" />
+  <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500 dark:text-slate-300">? 56?AC with off-policy importance sampling ???</figcaption>
+</figure>
+
+## ??
+
+??????????????? MDP ? Bellman ????????? MC ? TD ??????????????? Sarsa ? Q-Learning ????????????????DQN ???????????????????????????????????????????????????????
