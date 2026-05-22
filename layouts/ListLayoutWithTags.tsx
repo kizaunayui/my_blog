@@ -80,7 +80,7 @@ export default function ListLayoutWithTags({
   return (
     <div className="list-layout-page py-10 sm:py-14">
       <div className="list-layout-heading mb-8 rounded-[2rem] border border-white/25 bg-white/24 px-6 py-8 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl sm:px-8">
-        <p className="mb-3 text-sm font-black uppercase tracking-[0.22em] text-pink-200 drop-shadow-[0_10px_26px_rgba(0,0,0,0.55)]">
+        <p className="mb-3 text-sm font-black uppercase tracking-[0.22em] text-white drop-shadow-[0_10px_26px_rgba(0,0,0,0.62)]">
           Blog Archive
         </p>
         <h1 className="text-4xl leading-tight font-black tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
@@ -91,11 +91,11 @@ export default function ListLayoutWithTags({
       <div className="list-layout-grid flex gap-8 sm:gap-10">
         <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-[1.75rem] border border-white/25 bg-white/30 p-6 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl sm:block dark:border-slate-400/20 dark:bg-slate-950/45">
           {pathname.startsWith('/blog') ? (
-            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-pink-200">All Posts</h3>
+            <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">All Posts</h3>
           ) : (
             <Link
               href={`/blog`}
-              className="text-sm font-black uppercase tracking-[0.18em] text-white hover:text-pink-100"
+              className="text-sm font-black uppercase tracking-[0.18em] text-white hover:text-cyan-100"
             >
               All Posts
             </Link>
@@ -106,7 +106,7 @@ export default function ListLayoutWithTags({
               return (
                 <li key={t}>
                   {isActive ? (
-                    <h3 className="inline-flex rounded-full bg-gradient-to-r from-pink-500/70 to-sky-400/60 px-3 py-2 text-sm font-black uppercase text-white shadow-lg shadow-pink-950/20">
+                    <h3 className="inline-flex rounded-full bg-gradient-to-r from-cyan-600/80 to-sky-400/70 px-3 py-2 text-sm font-black uppercase text-white shadow-lg shadow-cyan-950/20">
                       {`${t} (${tagCounts[t]})`}
                     </h3>
                   ) : (
@@ -130,7 +130,7 @@ export default function ListLayoutWithTags({
               const { path, date, title, summary, tags } = post
               return (
                 <li key={path}>
-                  <article className="list-post-card rounded-[1.75rem] border border-white/28 bg-white/48 p-6 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl transition duration-300 hover:-translate-y-0.5 hover:bg-white/56 hover:shadow-pink-950/20 dark:border-slate-400/20 dark:bg-slate-950/45 dark:hover:bg-slate-900/60">
+                  <article className="list-post-card rounded-[1.75rem] border border-white/28 bg-white/48 p-6 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl transition duration-300 hover:-translate-y-0.5 hover:bg-white/56 hover:shadow-cyan-950/20 dark:border-slate-400/20 dark:bg-slate-950/45 dark:hover:bg-slate-900/60">
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-sm leading-6 font-black uppercase tracking-wide text-slate-600 dark:text-slate-300">
@@ -142,7 +142,7 @@ export default function ListLayoutWithTags({
                     <div className="mt-3 space-y-3">
                       <div>
                         <h2 className="text-2xl leading-8 font-black tracking-tight">
-                          <Link href={`/${path}`} className="text-slate-950 hover:text-pink-600 dark:text-white dark:hover:text-pink-200">
+                          <Link href={`/${path}`} className="text-slate-950 hover:text-cyan-700 dark:text-white dark:hover:text-cyan-200">
                             {title}
                           </Link>
                         </h2>
