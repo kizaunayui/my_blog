@@ -5,7 +5,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 
-const MAX_DISPLAY = 6
+const POSTS_PER_PAGE = 5
 const CHINESE_CHARS_PER_MINUTE = 400
 const ENGLISH_WORDS_PER_MINUTE = 225
 
@@ -53,74 +53,116 @@ function estimateReadingTime(raw?: string) {
   return `${minutes}分钟${seconds}秒`
 }
 
-export default function Home({ posts }) {
-  const featuredPost = posts[0]
-  const recentPosts = posts.slice(0, MAX_DISPLAY)
+type Pagination = {
+  currentPage: number
+  totalPages: number
+}
+
+function HomePagination({ currentPage, totalPages }: Pagination) {
+  const prevPage = currentPage > 1
+  const nextPage = currentPage < totalPages
+  const previousHref = currentPage === 2 ? '/' : `/page/${currentPage - 1}`
+  const nextHref = `/page/${currentPage + 1}`
+
+  if (totalPages <= 1) {
+    return null
+  }
+
+  return (
+    <nav className="mt-8 flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/70 p-4 text-sm font-semibold shadow-sm backdrop-blur dark:border-gray-800/80 dark:bg-gray-900/60">
+      {prevPage ? (
+        <Link href={previousHref} rel="prev" className="text-cyan-700 hover:text-cyan-800 dark:text-cyan-200 dark:hover:text-white">
+          上一页
+        </Link>
+      ) : (
+        <span className="text-gray-400">上一页</span>
+      )}
+      <span className="text-gray-500 dark:text-gray-400">
+        {currentPage} / {totalPages}
+      </span>
+      {nextPage ? (
+        <Link href={nextHref} rel="next" className="text-cyan-700 hover:text-cyan-800 dark:text-cyan-200 dark:hover:text-white">
+          下一页
+        </Link>
+      ) : (
+        <span className="text-gray-400">下一页</span>
+      )}
+    </nav>
+  )
+}
+
+export default function Home({ posts, initialDisplayPosts, pagination }) {
+  const currentPage = pagination?.currentPage || 1
+  const featuredPost = currentPage === 1 ? posts[0] : null
+  const recentPosts = initialDisplayPosts || posts.slice(0, POSTS_PER_PAGE)
+  const isFirstPage = currentPage === 1
 
   return (
     <>
-      <section className="home-hero relative overflow-hidden pt-10 pb-14 sm:pt-16 md:pb-20">
-        <div className="home-hero-bg pointer-events-none absolute inset-0">
-          <div className="hero-grid" />
-        </div>
-
-        <div className="home-hero-content animate-fade-up max-w-3xl">
-          <p className="mb-5 inline-flex rounded-full border border-cyan-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-cyan-700 shadow-sm backdrop-blur dark:border-cyan-400/25 dark:bg-gray-900/60 dark:text-cyan-200">
-            随笔 · 学习 · 项目实践
-          </p>
-          <h1 className="text-5xl leading-[0.95] font-black tracking-tight text-gray-950 sm:text-6xl md:text-7xl dark:text-white">
-            欢迎来到 <span className="gradient-text">{siteMetadata.title}</span>
-          </h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl dark:text-gray-300">
-            {siteMetadata.description}这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
-          </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link href="/articles" className="button-primary">
-              浏览文章
-            </Link>
-            {contentSections.map((section) => (
-              <Link key={section.href} href={section.href} className="button-secondary">
-                {section.title}
-              </Link>
-            ))}
-            <Link href="/about" className="button-secondary">
-              关于我
-            </Link>
+      {isFirstPage && (
+        <section className="home-hero relative overflow-hidden pt-10 pb-14 sm:pt-16 md:pb-20">
+          <div className="home-hero-bg pointer-events-none absolute inset-0">
+            <div className="hero-grid" />
           </div>
-        </div>
 
-        {featuredPost && (
-          <Link
-            href={`/articles/${featuredPost.slug}`}
-            className="home-featured-card featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-cyan-950/40"
-          >
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="mb-3 text-sm font-semibold text-cyan-700 dark:text-cyan-200">
-                  最新文章
-                </p>
-                <h2 className="text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl dark:text-white">
-                  {featuredPost.title}
-                </h2>
-                <p className="mt-3 max-w-2xl text-gray-600 dark:text-gray-300">{featuredPost.summary}</p>
-              </div>
-              <span className="shrink-0 text-sm font-semibold text-cyan-700 dark:text-cyan-200">
-                继续阅读 →
-              </span>
+          <div className="home-hero-content animate-fade-up max-w-3xl">
+            <p className="mb-5 inline-flex rounded-full border border-cyan-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-cyan-700 shadow-sm backdrop-blur dark:border-cyan-400/25 dark:bg-gray-900/60 dark:text-cyan-200">
+              随笔 · 学习 · 项目实践
+            </p>
+            <h1 className="text-5xl leading-[0.95] font-black tracking-tight text-gray-950 sm:text-6xl md:text-7xl dark:text-white">
+              欢迎来到 <span className="gradient-text">{siteMetadata.title}</span>
+            </h1>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl dark:text-gray-300">
+              {siteMetadata.description}这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/articles" className="button-primary">
+                浏览文章
+              </Link>
+              {contentSections.map((section) => (
+                <Link key={section.href} href={section.href} className="button-secondary">
+                  {section.title}
+                </Link>
+              ))}
+              <Link href="/about" className="button-secondary">
+                关于我
+              </Link>
             </div>
-          </Link>
-        )}
-      </section>
+          </div>
 
-      <section className="pb-8">
+          {featuredPost && (
+            <Link
+              href={`/articles/${featuredPost.slug}`}
+              className="home-featured-card featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-cyan-950/40"
+            >
+              <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-cyan-700 dark:text-cyan-200">
+                    最新文章
+                  </p>
+                  <h2 className="text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl dark:text-white">
+                    {featuredPost.title}
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-gray-600 dark:text-gray-300">{featuredPost.summary}</p>
+                </div>
+                <span className="shrink-0 text-sm font-semibold text-cyan-700 dark:text-cyan-200">
+                  继续阅读 →
+                </span>
+              </div>
+            </Link>
+          )}
+        </section>
+      )}
+
+      <section className={isFirstPage ? 'pb-8' : 'pt-10 pb-8 sm:pt-14'}>
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold text-cyan-700 dark:text-cyan-200">Latest Posts</p>
             <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-950 dark:text-white">
-              最近更新
+              {isFirstPage ? '最近更新' : `最近更新 · 第 ${currentPage} 页`}
             </h2>
           </div>
-          {posts.length > MAX_DISPLAY && (
+          {posts.length > POSTS_PER_PAGE && (
             <Link href="/articles" className="hidden text-sm font-semibold text-cyan-700 hover:text-cyan-800 sm:block dark:text-cyan-200 dark:hover:text-white">
               全部文章 →
             </Link>
@@ -179,13 +221,7 @@ export default function Home({ posts }) {
           })}
         </div>
 
-        {posts.length > MAX_DISPLAY && (
-          <div className="mt-8 flex justify-center sm:hidden">
-            <Link href="/articles" className="button-secondary">
-              全部文章
-            </Link>
-          </div>
-        )}
+        {pagination && <HomePagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />}
       </section>
 
       {siteMetadata.newsletter?.provider && (
