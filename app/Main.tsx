@@ -6,15 +6,12 @@ import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 
 const MAX_DISPLAY = 6
+const CHINESE_CHARS_PER_MINUTE = 400
+const ENGLISH_WORDS_PER_MINUTE = 225
 
 type RecordedAt = {
   location?: string
   weather?: string
-}
-
-type ReadingTime = {
-  minutes?: number
-  time?: number
 }
 
 function formatRecordedAt(recordedAt?: RecordedAt | string) {
@@ -29,17 +26,21 @@ function formatRecordedAt(recordedAt?: RecordedAt | string) {
   return [recordedAt.location, recordedAt.weather].filter(Boolean).join(' · ') || null
 }
 
-function formatReadingTime(readingTime?: ReadingTime) {
-  if (!readingTime) {
+function estimateReadingTime(raw?: string) {
+  if (!raw) {
     return null
   }
 
+  const text = raw
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/[{}`*_#[\]()!>\-.|:]/g, ' ')
+  const chineseChars = text.match(/[\u3400-\u9fff]/g)?.length || 0
+  const englishWords = text.match(/[A-Za-z]+(?:['-][A-Za-z]+)?/g)?.length || 0
   const totalSeconds = Math.max(
-    0,
+    1,
     Math.round(
-      typeof readingTime.time === 'number'
-        ? readingTime.time / 1000
-        : (readingTime.minutes || 0) * 60
+      (chineseChars / CHINESE_CHARS_PER_MINUTE + englishWords / ENGLISH_WORDS_PER_MINUTE) * 60
     )
   )
   const minutes = Math.floor(totalSeconds / 60)
@@ -64,7 +65,7 @@ export default function Home({ posts }) {
         </div>
 
         <div className="home-hero-content animate-fade-up max-w-3xl">
-          <p className="mb-5 inline-flex rounded-full border border-primary-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-primary-600 shadow-sm backdrop-blur dark:border-primary-500/20 dark:bg-gray-900/60 dark:text-primary-300">
+          <p className="mb-5 inline-flex rounded-full border border-cyan-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-cyan-700 shadow-sm backdrop-blur dark:border-cyan-400/25 dark:bg-gray-900/60 dark:text-cyan-200">
             随笔 · 学习 · 项目实践
           </p>
           <h1 className="text-5xl leading-[0.95] font-black tracking-tight text-gray-950 sm:text-6xl md:text-7xl dark:text-white">
@@ -91,11 +92,11 @@ export default function Home({ posts }) {
         {featuredPost && (
           <Link
             href={`/articles/${featuredPost.slug}`}
-            className="home-featured-card featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-primary-950/40"
+            className="home-featured-card featured-card animate-fade-up-delay mt-12 block rounded-3xl border border-gray-200/80 bg-white/80 p-6 shadow-xl shadow-gray-200/50 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-200/50 dark:border-gray-800/80 dark:bg-gray-900/70 dark:shadow-black/30 dark:hover:shadow-cyan-950/40"
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="mb-3 text-sm font-semibold text-primary-600 dark:text-primary-300">
+                <p className="mb-3 text-sm font-semibold text-cyan-700 dark:text-cyan-200">
                   最新文章
                 </p>
                 <h2 className="text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl dark:text-white">
@@ -103,7 +104,7 @@ export default function Home({ posts }) {
                 </h2>
                 <p className="mt-3 max-w-2xl text-gray-600 dark:text-gray-300">{featuredPost.summary}</p>
               </div>
-              <span className="shrink-0 text-sm font-semibold text-primary-600 dark:text-primary-300">
+              <span className="shrink-0 text-sm font-semibold text-cyan-700 dark:text-cyan-200">
                 继续阅读 →
               </span>
             </div>
@@ -114,13 +115,13 @@ export default function Home({ posts }) {
       <section className="pb-8">
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">Latest Posts</p>
+            <p className="text-sm font-semibold text-cyan-700 dark:text-cyan-200">Latest Posts</p>
             <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-950 dark:text-white">
               最近更新
             </h2>
           </div>
           {posts.length > MAX_DISPLAY && (
-            <Link href="/articles" className="hidden text-sm font-semibold text-primary-600 hover:text-primary-700 sm:block dark:text-primary-300">
+            <Link href="/articles" className="hidden text-sm font-semibold text-cyan-700 hover:text-cyan-800 sm:block dark:text-cyan-200 dark:hover:text-white">
               全部文章 →
             </Link>
           )}
@@ -129,14 +130,14 @@ export default function Home({ posts }) {
         <div className="grid gap-5">
           {!posts.length && '暂无文章。'}
           {recentPosts.map((post, index) => {
-            const { slug, date, title, summary, tags, recordedAt, readingTime } = post
+            const { slug, date, title, summary, tags, recordedAt, body } = post
             const recordedText = formatRecordedAt(recordedAt)
-            const readingTimeText = formatReadingTime(readingTime)
+            const readingTimeText = estimateReadingTime(body?.raw)
 
             return (
               <article
                 key={slug}
-                className="post-card-motion group rounded-2xl border border-gray-200/80 bg-white/75 p-6 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-100/70 dark:border-gray-800/80 dark:bg-gray-900/60 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30"
+                className="post-card-motion group rounded-2xl border border-gray-200/80 bg-white/75 p-6 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-xl hover:shadow-cyan-100/70 dark:border-gray-800/80 dark:bg-gray-900/60 dark:hover:border-cyan-800 dark:hover:shadow-cyan-950/30"
                 style={{ animationDelay: `${index * 70}ms` }}
               >
                 <div className="space-y-4 md:grid md:grid-cols-4 md:gap-8 md:space-y-0">
@@ -146,7 +147,7 @@ export default function Home({ posts }) {
                       <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                     </dd>
                     {readingTimeText && (
-                      <dd className="mt-2 text-xs font-bold tracking-wide text-primary-600 dark:text-primary-300">
+                      <dd className="mt-2 text-xs font-bold tracking-wide text-cyan-700 dark:text-cyan-200">
                         {readingTimeText}
                       </dd>
                     )}
@@ -158,7 +159,7 @@ export default function Home({ posts }) {
                   </dl>
                   <div className="md:col-span-3">
                     <h3 className="text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
-                      <Link href={`/articles/${slug}`} className="transition group-hover:text-primary-600 dark:group-hover:text-primary-300">
+                      <Link href={`/articles/${slug}`} className="transition group-hover:text-cyan-700 dark:group-hover:text-cyan-200">
                         {title}
                       </Link>
                     </h3>
@@ -168,7 +169,7 @@ export default function Home({ posts }) {
                       ))}
                     </div>
                     <p className="mt-4 text-gray-600 dark:text-gray-300">{summary}</p>
-                    <div className="mt-5 text-sm font-semibold text-primary-600 transition group-hover:translate-x-1 dark:text-primary-300">
+                    <div className="mt-5 text-sm font-semibold text-cyan-700 transition group-hover:translate-x-1 dark:text-cyan-200">
                       阅读全文 →
                     </div>
                   </div>
