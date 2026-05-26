@@ -3,7 +3,7 @@ import Tag from '@/components/Tag'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
+import NewsletterForm from '@/components/NewsletterForm'
 
 const POSTS_PER_PAGE = 5
 const CHINESE_CHARS_PER_MINUTE = 400
