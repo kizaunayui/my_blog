@@ -13,9 +13,19 @@ export default function Comments({ slug }: { slug: string }) {
   return (
     <>
       {loadComments ? (
-        <CommentsComponent commentsConfig={siteMetadata.comments} slug={slug} />
+        <div className="w-full transition-all duration-300 ease-in-out">
+          <CommentsComponent commentsConfig={siteMetadata.comments} slug={slug} />
+        </div>
       ) : (
-        <button onClick={() => setLoadComments(true)}>Load Comments</button>
+        <div className="flex justify-center py-4">
+          <button
+            onClick={() => setLoadComments(true)}
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/10 dark:border-white/5 bg-white/5 dark:bg-slate-900/40 px-8 py-3.5 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-slate-800 dark:text-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md transition-all duration-300 hover:bg-white/10 dark:hover:bg-slate-900/60 hover:border-cyan-500/30 hover:text-cyan-400 focus:outline-none"
+          >
+            <span className="relative z-10">点击加载评论 / Load Comments</span>
+            <span className="absolute inset-0 z-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          </button>
+        </div>
       )}
     </>
   )
