@@ -72,13 +72,13 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         <header className="animate-fade-up mb-8 rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-6 py-12 text-center shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:px-10">
           <dl>
             <dt className="sr-only">Published on</dt>
-            <dd className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100 dark:drop-shadow-[0_0_12px_rgba(103,232,249,0.38)]">
+            <dd className="inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-4 py-1.5 font-heading text-sm font-black uppercase tracking-[0.18em] text-cyan-800 shadow-sm dark:border-cyan-300/55 dark:bg-cyan-950/80 dark:text-white dark:shadow-[0_0_22px_rgba(34,211,238,0.28)]">
               <time dateTime={date}>
                 {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
               </time>
             </dd>
           </dl>
-          <div className="mt-4 text-gray-950 dark:text-white">
+          <div className="mt-5 text-gray-950 dark:text-white">
             <PageTitle>{title}</PageTitle>
           </div>
         </header>
