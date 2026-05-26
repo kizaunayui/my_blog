@@ -10,7 +10,7 @@
 
   /* ── Background position ─────────────────────────────────────────────── */
   .site-fixed-bg {
-    background-position: 62% center;
+    background-position: var(--site-bg-mobile-position, var(--site-bg-position, 66% center)) !important;
   }
 
   /* ── Header mobile ───────────────────────────────────────────────────── */

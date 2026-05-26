@@ -213,12 +213,15 @@
    FIXED BACKGROUND SYSTEM
    ═══════════════════════════════════════════════════════════════════════════ */
 .site-fixed-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-size: var(--site-bg-size, cover);
-  background-position: var(--site-bg-position, 72% center);
-  background-repeat: no-repeat;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  opacity: 1 !important;
+  background-size: var(--site-bg-size, cover) !important;
+  background-position: var(--site-bg-position, 72% center) !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+  transform: none !important;
 }
 
 .site-fixed-bg::before {
@@ -566,7 +569,7 @@ footer, footer a, footer div, footer svg {
   opacity: 0.25;
 }
 
-.hero-aurora {
+.decorative-aurora {
   position: absolute;
   width: 26rem;
   height: 26rem;
@@ -576,13 +579,13 @@ footer, footer a, footer div, footer svg {
   animation: float-slow 12s ease-in-out infinite;
 }
 
-.hero-aurora-one {
+.decorative-aurora-one {
   top: 2rem;
   right: 8%;
   background: color-mix(in oklch, var(--color-primary-300) 70%, transparent);
 }
 
-.hero-aurora-two {
+.decorative-aurora-two {
   top: 11rem;
   right: 28%;
   background: color-mix(in oklch, oklch(0.76 0.13 190) 62%, transparent);
