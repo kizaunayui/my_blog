@@ -8,14 +8,6 @@ export const contentSections = [
     accent: 'from-pink-500/80 to-sky-400/70',
   },
   {
-    title: '课程复习笔记',
-    href: '/content/notes',
-    category: '课程复习笔记',
-    description:
-      '整理课程学习中的核心概念、重要公式、易错点和典型题型，并支持 PDF 资料下载和预览。',
-    accent: 'from-cyan-500/80 to-emerald-400/70',
-  },
-  {
     title: '作品展示',
     href: '/content/works',
     category: '作品展示',
