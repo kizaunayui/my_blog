@@ -14,7 +14,7 @@ export default function ContentPage() {
           内容中心
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-8 font-semibold text-slate-700 dark:text-slate-200">
-          这里集中整理 Prompt 模板、课程复习笔记、作品展示和项目研究内容，用于长期沉淀学习资料、实践经验和研究过程。
+          这里集中整理 Prompt 模板、作品展示和项目研究内容，用于长期沉淀实践经验、创作成果和研究过程。
         </p>
       </div>
       <ContentSectionGrid showIntro />
