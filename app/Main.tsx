@@ -284,7 +284,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                 第一时间获取最新文章与推送。
               </p>
               <div className="mt-4.5 home-newsletter-panel !border-0 !p-0 !shadow-none !bg-transparent">
-                <NewsletterForm />
+                <NewsletterForm title="" />
               </div>
             </div>
           )}
