@@ -68,23 +68,31 @@ function HomePagination({ currentPage, totalPages }: Pagination) {
   }
 
   return (
-    <nav className="mt-8 flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/70 p-4 text-sm font-semibold shadow-sm backdrop-blur dark:border-gray-800/80 dark:bg-gray-900/60">
+    <nav className="mx-auto mt-7 flex w-fit items-center gap-1 rounded-full border border-gray-200/70 bg-white/65 p-1 text-xs font-bold shadow-lg shadow-slate-950/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
       {prevPage ? (
-        <Link href={previousHref} rel="prev" className="text-cyan-700 hover:text-cyan-800 dark:text-cyan-200 dark:hover:text-white">
+        <Link
+          href={previousHref}
+          rel="prev"
+          className="rounded-full px-3.5 py-2 text-cyan-700 transition hover:bg-cyan-50 hover:text-cyan-800 dark:text-cyan-100 dark:hover:bg-white/10 dark:hover:text-white"
+        >
           上一页
         </Link>
       ) : (
-        <span className="text-gray-400">上一页</span>
+        <span className="rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">上一页</span>
       )}
-      <span className="text-gray-500 dark:text-gray-400">
+      <span className="min-w-[3.75rem] rounded-full border border-slate-200/70 bg-white/65 px-3 py-2 text-center text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
         {currentPage} / {totalPages}
       </span>
       {nextPage ? (
-        <Link href={nextHref} rel="next" className="text-cyan-700 hover:text-cyan-800 dark:text-cyan-200 dark:hover:text-white">
+        <Link
+          href={nextHref}
+          rel="next"
+          className="rounded-full px-3.5 py-2 text-cyan-700 transition hover:bg-cyan-50 hover:text-cyan-800 dark:text-cyan-100 dark:hover:bg-white/10 dark:hover:text-white"
+        >
           下一页
         </Link>
       ) : (
-        <span className="text-gray-400">下一页</span>
+        <span className="rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">下一页</span>
       )}
     </nav>
   )
