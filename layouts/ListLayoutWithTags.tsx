@@ -134,7 +134,7 @@ export default function ListLayoutWithTags({
                   <article className="premium-row group border-b border-slate-200/50 dark:border-white/10 py-7 px-2">
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
+                      <dd className="inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-3 py-1 font-heading text-xs font-black uppercase tracking-[0.16em] text-cyan-800 shadow-sm dark:border-cyan-300/50 dark:bg-cyan-950/75 dark:text-white dark:shadow-[0_0_18px_rgba(34,211,238,0.22)]">
                         <time dateTime={date} suppressHydrationWarning>
                           {formatDate(date, siteMetadata.locale)}
                         </time>
