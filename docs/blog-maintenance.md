@@ -26,40 +26,11 @@ summary: '这里写文章摘要。'
 
 ## 内容中心
 
-内容中心只包含四个二级栏目：
+内容中心包含三个二级栏目：
 
-- `/content/prompts`：Prompt 模板库，使用原来的 `data/promptsData.ts` 和 `PromptLibrary` 样式。
-- `/content/notes`：课程复习笔记，使用 `data/notesData.ts`，只按科目分类，样式接近 Prompt 模板库。
+- `/content/prompts`：Prompt 模板库，使用 `data/promptsData.ts` 和 `PromptLibrary` 样式。
 - `/content/works`：作品展示，读取 `data/blog/*.mdx` 中 `category: '作品展示'` 的文章，样式接近文章列表。
 - `/content/research`：项目研究，读取 `data/blog/*.mdx` 中 `category: '项目研究'` 的文章，样式接近文章列表。
-
-## 新增复习笔记
-
-复习笔记不放进普通文章列表，维护在 `data/notesData.ts`：
-
-```ts
-{
-  title: '电机学考前复习笔记',
-  subject: '电机学',
-  tags: ['课程笔记', 'PDF'],
-  description: '整理电机学的核心概念、公式和题型。',
-  updatedAt: '2026-05-18',
-  pdf: '/files/notes/electrical-machinery-review.pdf',
-  outline: ['核心概念', '重要公式', '易错点'],
-}
-```
-
-PDF 文件放在：
-
-```text
-public/files/notes/
-```
-
-例如：
-
-```text
-public/files/notes/electrical-machinery-review.pdf
-```
 
 ## 新增作品展示或项目研究
 
