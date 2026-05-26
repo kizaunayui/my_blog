@@ -15,18 +15,18 @@ export default function AuthorLayout({ children, content }: Props) {
   return (
     <section className="author-page py-10 sm:py-14">
       <div className="author-heading animate-fade-up pb-10">
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-white drop-shadow-[0_10px_26px_rgba(0,0,0,0.62)]">
+        <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
           个人介绍
         </p>
-        <h1 className="mt-3 text-4xl leading-tight font-black tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
-          关于
+        <h1 className="mt-3 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+          关于我
         </h1>
       </div>
       <div className="items-start gap-8 xl:grid xl:grid-cols-3">
         <div className="space-y-5">
-          <aside className="author-profile-card rounded-[2rem] border border-white/28 bg-white/42 p-8 text-center shadow-2xl shadow-slate-950/24 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/52">
+          <aside className="author-profile-card rounded-3xl border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 p-8 text-center shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md">
             <div className="relative mx-auto h-48 w-48">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-300 via-teal-300 to-cyan-500 opacity-70 blur-xl" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-300 via-teal-300 to-cyan-500 opacity-50 blur-xl" />
               {avatar && (
                 <Image
                   src={avatar}
@@ -37,11 +37,11 @@ export default function AuthorLayout({ children, content }: Props) {
                 />
               )}
             </div>
-            <h3 className="pt-6 pb-2 text-2xl leading-8 font-black tracking-tight text-slate-950 dark:text-white">
+            <h3 className="pt-6 pb-2 text-2xl font-light font-serif tracking-wide text-slate-950 dark:text-white">
               {name}
             </h3>
-            <div className="font-semibold text-slate-700 dark:text-slate-200">{occupation}</div>
-            <div className="font-semibold text-slate-700 dark:text-slate-200">{company}</div>
+            <div className="font-heading text-xs font-semibold tracking-wider text-slate-600 dark:text-slate-300">{occupation}</div>
+            <div className="font-heading text-[11px] tracking-wider text-slate-500 dark:text-slate-400 mt-1">{company}</div>
             <div className="flex justify-center space-x-3 pt-6">
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
@@ -53,12 +53,12 @@ export default function AuthorLayout({ children, content }: Props) {
           <Link
             href="/about/me"
             aria-label="reflexion"
-            className="mx-auto inline-flex w-full items-center justify-center rounded-2xl border border-white/45 bg-white/34 px-5 py-4 text-sm font-black uppercase tracking-[0.24em] text-cyan-800 shadow-xl shadow-slate-950/12 backdrop-blur-2xl transition duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-white/58 dark:border-slate-400/20 dark:bg-slate-900/38 dark:text-cyan-200 dark:hover:bg-slate-900/65"
+            className="mx-auto inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-5 py-4 font-heading text-xs font-bold uppercase tracking-[0.24em] text-cyan-800 dark:text-cyan-200 shadow-sm backdrop-blur-md transition duration-200 hover:-translate-y-0.5 hover:bg-white/20"
           >
             reflexion
           </Link>
         </div>
-        <div className="author-content-card prose mt-8 max-w-none rounded-[2rem] border border-white/28 bg-white/68 p-8 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl dark:prose-invert dark:border-slate-400/20 dark:bg-slate-950/62 xl:col-span-2 xl:mt-0">
+        <div className="author-content-card prose mt-8 max-w-none rounded-3xl border border-white/10 dark:border-white/5 bg-white/60 dark:bg-slate-950/20 p-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md dark:prose-invert xl:col-span-2 xl:mt-0">
           {children}
         </div>
       </div>

@@ -1,4 +1,8 @@
-/* Shared subpage support styles. Visual rules are scoped to explicit page/component classes. */
+/* ═══════════════════════════════════════════════════════════════════════════
+   SUBPAGE STYLES — Glass effects for list, tags, and author pages
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Z-index for main and subpages ─────────────────────────────────────── */
 main {
   position: relative;
   z-index: 1;
@@ -9,7 +13,7 @@ main > div:not(.site-fixed-bg) {
   z-index: 2;
 }
 
-/* Blog/tag list layout */
+/* ── Blog / tag list layout ────────────────────────────────────────────── */
 .list-layout-page {
   position: relative;
   z-index: 2;
@@ -23,6 +27,7 @@ main > div:not(.site-fixed-bg) {
   backdrop-filter: blur(20px) saturate(1.16);
 }
 
+/* ── List pagination text ──────────────────────────────────────────────── */
 .list-pagination nav {
   color: white;
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
@@ -33,7 +38,7 @@ main > div:not(.site-fixed-bg) {
   font-weight: 800;
 }
 
-/* Tags index page */
+/* ── Tags index page ──────────────────────────────────────────────────── */
 .tags-page {
   position: relative;
   z-index: 2;
@@ -45,7 +50,7 @@ main > div:not(.site-fixed-bg) {
   backdrop-filter: blur(22px) saturate(1.16);
 }
 
-/* About page / author layout */
+/* ── About page / author layout ───────────────────────────────────────── */
 .author-page {
   position: relative;
   z-index: 2;
@@ -57,6 +62,7 @@ main > div:not(.site-fixed-bg) {
   backdrop-filter: blur(22px) saturate(1.16);
 }
 
+/* ── Author content text — light mode ─────────────────────────────────── */
 .author-content-card,
 .author-content-card p,
 .author-content-card li,
@@ -68,6 +74,7 @@ main > div:not(.site-fixed-bg) {
   text-shadow: none;
 }
 
+/* ── Author content text — dark mode ──────────────────────────────────── */
 .dark .author-content-card,
 .dark .author-content-card p,
 .dark .author-content-card li,
@@ -78,6 +85,7 @@ main > div:not(.site-fixed-bg) {
   color: rgb(241, 245, 249);
 }
 
+/* ── Mobile responsive ────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .list-layout-page,
   .tags-page,
@@ -89,6 +97,6 @@ main > div:not(.site-fixed-bg) {
   .tags-page-card,
   .author-profile-card,
   .author-content-card {
-    padding: 1.25rem !important;
+    padding: 1.25rem;
   }
 }

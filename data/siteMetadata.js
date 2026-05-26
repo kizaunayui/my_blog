@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: 'Kieran Space',
   description: 'Kieran Space：记录技术学习、项目实践和个人随笔的数字空间。',
   language: 'zh-cn',
-  theme: 'system',
+  theme: 'dark',
   siteUrl: 'https://oyzy666.com',
   siteRepo: 'https://github.com/kizaunayui/my_blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,

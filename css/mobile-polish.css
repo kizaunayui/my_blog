@@ -1,27 +1,32 @@
-/* Mobile polish: keep the glass style, but reduce crowding on small screens. */
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE POLISH — Essential responsive rules only, zero !important
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
+  /* ── Body overflow ───────────────────────────────────────────────────── */
   body {
     overflow-x: hidden;
   }
 
+  /* ── Background position ─────────────────────────────────────────────── */
   .site-fixed-bg {
-    background-position: 62% center !important;
+    background-position: 62% center;
   }
 
+  /* ── Header mobile ───────────────────────────────────────────────────── */
   header {
-    width: calc(100% + 1.5rem) !important;
-    margin-top: 0.5rem !important;
-    margin-left: -0.75rem !important;
-    margin-right: -0.75rem !important;
-    padding-left: 0.85rem !important;
-    padding-right: 0.85rem !important;
+    width: calc(100% + 1.5rem);
+    margin-top: 0.5rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
   }
 
   header > a > div > div:first-child {
-    margin-right: 0.5rem !important;
-    padding: 0.35rem !important;
-    border-radius: 1rem !important;
+    margin-right: 0.5rem;
+    padding: 0.35rem;
+    border-radius: 1rem;
   }
 
   header svg {
@@ -30,29 +35,30 @@
   }
 
   header > div:last-child {
-    gap: 0.35rem !important;
-    column-gap: 0.35rem !important;
+    gap: 0.35rem;
+    column-gap: 0.35rem;
   }
 
+  /* ── Hero mobile ─────────────────────────────────────────────────────── */
   .home-hero {
-    width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-top: 4.25rem !important;
-    padding-bottom: 4.25rem !important;
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 4.25rem;
+    padding-bottom: 4.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
 
   .home-hero-content h1 {
-    font-size: clamp(2.65rem, 13vw, 4.25rem) !important;
-    line-height: 0.98 !important;
+    font-size: clamp(2.65rem, 13vw, 4.25rem);
+    line-height: 0.98;
   }
 
   .home-hero-content > p:last-of-type {
-    max-width: 100% !important;
-    font-size: 1rem !important;
-    line-height: 1.75rem !important;
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.75rem;
   }
 
   .home-hero-content .button-primary,
@@ -62,6 +68,7 @@
     padding-right: 1.05rem;
   }
 
+  /* ── Card border-radius & padding ────────────────────────────────────── */
   .home-featured-card,
   .home-hero + section .post-card-motion,
   .list-post-card,
@@ -75,8 +82,7 @@
   .post-meta-card,
   .home-newsletter-panel,
   .footer-glass-panel {
-    border-radius: 1.45rem !important;
-    box-shadow: 0 18px 48px rgba(2, 6, 23, 0.22) !important;
+    border-radius: 1.45rem;
   }
 
   .home-featured-card,
@@ -89,15 +95,16 @@
   .post-side-card,
   .post-content-card,
   .post-meta-card {
-    padding: 1.2rem !important;
+    padding: 1.2rem;
   }
 
+  /* ── Heading sizes ───────────────────────────────────────────────────── */
   .home-hero + section {
-    padding-top: 2.5rem !important;
+    padding-top: 2.5rem;
   }
 
   .home-hero + section > div:first-child {
-    align-items: flex-start !important;
+    align-items: flex-start;
   }
 
   .home-hero + section > div:first-child h2,
@@ -105,35 +112,37 @@
   .tags-page-hero h1,
   .author-heading h1,
   .post-title-card h1 {
-    font-size: clamp(2.15rem, 10vw, 3.25rem) !important;
-    line-height: 1.05 !important;
+    font-size: clamp(2.15rem, 10vw, 3.25rem);
+    line-height: 1.05;
   }
 
   .home-hero + section .post-card-motion h3,
   .list-post-card h2,
   .tags-page-card h2 {
-    font-size: 1.35rem !important;
-    line-height: 1.75rem !important;
+    font-size: 1.35rem;
+    line-height: 1.75rem;
   }
 
+  /* ── Page padding ────────────────────────────────────────────────────── */
   .list-layout-page,
   .tags-page,
   .author-page {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .list-layout-heading,
   .tags-page-hero {
-    padding: 1.5rem !important;
+    padding: 1.5rem;
   }
 
+  /* ── Grid collapse ───────────────────────────────────────────────────── */
   .list-layout-grid {
-    display: block !important;
+    display: block;
   }
 
   .list-content {
-    width: 100% !important;
+    width: 100%;
   }
 
   .tags-page-hero > div:last-child,
@@ -142,40 +151,42 @@
   }
 
   .tags-page-card {
-    min-height: auto !important;
+    min-height: auto;
   }
 
   .tags-page-card h2 {
     word-break: break-word;
   }
 
+  /* ── Author card ─────────────────────────────────────────────────────── */
   .author-profile-card {
     margin-bottom: 1.25rem;
   }
 
   .author-profile-card .relative.mx-auto.h-48.w-48 {
-    height: 9.5rem !important;
-    width: 9.5rem !important;
+    height: 9.5rem;
+    width: 9.5rem;
   }
 
   .author-profile-card img {
-    height: 9.5rem !important;
-    width: 9.5rem !important;
+    height: 9.5rem;
+    width: 9.5rem;
   }
 
+  /* ── Post card ───────────────────────────────────────────────────────── */
   .post-title-card {
-    margin-bottom: 1.25rem !important;
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
+    margin-bottom: 1.25rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .post-side-card {
-    position: static !important;
-    margin-bottom: 1.25rem !important;
+    position: static;
+    margin-bottom: 1.25rem;
   }
 
   .post-content-card {
-    font-size: 0.98rem !important;
+    font-size: 0.98rem;
   }
 
   .post-content-card pre,
@@ -184,7 +195,7 @@
   }
 
   .post-content-card pre {
-    padding: 1rem !important;
+    padding: 1rem;
   }
 
   .post-content-card table {
@@ -197,53 +208,42 @@
     height: auto;
   }
 
+  /* ── Newsletter mobile ───────────────────────────────────────────────── */
   .home-newsletter-panel {
-    margin: 2rem 0.25rem 0.75rem !important;
-    padding: 1.2rem !important;
+    margin: 2rem 0.25rem 0.75rem;
+    padding: 1.2rem;
   }
 
+  /* ── Footer mobile ──────────────────────────────────────────────────── */
   .footer-glass-panel {
-    padding: 1.35rem !important;
+    padding: 1.35rem;
   }
 
   .site-footer {
-    margin-top: 2.5rem !important;
-    margin-bottom: 1.5rem !important;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   EXTRA SMALL (≤ 480px)
+   ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .home-hero-content > p:first-child {
-    font-size: 0.78rem !important;
-    padding: 0.5rem 0.75rem !important;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .home-hero-content .mt-9 {
-    gap: 0.6rem !important;
-  }
-
-  .home-hero-content .button-primary,
-  .home-hero-content .button-secondary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .tags-page-hero h1 span {
-    display: block;
-    margin-left: 0 !important;
-    margin-top: 0.25rem;
-  }
-
-  .tags-page-card > div:last-child {
-    align-items: flex-start !important;
+    gap: 0.6rem;
   }
 
   .post-meta-card {
-    font-size: 0.85rem !important;
+    font-size: 0.85rem;
     line-height: 1.6;
   }
 
   .footer-glass-panel > div:first-child {
-    gap: 0.85rem !important;
+    gap: 0.85rem;
   }
 }

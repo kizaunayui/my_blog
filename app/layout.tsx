@@ -1,7 +1,4 @@
 import 'css/tailwind.css'
-import 'css/hero-background.css'
-import 'css/hero-layer-fix.css'
-import 'css/header-glass-fix.css'
 import 'css/subpage-style.css'
 import 'css/post-content-fix.css'
 import 'css/mobile-polish.css'
