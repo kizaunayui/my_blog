@@ -3,7 +3,6 @@ import Tag from '@/components/Tag'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from '@/components/NewsletterForm'
 
 const POSTS_PER_PAGE = 5
 const CHINESE_CHARS_PER_MINUTE = 400
@@ -276,18 +275,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             </div>
           )}
 
-          {/* Newsletter Card */}
-          {siteMetadata.newsletter?.provider && (
-            <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-6 rounded-3xl">
-              <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Newsletter</p>
-              <p className="mt-2 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400">
-                第一时间获取最新文章与推送。
-              </p>
-              <div className="mt-4.5 home-newsletter-panel !border-0 !p-0 !shadow-none !bg-transparent">
-                <NewsletterForm title="" />
-              </div>
-            </div>
-          )}
         </aside>
       </div>
     </>
