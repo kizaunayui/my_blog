@@ -58,11 +58,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [siteMetadata.socialBanner],
   },
-  verification: {
-    other: {
-      'baidu-site-verification': 'codeva-ZtrxkQ5JtX',
-    },
-  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
