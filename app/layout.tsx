@@ -58,6 +58,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [siteMetadata.socialBanner],
   },
+  verification: {
+    other: {
+      'baidu-site-verification': 'codeva-ZtrxkQ5JtX',
+    },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -89,7 +94,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
-      <meta name="baidu-site-verification" content="codeva-ZtrxkQ5JtX" />
       <body className="bg-transparent pl-[calc(100vw-100%)] text-black antialiased dark:text-white">
         <ThemeProviders>
           <RandomBackground basePath={basePath} />
