@@ -91,11 +91,11 @@ export default function ListLayoutWithTags({
 
       <div className="list-layout-grid flex gap-6 sm:gap-8 md:gap-10">
         <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:block">
-          {pathname.startsWith('/blog') ? (
+          {pathname.startsWith('/articles') ? (
             <h3 className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100">All Posts · 所有文章</h3>
           ) : (
             <Link
-              href={`/blog`}
+              href={`/articles`}
               className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 hover:text-cyan-500 dark:text-cyan-100 dark:hover:text-white"
             >
               All Posts · 所有文章

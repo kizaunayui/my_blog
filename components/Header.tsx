@@ -13,7 +13,7 @@ const Header = () => {
           <div className="mr-3.5 rounded-full p-0.5 border border-white/20 bg-white/10 shadow-sm backdrop-blur-sm">
             <img
               src={`${basePath}/static/images/kieran-icon.jpg`}
-              alt=""
+              alt="Kieran"
               aria-hidden="true"
               className="h-10 w-10 rounded-full object-cover"
             />

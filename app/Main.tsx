@@ -263,7 +263,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               </div>
               <div>
                 <h4 className="font-serif text-xl font-light tracking-wide text-gray-900 dark:text-white">{siteMetadata.author}</h4>
-                <p className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mt-0.5">Developer / Writer</p>
+                <p className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-400 mt-0.5">Developer / Writer</p>
               </div>
             </div>
             <p className="mt-4 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400 sm:mt-5">
