@@ -83,7 +83,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
         {filteredPrompts.map((item, index) => (
           <article
             key={item.title}
-            className="post-card-motion group flex flex-col rounded-2xl border border-white/60 bg-white/70 p-4 shadow-lg shadow-primary-100/50 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/80 sm:rounded-3xl sm:p-6 dark:border-white/10 dark:bg-gray-900/60 dark:shadow-black/30 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30"
+            className="post-card-motion scroll-reveal group flex flex-col rounded-2xl border border-white/60 bg-white/70 p-4 shadow-lg shadow-primary-100/50 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/80 sm:rounded-3xl sm:p-6 dark:border-white/10 dark:bg-gray-900/60 dark:shadow-black/30 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30"
             style={{ animationDelay: `${index * 55}ms` }}
           >
             <div className="flex flex-1 flex-col gap-5">

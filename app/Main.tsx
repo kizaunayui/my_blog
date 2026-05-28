@@ -203,7 +203,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               return (
                 <article
                   key={slug}
-                  className="post-card-motion premium-row group border-b border-slate-200/50 dark:border-white/5 py-5 px-1 sm:py-7 sm:px-2"
+                  className="post-card-motion scroll-reveal premium-row group border-b border-slate-200/50 dark:border-white/5 py-5 px-1 sm:py-7 sm:px-2"
                   style={{ animationDelay: `${index * 70}ms` }}
                 >
                   <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
