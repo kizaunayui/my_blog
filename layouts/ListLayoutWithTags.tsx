@@ -81,10 +81,10 @@ export default function ListLayoutWithTags({
   return (
     <div className="list-layout-page py-10 sm:py-14">
       <div className="list-layout-heading mb-8 rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-6 py-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:px-8">
-        <p className="mb-3 font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
+        <p className="mb-3 font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
           Blog Archive · 文章归档
         </p>
-        <h1 className="font-serif text-3xl font-light tracking-wide text-gray-900 dark:text-white sm:text-4xl md:text-5xl">
+        <h1 className="font-serif text-4xl font-light tracking-wide text-gray-900 dark:text-white sm:text-5xl md:text-[2.75rem]">
           {title}
         </h1>
       </div>
@@ -92,11 +92,11 @@ export default function ListLayoutWithTags({
       <div className="list-layout-grid flex gap-8 sm:gap-10">
         <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:block">
           {pathname.startsWith('/blog') ? (
-            <h3 className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100">All Posts · 所有文章</h3>
+            <h3 className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100">All Posts · 所有文章</h3>
           ) : (
             <Link
               href={`/blog`}
-              className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 hover:text-cyan-500 dark:text-cyan-100 dark:hover:text-white"
+              className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 hover:text-cyan-500 dark:text-cyan-100 dark:hover:text-white"
             >
               All Posts · 所有文章
             </Link>
@@ -107,13 +107,13 @@ export default function ListLayoutWithTags({
               return (
                 <li key={t}>
                   {isActive ? (
-                    <h3 className="inline-flex rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 px-3 py-1.5 font-heading text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
+                    <h3 className="inline-flex rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 px-3 py-1.5 font-heading text-xs font-bold uppercase tracking-wider text-white shadow-sm">
                       {`${t} (${tagCounts[t]})`}
                     </h3>
                   ) : (
                     <Link
                       href={`/tags/${slug(t)}`}
-                      className="inline-flex rounded-full px-3 py-1.5 font-heading text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-100 transition"
+                      className="inline-flex rounded-full px-3 py-1.5 font-heading text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-100 transition"
                       aria-label={`View posts tagged ${t}`}
                     >
                       {`${t} (${tagCounts[t]})`}
@@ -142,7 +142,7 @@ export default function ListLayoutWithTags({
                     </dl>
                     <div className="mt-3.5 space-y-3">
                       <div>
-                        <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 dark:text-white leading-tight">
+                        <h2 className="font-serif text-3xl font-light tracking-wide text-gray-950 dark:text-white leading-tight">
                           <Link href={`/${path}`} className="premium-row-link text-slate-950 hover:text-cyan-600 dark:text-white dark:hover:text-cyan-100">
                             {title}
                           </Link>
@@ -151,7 +151,7 @@ export default function ListLayoutWithTags({
                           {tags?.map((tag) => <Tag key={tag} text={tag} />)}
                         </div>
                       </div>
-                      <p className="max-w-none text-[13.5px] leading-relaxed font-light text-slate-700 dark:text-slate-100">
+                      <p className="max-w-none text-sm leading-relaxed font-light text-slate-700 dark:text-slate-100">
                         {summary}
                       </p>
                     </div>

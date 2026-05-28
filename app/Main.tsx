@@ -127,25 +127,25 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           </div>
 
           <div className="home-hero-content animate-fade-up max-w-3xl">
-            <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-400 shadow-sm backdrop-blur">
+            <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4.5 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-400 shadow-sm backdrop-blur">
               随笔 · 学习 · 项目实践
             </p>
-            <h1 className="text-4xl leading-[1.05] font-light tracking-wide text-gray-950 sm:text-5xl md:text-6.5xl dark:text-white font-serif">
+            <h1 className="text-[2.5rem] leading-[1.05] font-light tracking-wide text-gray-950 sm:text-[3.5rem] md:text-[4.5rem] dark:text-white font-serif">
               欢迎来到 <span className="font-serif italic font-light gradient-text block sm:inline mt-1.5 sm:mt-0">{siteMetadata.title}</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-sm md:text-base leading-relaxed font-light text-slate-700 dark:text-slate-300">
+            <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed font-light text-slate-700 dark:text-slate-300">
               {siteMetadata.description}这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
             <div className="mt-8 flex flex-wrap gap-3.5">
-              <Link href="/articles" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 hover:from-cyan-500 hover:to-sky-400 px-6 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-cyan-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-500/30">
+              <Link href="/articles" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 hover:from-cyan-500 hover:to-sky-400 px-6.5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-cyan-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-500/30">
                 浏览文章
               </Link>
               {contentSections.map((section) => (
-                <Link key={section.href} href={section.href} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5">
+                <Link key={section.href} href={section.href} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5.5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5">
                   {section.title}
                 </Link>
               ))}
-              <Link href="/about" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5">
+              <Link href="/about" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5.5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5">
                 关于我
               </Link>
             </div>
@@ -158,15 +158,15 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             >
               <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="space-y-2">
-                  <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
+                  <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
                     Featured Article · 最新推荐
                   </p>
-                  <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 sm:text-3xl dark:text-white leading-tight">
+                  <h2 className="font-serif text-3xl font-light tracking-wide text-gray-950 sm:text-4xl dark:text-white leading-tight">
                     {featuredPost.title}
                   </h2>
-                  <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-light">{featuredPost.summary}</p>
+                  <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300 text-base leading-relaxed font-light">{featuredPost.summary}</p>
                 </div>
-                <span className="shrink-0 font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400 border-b border-cyan-500/20 pb-0.5 group-hover:border-cyan-500 transition duration-300">
+                <span className="shrink-0 font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400 border-b border-cyan-500/20 pb-0.5 group-hover:border-cyan-500 transition duration-300">
                   Read Article →
                 </span>
               </div>
@@ -181,13 +181,13 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         <section className={`lg:col-span-1 ${isFirstPage ? 'pb-8' : 'pt-12 pb-8 sm:pt-16'}`}>
           <div className="mb-8 flex items-end justify-between border-b border-slate-200/50 dark:border-white/5 pb-4">
             <div>
-              <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Journal Archive</p>
-              <h2 className="mt-2 font-serif text-3xl font-light tracking-wide text-gray-950 dark:text-white">
+              <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Journal Archive</p>
+              <h2 className="mt-2 font-serif text-4xl font-light tracking-wide text-gray-950 dark:text-white">
                 {isFirstPage ? '最近更新' : `最近更新 · 第 ${currentPage} 页`}
               </h2>
             </div>
             {posts.length > POSTS_PER_PAGE && (
-              <Link href="/articles" className="hidden font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 hover:text-cyan-500 sm:block dark:text-cyan-400 dark:hover:text-white border-b border-transparent hover:border-cyan-500/30 pb-0.5 transition duration-300">
+              <Link href="/articles" className="hidden font-heading text-sm font-bold uppercase tracking-[0.18em] text-cyan-600 hover:text-cyan-500 sm:block dark:text-cyan-400 dark:hover:text-white border-b border-transparent hover:border-cyan-500/30 pb-0.5 transition duration-300">
                 All Articles →
               </Link>
             )}
@@ -209,22 +209,22 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                   <div className="space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
                     <dl className="space-y-1.5">
                       <dt className="sr-only">发布时间</dt>
-                      <dd className="font-heading text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                      <dd className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                       </dd>
                       {readingTimeText && (
-                        <dd className="font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-600/80 dark:text-cyan-400/80">
+                        <dd className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600/80 dark:text-cyan-400/80">
                           {readingTimeText}
                         </dd>
                       )}
                       {recordedText && (
-                        <dd className="font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+                        <dd className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
                           {recordedText}
                         </dd>
                       )}
                     </dl>
                     <div className="flex-1 space-y-3">
-                      <h3 className="font-serif text-2xl font-light tracking-wide text-gray-950 dark:text-white leading-tight">
+                      <h3 className="font-serif text-3xl font-light tracking-wide text-gray-950 dark:text-white leading-tight">
                         <Link href={`/articles/${slug}`} className="premium-row-link transition group-hover:text-cyan-600 dark:group-hover:text-cyan-300">
                           {title}
                         </Link>
@@ -234,8 +234,8 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                           <Tag key={tag} text={tag} />
                         ))}
                       </div>
-                      <p className="text-slate-700 dark:text-slate-300 text-[13.5px] leading-relaxed font-light">{summary}</p>
-                      <div className="inline-flex items-center gap-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition duration-300 pt-1">
+                      <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-light">{summary}</p>
+                      <div className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition duration-300 pt-1">
                         Read Full Post <span className="text-[12px] leading-none">→</span>
                       </div>
                     </div>
@@ -252,7 +252,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         <aside className="space-y-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16 pt-6">
           {/* About Me Card */}
           <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-6 rounded-3xl">
-            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
             <div className="mt-5 flex items-center gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
                 <img
@@ -262,11 +262,11 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                 />
               </div>
               <div>
-                <h4 className="font-serif text-lg font-light tracking-wide text-gray-900 dark:text-white">{siteMetadata.author}</h4>
-                <p className="font-heading text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mt-0.5">Developer / Writer</p>
+                <h4 className="font-serif text-xl font-light tracking-wide text-gray-900 dark:text-white">{siteMetadata.author}</h4>
+                <p className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mt-0.5">Developer / Writer</p>
               </div>
             </div>
-            <p className="mt-5 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400">
+            <p className="mt-5 text-sm leading-relaxed font-light text-slate-600 dark:text-slate-400">
               这里是 {siteMetadata.author} 的个人博客。持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
           </div>
@@ -274,7 +274,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
             <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-6 rounded-3xl">
-              <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
+              <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
               <div className="mt-4.5 flex flex-wrap gap-2.5">
                 {trendingTags.map((tag) => (
                   <Tag key={tag} text={tag} />
