@@ -30,17 +30,17 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
   }
 
   return (
-    <div className="space-y-10 pb-14 pt-8 sm:pt-12">
-      <section className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/60 px-5 py-9 shadow-2xl shadow-primary-100/70 backdrop-blur-md sm:px-8 sm:py-12 dark:border-white/10 dark:bg-gray-950/50 dark:shadow-primary-950/30">
+    <div className="space-y-6 pb-10 pt-6 sm:space-y-10 sm:pb-14 sm:pt-8 md:pt-12">
+      <section className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/60 px-4 py-7 shadow-2xl shadow-primary-100/70 backdrop-blur-md sm:rounded-3xl sm:px-5 sm:py-9 md:px-8 md:py-12 dark:border-white/10 dark:bg-gray-950/50 dark:shadow-primary-950/30">
         <div className="hero-grid pointer-events-none absolute inset-0" />
         <div className="relative max-w-3xl">
           <p className="mb-4 inline-flex rounded-full border border-primary-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-primary-600 shadow-sm backdrop-blur dark:border-primary-500/20 dark:bg-gray-900/60 dark:text-primary-300">
             AI Prompt 使用记录库
           </p>
-          <h1 className="text-4xl font-black tracking-tight text-gray-950 sm:text-5xl md:text-6xl dark:text-white">
+          <h1 className="text-2xl font-black tracking-tight text-gray-950 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl dark:text-white">
             Prompt <span className="gradient-text">Library</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-gray-600 sm:text-lg dark:text-gray-300">
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-gray-600 sm:mt-5 sm:text-base sm:leading-8 md:text-lg dark:text-gray-300">
             记录我平时高频使用的 AI Prompt，方便复制、复用和持续迭代。
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
         {filteredPrompts.map((item, index) => (
           <article
             key={item.title}
-            className="post-card-motion group flex flex-col rounded-3xl border border-white/60 bg-white/70 p-5 shadow-lg shadow-primary-100/50 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/80 sm:p-6 dark:border-white/10 dark:bg-gray-900/60 dark:shadow-black/30 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30"
+            className="post-card-motion group flex flex-col rounded-2xl border border-white/60 bg-white/70 p-4 shadow-lg shadow-primary-100/50 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/80 sm:rounded-3xl sm:p-6 dark:border-white/10 dark:bg-gray-900/60 dark:shadow-black/30 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30"
             style={{ animationDelay: `${index * 55}ms` }}
           >
             <div className="flex flex-1 flex-col gap-5">
@@ -97,7 +97,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
+                <h3 className="text-xl font-bold tracking-tight text-gray-950 sm:text-2xl dark:text-white">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{item.description}</p>
@@ -114,7 +114,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                 ))}
               </div>
 
-              <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-words rounded-2xl border border-gray-200/80 bg-white/60 p-4 text-sm leading-7 text-gray-700 shadow-inner shadow-gray-100/60 backdrop-blur dark:border-gray-800/80 dark:bg-gray-950/50 dark:text-gray-200 dark:shadow-black/20">
+              <pre className="max-h-60 overflow-auto whitespace-pre-wrap break-words rounded-xl border border-gray-200/80 bg-white/60 p-3 text-sm leading-7 text-gray-700 shadow-inner shadow-gray-100/60 backdrop-blur sm:rounded-2xl sm:p-4 dark:border-gray-800/80 dark:bg-gray-950/50 dark:text-gray-200 dark:shadow-black/20">
                 {item.prompt}
               </pre>
             </div>

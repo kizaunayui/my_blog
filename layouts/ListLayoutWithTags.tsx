@@ -79,17 +79,17 @@ export default function ListLayoutWithTags({
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
-    <div className="list-layout-page py-10 sm:py-14">
-      <div className="list-layout-heading mb-8 rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-6 py-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:px-8">
+    <div className="list-layout-page py-6 sm:py-10 md:py-14">
+      <div className="list-layout-heading mb-6 rounded-2xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-4 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:mb-8 sm:rounded-3xl sm:px-6 sm:py-8 md:px-8">
         <p className="mb-3 font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
           Blog Archive · 文章归档
         </p>
-        <h1 className="font-serif text-3xl font-light tracking-wide text-gray-900 dark:text-white sm:text-4xl md:text-5xl">
+        <h1 className="font-serif text-2xl font-light tracking-wide text-gray-900 dark:text-white sm:text-3xl md:text-4xl lg:text-5xl">
           {title}
         </h1>
       </div>
 
-      <div className="list-layout-grid flex gap-8 sm:gap-10">
+      <div className="list-layout-grid flex gap-6 sm:gap-8 md:gap-10">
         <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:block">
           {pathname.startsWith('/blog') ? (
             <h3 className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100">All Posts · 所有文章</h3>
@@ -131,7 +131,7 @@ export default function ListLayoutWithTags({
               const { path, date, title, summary, tags } = post
               return (
                 <li key={path}>
-                  <article className="premium-row group border-b border-slate-200/50 dark:border-white/10 py-7 px-2">
+                  <article className="premium-row group border-b border-slate-200/50 dark:border-white/10 py-5 px-1 sm:py-7 sm:px-2">
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-3 py-1 font-heading text-[11px] font-black uppercase tracking-[0.16em] text-cyan-800 shadow-sm dark:border-cyan-300/50 dark:bg-cyan-950/75 dark:text-white dark:shadow-[0_0_18px_rgba(34,211,238,0.22)]">
@@ -142,7 +142,7 @@ export default function ListLayoutWithTags({
                     </dl>
                     <div className="mt-3.5 space-y-3">
                       <div>
-                        <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 dark:text-white leading-tight">
+                        <h2 className="font-serif text-xl font-light tracking-wide text-gray-950 dark:text-white sm:text-2xl leading-tight">
                           <Link href={`/${path}`} className="premium-row-link text-slate-950 hover:text-cyan-600 dark:text-white dark:hover:text-cyan-100">
                             {title}
                           </Link>

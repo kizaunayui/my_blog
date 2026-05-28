@@ -68,11 +68,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   return (
     <>
       <ScrollTopAndComment />
-      <article className="py-10 sm:py-12">
-        <header className="animate-fade-up mb-8 rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-6 py-12 text-center shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:px-10">
+      <article className="py-6 sm:py-10 md:py-12">
+        <header className="animate-fade-up mb-6 rounded-2xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-4 py-8 text-center shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:mb-8 sm:rounded-3xl sm:px-6 sm:py-10 md:px-10 md:py-12">
           <dl>
             <dt className="sr-only">Published on</dt>
-            <dd className="inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-4 py-1.5 font-heading text-sm font-black uppercase tracking-[0.18em] text-cyan-800 shadow-sm dark:border-cyan-300/55 dark:bg-cyan-950/80 dark:text-white dark:shadow-[0_0_22px_rgba(34,211,238,0.28)]">
+            <dd className="inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-3 py-1 font-heading text-xs font-black uppercase tracking-[0.18em] text-cyan-800 shadow-sm sm:px-4 sm:py-1.5 sm:text-sm dark:border-cyan-300/55 dark:bg-cyan-950/80 dark:text-white dark:shadow-[0_0_22px_rgba(34,211,238,0.28)]">
               <time dateTime={date}>
                 {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
               </time>
@@ -83,8 +83,8 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </div>
         </header>
 
-        <section className="mb-8 rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 p-5 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:p-6">
-          <div className="grid gap-5 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,0.8fr)_minmax(0,1fr)] xl:items-center">
+        <section className="mb-6 rounded-2xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 p-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:mb-8 sm:rounded-3xl sm:p-6">
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,0.8fr)_minmax(0,1fr)] xl:items-center">
             <div className="flex flex-wrap items-center gap-4">
               {authorDetails.map((author) => (
                 <div className="flex items-center gap-3" key={author.name}>
@@ -177,7 +177,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
           <div className={postContentClassName}>{children}</div>
 
-          <div className="post-meta-card rounded-3xl border border-white/25 bg-white/50 p-5 text-sm font-bold text-slate-800 shadow-xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/60 dark:text-slate-100">
+          <div className="post-meta-card rounded-2xl border border-white/25 bg-white/50 p-4 text-sm font-bold text-slate-800 shadow-xl shadow-slate-950/20 backdrop-blur-2xl sm:rounded-3xl sm:p-5 dark:border-slate-400/20 dark:bg-slate-950/60 dark:text-slate-100">
             <Link href={discussUrl(slug)} rel="nofollow" className="text-cyan-800 hover:text-cyan-900 dark:text-cyan-100 dark:hover:text-white">
               Discuss on Twitter
             </Link>
@@ -189,7 +189,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
           {siteMetadata.comments && (
             <div
-              className="post-meta-card rounded-3xl border border-white/25 bg-white/50 p-6 text-center font-bold text-slate-800 shadow-xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/60 dark:text-slate-100"
+              className="post-meta-card rounded-2xl border border-white/25 bg-white/50 p-4 text-center font-bold text-slate-800 shadow-xl shadow-slate-950/20 backdrop-blur-2xl sm:rounded-3xl sm:p-6 dark:border-slate-400/20 dark:bg-slate-950/60 dark:text-slate-100"
               id="comment"
             >
               <Comments slug={slug} />

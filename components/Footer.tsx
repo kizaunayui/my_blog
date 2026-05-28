@@ -4,8 +4,8 @@ import SocialIcon from '@/components/social-icons'
 
 export default function Footer() {
   return (
-    <footer className="site-footer mt-16 mb-8">
-      <div className="footer-glass-panel mx-auto flex max-w-4xl flex-col items-center rounded-2xl border border-white/12 bg-white/8 px-6 py-6 backdrop-blur-xl sm:px-8">
+    <footer className="site-footer mt-10 mb-6 sm:mt-16 sm:mb-8">
+      <div className="footer-glass-panel mx-auto flex max-w-4xl flex-col items-center rounded-xl border border-white/12 bg-white/8 px-4 py-5 backdrop-blur-xl sm:rounded-2xl sm:px-6 sm:py-6 md:px-8">
         <div className="mb-4 flex flex-wrap justify-center gap-4">
           <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
           <SocialIcon kind="github" href={siteMetadata.github} size={6} />

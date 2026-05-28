@@ -325,10 +325,17 @@ header button, header svg {
 
 @media (max-width: 640px) {
   header {
-    margin-top: 0.5rem;
-    border-radius: 1.25rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    margin-top: 0.3rem;
+    border-radius: 1.15rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  header > a > div > div:first-child img {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 
   header .no-scrollbar {

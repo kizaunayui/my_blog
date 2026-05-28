@@ -181,8 +181,9 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   .post-content-card {
-    border-radius: 1.5rem;
-    padding: 1.25rem;
+    border-radius: 1.25rem;
+    padding: 1rem;
+    font-size: 1rem;
   }
 
   .post-content-card pre,
@@ -190,6 +191,41 @@
   .post-content-card table,
   .post-content-card img,
   .post-content-card video {
-    border-radius: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .post-content-card pre {
+    padding: 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .post-content-card h1 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .post-content-card h2 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  .post-content-card h3 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .post-content-card blockquote {
+    padding: 0.85rem 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .post-content-card table td,
+  .post-content-card table th {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .post-content-card .katex-display {
+    padding: 0.75rem;
   }
 }
