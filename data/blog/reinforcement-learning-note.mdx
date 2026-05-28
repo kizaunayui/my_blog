@@ -82,20 +82,22 @@ R (奖励函数)：获得奖励的数学期望。
 
 **state value**
 
-图 回报与状态价值深度对比
-
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-01.png" alt="强化学习笔记配图 01" className="mx-auto h-auto w-full rounded-xl object-contain" />
-</figure>
 
-图 状态价值的形式定义
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 1 回报与状态价值的关系</figcaption>
+</figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-02.png" alt="强化学习笔记配图 02" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 2 状态价值函数的形式定义</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-03.png" alt="强化学习笔记配图 03" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 3 状态价值的计算逻辑与示例</figcaption>
 </figure>
 
 ### 5，贝尔曼公式（bellman equation）
@@ -104,20 +106,26 @@ R (奖励函数)：获得奖励的数学期望。
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-04.png" alt="强化学习笔记配图 04" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 4 Bellman 方程 of 矩阵形式</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-05.png" alt="强化学习笔记配图 05" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 5 Bellman 方程的分量展开形式</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-06.png" alt="强化学习笔记配图 06" className="mx-auto h-auto w-full rounded-xl object-contain" />
-</figure>
 
-图 .贝尔曼方程 (Bellman Equation) 的推导与构成（较难理解）
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 6 状态价值与动作价值的关系</figcaption>
+</figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-07.png" alt="强化学习笔记配图 07" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 7 Bellman 方程的推导与构成</figcaption>
 </figure>
 
 实际上就是每个Action value在策略下的平均值
@@ -137,10 +145,10 @@ R (奖励函数)：获得奖励的数学期望。
 
 给定一个policy—>列出他的贝尔曼方程—>求解这个贝尔曼公式，得到他的state value—>这个过程就叫policy evaluation
 
-图 下面是两种求解方法
-
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-08.png" alt="强化学习笔记配图 08" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 8 策略评估的两种求解方法</figcaption>
 </figure>
 
 一般采用第二种，计算量较低
@@ -149,38 +157,54 @@ R (奖励函数)：获得奖励的数学期望。
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-09.png" alt="强化学习笔记配图 09" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 9 动作价值函数的形式定义</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-10.png" alt="强化学习笔记配图 10" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 10 动作价值与状态价值的转换关系</figcaption>
 </figure>
 
 ### 8，bellman最优公式
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-11.png" alt="强化学习笔记配图 11" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 11 Bellman 最优方程</figcaption>
 </figure>
 
 ### 9，价值迭代 Value Iteration
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-12.png" alt="强化学习笔记配图 12" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 12 价值迭代的基本思想</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-13.png" alt="强化学习笔记配图 13" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 13 价值迭代的更新过程</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-14.png" alt="强化学习笔记配图 14" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 14 价值函数迭代示例</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-15.png" alt="强化学习笔记配图 15" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 15 由价值函数导出最优策略</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-16.png" alt="强化学习笔记配图 16" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 16 Policy Iteration、Value Iteration 与 Truncated Policy Iteration 对比</figcaption>
 </figure>
 
 图 policy iteration，value iteration，truncated policy iteration的对比（k为迭代次数，若考虑到计算量，则需重新考虑）
@@ -189,6 +213,8 @@ R (奖励函数)：获得奖励的数学期望。
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-17.png" alt="强化学习笔记配图 17" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 17 Monte Carlo 估计方法</figcaption>
 </figure>
 
 之前都是基于有模型的计算（已知环境中各种事件的概率）而model-free是不知道概率转移函数的
@@ -228,6 +254,8 @@ MC Basic 是将经典策略迭代（Policy Iteration）改造为免模型模式�
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-18.png" alt="强化学习笔记配图 18" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 18 一个 Episode 中状态—动作序列的表达</figcaption>
 </figure>
 
 #### 图 一个episode的表达式
@@ -244,6 +272,8 @@ MC Exploring Starts算法强制确保每一个状态-动作对 都有非零概�
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-19.png" alt="强化学习笔记配图 19" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 19 ε-Greedy 策略的动作选择概率</figcaption>
 </figure>
 
 
@@ -261,24 +291,32 @@ MC Exploring Starts算法强制确保每一个状态-动作对 都有非零概�
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-20.png" alt="强化学习笔记配图 20" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 20 增量式均值估计方法</figcaption>
 </figure>
 
 #### 最后公式
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-21.png" alt="强化学习笔记配图 21" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 21 增量式更新公式</figcaption>
 </figure>
 
 ### 15，Robbins-Monro (RM) 算法
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-22.png" alt="强化学习笔记配图 22" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 22 Robbins-Monro 随机逼近算法</figcaption>
 </figure>
 
 新估计 = 老估计 + 学习率 x[ 带有噪声的新观测值 - 老估计 ]
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-23.png" alt="强化学习笔记配图 23" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 23 Robbins-Monro 更新形式</figcaption>
 </figure>
 
 ## TD、Sarsa 与 Q-Learning
@@ -291,6 +329,8 @@ MC Exploring Starts算法强制确保每一个状态-动作对 都有非零概�
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-24.png" alt="强化学习笔记配图 24" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 24 TD 方法的状态价值更新公式</figcaption>
 </figure>
 
 应用是给定一个policy，求解该策略的state value（完成policy evaluation）
@@ -299,10 +339,14 @@ Ps：适用于model free的情况
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-25.png" alt="强化学习笔记配图 25" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 25 TD Target 与 TD Error</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-26.png" alt="强化学习笔记配图 26" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 26 TD 方法与 Monte Carlo 方法对比</figcaption>
 </figure>
 
 图 TD算法和MC算法的一些差距
@@ -313,18 +357,24 @@ Sarsa算法所依赖的数据，也是它名字的来历
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-27.png" alt="强化学习笔记配图 27" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 27 Sarsa 算法的数据结构</figcaption>
 </figure>
 
 Sarsa算法实际上是求解action value，用action value代替了bellman公式里的state value
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-28.png" alt="强化学习笔记配图 28" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 28 Sarsa 的动作价值更新公式</figcaption>
 </figure>
 
 进阶sarsa算法：expected sarsa
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-29.png" alt="强化学习笔记配图 29" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 29 Expected Sarsa 更新公式</figcaption>
 </figure>
 
 有效减小了因为概率导致的方差 着重注意variance和bias的区别
@@ -333,6 +383,8 @@ Sarsa算法实际上是求解action value，用action value代替了bellman公�
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-30.png" alt="强化学习笔记配图 30" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 30 n-step Sarsa 的回报估计方式</figcaption>
 </figure>
 
 这里的n代表前多少步是实际的action执行得到的reward，后面的都是根据action value估计出来的reward
@@ -347,14 +399,20 @@ Q-Learning的式子和操作步骤
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-31.png" alt="强化学习笔记配图 31" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 31 Q-Learning 更新公式</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-32.png" alt="强化学习笔记配图 32" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 32 Q-Learning 算法步骤</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-33.png" alt="强化学习笔记配图 33" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 33 Q-Learning 的策略更新过程</figcaption>
 </figure>
 
 区别在于TD-target不一样：
@@ -374,6 +432,8 @@ Q-learning 是立即奖励+下一最优动作 的价值。
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-34.png" alt="强化学习笔记配图 34" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 34 Q-Learning 对应的 Bellman 最优方程</figcaption>
 </figure>
 
 新Q = 老Q值 + 学习率 x [ (即时奖励 + 折扣因子 x 未来最好的Q值) - 老Q值 ]
@@ -398,12 +458,16 @@ Off-policy：behavior policy和 target policy 是不同的(Q-Learning)
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-35.png" alt="强化学习笔记配图 35" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 35 TD 类算法的目标值对比</figcaption>
 </figure>
 
 主要区别是TD-target不一样
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-36.png" alt="强化学习笔记配图 36" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 36 TD、Sarsa、Expected Sarsa 与 Q-Learning 的 Target 差异</figcaption>
 </figure>
 
 ## 函数近似、DQN 与策略梯度
@@ -416,12 +480,16 @@ Off-policy：behavior policy和 target policy 是不同的(Q-Learning)
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-37.png" alt="强化学习笔记配图 37" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 37 价值函数近似的基本框架</figcaption>
 </figure>
 
 线性特征（TD-linear）（叫做线性的主要原因是因为做乘算）
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-38.png" alt="强化学习笔记配图 38" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 38 线性特征与 TD-linear 近似</figcaption>
 </figure>
 
 主要的任务是拟合一个合适的feature vector，阶数越高，拟合效果越好
@@ -434,6 +502,8 @@ Sarsa和function approximation的结合：
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-39.png" alt="强化学习笔记配图 39" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 39 Sarsa 与函数近似的结合方式</figcaption>
 </figure>
 
 ### 21，Deep Q-Learning/DQN*
@@ -446,24 +516,34 @@ DQN 是将 Q-Learning 与深度神经网络（Deep Neural Networks）相结合�
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-40.png" alt="强化学习笔记配图 40" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 40 DQN 的目标函数与损失函数</figcaption>
 </figure>
 
 但是由于和共用了一个参数w，无法精准的求解，于是提出了以下两种思路
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-41.png" alt="强化学习笔记配图 41" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 41 DQN 中目标网络的引入</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-42.png" alt="强化学习笔记配图 42" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 42 DQN 双网络结构与参数更新</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-43.png" alt="强化学习笔记配图 43" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 43 经验回放机制</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-44.png" alt="强化学习笔记配图 44" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 44 DQN 训练流程</figcaption>
 </figure>
 
 Ps：双架构问题主要是解决求解不稳定的问题
@@ -483,24 +563,32 @@ Ps：双架构问题主要是解决求解不稳定的问题
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-45.png" alt="强化学习笔记配图 45" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 45 策略的表格形式与函数形式</figcaption>
 </figure>
 
 Average reward：
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-46.png" alt="强化学习笔记配图 46" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 46 Average Reward 的定义</figcaption>
 </figure>
 
 把所有状态下能拿到的奖励，按照在该状态停留的时间比例进行加权求和。
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-47.png" alt="强化学习笔记配图 47" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 47 状态分布下的平均奖励分解</figcaption>
 </figure>
 
 这是对当前状态下所有可能采取动作的奖励进行的加权平均。
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-48.png" alt="强化学习笔记配图 48" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 48 状态—动作—奖励的期望关系</figcaption>
 </figure>
 
 当你确定的在状态 s 做了动作 a，由于环境可能具有随机性，你可能会得到不同的奖励值 r。这里是对这些可能的结果求期望。
@@ -511,6 +599,8 @@ Average reward：
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-49.png" alt="强化学习笔记配图 49" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 49 策略梯度的统一表达式</figcaption>
 </figure>
 
 这里利用了两个技巧：
@@ -530,16 +620,22 @@ Average reward：
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-50.png" alt="强化学习笔记配图 50" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 50 REINFORCE 算法框架</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-51.png" alt="强化学习笔记配图 51" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 51 REINFORCE 参数更新公式</figcaption>
 </figure>
 
 ### 25，critic-actor算法
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-52.png" alt="强化学习笔记配图 52" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 52 Actor-Critic 算法结构</figcaption>
 </figure>
 
 Actor：负责策略更新（Policy Update），命名源于其主动执行动作的特性，如同演员依照剧本演绎
@@ -550,6 +646,8 @@ QAC算法（最基础的算法）
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-53.png" alt="强化学习笔记配图 53" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 53 QAC 基础算法</figcaption>
 </figure>
 
 A2C算法：
@@ -560,10 +658,14 @@ A2C算法：
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-54.png" alt="强化学习笔记配图 54" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 54 A2C 中 Baseline 与 Advantage 的引入</figcaption>
 </figure>
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-55.png" alt="强化学习笔记配图 55" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 55 A2C 算法更新流程</figcaption>
 </figure>
 
 改进之后的AC with-off on IS算法：
@@ -579,4 +681,6 @@ AC 结合重要性采样（IS）的核心先进之处在于：它打破了 A2C �
 
 <figure className="my-7 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/75 p-3 shadow-lg shadow-slate-950/10 dark:border-slate-700/70 dark:bg-slate-950/45">
   <img src="/static/images/research/reinforcement-learning-note/rl-note-56.png" alt="强化学习笔记配图 56" className="mx-auto h-auto w-full rounded-xl object-contain" />
+
+  <figcaption className="mt-3 text-center text-sm text-slate-500 dark:text-slate-400">图 56 Actor-Critic 结合重要性采样的 Off-policy 改进</figcaption>
 </figure>
