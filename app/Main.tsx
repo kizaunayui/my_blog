@@ -266,7 +266,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                 <p className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mt-0.5">Developer / Writer</p>
               </div>
             </div>
-            <p className="mt-5 text-sm leading-relaxed font-light text-slate-600 dark:text-slate-400">
+            <p className="mt-5 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400">
               这里是 {siteMetadata.author} 的个人博客。持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
           </div>
@@ -274,7 +274,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
             <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-6 rounded-3xl">
-              <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
+              <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
               <div className="mt-4.5 flex flex-wrap gap-2.5">
                 {trendingTags.map((tag) => (
                   <Tag key={tag} text={tag} />
