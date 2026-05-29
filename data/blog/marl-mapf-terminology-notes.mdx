@@ -1,0 +1,479 @@
+---
+title: '多智能体路径规划与强化学习术语整理'
+date: '2026-05-30'
+tags: ['强化学习', 'MAPF', 'MARL', '项目研究', '学习笔记']
+category: '项目研究'
+draft: false
+summary: '整理自日常学习笔记，覆盖 MAPF、CBS、A*、D* Lite、MARL、MDP、DQN、PPO、CTDE、GNN 等多智能体路径规划与强化学习核心概念。从单机路径规划到多机器人协同调度，再到多智能体强化学习优化的完整技术路线。'
+recordedAt:
+  location: '上海'
+  weather: '阴'
+---
+
+整理自日常学习与项目研究中的术语备忘录，主要涉及多智能体路径规划（MAPF）与多智能体强化学习（MARL）方向的核心概念。从单机路径规划到多机器人协同调度，再到强化学习优化，这些术语构成了一条完整的技术路线。
+
+---
+
+## 1. 基础概念
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">MAPF / MARL / MA / 鲁棒性 / 离散时间</p>
+
+### MAPF（Multi-Agent Path Finding）— 多智能体路径规划
+
+给定多个智能体以及各自的起点和终点，为每个智能体规划一条路径，使得所有智能体在移动过程中**不会互相碰撞**，同时尽可能让总代价（时间、步数）最小。
+
+直观理解：一个人走迷宫很简单，但一群人同时走迷宫、还不能撞到彼此——这就是 MAPF 要解决的问题。
+
+MAPF 是一个 **NP-hard 问题**，随着机器人数量增加，求解难度急剧上升。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 医院物流机器人场景中，多个机器人同时在走廊里配送药品和物资，MAPF 就是保证它们各走各的路、互不冲突的核心问题。
+
+</div>
+
+### MARL（Multi-Agent Reinforcement Learning）— 多智能体强化学习
+
+在 MAPF 的经典方法（如 CBS）中，规则是人设计好的；而 MARL 的思路是让多个智能体**自己通过试错学习**如何协同行动。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** MARL 是用来替代/补充传统 CBS 方法的核心技术路线。通过训练，机器人可以学会在复杂环境中自主避障、协同调度，而不需要每次都跑一遍搜索算法。
+
+</div>
+
+### MA（Multi-Agent）— 多智能体
+
+多个智能体在同一环境中同时行动、相互影响的系统架构。相比单智能体，多智能体的核心难点在于：其他智能体的行为是**不可预测的**，环境会因为其他智能体的动作而不断变化。
+
+### 鲁棒性（Robustness）
+
+一个系统面对意外、错误或极端情况时，依然能稳定工作而不会轻易崩溃。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在 MAPF 中：** 鲁棒性通常指当某个机器人突然故障、或有障碍物突然出现时，整个系统能否快速恢复、继续运行。CBS 算法本身是"最优但脆弱"的，所以后续研究都在想办法提高它的鲁棒性。
+
+</div>
+
+### 离散时间（Discrete Time）
+
+把连续的时间切成一个个时间步（time step），智能体每个时间步做一次决策。
+
+这是 MAPF 和 RL 建模的基础假设。现实世界是连续的，但离散化后计算复杂度大幅降低，方便用图搜索或强化学习来处理。
+
+---
+
+## 2. 路径规划算法
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">Floyd / A* / D* Lite</p>
+
+### Floyd 算法
+
+利用**动态规划**思想，一次性计算出地图上**任意两点之间**的最短路径。
+
+直观理解：相当于提前把所有地点之间的最短路都算好，存成一张表，之后查表就行。适合地图不大、但需要频繁查询任意两点距离的场景。缺点是时间复杂度 $O(n^3)$，地图大了算不动。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 可以作为预处理步骤，提前算好所有节点间的最短距离，供后续任务分配算法使用。
+
+</div>
+
+### A* 算法
+
+最经典的**启发式搜索**算法。在 Dijkstra 算法的基础上加了一个"启发函数"（通常是到终点的预估距离），让搜索有方向性，不用盲目地向四面八方扩展。
+
+直观理解：A* 就像一个有导航的探险家，不光看脚下的路，还会参考"终点大概在哪个方向"来决定先走哪里。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在 CBS 中的作用：** A* 常作为 CBS 的**底层搜索算法**，为单个智能体规划路径。CBS 的高层负责处理冲突，底层就靠 A* 来算路。
+
+</div>
+
+### D* Lite
+
+一种**增量式**路径规划算法，特别适用于**动态环境**。
+
+核心思想：当环境发生变化（比如突然出现障碍物），D* Lite 不需要从头计算，而是利用上一次的计算结果**快速重规划**。它采用反向搜索（从终点向起点搜索），所以当起点附近的环境变化时，受影响的区域很小。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 医院走廊里经常有行人、推车等动态障碍物，D* Lite 比 A* 更适合这种需要实时调整路径的场景。
+
+</div>
+
+| 算法 | 适用场景 | 时间复杂度 | 特点 |
+|------|---------|-----------|------|
+| Floyd | 小地图，频繁查询任意两点距离 | $O(n^3)$ | 预处理后查询 $O(1)$ |
+| A* | 静态环境，单次最短路搜索 | 取决于启发函数 | CBS 底层常用 |
+| D* Lite | 动态环境，需要增量重规划 | 接近 $O(n)$ | 反向搜索，局部更新 |
+
+---
+
+## 3. 多智能体路径规划方法
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">CBS / 约束树 / PIBT / LaCAM / 死锁</p>
+
+### CBS（Conflict-Based Search）— 基于冲突的搜索
+
+CBS 是解决 MAPF 问题最经典的方法之一，核心思路是**分两层**：
+
+- **底层**：先不管其他机器人，每个智能体各自用 A* 规划最短路径
+- **高层**：检查所有智能体的路径是否有冲突（碰撞），如果有，就添加约束、重新规划冲突的那个智能体，直到没有冲突为止
+
+直观理解：先让大家各走各的，发现有人要撞上了，再单独调整那个人的路线，反复迭代直到没人冲突。
+
+CBS 保证找到**最优解**，但随着机器人数量增加，计算量可能爆炸式增长。
+
+### 约束树（Constraint Tree, CT）
+
+CBS 高层搜索的核心数据结构。每次发现一个冲突，就把当前节点**分裂**成两个子节点，分别给冲突双方添加不同的约束（比如"你不能在 $t$ 时刻经过位置 $x$"）。
+
+直观理解：像一棵决策树，每遇到一次冲突就分一次叉，不断穷举解决冲突的所有可能性，直到找到一个没有冲突且代价最小的方案。
+
+### PIBT（Priority Inheritance with Backtracking）— 带回溯的优先级继承
+
+一种**极其轻量级**的 MAPF 算法。核心思想：给每个智能体分配优先级，优先级高的先走；如果低优先级的挡了路，就临时提升它的优先级（继承），让它先走。
+
+和 CBS 的区别：CBS 通过搜索找最优解，PIBT 通过贪心策略快速找到一个**可行解**（不一定最优），但速度极快，适合大规模场景。
+
+### LaCAM（Lazy Constraints Addition Search）
+
+LaCAM 的思路是：先用一种**极其快速的贪心机制**生成一个可能的方向，如果走不通，再通过搜索来修正。
+
+和 PIBT 类似，LaCAM 追求的是**速度**而非最优性，适合需要实时响应的大规模 MAPF 场景。
+
+### 死锁（Deadlock）
+
+两个或多个智能体因**互相等待对方释放资源**而陷入永远无法继续的僵持状态。
+
+直观理解：两个人在窄走廊里面对面，你让我先过、我让你先过，结果谁也过不去。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在 MAPF 中：** 死锁是必须处理的问题。PIBT 和 LaCAM 等算法都有各自的死锁检测与解除机制。
+
+</div>
+
+| 方法 | 最优性 | 速度 | 适用规模 |
+|------|-------|------|---------|
+| CBS | ✅ 最优 | 慢 | 小规模（10 个以下机器人） |
+| PIBT | ❌ 可行解 | 极快 | 大规模 |
+| LaCAM | ❌ 可行解 | 极快 | 大规模 |
+
+---
+
+## 4. 任务分配与组合优化
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">匈牙利算法 / MG-TAPF / CBS-TA / ALNS / TSP-D</p>
+
+### 匈牙利算法（Hungarian Algorithm）
+
+在**二分图**中寻找"完美匹配"的多项式时间算法。核心是通过不断寻找"增广路径"来打破当前的局部平衡，实现全局成本最低的分配。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 当有 $N$ 个配送任务和 $M$ 个机器人时，匈牙利算法可以快速算出"哪个机器人去做哪个任务"总代价最小。这是任务分配层的经典解法。
+
+</div>
+
+### MG-TAPF（Multi-Goal Task Assignment and Path Finding）— 多目标多智能体任务分配与路径规划
+
+比普通 MAPF 更复杂：不仅包含路径规划，还包含**任务分配**——每个机器人应该去做哪个任务、按什么顺序做。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 医院物流机器人不仅要"走到目标点不撞车"，还要先决定"谁去送哪个药"，这就是 MG-TAPF 要解决的问题。
+
+</div>
+
+### CBS-TA（CBS with Task Assignment）
+
+在 CBS 的基础上加入任务分配能力，用于解决**多智能体多任务路径规划**问题。先分配任务，再用 CBS 规划路径，如果路径冲突就回溯重新分配。
+
+### ALNS（Adaptive Large Neighborhood Search）— 自适应大规模邻域搜索
+
+一种**元启发式**优化算法。核心思想：维护一组"破坏-修复"算子，根据历史表现自适应地选择最有效的算子组合。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 当任务规模很大（比如几十个配送点、十几个机器人）时，精确算法算不动，ALNS 可以在合理时间内找到一个**近似最优**的方案。
+
+</div>
+
+### TSP-D（Traveling Salesman Problem with Drone）— 车辆与无人机联合配送问题
+
+车辆和无人机协同配送的组合优化问题。车辆走大路，无人机可以飞到车辆不方便到达的地方，两者配合完成配送。
+
+虽然我们的项目是地面机器人，但 TSP-D 的**多载具协同配送**思想是有参考价值的。
+
+---
+
+## 5. 强化学习相关概念
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">RL / DL / MDP / Q-Learning / DQN / Double DQN / PPO / Softmax / 神经网络</p>
+
+### 强化学习（RL）vs 深度学习（DL）
+
+- **深度学习**主要解决"**是什么**"：从数据中识别特征与规律（如感知环境、图像识别）
+- **强化学习**主要解决"**怎么做**"：通过试错来制定最优策略（如路径规划、决策）
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**两者的关系：** 深度学习为强化学习提供了强大的**感知能力**（用神经网络处理复杂的输入），强化学习则提供了**决策框架**。深度强化学习（DRL）= 两者结合。
+
+</div>
+
+### MDP（Markov Decision Process）— 马尔可夫决策过程
+
+强化学习的数学基础框架，定义了一个决策问题的四个要素：
+
+| 要素 | 含义 | 医院场景对应 |
+|------|------|------------|
+| 状态 $S$ | 环境的描述 | 机器人当前位置、走廊拥堵情况 |
+| 动作 $A$ | 智能体可以做的事 | 上/下/左/右/等待 |
+| 转移 $P$ | 做了某个动作后，状态怎么变 | 向右走一步，位置从 $(2,3)$ 变成 $(3,3)$ |
+| 奖励 $R$ | 做得好不好 | 到达目标 +10，碰撞 -100，每步 -1 |
+
+**马尔可夫性**：下一个状态只取决于当前状态和动作，和历史无关。这个假设让问题变得可处理。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**补充理解：** 马尔可夫性并不是说历史真的没有影响，而是当前状态表示已经吸收了足够的历史信息。如果状态表示不完全，问题就更接近 POMDP（部分可观测 MDP），需要用历史窗口或递归网络来补足可观测性。
+
+</div>
+
+### Q-Learning
+
+属于**价值驱动**的 RL 算法。核心思想：学习一个 $Q(s, a)$ 函数，表示"在状态 $s$ 做动作 $a$，之后按最优策略走，总共能拿多少奖励"。
+
+直观理解：Q-Learning 建了一张"价值表"，告诉你在每个位置做每个动作值多少钱，最后总是选最值钱的动作。
+
+Q-Learning 的更新公式：
+
+$$Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s,a) \right]$$
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**On-policy vs Off-policy：** Q-Learning 是 **Off-policy** 算法——行为策略（如 $\epsilon$-greedy）负责探索，目标策略（贪婪策略）负责学习。即使数据来自带探索的行为策略，也能朝最优策略逼近。相比之下，Sarsa 是 On-policy，行为策略和目标策略相同，更保守。
+
+</div>
+
+### DQN（Deep Q-Network）— 深度 Q 网络
+
+Q-Learning + 神经网络。当状态空间太大（比如一张 $50 \times 50$ 的地图），不可能为每个状态-动作对建表，就用神经网络来**近似** $Q$ 函数。
+
+- DQN 的"深度"部分负责理解复杂的地图环境（障碍物分布等）
+- "Q 网络"部分负责判断"往哪走能最快到达终点且不撞车"
+
+经典 DQN 的两个关键技巧：
+
+1. **经验回放**：把过去的经验存起来、随机抽样训练，打破数据相关性
+2. **目标网络**：用一个延迟更新的网络来计算目标值，稳定训练
+
+### Double DQN
+
+标准 DQN 有一个问题：会**过分高估**动作的价值。Double DQN 的解决办法是把任务分给两个网络：
+
+- **当前网络**：负责选出它认为最好的动作
+- **目标网络**：负责计算这个动作到底值多少分
+
+两个网络各司其职，避免了"自我感觉过于良好"的问题。
+
+### PPO（Proximal Policy Optimization）— 近端策略优化
+
+和 DQN 不同，PPO 属于**策略驱动**的 RL 算法。
+
+| 对比 | DQN | PPO |
+|------|-----|-----|
+| 学什么 | 每个动作值多少分（$Q$ 值） | 直接学习策略（每个动作的概率） |
+| 输出 | $Q(s, a)$ 的数值 | 动作的概率分布 |
+| 风格 | 价值驱动，间接选动作 | 策略驱动，直接选动作 |
+
+PPO 的核心优势：**稳定**。它通过限制每次策略更新的幅度（"近端"），避免了策略剧烈变化导致的训练崩溃。是目前最常用的 RL 算法之一。
+
+### Softmax
+
+把一组任意实数转换成**概率分布**（和为 1）。
+
+直观理解：假设三个动作的打分是 $[2, 1, 0.1]$，Softmax 后变成 $[0.659, 0.242, 0.099]$，表示选第一个动作的概率约 66%。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在 RL 中的用途：** 策略网络的输出层通常用 Softmax，把原始打分转成"选每个动作的概率"。
+
+</div>
+
+### 神经网络（Neural Network）
+
+一个复杂的"万能函数"：输入一组数据，通过内部计算，输出一个你想要的结果。
+
+三层结构：
+
+- **输入层**：接收原始数据（比如地图的状态编码）
+- **隐藏层**：逐层提取特征、进行非线性变换
+- **输出层**：输出最终结果（比如每个动作的 $Q$ 值或概率）
+
+**卷积层**的作用：把原始的像素/地图数据，通过层层"过滤"和"提纯"，转换成模型能理解的环境特征。
+
+---
+
+## 6. 多智能体强化学习与协同机制
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">CTDE / GNN / MAGAT / PRIMAL</p>
+
+### CTDE（Centralized Training with Decentralized Execution）— 集中式训练，分布式执行
+
+多智能体强化学习最核心的训练范式：
+
+- **训练时**：Critic 拥有"上帝视角"，可以看到所有机器人的状态，负责统筹全局、指导 Actor 学习
+- **执行时**：Critic 被移除，每个机器人的 Actor 依靠自己的**局部观测**独立行动
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**为什么需要 CTDE？** 单个机器人只能看到自己周围的情况（局部观测），但训练时如果也只给局部信息，就很难学到"协同"。CTDE 的妙处在于：训练时用全局信息学协同，执行时只用局部信息，兼顾了学习效率和实际可行性。
+
+</div>
+
+### GNN（Graph Neural Network）— 图神经网络
+
+专门处理**图结构数据**的深度学习模型。在多智能体场景中，机器人之间的关系天然可以用图来表示（节点 = 机器人，边 = 通信/距离关系）。
+
+GNN 的核心思想：每个节点通过"聚合"邻居节点的信息来更新自己的特征表示，经过多轮聚合后，每个节点就能"感知"到更大范围的结构信息。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 医院里的机器人可以通过 GNN 来"理解"其他机器人的位置和意图，实现更好的协同。
+
+</div>
+
+### MAGAT（Message-aware Graph Attention Network）— 消息感知图注意力网络
+
+在 GNN 基础上加入**注意力机制**：不是所有邻居的信息都同等重要，模型会自动学习"该重点关注哪个邻居的消息"。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 当多个机器人互相通信时，MAGAT 可以帮助每个机器人判断"谁的信息对我最重要"，从而做出更合理的协同决策。这是一种非常前沿的方法。
+
+</div>
+
+### PRIMAL（Pathfinding via Reinforcement and Imitation Multi-Agent Learning）
+
+将**强化学习和模仿学习**结合的多智能体路径规划方法。
+
+- **强化学习**：通过试错自己探索
+- **模仿学习**：从专家示范（比如 CBS 生成的最优解）中学习
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**两者结合的好处：** 纯 RL 探索效率低、容易陷入局部最优；模仿学习可以给一个"好的起点"，加速训练。可以先用 CBS 生成一批高质量的路径作为示范数据，再用 PRIMAL 的方式训练 RL 模型。
+
+</div>
+
+| 方法 | 训练方式 | 执行方式 | 核心优势 |
+|------|---------|---------|---------|
+| CTDE | 全局信息 | 局部观测 | 兼顾协同学习与实际部署 |
+| GNN | 图结构聚合 | 图结构推理 | 处理拓扑关系 |
+| MAGAT | 注意力加权聚合 | 注意力推理 | 自动筛选重要信息 |
+| PRIMAL | RL + 模仿学习 | 策略网络 | 学习效率高 |
+
+---
+
+## 7. 工程通信与实验评价
+
+<p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">HTTP / MQTT / 消融实验 / 帕累托集</p>
+
+### HTTP 协议
+
+用于处理**非实时、大数据量**的交互。请求-响应模式，一次请求一次回复。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 适合机器人向服务器请求任务详情、上传配送记录等非实时场景。
+
+</div>
+
+### MQTT（Message Queuing Telemetry Transport）协议
+
+一种轻量级的**发布/订阅**协议，专为物联网设计。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 机器人需要实时上报位置、接收调度指令，MQTT 的低延迟和低带宽特性非常适合这种场景。和 HTTP 互补使用。
+
+</div>
+
+### 消融实验（Ablation Study）
+
+把模型中的某个模块**去掉**，看性能下降多少，从而判断这个模块有没有用。
+
+直观理解：想知道"发动机"对汽车重不重要？把发动机拆了，看车还能不能跑。如果跑不动了，说明发动机是关键部件。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 如果用了 GNN + CTDE + PPO 的组合模型，可以通过消融实验分别验证 GNN 的贡献、CTDE 的贡献，让实验结论更有说服力。
+
+</div>
+
+### 帕累托集（Pareto Set）
+
+在多目标优化中，所有**无法在不降低至少一个目标的前提下使其他目标进一步优化**的非支配解的集合。
+
+直观理解：假设要在"配送效率"和"运行安全"之间权衡——帕累托集就是所有"不可能同时让两个指标都更好"的方案集合。你只能在效率和安全之间选一个平衡点，不存在"又快又绝对安全"的完美方案。
+
+<div className="my-6 rounded-2xl border border-cyan-200/70 bg-cyan-50/80 p-5 text-[0.95rem] leading-8 text-slate-700 shadow-sm dark:border-cyan-400/25 dark:bg-cyan-950/25 dark:text-slate-200">
+
+**在项目中的作用：** 医院物流机器人系统需要同时考虑效率、安全、能耗等多个目标，帕累托集可以帮助我们找到各种最优权衡方案，供决策者选择。
+
+</div>
+
+---
+
+## 8. 总结
+
+这些概念可以看作一条从**单机器人路径规划**到**多机器人协同调度**，再到**多智能体强化学习优化**的技术路线：
+
+```
+单机路径规划 (A*, D* Lite, Floyd)
+    ↓
+多机冲突处理 (CBS, 约束树, PIBT, 死锁处理)
+    ↓
+任务分配 (匈牙利算法, MG-TAPF, CBS-TA, ALNS)
+    ↓
+强化学习决策 (MDP, DQN, PPO)
+    ↓
+多智能体协同 (CTDE, GNN, MAGAT, PRIMAL)
+    ↓
+工程实现与评价 (MQTT, 消融实验, 帕累托集)
+```
+
+经典方法（CBS 等）提供最优性保证但计算量大，强化学习方法（MARL 等）训练后推理速度快但需要大量训练数据。两者不是替代关系，而是互补的。
+
+---
+
+## 术语速查表
+
+| 缩写 | 全称 | 一句话 |
+|------|------|--------|
+| MAPF | Multi-Agent Path Finding | 多机器人同时走路不撞车 |
+| MARL | Multi-Agent Reinforcement Learning | 多机器人通过试错学习协同 |
+| CBS | Conflict-Based Search | 先各自规划，有冲突再调整 |
+| CT | Constraint Tree | CBS 用的冲突决策树 |
+| PIBT | Priority Inheritance with Backtracking | 按优先级走，挡路就提升优先级 |
+| LaCAM | Lazy Constraints Addition Search | 先贪心再修正，追求速度 |
+| A* | A-Star | 带导航的最短路搜索 |
+| D* Lite | D-Star Lite | 动态环境下的增量重规划 |
+| Floyd | Floyd-Warshall | 一次性算任意两点最短路 |
+| MDP | Markov Decision Process | 强化学习的数学框架 |
+| DQN | Deep Q-Network | 用神经网络估动作价值 |
+| PPO | Proximal Policy Optimization | 稳定的策略梯度方法 |
+| CTDE | Centralized Training, Decentralized Execution | 训练时看全局，执行时看局部 |
+| GNN | Graph Neural Network | 处理图结构的神经网络 |
+| MAGAT | Message-aware Graph Attention Network | 带注意力的消息聚合网络 |
+| PRIMAL | Pathfinding via RL and Imitation Multi-Agent Learning | RL + 模仿学习的多机规划 |
+| ALNS | Adaptive Large Neighborhood Search | 自适应破坏-修复的元启发式 |
+| MG-TAPF | Multi-Goal TAPF | 多任务分配 + 路径规划 |
+| TSP-D | TSP with Drone | 车辆+无人机联合配送 |
+| MQTT | Message Queuing Telemetry Transport | 物联网轻量通信协议 |
