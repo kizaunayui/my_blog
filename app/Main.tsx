@@ -131,34 +131,34 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4.5 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-400 shadow-sm backdrop-blur">
               随笔 · 学习 · 项目实践
             </p>
-            <h1 className="text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.05] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white font-serif">
-              欢迎来到 <span className="font-serif italic font-light gradient-text block sm:inline mt-1 sm:mt-0 break-words">{siteMetadata.title}</span>
+            <h1 className="text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.05] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white font-serif animate-fade-in-up">
+              欢迎来到 <span className="font-serif italic font-light gradient-text block sm:inline mt-1 sm:mt-0 break-words animate-pulse-glow">{siteMetadata.title}</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed font-light text-slate-700 dark:text-slate-300">
               {siteMetadata.description}这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3.5">
-              <Link href="/articles" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 hover:from-cyan-500 hover:to-sky-400 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-cyan-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-500/30 sm:px-6.5">
+              <Link href="/articles" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 hover:from-cyan-500 hover:to-sky-400 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-cyan-500/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-500/30 sm:px-6.5 btn-shimmer">
                 浏览文章
               </Link>
               {contentSections.map((section) => (
-                <Link key={section.href} href={section.href} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5 sm:px-5.5">
+                <Link key={section.href} href={section.href} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5 sm:px-5.5 btn-shimmer">
                   {section.title}
                 </Link>
               ))}
-              <Link href="/about" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5 sm:px-5.5">
+              <Link href="/about" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 dark:bg-slate-900/30 hover:bg-white/20 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5 sm:px-5.5 btn-shimmer">
                 关于我
               </Link>
             </div>
           </div>
 
           {featuredPost && (
-            <Link
-              href={`/articles/${featuredPost.slug}`}
-              className="featured-card animate-fade-up-delay mt-6 block rounded-2xl border border-white/15 bg-white/40 dark:bg-slate-950/30 sm:mt-10 sm:rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] overflow-hidden"
-            >
-              <SpotlightCard className="p-4 sm:p-6 md:p-8 bg-transparent" glowColor="rgba(6, 182, 212, 0.15)">
-                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <SpotlightCard className="overflow-hidden mt-6 sm:mt-10" glowColor="rgba(6, 182, 212, 0.15)">
+              <Link
+                href={`/articles/${featuredPost.slug}`}
+                className="block p-4 sm:p-6 md:p-8"
+              >
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between animate-fade-up">
                   <div className="space-y-2">
                     <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
                       Featured Article · 最新推荐
@@ -172,8 +172,8 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                     Read Article →
                   </span>
                 </div>
-              </SpotlightCard>
-            </Link>
+              </Link>
+            </SpotlightCard>
           )}
         </section>
       )}
@@ -254,7 +254,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         {/* Right Column: Sticky Sidebar */}
         <aside className="space-y-4 sm:space-y-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16 pt-4 sm:pt-6">
           {/* About Me Card */}
-          <SpotlightCard className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl" glowColor="rgba(6, 182, 212, 0.1)">
+          <SpotlightCard className="p-4 sm:p-6" glowColor="rgba(6, 182, 212, 0.1)">
             <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
@@ -276,7 +276,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
 
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
-            <SpotlightCard className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl" glowColor="rgba(6, 182, 212, 0.1)">
+            <SpotlightCard className="p-4 sm:p-6" glowColor="rgba(6, 182, 212, 0.1)">
               <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
               <div className="mt-4.5 flex flex-wrap gap-2.5">
                 {trendingTags.map((tag) => (
