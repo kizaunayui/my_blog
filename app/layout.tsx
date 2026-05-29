@@ -10,6 +10,7 @@ import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import RandomBackground from '@/components/RandomBackground'
+import ScrollProgress from '@/components/ScrollProgress'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-transparent pl-[calc(100vw-100%)] text-black antialiased dark:text-white">
         <ThemeProviders>
           <RandomBackground basePath={basePath} />
+          <ScrollProgress />
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <Header />

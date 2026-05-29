@@ -1,5 +1,6 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
+import SpotlightCard from '@/components/SpotlightCard'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -154,22 +155,24 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           {featuredPost && (
             <Link
               href={`/articles/${featuredPost.slug}`}
-              className="featured-card animate-fade-up-delay mt-6 block rounded-2xl border border-white/15 bg-white/40 dark:bg-slate-950/30 p-4 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)]"
+              className="featured-card animate-fade-up-delay mt-6 block rounded-2xl border border-white/15 bg-white/40 dark:bg-slate-950/30 sm:mt-10 sm:rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)] overflow-hidden"
             >
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="space-y-2">
-                  <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
-                    Featured Article · 最新推荐
-                  </p>
-                  <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 sm:text-3xl md:text-4xl dark:text-white leading-tight">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300 text-base leading-relaxed font-light">{featuredPost.summary}</p>
+              <SpotlightCard className="p-4 sm:p-6 md:p-8 bg-transparent" glowColor="rgba(6, 182, 212, 0.15)">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                  <div className="space-y-2">
+                    <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
+                      Featured Article · 最新推荐
+                    </p>
+                    <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 sm:text-3xl md:text-4xl dark:text-white leading-tight">
+                      {featuredPost.title}
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300 text-base leading-relaxed font-light">{featuredPost.summary}</p>
+                  </div>
+                  <span className="shrink-0 font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400 border-b border-cyan-500/20 pb-0.5 group-hover:border-cyan-500 transition duration-300">
+                    Read Article →
+                  </span>
                 </div>
-                <span className="shrink-0 font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400 border-b border-cyan-500/20 pb-0.5 group-hover:border-cyan-500 transition duration-300">
-                  Read Article →
-                </span>
-              </div>
+              </SpotlightCard>
             </Link>
           )}
         </section>
@@ -187,7 +190,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               </h2>
             </div>
             {posts.length > POSTS_PER_PAGE && (
-              <Link href="/articles" className="hidden font-heading text-sm font-bold uppercase tracking-[0.18em] text-cyan-600 hover:text-cyan-500 sm:block dark:text-cyan-400 dark:hover:text-white border-b border-transparent hover:border-cyan-500/30 pb-0.5 transition duration-300">
+              <Link href="/articles" className="hidden font-heading text-sm font-bold uppercase tracking-[0.18em] text-cyan-600 hover:text-cyan-500 sm:block dark:text-cyan-400 dark:hover:text-white link-underline-flow pb-0.5">
                 All Articles →
               </Link>
             )}
@@ -251,7 +254,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         {/* Right Column: Sticky Sidebar */}
         <aside className="space-y-4 sm:space-y-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16 pt-4 sm:pt-6">
           {/* About Me Card */}
-          <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+          <SpotlightCard className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl" glowColor="rgba(6, 182, 212, 0.1)">
             <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
@@ -269,18 +272,18 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             <p className="mt-4 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400 sm:mt-5">
               这里是 {siteMetadata.author} 的个人博客。持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
-          </div>
+          </SpotlightCard>
 
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
-            <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+            <SpotlightCard className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl" glowColor="rgba(6, 182, 212, 0.1)">
               <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
               <div className="mt-4.5 flex flex-wrap gap-2.5">
                 {trendingTags.map((tag) => (
                   <Tag key={tag} text={tag} />
                 ))}
               </div>
-            </div>
+            </SpotlightCard>
           )}
 
         </aside>

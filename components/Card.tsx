@@ -1,12 +1,13 @@
 import Image from './Image'
 import Link from './Link'
+import SpotlightCard from './SpotlightCard'
 
 const Card = ({ title, description, imgSrc, href }) => (
   <div className="md max-w-[544px] p-4 md:w-1/2">
-    <div
+    <SpotlightCard
       className={`${
         imgSrc && 'h-full'
-      } overflow-hidden rounded-md border-2 border-gray-200/60 dark:border-gray-700/60`}
+      } overflow-hidden rounded-md border-2 border-gray-200/60 dark:border-gray-700/60 bg-white/30 dark:bg-slate-950/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_15px_30px_rgba(6,182,212,0.08)]`}
     >
       {imgSrc &&
         (href ? (
@@ -49,7 +50,7 @@ const Card = ({ title, description, imgSrc, href }) => (
           </Link>
         )}
       </div>
-    </div>
+    </SpotlightCard>
   </div>
 )
 
