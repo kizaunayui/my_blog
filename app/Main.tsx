@@ -236,9 +236,12 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                         ))}
                       </div>
                       <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-light">{summary}</p>
-                      <div className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition duration-300 pt-1">
+                      <Link
+                        href={`/articles/${slug}`}
+                        className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition duration-300 pt-1"
+                      >
                         Read Full Post <span className="text-[12px] leading-none">→</span>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 </article>
