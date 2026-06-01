@@ -14,7 +14,9 @@ const siteMetadata = {
   github: 'https://github.com/kizaunayui',
   locale: 'zh-CN',
   stickyNav: false,
-  analytics: {},
+  analytics: {
+    vercelAnalytics: { enabled: true },
+  },
   newsletter: {
     provider: 'buttondown',
   },
