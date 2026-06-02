@@ -115,22 +115,22 @@ export default function MusicPlayer() {
   }
 
   return (
-    <section className="relative w-full max-w-sm overflow-hidden rounded-xl border border-slate-300 bg-white/95 px-3 py-3 text-slate-950 shadow-[0_10px_32px_rgba(15,23,42,0.10)] dark:border-slate-700 dark:bg-slate-950/95 dark:text-white dark:shadow-[0_10px_32px_rgba(0,0,0,0.35)]">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(248,250,252,0.92),rgba(241,245,249,0.78))] dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(2,6,23,0.92))]" />
-      <div className="absolute left-3 right-3 top-2 h-px bg-gradient-to-r from-transparent via-slate-400 to-transparent dark:via-slate-500" />
-      <div className="absolute bottom-2 left-3 right-3 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-700" />
+    <section className="relative w-full max-w-sm px-1 py-3 text-slate-900 dark:text-slate-100">
+      <div className="pointer-events-none absolute inset-x-0 top-1 h-px bg-gradient-to-r from-transparent via-slate-400/70 to-transparent dark:via-slate-500/80" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-1 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent dark:via-slate-700/80" />
 
-      <div className="relative grid grid-cols-[1.8rem_1fr_1.8rem] items-center gap-2">
+      <div className="grid grid-cols-[1.8rem_1fr_1.8rem] items-center gap-2">
         <button
           type="button"
           onClick={() => switchSong(-1)}
           aria-label="Previous song"
-          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-slate-600 ring-1 ring-slate-300 transition duration-300 hover:bg-slate-200 hover:text-slate-950 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-700 dark:hover:bg-slate-800 dark:hover:text-white"
+          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full text-slate-500 transition duration-300 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
         >
+          <span className="absolute inset-1 scale-0 rounded-full bg-slate-200/60 transition duration-300 group-hover/btn:scale-100 dark:bg-white/10" />
           <span className="relative -mt-px transition duration-300 group-hover/btn:-translate-x-0.5">‹</span>
         </button>
 
-        <div className="relative min-w-0 rounded-lg bg-slate-50 px-2 py-1.5 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
+        <div className="relative min-w-0 px-1.5 py-1">
           <div className="mb-1 flex items-center justify-between">
             <span className="font-heading text-[9px] font-bold uppercase tracking-[0.34em] text-slate-500 dark:text-slate-400">
               Listening
@@ -141,7 +141,7 @@ export default function MusicPlayer() {
           </div>
 
           <div className="relative overflow-hidden py-1.5">
-            <div className="scan-line pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-white/20" />
+            <div className="scan-line pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-transparent via-slate-300/70 to-transparent dark:via-white/20" />
 
             <div key={activeIndex} className={`song-strip ${direction === 'next' ? 'from-next' : 'from-prev'}`}>
               <div className="grid grid-cols-[auto_1fr_auto] items-baseline gap-2">
@@ -149,17 +149,17 @@ export default function MusicPlayer() {
                   type="button"
                   onClick={togglePlay}
                   aria-label={isPlaying ? 'Pause music' : 'Play music'}
-                  className={`relative flex h-5 w-5 items-center justify-center rounded-full border text-[9px] transition duration-300 ${
+                  className={`relative flex h-5 w-5 items-center justify-center rounded-full text-[9px] transition duration-300 ${
                     isPlaying
-                      ? 'border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950'
-                      : 'border-slate-400 bg-white text-slate-600 hover:border-slate-900 hover:text-slate-950 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-300 dark:hover:border-white dark:hover:text-white'
+                      ? 'bg-slate-900 text-white shadow-[0_0_18px_rgba(15,23,42,0.22)] dark:bg-white dark:text-slate-950 dark:shadow-[0_0_18px_rgba(255,255,255,0.18)]'
+                      : 'text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white'
                   }`}
                 >
                   <span className={`play-pulse absolute inset-0 rounded-full ${isPlaying ? 'opacity-100' : 'opacity-0'}`} />
                   <span className="relative leading-none">{isPlaying ? 'Ⅱ' : '▶'}</span>
                 </button>
 
-                <p className="song-name min-w-0 truncate text-[15px] font-semibold tracking-wide text-slate-950 dark:text-white" title={activeSong.title}>
+                <p className="song-name min-w-0 truncate text-[15px] font-semibold tracking-wide text-slate-950 drop-shadow-[0_1px_10px_rgba(255,255,255,0.58)] dark:text-white dark:drop-shadow-[0_1px_10px_rgba(0,0,0,0.55)]" title={activeSong.title}>
                   {activeSong.title}
                 </p>
 
@@ -169,7 +169,7 @@ export default function MusicPlayer() {
               </div>
 
               <div className="mt-1 flex items-center gap-2 pl-7">
-                <span className="h-px w-5 bg-slate-400 dark:bg-slate-600" />
+                <span className="h-px w-5 bg-slate-400/80 dark:bg-slate-600" />
                 <p className="truncate text-[11px] font-medium tracking-wide text-slate-600 dark:text-slate-400">
                   {activeSong.artist}
                 </p>
@@ -181,14 +181,14 @@ export default function MusicPlayer() {
           </div>
 
           <div className="relative mt-1 h-5">
-            <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-[repeating-linear-gradient(90deg,rgba(100,116,139,0.9)_0_2px,transparent_2px_8px)] dark:bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.8)_0_2px,transparent_2px_8px)]" />
+            <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-[repeating-linear-gradient(90deg,rgba(100,116,139,0.8)_0_2px,transparent_2px_8px)] dark:bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.7)_0_2px,transparent_2px_8px)]" />
             <div
-              className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-slate-950 transition-[width] duration-300 dark:bg-white"
+              className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-slate-900 transition-[width] duration-300 dark:bg-white"
               style={{ width: `${playProgress}%` }}
             />
 
             <span
-              className="rail-cursor absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-950 bg-white shadow-[0_0_0_4px_rgba(15,23,42,0.12)] transition-[left] duration-500 ease-out dark:border-white dark:bg-slate-950 dark:shadow-[0_0_0_4px_rgba(255,255,255,0.12)]"
+              className="rail-cursor absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-950 shadow-[0_0_0_4px_rgba(15,23,42,0.10)] transition-[left] duration-500 ease-out dark:bg-white dark:shadow-[0_0_0_4px_rgba(255,255,255,0.10)]"
               style={{ left: `${railPosition}%` }}
             />
 
@@ -220,8 +220,9 @@ export default function MusicPlayer() {
           type="button"
           onClick={() => switchSong(1)}
           aria-label="Next song"
-          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-slate-100 text-slate-600 ring-1 ring-slate-300 transition duration-300 hover:bg-slate-200 hover:text-slate-950 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-700 dark:hover:bg-slate-800 dark:hover:text-white"
+          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full text-slate-500 transition duration-300 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
         >
+          <span className="absolute inset-1 scale-0 rounded-full bg-slate-200/60 transition duration-300 group-hover/btn:scale-100 dark:bg-white/10" />
           <span className="relative -mt-px transition duration-300 group-hover/btn:translate-x-0.5">›</span>
         </button>
       </div>
@@ -265,7 +266,7 @@ export default function MusicPlayer() {
         }
 
         .play-pulse {
-          box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.35);
+          box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.28);
           animation: play-pulse 1.8s ease-in-out infinite;
         }
 
@@ -275,7 +276,7 @@ export default function MusicPlayer() {
           inset: -5px;
           border-radius: 999px;
           border: 1px solid currentColor;
-          opacity: 0.24;
+          opacity: 0.22;
           animation: cursor-pulse 1.8s ease-in-out infinite;
         }
 
@@ -339,7 +340,7 @@ export default function MusicPlayer() {
         @keyframes play-pulse {
           0%,
           100% {
-            box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.22);
+            box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.18);
           }
 
           50% {
@@ -351,12 +352,12 @@ export default function MusicPlayer() {
           0%,
           100% {
             transform: scale(0.8);
-            opacity: 0.12;
+            opacity: 0.1;
           }
 
           50% {
             transform: scale(1.3);
-            opacity: 0.28;
+            opacity: 0.24;
           }
         }
 
