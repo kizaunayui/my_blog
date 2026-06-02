@@ -12,6 +12,31 @@ function buildMetingUrl(id: string) {
   return `https://api.injahow.cn/meting/?type=url&id=${id}&server=netease`
 }
 
+// Load APlayer from CDN — avoids bundling aplayer npm package entirely
+function loadAPlayer(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    if ((window as any).APlayer) {
+      resolve((window as any).APlayer)
+      return
+    }
+
+    // Load CSS
+    if (!document.querySelector('link[href*="APlayer.min.css"]')) {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css'
+      document.head.appendChild(link)
+    }
+
+    // Load JS
+    const script = document.createElement('script')
+    script.src = 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js'
+    script.onload = () => resolve((window as any).APlayer)
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
+}
+
 export default function MusicPlayer() {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -20,16 +45,7 @@ export default function MusicPlayer() {
     let destroyed = false
 
     const init = async () => {
-      // Dynamic import to avoid SSR issues
-      const { default: APlayer } = await import('aplayer')
-      
-      // Load APlayer CSS from CDN
-      if (!document.querySelector('link[href*="APlayer"]')) {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css'
-        document.head.appendChild(link)
-      }
+      const APlayer = await loadAPlayer()
 
       if (destroyed || !containerRef.current) return
 
