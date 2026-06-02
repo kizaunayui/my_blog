@@ -1,6 +1,7 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import SpotlightCard from '@/components/SpotlightCard'
+import MusicPlayer from '@/components/MusicPlayer'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -274,6 +275,8 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               这里是 {siteMetadata.author} 的个人博客。持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
           </div>
+
+          <MusicPlayer />
 
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
