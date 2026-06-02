@@ -115,33 +115,33 @@ export default function MusicPlayer() {
   }
 
   return (
-    <section className="relative w-full max-w-sm px-1 py-3 text-slate-900 dark:text-slate-100">
-      <div className="pointer-events-none absolute inset-x-0 top-1 h-px bg-gradient-to-r from-transparent via-slate-400/70 to-transparent dark:via-slate-500/80" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-1 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent dark:via-slate-700/80" />
+    <section className="relative w-full max-w-sm px-1 py-3 text-white">
+      <div className="pointer-events-none absolute inset-x-0 top-1 h-px bg-gradient-to-r from-transparent via-white/55 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-1 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
       <div className="grid grid-cols-[1.8rem_1fr_1.8rem] items-center gap-2">
         <button
           type="button"
           onClick={() => switchSong(-1)}
           aria-label="Previous song"
-          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full text-slate-500 transition duration-300 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
+          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full text-white/70 drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)] transition duration-300 hover:text-white"
         >
-          <span className="absolute inset-1 scale-0 rounded-full bg-slate-200/60 transition duration-300 group-hover/btn:scale-100 dark:bg-white/10" />
+          <span className="absolute inset-1 scale-0 rounded-full bg-white/15 transition duration-300 group-hover/btn:scale-100" />
           <span className="relative -mt-px transition duration-300 group-hover/btn:-translate-x-0.5">‹</span>
         </button>
 
         <div className="relative min-w-0 px-1.5 py-1">
           <div className="mb-1 flex items-center justify-between">
-            <span className="font-heading text-[9px] font-bold uppercase tracking-[0.34em] text-slate-500 dark:text-slate-400">
+            <span className="font-heading text-[9px] font-bold uppercase tracking-[0.34em] text-white/65 drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]">
               Listening
             </span>
-            <span className="text-[9px] font-medium tabular-nums tracking-[0.22em] text-slate-500 dark:text-slate-400">
+            <span className="text-[9px] font-medium tabular-nums tracking-[0.22em] text-white/65 drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]">
               {String(activeIndex + 1).padStart(2, '0')} / {String(SONGS.length).padStart(2, '0')}
             </span>
           </div>
 
           <div className="relative overflow-hidden py-1.5">
-            <div className="scan-line pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-transparent via-slate-300/70 to-transparent dark:via-white/20" />
+            <div className="scan-line pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
             <div key={activeIndex} className={`song-strip ${direction === 'next' ? 'from-next' : 'from-prev'}`}>
               <div className="grid grid-cols-[auto_1fr_auto] items-baseline gap-2">
@@ -149,31 +149,31 @@ export default function MusicPlayer() {
                   type="button"
                   onClick={togglePlay}
                   aria-label={isPlaying ? 'Pause music' : 'Play music'}
-                  className={`relative flex h-5 w-5 items-center justify-center rounded-full text-[9px] transition duration-300 ${
+                  className={`relative flex h-5 w-5 items-center justify-center rounded-full text-[9px] drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)] transition duration-300 ${
                     isPlaying
-                      ? 'bg-slate-900 text-white shadow-[0_0_18px_rgba(15,23,42,0.22)] dark:bg-white dark:text-slate-950 dark:shadow-[0_0_18px_rgba(255,255,255,0.18)]'
-                      : 'text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white'
+                      ? 'bg-white text-slate-950 shadow-[0_0_18px_rgba(255,255,255,0.32)]'
+                      : 'text-white/85 hover:bg-white/15 hover:text-white'
                   }`}
                 >
                   <span className={`play-pulse absolute inset-0 rounded-full ${isPlaying ? 'opacity-100' : 'opacity-0'}`} />
                   <span className="relative leading-none">{isPlaying ? 'Ⅱ' : '▶'}</span>
                 </button>
 
-                <p className="song-name min-w-0 truncate text-[15px] font-semibold tracking-wide text-slate-950 drop-shadow-[0_1px_10px_rgba(255,255,255,0.58)] dark:text-white dark:drop-shadow-[0_1px_10px_rgba(0,0,0,0.55)]" title={activeSong.title}>
+                <p className="song-name min-w-0 truncate text-[15px] font-semibold tracking-wide text-white drop-shadow-[0_1px_10px_rgba(0,0,0,0.72)]" title={activeSong.title}>
                   {activeSong.title}
                 </p>
 
-                <time className="text-[11px] font-medium tabular-nums text-slate-600 dark:text-slate-300">
+                <time className="text-[11px] font-medium tabular-nums text-white/75 drop-shadow-[0_1px_8px_rgba(0,0,0,0.58)]">
                   {activeSong.duration}
                 </time>
               </div>
 
               <div className="mt-1 flex items-center gap-2 pl-7">
-                <span className="h-px w-5 bg-slate-400/80 dark:bg-slate-600" />
-                <p className="truncate text-[11px] font-medium tracking-wide text-slate-600 dark:text-slate-400">
+                <span className="h-px w-5 bg-white/50" />
+                <p className="truncate text-[11px] font-medium tracking-wide text-white/70 drop-shadow-[0_1px_8px_rgba(0,0,0,0.58)]">
                   {activeSong.artist}
                 </p>
-                <span className="ml-auto text-[9px] font-medium tabular-nums text-slate-500 dark:text-slate-500">
+                <span className="ml-auto text-[9px] font-medium tabular-nums text-white/55 drop-shadow-[0_1px_8px_rgba(0,0,0,0.58)]">
                   {formatTime(currentTime)}
                 </span>
               </div>
@@ -181,14 +181,14 @@ export default function MusicPlayer() {
           </div>
 
           <div className="relative mt-1 h-5">
-            <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-[repeating-linear-gradient(90deg,rgba(100,116,139,0.8)_0_2px,transparent_2px_8px)] dark:bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.7)_0_2px,transparent_2px_8px)]" />
+            <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.62)_0_2px,transparent_2px_8px)]" />
             <div
-              className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-slate-900 transition-[width] duration-300 dark:bg-white"
+              className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-white shadow-[0_0_14px_rgba(255,255,255,0.38)] transition-[width] duration-300"
               style={{ width: `${playProgress}%` }}
             />
 
             <span
-              className="rail-cursor absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-950 shadow-[0_0_0_4px_rgba(15,23,42,0.10)] transition-[left] duration-500 ease-out dark:bg-white dark:shadow-[0_0_0_4px_rgba(255,255,255,0.10)]"
+              className="rail-cursor absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.12),0_0_16px_rgba(255,255,255,0.42)] transition-[left] duration-500 ease-out"
               style={{ left: `${railPosition}%` }}
             />
 
@@ -201,8 +201,8 @@ export default function MusicPlayer() {
                   aria-label={`Show ${song.title}`}
                   className={`h-1.5 w-1.5 rounded-full transition duration-300 ${
                     index === activeIndex
-                      ? 'scale-0 bg-slate-950 dark:bg-white'
-                      : 'bg-slate-500 hover:scale-150 hover:bg-slate-950 dark:bg-slate-500 dark:hover:bg-white'
+                      ? 'scale-0 bg-white'
+                      : 'bg-white/55 hover:scale-150 hover:bg-white'
                   }`}
                 />
               ))}
@@ -210,7 +210,7 @@ export default function MusicPlayer() {
           </div>
 
           {error && (
-            <p className="mt-1 text-[10px] font-medium text-rose-600 dark:text-rose-400">
+            <p className="mt-1 text-[10px] font-medium text-rose-200 drop-shadow-[0_1px_8px_rgba(0,0,0,0.68)]">
               {error}. check files in /public/music.
             </p>
           )}
@@ -220,9 +220,9 @@ export default function MusicPlayer() {
           type="button"
           onClick={() => switchSong(1)}
           aria-label="Next song"
-          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full text-slate-500 transition duration-300 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
+          className="group/btn relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full text-white/70 drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)] transition duration-300 hover:text-white"
         >
-          <span className="absolute inset-1 scale-0 rounded-full bg-slate-200/60 transition duration-300 group-hover/btn:scale-100 dark:bg-white/10" />
+          <span className="absolute inset-1 scale-0 rounded-full bg-white/15 transition duration-300 group-hover/btn:scale-100" />
           <span className="relative -mt-px transition duration-300 group-hover/btn:translate-x-0.5">›</span>
         </button>
       </div>
@@ -266,7 +266,7 @@ export default function MusicPlayer() {
         }
 
         .play-pulse {
-          box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.28);
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
           animation: play-pulse 1.8s ease-in-out infinite;
         }
 
@@ -276,7 +276,7 @@ export default function MusicPlayer() {
           inset: -5px;
           border-radius: 999px;
           border: 1px solid currentColor;
-          opacity: 0.22;
+          opacity: 0.26;
           animation: cursor-pulse 1.8s ease-in-out infinite;
         }
 
@@ -340,11 +340,11 @@ export default function MusicPlayer() {
         @keyframes play-pulse {
           0%,
           100% {
-            box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.18);
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
           }
 
           50% {
-            box-shadow: 0 0 0 6px rgba(15, 23, 42, 0);
+            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
           }
         }
 
@@ -352,12 +352,12 @@ export default function MusicPlayer() {
           0%,
           100% {
             transform: scale(0.8);
-            opacity: 0.1;
+            opacity: 0.12;
           }
 
           50% {
             transform: scale(1.3);
-            opacity: 0.24;
+            opacity: 0.3;
           }
         }
 
