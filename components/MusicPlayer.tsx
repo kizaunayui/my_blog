@@ -8,8 +8,141 @@ const SONGS = [
   { name: 'Mice on Venus (金星鼠之梦)', artist: 'C418', id: '4010207' },
 ]
 
+const PLAYER_STYLE_ID = 'reflexion-music-player-style'
+
+const PLAYER_STYLES = `
+  .reflexion-music-player .aplayer {
+    margin: 0;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    overflow: hidden;
+    font-family: inherit;
+  }
+
+  .dark .reflexion-music-player .aplayer {
+    border-color: rgba(148, 163, 184, 0.16);
+    background: rgba(15, 23, 42, 0.78);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  }
+
+  .reflexion-music-player .aplayer-body {
+    min-height: 58px;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-pic {
+    width: 48px;
+    height: 48px;
+    margin: 8px;
+    border-radius: 12px;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-info {
+    height: 64px;
+    margin-left: 64px;
+    padding: 8px 10px 6px 0;
+    border-bottom: none;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-title {
+    max-width: 125px;
+    color: rgb(30, 41, 59);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .dark .reflexion-music-player .aplayer .aplayer-title {
+    color: rgb(226, 232, 240);
+  }
+
+  .reflexion-music-player .aplayer .aplayer-author {
+    color: rgb(100, 116, 139);
+    font-size: 11px;
+  }
+
+  .dark .reflexion-music-player .aplayer .aplayer-author {
+    color: rgb(148, 163, 184);
+  }
+
+  .reflexion-music-player .aplayer .aplayer-controller {
+    align-items: center;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-bar-wrap {
+    margin: 0 0 0 4px;
+    padding: 4px 0;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-bar {
+    height: 2px;
+    background: rgba(148, 163, 184, 0.32);
+  }
+
+  .reflexion-music-player .aplayer .aplayer-loaded,
+  .reflexion-music-player .aplayer .aplayer-played {
+    height: 2px;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-thumb {
+    width: 8px;
+    height: 8px;
+    margin-top: -3px;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-time {
+    bottom: 2px;
+    color: rgb(100, 116, 139);
+    font-size: 10px;
+  }
+
+  .dark .reflexion-music-player .aplayer .aplayer-time {
+    color: rgb(148, 163, 184);
+  }
+
+  .reflexion-music-player .aplayer .aplayer-icon {
+    opacity: 0.72;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-icon:hover {
+    opacity: 1;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-list {
+    border-top: 1px solid rgba(148, 163, 184, 0.14);
+  }
+
+  .reflexion-music-player .aplayer .aplayer-list ol li {
+    height: 28px;
+    line-height: 28px;
+    border-top: none;
+    font-size: 11px;
+  }
+
+  .reflexion-music-player .aplayer .aplayer-list ol li.aplayer-list-light {
+    background: rgba(148, 163, 184, 0.12);
+  }
+
+  @media (max-width: 768px) {
+    .reflexion-music-player .aplayer .aplayer-title {
+      max-width: 110px;
+    }
+  }
+`
+
 function buildMetingUrl(id: string) {
   return `https://api.injahow.cn/meting/?type=url&id=${id}&server=netease`
+}
+
+function ensurePlayerStyles() {
+  if (document.getElementById(PLAYER_STYLE_ID)) return
+
+  const style = document.createElement('style')
+  style.id = PLAYER_STYLE_ID
+  style.textContent = PLAYER_STYLES
+  document.head.appendChild(style)
 }
 
 // Load APlayer from CDN — avoids bundling aplayer npm package entirely
@@ -45,6 +178,7 @@ export default function MusicPlayer() {
     let destroyed = false
 
     const init = async () => {
+      ensurePlayerStyles()
       const APlayer = await loadAPlayer()
 
       if (destroyed || !containerRef.current) return
@@ -54,20 +188,20 @@ export default function MusicPlayer() {
         mini: false,
         fixed: false,
         autoplay: false,
-        theme: '#e5618e',
+        theme: '#64748b',
         loop: 'all',
         order: 'list',
         preload: 'none',
-        volume: 0.7,
+        volume: 0.55,
         mutex: true,
-        listFolded: false,
-        listMaxHeight: '160px',
+        listFolded: true,
+        listMaxHeight: '96px',
         lrcType: 0,
         audio: SONGS.map((s) => ({
           name: s.name,
           artist: s.artist,
           url: buildMetingUrl(s.id),
-          cover: 'https://picsum.photos/seed/music/80/80',
+          cover: 'https://picsum.photos/seed/reflexion-music/80/80',
         })),
       })
     }
@@ -81,13 +215,11 @@ export default function MusicPlayer() {
   }, [])
 
   return (
-    <div className="fixed bottom-20 right-3 z-50 block w-72 max-w-[calc(100vw-24px)] lg:top-1/2 lg:bottom-auto lg:-translate-y-1/2">
-      <div className="rounded-xl bg-gradient-to-br from-pink-500/40 via-cyan-400/25 to-pink-500/40 p-[1px] shadow-[0_0_32px_rgba(229,97,142,0.12)]">
-        <div
-          ref={containerRef}
-          className="w-72 rounded-xl bg-gray-950/95 backdrop-blur-sm"
-        />
-      </div>
-    </div>
+    <aside
+      aria-label="Music player"
+      className="reflexion-music-player fixed right-3 top-1/2 z-50 w-[214px] -translate-y-1/2 sm:right-4 md:w-[230px]"
+    >
+      <div ref={containerRef} className="w-full" />
+    </aside>
   )
 }
