@@ -9,8 +9,9 @@ import { useEffect, useRef } from 'react'
 // ═══════════════════════════════════════════════
 
 const SONGS: { name: string; artist: string; id: string }[] = [
-  // 👇 替换成你自己的网易云歌曲 ID
-  { name: '示例曲目', artist: '歌手名', id: '1863312152' },
+  { name: 'wind,glass,girls', artist: '牛尾憲輔', id: '554245323' },
+  { name: 'Gravity', artist: 'TAEYEON', id: '1399689812' },
+  { name: 'Mice on Venus (金星鼠之梦)', artist: 'C418', id: '4010207' },
 ]
 
 // 用 Meting API 把网易云 ID 转成外链
@@ -67,7 +68,7 @@ export default function MusicPlayer() {
   }, [])
 
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden lg:block">
+    <div className="fixed bottom-20 right-3 z-50 block w-72 max-w-[calc(100vw-24px)] lg:top-1/2 lg:bottom-auto lg:-translate-y-1/2">
       {/* 渐变发光边框：粉 → 青 → 粉 */}
       <div className="rounded-xl bg-gradient-to-br from-pink-500/40 via-cyan-400/25 to-pink-500/40 p-[1px] shadow-[0_0_32px_rgba(229,97,142,0.12)]">
         <div
