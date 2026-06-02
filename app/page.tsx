@@ -1,6 +1,7 @@
 import { sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
 import Main from './Main'
+import MusicPlayer from '@/components/MusicPlayer'
 
 const POSTS_PER_PAGE = 5
 
@@ -13,5 +14,10 @@ export default async function Page() {
     totalPages,
   }
 
-  return <Main posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} />
+  return (
+    <>
+      <Main posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} />
+      <MusicPlayer />
+    </>
+  )
 }
