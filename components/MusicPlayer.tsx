@@ -1,49 +1,86 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type Song = {
   title: string
   artist: string
   duration: string
+  src: string
 }
 
 const SONGS: Song[] = [
   {
     title: 'wind,glass,girls',
     artist: '牛尾憲輔',
-    duration: '04:21',
+    duration: '4:37',
+    src: '/music/wind-glass-girls.mp3',
   },
   {
     title: 'Gravity',
     artist: 'TAEYEON',
-    duration: '03:59',
+    duration: '4:02',
+    src: '/music/gravity.mp3',
   },
   {
     title: 'Mice on Venus',
     artist: 'C418',
-    duration: '04:41',
-  },
-  {
-    title: 'Fine',
-    artist: 'TAEYEON',
-    duration: '03:29',
-  },
-  {
-    title: 'Reflexion, allegretto, you',
-    artist: '牛尾憲輔',
-    duration: '02:36',
+    duration: '4:41',
+    src: '/music/mice-on-venus.mp3',
   },
 ]
 
 type SlideDirection = 'next' | 'prev'
 
+function parseDuration(duration: string) {
+  const [minutes, seconds] = duration.split(':').map(Number)
+
+  if (!Number.isFinite(minutes) || !Number.isFinite(seconds)) {
+    return 0
+  }
+
+  return minutes * 60 + seconds
+}
+
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds) || seconds <= 0) return '0:00'
+
+  const minutes = Math.floor(seconds / 60)
+  const rest = Math.floor(seconds % 60)
+  return `${minutes}:${rest.toString().padStart(2, '0')}`
+}
+
 export default function MusicPlayer() {
+  const audioRef = useRef<HTMLAudioElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [direction, setDirection] = useState<SlideDirection>('next')
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [audioDuration, setAudioDuration] = useState(0)
+  const [error, setError] = useState('')
 
   const activeSong = SONGS[activeIndex]
+  const fallbackDuration = parseDuration(activeSong.duration)
+  const realDuration = audioDuration || fallbackDuration
+  const playProgress = realDuration > 0 ? Math.min(100, (currentTime / realDuration) * 100) : 0
   const railPosition = SONGS.length <= 1 ? 0 : (activeIndex / (SONGS.length - 1)) * 100
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    setCurrentTime(0)
+    setAudioDuration(0)
+    setError('')
+    audio.load()
+
+    if (isPlaying) {
+      audio.play().catch(() => {
+        setIsPlaying(false)
+        setError('audio file unavailable')
+      })
+    }
+  }, [activeIndex, isPlaying])
 
   const switchSong = (step: 1 | -1) => {
     setDirection(step === 1 ? 'next' : 'prev')
@@ -56,12 +93,32 @@ export default function MusicPlayer() {
     setActiveIndex(index)
   }
 
+  const togglePlay = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    setError('')
+
+    if (audio.paused) {
+      try {
+        await audio.play()
+        setIsPlaying(true)
+      } catch {
+        setIsPlaying(false)
+        setError('audio file unavailable')
+      }
+    } else {
+      audio.pause()
+      setIsPlaying(false)
+    }
+  }
+
   return (
     <section className="relative w-full max-w-sm py-3 text-slate-900 dark:text-slate-100">
       <div className="absolute left-0 right-0 top-1 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-700" />
       <div className="absolute bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-slate-800" />
 
-      <div className="grid grid-cols-[1.7rem_1fr_1.7rem] items-center gap-2">
+      <div className="grid grid-cols-[1.8rem_1fr_1.8rem] items-center gap-2">
         <button
           type="button"
           onClick={() => switchSong(-1)}
@@ -87,9 +144,19 @@ export default function MusicPlayer() {
 
             <div key={activeIndex} className={`song-strip ${direction === 'next' ? 'from-next' : 'from-prev'}`}>
               <div className="grid grid-cols-[auto_1fr_auto] items-baseline gap-2">
-                <span className="font-heading text-[10px] font-bold tabular-nums text-slate-400 dark:text-slate-500">
-                  {String(activeIndex + 1).padStart(2, '0')}
-                </span>
+                <button
+                  type="button"
+                  onClick={togglePlay}
+                  aria-label={isPlaying ? 'Pause music' : 'Play music'}
+                  className={`relative flex h-5 w-5 items-center justify-center rounded-full border text-[9px] transition duration-300 ${
+                    isPlaying
+                      ? 'border-slate-700 text-slate-900 dark:border-slate-100 dark:text-white'
+                      : 'border-slate-300 text-slate-400 hover:border-slate-600 hover:text-slate-900 dark:border-slate-700 dark:text-slate-500 dark:hover:border-slate-200 dark:hover:text-white'
+                  }`}
+                >
+                  <span className={`play-pulse absolute inset-0 rounded-full ${isPlaying ? 'opacity-100' : 'opacity-0'}`} />
+                  <span className="relative leading-none">{isPlaying ? 'Ⅱ' : '▶'}</span>
+                </button>
 
                 <p className="song-name min-w-0 truncate text-[15px] font-medium tracking-wide text-slate-950 dark:text-white" title={activeSong.title}>
                   {activeSong.title}
@@ -100,17 +167,24 @@ export default function MusicPlayer() {
                 </time>
               </div>
 
-              <div className="mt-1 flex items-center gap-2 pl-6">
+              <div className="mt-1 flex items-center gap-2 pl-7">
                 <span className="h-px w-5 bg-slate-300 dark:bg-slate-700" />
                 <p className="truncate text-[11px] tracking-wide text-slate-400 dark:text-slate-500">
                   {activeSong.artist}
                 </p>
+                <span className="ml-auto text-[9px] tabular-nums text-slate-300 dark:text-slate-700">
+                  {formatTime(currentTime)}
+                </span>
               </div>
             </div>
           </div>
 
           <div className="relative mt-1 h-5">
             <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.75)_0_2px,transparent_2px_8px)] dark:bg-[repeating-linear-gradient(90deg,rgba(71,85,105,0.9)_0_2px,transparent_2px_8px)]" />
+            <div
+              className="absolute left-0 top-1/2 h-px -translate-y-1/2 bg-slate-800 transition-[width] duration-300 dark:bg-slate-100"
+              style={{ width: `${playProgress}%` }}
+            />
 
             <span
               className="rail-cursor absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-600 bg-white shadow-[0_0_0_4px_rgba(148,163,184,0.12)] transition-[left] duration-500 ease-out dark:border-slate-200 dark:bg-slate-950 dark:shadow-[0_0_0_4px_rgba(255,255,255,0.08)]"
@@ -133,6 +207,12 @@ export default function MusicPlayer() {
               ))}
             </div>
           </div>
+
+          {error && (
+            <p className="mt-1 text-[10px] text-rose-500 dark:text-rose-400">
+              {error}. check files in /public/music.
+            </p>
+          )}
         </div>
 
         <button
@@ -145,6 +225,21 @@ export default function MusicPlayer() {
           <span className="relative -mt-px transition duration-300 group-hover/btn:translate-x-0.5">›</span>
         </button>
       </div>
+
+      <audio
+        ref={audioRef}
+        src={activeSong.src}
+        preload="metadata"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => switchSong(1)}
+        onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
+        onLoadedMetadata={(event) => setAudioDuration(event.currentTarget.duration)}
+        onError={() => {
+          setIsPlaying(false)
+          setError('audio file unavailable')
+        }}
+      />
 
       <style jsx>{`
         .scan-line {
@@ -167,6 +262,11 @@ export default function MusicPlayer() {
 
         .song-name {
           animation: text-breathe 3.8s ease-in-out infinite;
+        }
+
+        .play-pulse {
+          box-shadow: 0 0 0 0 rgba(100, 116, 139, 0.28);
+          animation: play-pulse 1.8s ease-in-out infinite;
         }
 
         .rail-cursor::after {
@@ -236,6 +336,17 @@ export default function MusicPlayer() {
           }
         }
 
+        @keyframes play-pulse {
+          0%,
+          100% {
+            box-shadow: 0 0 0 0 rgba(100, 116, 139, 0.18);
+          }
+
+          50% {
+            box-shadow: 0 0 0 6px rgba(100, 116, 139, 0);
+          }
+        }
+
         @keyframes cursor-pulse {
           0%,
           100% {
@@ -253,6 +364,7 @@ export default function MusicPlayer() {
           .scan-line,
           .song-strip,
           .song-name,
+          .play-pulse,
           .rail-cursor::after {
             animation: none;
           }
