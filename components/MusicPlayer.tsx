@@ -27,11 +27,15 @@ export default function MusicPlayer() {
     let destroyed = false
 
     const init = async () => {
-      const [{ default: APlayer }] = await Promise.all([
-        import('aplayer'),
-        // 在不支持 CSS module 的环境手动注入样式
-        import('aplayer/dist/APlayer.min.css'),
-      ])
+      const { default: APlayer } = await import('aplayer')
+      
+      // Inject APlayer CSS via CDN
+      if (!document.querySelector('link[href*="APlayer"]')) {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css'
+        document.head.appendChild(link)
+      }
 
       if (destroyed || !containerRef.current) return
 
