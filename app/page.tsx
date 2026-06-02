@@ -1,8 +1,6 @@
 import { sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
 import Main from './Main'
-import dynamic from 'next/dynamic'
-const MusicPlayer = dynamic(() => import('@/components/MusicPlayer'), { ssr: false })
 
 const POSTS_PER_PAGE = 5
 
@@ -18,7 +16,6 @@ export default async function Page() {
   return (
     <>
       <Main posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} />
-      <MusicPlayer />
     </>
   )
 }
