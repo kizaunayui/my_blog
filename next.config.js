@@ -61,7 +61,6 @@ module.exports = () => {
     basePath,
     reactStrictMode: true,
     trailingSlash: true,
-    transpilePackages: ['aplayer'],
     eslint: {
       ignoreDuringBuilds: true,
     },
