@@ -5,10 +5,11 @@ import MusicPlayer from '@/components/MusicPlayer'
 
 export default function FloatingMusicPlayer() {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   return (
     <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
-      {/* Floating Trigger Note Button */}
+      {/* Floating Jumping Volume Spectrum Trigger Button */}
       <button
         type="button"
         onClick={() => setIsExpanded((value) => !value)}
@@ -20,46 +21,49 @@ export default function FloatingMusicPlayer() {
           className="absolute inset-0 rounded-full border border-white/10 bg-slate-900/60 backdrop-blur-md transition duration-300 group-hover:bg-slate-900/80"
           aria-hidden="true"
         />
-        <span
-          className="relative flex h-8 w-8 items-center justify-center text-white/80 transition duration-300 group-hover:scale-105 group-hover:text-cyan-400"
+
+        {/* Animated Soundwave / Spectrum Bars */}
+        <div
+          className="relative flex h-4.5 w-7 items-end justify-center gap-[3px]"
           aria-hidden="true"
         >
-          <svg
-            className="h-5 w-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5H9v2.5Z" />
-            <path d="M18 16.5a2.5 2.5 0 1 1-2.5-2.5H18v2.5Z" />
-            <path d="M9 16V6.8L18 5v11" />
-            <path d="M9 9.2 18 7.4" />
-          </svg>
-        </span>
+          <span
+            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-1' : 'h-1.5'}`}
+          />
+          <span
+            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-2' : 'h-3'}`}
+          />
+          <span
+            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-3' : 'h-2'}`}
+          />
+          <span
+            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-4' : 'h-3.5'}`}
+          />
+          <span
+            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-5' : 'h-1'}`}
+          />
+        </div>
       </button>
 
-      {/* Holographic Circular Turntable Panel */}
+      {/* Floating Expandable Music Player Panel (Reverted to Glass Card) */}
       <div
         aria-hidden={!isExpanded}
-        style={{ width: 'calc(100vw - 2.5rem)', maxWidth: '17rem' }}
+        style={{ width: 'calc(100vw - 2rem)', maxWidth: '21rem' }}
         className={`music-float-strip absolute right-0 bottom-15 transform transition-all duration-300 ${
           isExpanded
             ? 'pointer-events-auto visible translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none invisible translate-y-4 scale-95 opacity-0'
         }`}
       >
-        <div className="relative flex flex-col items-center">
-          <MusicPlayer />
+        <div className="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+          <MusicPlayer onPlayStateChange={setIsPlaying} />
 
-          {/* Floating Glassmorphic Close Button (matching orbital style) */}
+          {/* Subtle overlay Close Button on the card top right */}
           <button
             type="button"
             onClick={() => setIsExpanded(false)}
             aria-label="Close music player"
-            className="absolute top-[-8px] right-[-8px] z-30 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/8 bg-slate-950/60 text-[13px] leading-none text-white/50 shadow-md backdrop-blur-md transition hover:scale-105 hover:bg-slate-900 hover:text-white active:scale-95"
+            className="absolute top-3.5 right-3.5 z-30 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/5 text-[12px] leading-none text-white/40 transition hover:bg-white/10 hover:text-white"
           >
             ×
           </button>
@@ -86,8 +90,76 @@ export default function FloatingMusicPlayer() {
           }
         }
 
+        /* Waveform Animation Keyframes */
+        @keyframes bar-1 {
+          0%,
+          100% {
+            height: 6px;
+          }
+          50% {
+            height: 14px;
+          }
+        }
+        @keyframes bar-2 {
+          0%,
+          100% {
+            height: 16px;
+          }
+          50% {
+            height: 6px;
+          }
+        }
+        @keyframes bar-3 {
+          0%,
+          100% {
+            height: 8px;
+          }
+          50% {
+            height: 18px;
+          }
+        }
+        @keyframes bar-4 {
+          0%,
+          100% {
+            height: 14px;
+          }
+          50% {
+            height: 4px;
+          }
+        }
+        @keyframes bar-5 {
+          0%,
+          100% {
+            height: 4px;
+          }
+          50% {
+            height: 10px;
+          }
+        }
+
+        .animate-bar-1 {
+          animation: bar-1 0.8s ease-in-out infinite;
+        }
+        .animate-bar-2 {
+          animation: bar-2 1s ease-in-out infinite;
+        }
+        .animate-bar-3 {
+          animation: bar-3 0.75s ease-in-out infinite;
+        }
+        .animate-bar-4 {
+          animation: bar-4 0.9s ease-in-out infinite;
+        }
+        .animate-bar-5 {
+          animation: bar-5 1.1s ease-in-out infinite;
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .music-trigger {
+          .music-trigger,
+          .animate-bar-1,
+          .animate-bar-2,
+          .animate-bar-3,
+          .animate-bar-4,
+          .animate-bar-5 {
             animation: none;
           }
         }
