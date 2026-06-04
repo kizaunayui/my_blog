@@ -7,28 +7,29 @@ export default function FloatingMusicPlayer() {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className="fixed right-3 bottom-4 z-50 flex max-w-[calc(100vw-1.5rem)] flex-col items-end sm:right-6 sm:bottom-6">
+    <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
+      {/* Floating Toggle Trigger Button */}
       <button
         type="button"
         onClick={() => setIsExpanded((value) => !value)}
         aria-label={isExpanded ? 'Toggle music player' : 'Open music player'}
         aria-expanded={isExpanded}
-        className="music-trigger group relative flex h-11 w-11 items-center justify-center rounded-full text-white transition duration-300 hover:-translate-y-0.5"
+        className="music-trigger group relative flex h-12 w-12 items-center justify-center rounded-full text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] transition duration-300 hover:-translate-y-0.5 active:scale-95"
       >
         <span
-          className="absolute inset-0 rounded-full bg-white/0 transition duration-300 group-hover:bg-white/8 group-hover:backdrop-blur-md"
+          className="absolute inset-0 rounded-full border border-white/10 bg-slate-900/60 backdrop-blur-md transition duration-300 group-hover:bg-slate-900/80"
           aria-hidden="true"
         />
         <span
-          className="music-note relative flex h-8 w-8 items-center justify-center rounded-full text-white/78 drop-shadow-[0_3px_12px_rgba(15,23,42,0.42)] transition duration-300 group-hover:text-cyan-100"
+          className="relative flex h-8 w-8 items-center justify-center text-white/80 transition duration-300 group-hover:scale-105 group-hover:text-cyan-400"
           aria-hidden="true"
         >
           <svg
-            className="h-6 w-6"
+            className="h-5 w-5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.85"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -40,25 +41,28 @@ export default function FloatingMusicPlayer() {
         </span>
       </button>
 
+      {/* Floating Expandable Music Player Panel */}
       <div
         aria-hidden={!isExpanded}
-        style={{ width: 'calc(100vw - 1.5rem)', maxWidth: '22rem' }}
-        className={`music-float-strip absolute right-0 bottom-12 text-white transition duration-300 sm:bottom-12 ${
+        style={{ width: 'calc(100vw - 2rem)', maxWidth: '21rem' }}
+        className={`music-float-strip absolute right-0 bottom-14 transform transition-all duration-300 ${
           isExpanded
-            ? 'visible pointer-events-auto translate-y-0 scale-100 opacity-100'
-            : 'invisible pointer-events-none translate-y-3 scale-95 opacity-0'
+            ? 'pointer-events-auto visible translate-y-0 scale-100 opacity-100'
+            : 'pointer-events-none invisible translate-y-4 scale-95 opacity-0'
         }`}
       >
-        <button
-          type="button"
-          onClick={() => setIsExpanded(false)}
-          aria-label="Collapse music player"
-          className="absolute -top-3 right-1 z-10 inline-flex h-5 w-5 items-center justify-center rounded-full border border-white/12 bg-white/8 text-xs leading-none text-white/55 backdrop-blur-md transition duration-300 hover:bg-white/16 hover:text-white"
-        >
-          -
-        </button>
-        <div className="relative pr-5 drop-shadow-[0_10px_28px_rgba(15,23,42,0.28)]">
+        <div className="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
           <MusicPlayer />
+
+          {/* Subtle overlay Close Button on the card top right */}
+          <button
+            type="button"
+            onClick={() => setIsExpanded(false)}
+            aria-label="Close music player"
+            className="absolute top-3 right-3 z-30 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/5 text-[12px] leading-none text-white/40 transition hover:bg-white/10 hover:text-white"
+          >
+            ×
+          </button>
         </div>
       </div>
 
@@ -68,19 +72,14 @@ export default function FloatingMusicPlayer() {
         }
 
         .music-trigger {
-          animation: chip-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        :global(.music-float-strip .scan-line) {
-          display: none;
+          animation: chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both;
         }
 
         @keyframes chip-in {
           from {
-            transform: translateY(8px) scale(0.9);
+            transform: translateY(12px) scale(0.9);
             opacity: 0;
           }
-
           to {
             transform: translateY(0) scale(1);
             opacity: 1;
