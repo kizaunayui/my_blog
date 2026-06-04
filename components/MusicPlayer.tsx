@@ -49,14 +49,14 @@ function formatTime(seconds: number) {
 
 const VinylRecord = ({ isPlaying }: { isPlaying: boolean }) => {
   return (
-    <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/5 bg-slate-950 shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
+    <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/5 bg-slate-950/80 shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
       {/* Vinyl Grooves SVG */}
       <svg
         className="vinyl-rotate h-full w-full"
         viewBox="0 0 100 100"
         style={{ animationPlayState: isPlaying ? 'running' : 'paused' }}
       >
-        <circle cx="50" cy="50" r="48" fill="#111216" />
+        <circle cx="50" cy="50" r="48" fill="#111216" opacity="0.9" />
         <circle
           cx="50"
           cy="50"
@@ -182,10 +182,10 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
   }
 
   return (
-    <section className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950/75 p-4 text-white shadow-2xl backdrop-blur-xl">
+    <section className="music-card relative w-full overflow-hidden rounded-2xl border border-cyan-500/25 bg-slate-950/20 p-4 text-white shadow-[0_0_30px_rgba(6,182,212,0.18),inset_0_0_16px_rgba(255,255,255,0.06)] backdrop-blur-md">
       {/* Background soft color glow */}
-      <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-cyan-500/10 blur-2xl transition-all duration-1000" />
-      <div className="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-pink-500/10 blur-2xl transition-all duration-1000" />
+      <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-cyan-500/8 blur-2xl transition-all duration-1000" />
+      <div className="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-pink-500/8 blur-2xl transition-all duration-1000" />
 
       {/* Main UI Layout */}
       <div className="relative z-10 flex flex-col gap-3.5">
@@ -198,14 +198,14 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
           <div className="min-w-0 flex-1">
             <p
               key={activeIndex}
-              className={`song-name-container truncate text-[14px] font-semibold tracking-wide text-white ${direction === 'next' ? 'from-next' : 'from-prev'}`}
+              className={`song-name-container text-shadow-glow truncate text-[14px] font-semibold tracking-wide text-white ${direction === 'next' ? 'from-next' : 'from-prev'}`}
               title={activeSong.title}
             >
               {activeSong.title}
             </p>
             <p
               key={`artist-${activeIndex}`}
-              className={`song-artist-container truncate text-[11px] font-medium text-white/50 ${direction === 'next' ? 'from-next' : 'from-prev'}`}
+              className={`song-artist-container text-shadow-glow truncate text-[11px] font-medium text-white/50 ${direction === 'next' ? 'from-next' : 'from-prev'}`}
             >
               {activeSong.artist}
             </p>
@@ -228,7 +228,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
               stroke="currentColor"
               strokeWidth="2.2"
               strokeLinecap="round"
-              className="h-4 w-4"
+              className="h-4 w-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
             >
               <line x1="8" y1="6" x2="21" y2="6" />
               <line x1="8" y1="12" x2="21" y2="12" />
@@ -242,7 +242,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
 
         {/* Progress seek bar */}
         <div className="flex items-center gap-2">
-          <span className="min-w-[2.2rem] text-right text-[10px] font-medium text-white/40 tabular-nums">
+          <span className="text-shadow-glow min-w-[2.2rem] text-right text-[10px] font-medium text-white/40 tabular-nums">
             {formatTime(currentTime)}
           </span>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
@@ -260,7 +260,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
               style={{ left: `calc(${playProgress}% - 7px)` }}
             />
           </div>
-          <span className="min-w-[2.2rem] text-left text-[10px] font-medium text-white/40 tabular-nums">
+          <span className="text-shadow-glow min-w-[2.2rem] text-left text-[10px] font-medium text-white/40 tabular-nums">
             {formatTime(realDuration)}
           </span>
         </div>
@@ -271,9 +271,13 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
             type="button"
             onClick={() => switchSong(-1)}
             aria-label="Previous song"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-white/5 text-white/70 transition duration-300 hover:bg-white/10 hover:text-white active:scale-95"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-white/5 text-white/70 shadow-sm transition duration-300 hover:bg-white/10 hover:text-white active:scale-95"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-4 w-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+            >
               <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
             </svg>
           </button>
@@ -299,9 +303,13 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
             type="button"
             onClick={() => switchSong(1)}
             aria-label="Next song"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-white/5 text-white/70 transition duration-300 hover:bg-white/10 hover:text-white active:scale-95"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-white/5 text-white/70 shadow-sm transition duration-300 hover:bg-white/10 hover:text-white active:scale-95"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="h-4 w-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+            >
               <path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z" />
             </svg>
           </button>
@@ -310,14 +318,16 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
 
       {/* Playlist Drawer Overlay */}
       <div
-        className={`absolute inset-0 z-20 flex flex-col rounded-2xl bg-slate-950/95 p-4 backdrop-blur-xl transition-all duration-300 ${
+        className={`absolute inset-0 z-20 flex flex-col rounded-2xl bg-slate-950/92 p-4 backdrop-blur-xl transition-all duration-300 ${
           showPlaylist
             ? 'pointer-events-auto visible translate-y-0 opacity-100'
             : 'pointer-events-none invisible translate-y-4 opacity-0'
         }`}
       >
         <div className="mb-2.5 flex items-center justify-between border-b border-white/10 pb-2">
-          <h4 className="text-xs font-semibold tracking-wider text-cyan-400 uppercase">播放列表</h4>
+          <h4 className="text-shadow-glow text-xs font-semibold tracking-wider text-cyan-400 uppercase">
+            播放列表
+          </h4>
           <button
             type="button"
             onClick={() => setShowPlaylist(false)}
@@ -339,22 +349,26 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
               }}
               className={`flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-left transition ${
                 idx === activeIndex
-                  ? 'border border-cyan-500/20 bg-cyan-500/15 font-medium text-cyan-400'
+                  ? 'border border-cyan-500/20 bg-cyan-500/15 font-medium text-cyan-400 shadow-sm'
                   : 'border border-transparent text-white/60 hover:bg-white/5 hover:text-white'
               }`}
             >
               <div className="truncate pr-4">
-                <p className="truncate text-xs">{song.title}</p>
-                <p className="truncate text-[10px] text-white/35">{song.artist}</p>
+                <p className="text-shadow-glow truncate text-xs tracking-wide">{song.title}</p>
+                <p className="text-shadow-glow mt-0.5 truncate text-[10px] text-white/35">
+                  {song.artist}
+                </p>
               </div>
-              <span className="text-[10px] text-white/40 tabular-nums">{song.duration}</span>
+              <span className="text-shadow-glow text-[10px] text-white/40 tabular-nums">
+                {song.duration}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
       {error && (
-        <p className="absolute right-4 bottom-1 left-4 text-center text-[9px] font-medium text-rose-400">
+        <p className="absolute right-4 bottom-1 left-4 text-center text-[9px] font-medium text-rose-400 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
           {error}
         </p>
       )}
@@ -436,6 +450,12 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+
+        .text-shadow-glow {
+          text-shadow:
+            0 1px 4px rgba(0, 0, 0, 0.95),
+            0 1px 2px rgba(0, 0, 0, 0.9);
         }
       `}</style>
     </section>

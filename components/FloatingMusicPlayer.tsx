@@ -9,43 +9,47 @@ export default function FloatingMusicPlayer() {
 
   return (
     <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
-      {/* Floating Jumping Volume Spectrum Trigger Button */}
+      {/* Holographic Breathing Ring Trigger Button */}
       <button
         type="button"
         onClick={() => setIsExpanded((value) => !value)}
         aria-label={isExpanded ? 'Toggle music player' : 'Open music player'}
         aria-expanded={isExpanded}
-        className="music-trigger group relative flex h-12 w-12 items-center justify-center rounded-full text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] transition duration-300 hover:-translate-y-0.5 active:scale-95"
+        className={`music-trigger group relative flex h-12 w-12 items-center justify-center rounded-full text-white transition duration-300 hover:-translate-y-0.5 active:scale-95 ${
+          isPlaying ? 'breathing-ring-playing' : 'breathing-ring-idle'
+        }`}
       >
+        {/* Glass background */}
         <span
-          className="absolute inset-0 rounded-full border border-white/10 bg-slate-900/60 backdrop-blur-md transition duration-300 group-hover:bg-slate-900/80"
+          className="absolute inset-0 rounded-full bg-slate-950/45 backdrop-blur-md transition duration-300 group-hover:bg-slate-900/60"
           aria-hidden="true"
         />
 
-        {/* Animated Soundwave / Spectrum Bars */}
-        <div
-          className="relative flex h-4.5 w-7 items-end justify-center gap-[3px]"
+        {/* Sleek SVG Music Note Icon */}
+        <span
+          className={`relative flex h-8 w-8 items-center justify-center transition duration-300 ${
+            isPlaying ? 'scale-105 text-cyan-400' : 'text-white/70 group-hover:text-cyan-400'
+          }`}
           aria-hidden="true"
         >
-          <span
-            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-1' : 'h-1.5'}`}
-          />
-          <span
-            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-2' : 'h-3'}`}
-          />
-          <span
-            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-3' : 'h-2'}`}
-          />
-          <span
-            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-4' : 'h-3.5'}`}
-          />
-          <span
-            className={`w-[3px] rounded-full bg-white transition-all duration-300 ${isPlaying ? 'animate-bar-5' : 'h-1'}`}
-          />
-        </div>
+          <svg
+            className="h-4.5 w-4.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5H9v2.5Z" />
+            <path d="M18 16.5a2.5 2.5 0 1 1-2.5-2.5H18v2.5Z" />
+            <path d="M9 16V6.8L18 5v11" />
+            <path d="M9 9.2 18 7.4" />
+          </svg>
+        </span>
       </button>
 
-      {/* Floating Expandable Music Player Panel (Reverted to Glass Card) */}
+      {/* Floating Expandable Music Player Panel */}
       <div
         aria-hidden={!isExpanded}
         style={{ width: 'calc(100vw - 2rem)', maxWidth: '21rem' }}
@@ -55,10 +59,10 @@ export default function FloatingMusicPlayer() {
             : 'pointer-events-none invisible translate-y-4 scale-95 opacity-0'
         }`}
       >
-        <div className="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+        <div className="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
           <MusicPlayer onPlayStateChange={setIsPlaying} />
 
-          {/* Subtle overlay Close Button on the card top right */}
+          {/* Transparent close Button on the card top right */}
           <button
             type="button"
             onClick={() => setIsExpanded(false)}
@@ -77,6 +81,7 @@ export default function FloatingMusicPlayer() {
 
         .music-trigger {
           animation: chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both;
+          border: 1px solid transparent;
         }
 
         @keyframes chip-in {
@@ -90,76 +95,56 @@ export default function FloatingMusicPlayer() {
           }
         }
 
-        /* Waveform Animation Keyframes */
-        @keyframes bar-1 {
+        /* Breathing Ring Idle Animation (Cyan slow glow) */
+        @keyframes pulse-glow-idle {
           0%,
           100% {
-            height: 6px;
+            box-shadow:
+              0 0 10px rgba(6, 182, 212, 0.2),
+              inset 0 0 4px rgba(6, 182, 212, 0.1);
+            border-color: rgba(6, 182, 212, 0.25);
           }
           50% {
-            height: 14px;
-          }
-        }
-        @keyframes bar-2 {
-          0%,
-          100% {
-            height: 16px;
-          }
-          50% {
-            height: 6px;
-          }
-        }
-        @keyframes bar-3 {
-          0%,
-          100% {
-            height: 8px;
-          }
-          50% {
-            height: 18px;
-          }
-        }
-        @keyframes bar-4 {
-          0%,
-          100% {
-            height: 14px;
-          }
-          50% {
-            height: 4px;
-          }
-        }
-        @keyframes bar-5 {
-          0%,
-          100% {
-            height: 4px;
-          }
-          50% {
-            height: 10px;
+            box-shadow:
+              0 0 18px rgba(6, 182, 212, 0.45),
+              inset 0 0 8px rgba(6, 182, 212, 0.25);
+            border-color: rgba(6, 182, 212, 0.45);
           }
         }
 
-        .animate-bar-1 {
-          animation: bar-1 0.8s ease-in-out infinite;
+        /* Breathing Ring Playing Animation (Cyan/Pink rhythmic pulse) */
+        @keyframes pulse-glow-playing {
+          0%,
+          100% {
+            box-shadow:
+              0 0 12px rgba(6, 182, 212, 0.35),
+              inset 0 0 5px rgba(6, 182, 212, 0.15);
+            border-color: rgba(6, 182, 212, 0.4);
+          }
+          50% {
+            box-shadow:
+              0 0 24px rgba(236, 72, 153, 0.65),
+              inset 0 0 10px rgba(236, 72, 153, 0.35);
+            border-color: rgba(236, 72, 153, 0.55);
+          }
         }
-        .animate-bar-2 {
-          animation: bar-2 1s ease-in-out infinite;
+
+        .breathing-ring-idle {
+          animation:
+            chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both,
+            pulse-glow-idle 3.5s ease-in-out infinite;
         }
-        .animate-bar-3 {
-          animation: bar-3 0.75s ease-in-out infinite;
-        }
-        .animate-bar-4 {
-          animation: bar-4 0.9s ease-in-out infinite;
-        }
-        .animate-bar-5 {
-          animation: bar-5 1.1s ease-in-out infinite;
+
+        .breathing-ring-playing {
+          animation:
+            chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both,
+            pulse-glow-playing 2.2s ease-in-out infinite;
         }
 
         @media (prefers-reduced-motion: reduce) {
           .music-trigger,
-          .animate-bar-1,
-          .animate-bar-2,
-          .animate-bar-3,
-          .animate-bar-4,
-          .animate-bar-5 {
+          .breathing-ring-idle,
+          .breathing-ring-playing {
             animation: none;
           }
         }
