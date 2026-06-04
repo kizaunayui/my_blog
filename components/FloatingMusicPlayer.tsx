@@ -8,7 +8,7 @@ export default function FloatingMusicPlayer() {
 
   return (
     <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
-      {/* Floating Toggle Trigger Button */}
+      {/* Floating Trigger Note Button */}
       <button
         type="button"
         onClick={() => setIsExpanded((value) => !value)}
@@ -41,25 +41,25 @@ export default function FloatingMusicPlayer() {
         </span>
       </button>
 
-      {/* Floating Expandable Music Player Panel */}
+      {/* Holographic Circular Turntable Panel */}
       <div
         aria-hidden={!isExpanded}
-        style={{ width: 'calc(100vw - 2rem)', maxWidth: '21rem' }}
-        className={`music-float-strip absolute right-0 bottom-14 transform transition-all duration-300 ${
+        style={{ width: 'calc(100vw - 2.5rem)', maxWidth: '17rem' }}
+        className={`music-float-strip absolute right-0 bottom-15 transform transition-all duration-300 ${
           isExpanded
             ? 'pointer-events-auto visible translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none invisible translate-y-4 scale-95 opacity-0'
         }`}
       >
-        <div className="relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+        <div className="relative flex flex-col items-center">
           <MusicPlayer />
 
-          {/* Subtle overlay Close Button on the card top right */}
+          {/* Floating Glassmorphic Close Button (matching orbital style) */}
           <button
             type="button"
             onClick={() => setIsExpanded(false)}
             aria-label="Close music player"
-            className="absolute top-3 right-3 z-30 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/5 text-[12px] leading-none text-white/40 transition hover:bg-white/10 hover:text-white"
+            className="absolute top-[-8px] right-[-8px] z-30 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/8 bg-slate-950/60 text-[13px] leading-none text-white/50 shadow-md backdrop-blur-md transition hover:scale-105 hover:bg-slate-900 hover:text-white active:scale-95"
           >
             ×
           </button>
