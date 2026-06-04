@@ -13,21 +13,22 @@ export default function FloatingMusicPlayer() {
         onClick={() => setIsExpanded((value) => !value)}
         aria-label={isExpanded ? 'Toggle music player' : 'Open music player'}
         aria-expanded={isExpanded}
-        className="music-chip group relative flex h-10 items-center gap-2 overflow-hidden rounded-full border border-white/18 bg-white/8 px-2.5 text-white shadow-[0_8px_24px_rgba(15,23,42,0.12)] backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-cyan-100/45 hover:bg-white/16 dark:bg-slate-950/12"
+        className="music-trigger group relative flex h-11 w-11 items-center justify-center rounded-full text-white transition duration-300 hover:-translate-y-0.5"
       >
-        <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/10 via-cyan-100/6 to-transparent" />
         <span
-          className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/12 bg-white/6"
+          className="absolute inset-1 rounded-full bg-white/0 transition duration-300 group-hover:bg-white/8 group-hover:backdrop-blur-md"
+          aria-hidden="true"
+        />
+        <span
+          className="relative flex h-7 w-7 items-center justify-center rounded-full"
           aria-hidden="true"
         >
-          <span className="flex h-4 items-end gap-0.5">
-            <span className="music-bar h-2 w-1 rounded-full bg-white/85" />
-            <span className="music-bar delay-1 h-4 w-1 rounded-full bg-cyan-100" />
-            <span className="music-bar delay-2 h-3 w-1 rounded-full bg-white/75" />
+          <span className="flex h-5 items-end gap-1 drop-shadow-[0_2px_9px_rgba(15,23,42,0.42)]">
+            <span className="music-bar h-2 w-1 rounded-full bg-white/70" />
+            <span className="music-bar delay-1 h-5 w-1 rounded-full bg-cyan-100/90" />
+            <span className="music-bar delay-2 h-3 w-1 rounded-full bg-white/62" />
+            <span className="music-bar delay-3 h-4 w-1 rounded-full bg-white/76" />
           </span>
-        </span>
-        <span className="relative hidden pr-0.5 font-heading text-[9px] font-bold uppercase tracking-[0.28em] text-white/72 sm:inline">
-          Music
         </span>
       </button>
 
@@ -58,7 +59,7 @@ export default function FloatingMusicPlayer() {
           transform-origin: bottom right;
         }
 
-        .music-chip {
+        .music-trigger {
           animation: chip-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
@@ -73,6 +74,10 @@ export default function FloatingMusicPlayer() {
 
         .music-bar.delay-2 {
           animation-delay: 280ms;
+        }
+
+        .music-bar.delay-3 {
+          animation-delay: 420ms;
         }
 
         @keyframes chip-in {
@@ -99,7 +104,7 @@ export default function FloatingMusicPlayer() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .music-chip,
+          .music-trigger,
           .music-bar {
             animation: none;
           }
