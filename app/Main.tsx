@@ -276,8 +276,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             </p>
           </div>
 
-          <MusicPlayer />
-
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
             <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
@@ -289,6 +287,8 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               </div>
             </div>
           )}
+
+          <MusicPlayer />
 
         </aside>
       </div>
