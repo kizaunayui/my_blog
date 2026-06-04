@@ -7,47 +7,50 @@ export default function FloatingMusicPlayer() {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className="fixed right-3 bottom-4 z-50 flex max-w-[calc(100vw-1.5rem)] flex-col items-end sm:right-5 sm:bottom-5">
+    <div className="fixed right-3 bottom-4 z-50 flex max-w-[calc(100vw-1.5rem)] flex-col items-end sm:right-6 sm:bottom-6">
       <button
         type="button"
         onClick={() => setIsExpanded((value) => !value)}
         aria-label={isExpanded ? 'Toggle music player' : 'Open music player'}
         aria-expanded={isExpanded}
-        className="music-orb group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-slate-950/34 text-white shadow-[0_14px_40px_rgba(0,0,0,0.28)] backdrop-blur-2xl transition duration-300 hover:-translate-y-0.5 hover:bg-slate-950/48 hover:shadow-[0_18px_48px_rgba(8,145,178,0.28)] sm:h-14 sm:w-14"
+        className="music-chip group relative flex h-11 items-center gap-2 overflow-hidden rounded-full border border-white/25 bg-white/12 px-3 text-white shadow-[0_10px_34px_rgba(15,23,42,0.16)] backdrop-blur-2xl transition duration-300 hover:-translate-y-0.5 hover:border-cyan-100/55 hover:bg-white/22 hover:shadow-[0_16px_42px_rgba(8,145,178,0.2)] dark:bg-slate-950/18"
       >
-        <span className="absolute inset-0 bg-gradient-to-br from-white/22 via-transparent to-cyan-300/18" />
-        <span className="absolute inset-2 rounded-full border border-white/12" />
-        <span className="relative flex h-5 items-end gap-0.5" aria-hidden="true">
-          <span className="music-bar h-2 w-1 rounded-full bg-white/85" />
-          <span className="music-bar delay-1 h-4 w-1 rounded-full bg-cyan-100" />
-          <span className="music-bar delay-2 h-3 w-1 rounded-full bg-white/75" />
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/12 via-cyan-100/8 to-white/5" />
+        <span
+          className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/18 bg-white/10"
+          aria-hidden="true"
+        >
+          <span className="flex h-4 items-end gap-0.5">
+            <span className="music-bar h-2 w-1 rounded-full bg-white/85" />
+            <span className="music-bar delay-1 h-4 w-1 rounded-full bg-cyan-100" />
+            <span className="music-bar delay-2 h-3 w-1 rounded-full bg-white/75" />
+          </span>
+        </span>
+        <span className="relative hidden pr-1 font-heading text-[9px] font-bold uppercase tracking-[0.28em] text-white/82 sm:inline">
+          Music
         </span>
       </button>
 
       <section
         aria-hidden={!isExpanded}
         style={{ width: 'calc(100vw - 1.5rem)', maxWidth: '22rem' }}
-        className={`music-float-panel absolute right-0 bottom-14 overflow-hidden rounded-2xl border border-white/18 bg-slate-950/38 p-3.5 text-white shadow-[0_18px_55px_rgba(0,0,0,0.32)] backdrop-blur-2xl transition duration-300 sm:bottom-16 sm:rounded-3xl sm:p-4 ${
+        className={`music-float-panel absolute right-0 bottom-14 overflow-hidden rounded-[1.35rem] border border-white/18 bg-white/10 p-3 text-white shadow-[0_18px_52px_rgba(15,23,42,0.2)] backdrop-blur-2xl transition duration-300 dark:bg-slate-950/16 sm:bottom-14 sm:rounded-[1.6rem] sm:p-3.5 ${
           isExpanded
             ? 'visible pointer-events-auto translate-y-0 scale-100 opacity-100'
             : 'invisible pointer-events-none translate-y-2 scale-95 opacity-0'
         }`}
       >
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/12 via-transparent to-cyan-400/10" />
-        <div className="relative mb-1 flex items-center justify-between gap-3">
-          <p className="font-heading text-[9px] font-bold uppercase tracking-[0.34em] text-cyan-100/80">
-            Listening
-          </p>
-          <button
-            type="button"
-            onClick={() => setIsExpanded(false)}
-            aria-label="Collapse music player"
-            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/16 bg-white/10 text-lg leading-none text-white/75 transition duration-300 hover:bg-white/18 hover:text-white"
-          >
-            -
-          </button>
-        </div>
-        <div className="relative">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.18),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(8,145,178,0.08),rgba(15,23,42,0.1))]" />
+        <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+        <button
+          type="button"
+          onClick={() => setIsExpanded(false)}
+          aria-label="Collapse music player"
+          className="absolute top-2 right-2 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/12 bg-white/8 text-sm leading-none text-white/62 transition duration-300 hover:bg-white/16 hover:text-white"
+        >
+          -
+        </button>
+        <div className="relative pr-5">
           <MusicPlayer />
         </div>
       </section>
@@ -57,8 +60,8 @@ export default function FloatingMusicPlayer() {
           transform-origin: bottom right;
         }
 
-        .music-orb {
-          animation: orb-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        .music-chip {
+          animation: chip-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
         .music-bar {
@@ -74,7 +77,7 @@ export default function FloatingMusicPlayer() {
           animation-delay: 280ms;
         }
 
-        @keyframes orb-in {
+        @keyframes chip-in {
           from {
             transform: translateY(8px) scale(0.9);
             opacity: 0;
@@ -98,7 +101,7 @@ export default function FloatingMusicPlayer() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .music-orb,
+          .music-chip,
           .music-bar {
             animation: none;
           }
