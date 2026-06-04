@@ -1,7 +1,6 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import SpotlightCard from '@/components/SpotlightCard'
-import MusicPlayer from '@/components/MusicPlayer'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -287,8 +286,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               </div>
             </div>
           )}
-
-          <MusicPlayer />
 
         </aside>
       </div>

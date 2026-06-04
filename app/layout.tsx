@@ -11,6 +11,7 @@ import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import RandomBackground from '@/components/RandomBackground'
 import ScrollProgress from '@/components/ScrollProgress'
+import FloatingMusicPlayer from '@/components/FloatingMusicPlayer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className="mb-auto">{children}</main>
             <Footer />
           </SectionContainer>
+          <FloatingMusicPlayer />
         </ThemeProviders>
         <Script id="baidu-push" strategy="afterInteractive">{
           `(function(){var bp=document.createElement("script");var curProtocol=window.location.protocol.split(":")[0];if(curProtocol==="https"){bp.src="https://zz.bdstatic.com/linksubmit/push.js"}else{bp.src="http://push.zhanzhang.baidu.com/push.js"}var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(bp,s)})()`
