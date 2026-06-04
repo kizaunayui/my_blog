@@ -16,19 +16,27 @@ export default function FloatingMusicPlayer() {
         className="music-trigger group relative flex h-11 w-11 items-center justify-center rounded-full text-white transition duration-300 hover:-translate-y-0.5"
       >
         <span
-          className="absolute inset-1 rounded-full bg-white/0 transition duration-300 group-hover:bg-white/8 group-hover:backdrop-blur-md"
+          className="absolute inset-0 rounded-full bg-white/0 transition duration-300 group-hover:bg-white/8 group-hover:backdrop-blur-md"
           aria-hidden="true"
         />
         <span
-          className="relative flex h-7 w-7 items-center justify-center rounded-full"
+          className="music-note relative flex h-8 w-8 items-center justify-center rounded-full text-white/78 drop-shadow-[0_3px_12px_rgba(15,23,42,0.42)] transition duration-300 group-hover:text-cyan-100"
           aria-hidden="true"
         >
-          <span className="flex h-5 items-end gap-1 drop-shadow-[0_2px_9px_rgba(15,23,42,0.42)]">
-            <span className="music-bar h-2 w-1 rounded-full bg-white/70" />
-            <span className="music-bar delay-1 h-5 w-1 rounded-full bg-cyan-100/90" />
-            <span className="music-bar delay-2 h-3 w-1 rounded-full bg-white/62" />
-            <span className="music-bar delay-3 h-4 w-1 rounded-full bg-white/76" />
-          </span>
+          <svg
+            className="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.85"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5H9v2.5Z" />
+            <path d="M18 16.5a2.5 2.5 0 1 1-2.5-2.5H18v2.5Z" />
+            <path d="M9 16V6.8L18 5v11" />
+            <path d="M9 9.2 18 7.4" />
+          </svg>
         </span>
       </button>
 
@@ -63,21 +71,8 @@ export default function FloatingMusicPlayer() {
           animation: chip-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .music-bar {
-          animation: music-bar 980ms ease-in-out infinite;
-          transform-origin: bottom;
-        }
-
-        .music-bar.delay-1 {
-          animation-delay: 140ms;
-        }
-
-        .music-bar.delay-2 {
-          animation-delay: 280ms;
-        }
-
-        .music-bar.delay-3 {
-          animation-delay: 420ms;
+        :global(.music-float-strip .scan-line) {
+          display: none;
         }
 
         @keyframes chip-in {
@@ -92,20 +87,8 @@ export default function FloatingMusicPlayer() {
           }
         }
 
-        @keyframes music-bar {
-          0%,
-          100% {
-            transform: scaleY(0.58);
-          }
-
-          50% {
-            transform: scaleY(1);
-          }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-          .music-trigger,
-          .music-bar {
+          .music-trigger {
             animation: none;
           }
         }
