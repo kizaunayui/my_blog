@@ -137,27 +137,55 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             </div>
           </div>
 
-          {featuredPost && (
-            <Link
-              href={`/articles/${featuredPost.slug}`}
-              className="featured-card animate-fade-up-delay mt-6 block rounded-2xl border border-white/15 bg-white/40 dark:bg-slate-950/30 p-4 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)]"
-            >
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between animate-fade-up">
-                <div className="space-y-2">
-                  <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
-                    Featured Article · 最新推荐
-                  </p>
-                  <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 sm:text-3xl md:text-4xl dark:text-white leading-tight">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300 text-base leading-relaxed font-light">{featuredPost.summary}</p>
+          {featuredPost && (() => {
+            const { slug, date, title, summary, tags, recordedAt, body } = featuredPost
+            const recordedText = formatRecordedAt(recordedAt)
+            const readingTimeText = estimateReadingTime(body?.raw)
+            return (
+              <article className="animate-fade-up-delay mt-6 premium-row group border-b border-slate-200/50 dark:border-white/5 py-5 px-1 sm:py-7 sm:px-2">
+                <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
+                  <dl className="space-y-1.5">
+                    <dt className="sr-only">最新推荐</dt>
+                    <dd className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
+                      Featured · 最新推荐
+                    </dd>
+                    <dd className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 pt-0.5">
+                      <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
+                    </dd>
+                    {readingTimeText && (
+                      <dd className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600/80 dark:text-cyan-400/80">
+                        {readingTimeText}
+                      </dd>
+                    )}
+                    {recordedText && (
+                      <dd className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+                        {recordedText}
+                      </dd>
+                    )}
+                  </dl>
+                  <div className="flex-1 space-y-3">
+                    <h2 className="font-serif text-xl font-light tracking-wide text-gray-950 dark:text-white sm:text-2xl md:text-3xl leading-tight">
+                      <Link href={`/articles/${slug}`} className="premium-row-link transition group-hover:text-cyan-600 dark:group-hover:text-cyan-300">
+                        {title}
+                      </Link>
+                    </h2>
+                    <div className="flex flex-wrap gap-2">
+                      {tags.map((tag) => (
+                        <Tag key={tag} text={tag} />
+                      ))}
+                    </div>
+                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-light">{summary}</p>
+                    <Link
+                      href={`/articles/${slug}`}
+                      className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition duration-300 pt-1"
+                    >
+                      Read Full Post <span className="text-[12px] leading-none">→</span>
+                    </Link>
+                  </div>
                 </div>
-                <span className="shrink-0 font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400 border-b border-cyan-500/20 pb-0.5 group-hover:border-cyan-500 transition duration-300">
-                  Read Article →
-                </span>
-              </div>
-            </Link>
-          )}
+              </article>
+            )
+          })()}
         </section>
       )}
 
