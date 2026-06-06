@@ -255,7 +255,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         {/* Right Column: Sticky Sidebar */}
         <aside className="space-y-4 sm:space-y-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16 pt-4 sm:pt-6">
           {/* About Me Card */}
-          <div className="home-side-panel p-4 sm:p-6">
+          <Link href="/about/me" className="home-side-panel block p-4 sm:p-6">
             <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
@@ -273,7 +273,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             <p className="mt-4 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400 sm:mt-5">
               这里是 {siteMetadata.author} 的个人博客。持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
-          </div>
+          </Link>
 
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
