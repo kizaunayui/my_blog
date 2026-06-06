@@ -100,13 +100,11 @@
     min-height: 100%;
     font-size: 106.25%;
     background: transparent;
-    overflow-x: clip;
   }
 
   body {
     min-height: 100%;
     background: transparent;
-    overflow-x: clip;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -410,16 +408,16 @@ header button, header svg {
    ═══════════════════════════════════════════════════════════════════════════ */
 .home-hero {
   isolation: isolate;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  padding-top: clamp(2.25rem, 5vh, 3.5rem);
-  padding-bottom: clamp(2rem, 4vh, 3rem);
-  padding-left: 0;
-  padding-right: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-top: clamp(4.5rem, 9vh, 6.5rem);
+  padding-bottom: clamp(3.5rem, 7vh, 5.5rem);
+  padding-left: max(2rem, calc((100vw - 76rem) / 2));
+  padding-right: max(2rem, calc((100vw - 76rem) / 2));
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .home-hero::after {
@@ -458,8 +456,6 @@ header button, header svg {
 
 .home-hero-content h1 {
   color: white;
-  font-size: clamp(3rem, 5.8vw, 4.85rem);
-  line-height: 1.02;
   text-shadow: 0 14px 36px rgba(0,0,0,0.55);
 }
 
@@ -493,8 +489,6 @@ header button, header svg {
    HOME PAGE CARD STYLES  —  High opacity for readability
    ═══════════════════════════════════════════════════════════════════════════ */
 .home-featured-card {
-  max-width: 58rem;
-  margin-top: 2rem !important;
   border-color: rgba(255,255,255,0.2);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
