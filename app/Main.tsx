@@ -103,6 +103,19 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
   const featuredPost = currentPage === 1 ? posts[0] : null
   const recentPosts = initialDisplayPosts || posts.slice(0, POSTS_PER_PAGE)
   const isFirstPage = currentPage === 1
+  const basePath = process.env.BASE_PATH || ''
+
+  const tagCounts = {}
+  posts.forEach((post) => {
+    if (post.tags) {
+      post.tags.forEach((tag) => {
+        tagCounts[tag] = (tagCounts[tag] || 0) + 1
+      })
+    }
+  })
+  const trendingTags = Object.keys(tagCounts)
+    .sort((a, b) => tagCounts[b] - tagCounts[a])
+    .slice(0, 10)
 
   return (
     <>
@@ -261,6 +274,41 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
 
           {pagination && <HomePagination currentPage={currentPage} totalPages={pagination.totalPages} />}
       </section>
+
+      {isFirstPage && (
+        <section className="space-y-4 pb-8 sm:space-y-6">
+          <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
+            <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
+              <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
+                <img
+                  src={`${basePath}/static/images/kieran-icon.jpg`}
+                  alt={siteMetadata.author}
+                  className="h-full w-full rounded-full object-cover"
+                />
+              </div>
+              <div>
+                <h4 className="font-serif text-xl font-light tracking-wide text-gray-900 dark:text-white">{siteMetadata.author}</h4>
+                <p className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-400 mt-0.5">Developer / Writer</p>
+              </div>
+            </div>
+            <p className="mt-4 text-xs leading-relaxed font-light text-slate-600 dark:text-slate-400 sm:mt-5">
+              这里是 {siteMetadata.author} 的个人博客。持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
+            </p>
+          </div>
+
+          {trendingTags.length > 0 && (
+            <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+              <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
+              <div className="mt-4.5 flex flex-wrap gap-2.5">
+                {trendingTags.map((tag) => (
+                  <Tag key={tag} text={tag} />
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
     </>
   )
 }
