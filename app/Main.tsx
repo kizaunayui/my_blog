@@ -255,7 +255,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         {/* Right Column: Sticky Sidebar */}
         <aside className="space-y-4 sm:space-y-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16 pt-4 sm:pt-6">
           {/* About Me Card */}
-          <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+          <div className="home-side-panel p-4 sm:p-6">
             <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">About Author</p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
@@ -277,7 +277,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
 
           {/* Trending Tags Card */}
           {trendingTags.length > 0 && (
-            <div className="border border-white/10 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
+            <div className="home-side-panel home-side-panel-tags p-4 sm:p-6">
               <p className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">Trending Tags</p>
               <div className="mt-4.5 flex flex-wrap gap-2.5">
                 {trendingTags.map((tag) => (
