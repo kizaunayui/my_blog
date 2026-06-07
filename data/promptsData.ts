@@ -340,6 +340,7 @@ CSS 文件：css/hero-layer-fix.css
 - commit hash
 - 提醒我等 Vercel production 部署完成后再刷新测试`,
   {
+  {
     title: '模拟题整理复习资料 Prompt',
     category: '课程复习 / 模拟题',
     tags: ['复习', '模拟题', 'PDF', 'LaTeX', '解析'],
