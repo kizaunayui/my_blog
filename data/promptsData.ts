@@ -343,7 +343,7 @@ CSS 文件：css/hero-layer-fix.css
   {
     title: '模拟题整理复习资料 Prompt',
     category: '课程复习 / 模拟题',
-    tags: ['复习', '模拟题', 'PDF', 'LaTeX', '解析'],
+    tags: ['复习', '模拟题', 'LaTeX', 'PDF'],
     description: '将模拟题整理成题目+答案+详细解析+知识点的复习资料，生成适合考前复习的 PDF。',
     updatedAt: '2026-06-07',
     prompt: `请将我上传的模拟题整理成一份「题目 + 答案 + 详细解析 + 知识点」形式的复习资料，并生成 PDF 文件。
