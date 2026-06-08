@@ -210,7 +210,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                   <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
                     <dl className="space-y-1.5">
                       <dt className="sr-only">发布时间</dt>
-                      <dd className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                      <dd className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-300">
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                       </dd>
                       {readingTimeText && (
@@ -219,7 +219,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                         </dd>
                       )}
                       {recordedText && (
-                        <dd className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+                        <dd className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-300">
                           {recordedText}
                         </dd>
                       )}
