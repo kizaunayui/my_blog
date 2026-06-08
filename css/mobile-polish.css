@@ -17,7 +17,10 @@
 
   /* ── Background position ─────────────────────────────────────────────── */
   .site-fixed-bg {
-    background-position: var(--site-bg-mobile-position, var(--site-bg-position, 66% center)) !important;
+    background-position: var(
+      --site-bg-mobile-position,
+      var(--site-bg-position, 66% center)
+    ) !important;
   }
 
   /* ── Header mobile ───────────────────────────────────────────────────── */
@@ -88,8 +91,6 @@
   .list-post-card,
   .tags-page-card,
   .tags-page-hero,
-  .author-profile-card,
-  .author-content-card,
   .post-title-card,
   .post-side-card,
   .post-content-card,
@@ -103,8 +104,6 @@
   .home-hero + section .post-card-motion,
   .list-post-card,
   .tags-page-card,
-  .author-profile-card,
-  .author-content-card,
   .post-title-card,
   .post-side-card,
   .post-content-card,
@@ -180,20 +179,6 @@
   }
 
   /* ── Author card ─────────────────────────────────────────────────────── */
-  .author-profile-card {
-    margin-bottom: 1rem;
-  }
-
-  .author-profile-card .relative.mx-auto.h-48.w-48 {
-    height: 8rem;
-    width: 8rem;
-  }
-
-  .author-profile-card img {
-    height: 8rem;
-    width: 8rem;
-  }
-
   /* ── Post card ───────────────────────────────────────────────────────── */
   .post-title-card {
     margin-bottom: 1rem;
@@ -295,14 +280,14 @@
 }
 
 /* ── Tag hover micro-bounce ────────────────────────────────────────────── */
-a[href^="/tags/"] {
+a[href^='/tags/'] {
   transition:
     transform 0.36s cubic-bezier(0.19, 1, 0.22, 1),
     color 0.36s cubic-bezier(0.19, 1, 0.22, 1),
     border-color 0.36s cubic-bezier(0.19, 1, 0.22, 1),
     background-color 0.36s cubic-bezier(0.19, 1, 0.22, 1);
 }
-a[href^="/tags/"]:hover {
+a[href^='/tags/']:hover {
   transform: translate3d(0, -2px, 0) scale(1.035);
 }
 
@@ -315,11 +300,21 @@ a[href^="/tags/"]:hover {
 }
 
 /* ── Stagger delay for post list ───────────────────────────────────────── */
-.post-card-motion:nth-child(1) { transition-delay: 0s; }
-.post-card-motion:nth-child(2) { transition-delay: 0.05s; }
-.post-card-motion:nth-child(3) { transition-delay: 0.1s; }
-.post-card-motion:nth-child(4) { transition-delay: 0.15s; }
-.post-card-motion:nth-child(5) { transition-delay: 0.2s; }
+.post-card-motion:nth-child(1) {
+  transition-delay: 0s;
+}
+.post-card-motion:nth-child(2) {
+  transition-delay: 0.05s;
+}
+.post-card-motion:nth-child(3) {
+  transition-delay: 0.1s;
+}
+.post-card-motion:nth-child(4) {
+  transition-delay: 0.15s;
+}
+.post-card-motion:nth-child(5) {
+  transition-delay: 0.2s;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    EXTRA SMALL (≤ 480px)

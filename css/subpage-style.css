@@ -56,12 +56,6 @@ main > div:not(.site-fixed-bg) {
   z-index: 2;
 }
 
-.author-profile-card,
-.author-content-card {
-  -webkit-backdrop-filter: blur(22px) saturate(1.16);
-  backdrop-filter: blur(22px) saturate(1.16);
-}
-
 /* ── Author content text — light mode ─────────────────────────────────── */
 .author-content-card,
 .author-content-card p,
@@ -70,7 +64,7 @@ main > div:not(.site-fixed-bg) {
 .author-content-card h2,
 .author-content-card h3,
 .author-content-card h4 {
-  color: rgb(15, 23, 42);
+  color: rgb(248, 250, 252);
   text-shadow: none;
 }
 
@@ -94,9 +88,7 @@ main > div:not(.site-fixed-bg) {
   }
 
   .list-post-card,
-  .tags-page-card,
-  .author-profile-card,
-  .author-content-card {
+  .tags-page-card {
     padding: 1.25rem;
   }
 }

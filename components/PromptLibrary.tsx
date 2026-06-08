@@ -30,35 +30,34 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
   }
 
   return (
-    <div className="space-y-6 pb-10 pt-6 sm:space-y-10 sm:pb-14 sm:pt-8 md:pt-12">
-      <section className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/60 px-4 py-7 shadow-2xl shadow-primary-100/70 backdrop-blur-md sm:rounded-3xl sm:px-5 sm:py-9 md:px-8 md:py-12 dark:border-white/10 dark:bg-gray-950/50 dark:shadow-primary-950/30">
-        <div className="hero-grid pointer-events-none absolute inset-0" />
-        <div className="relative max-w-3xl">
-          <p className="mb-4 inline-flex rounded-full border border-primary-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-primary-600 shadow-sm backdrop-blur dark:border-primary-500/20 dark:bg-gray-900/60 dark:text-primary-300">
-            AI Prompt 使用记录库
-          </p>
-          <h1 className="text-2xl font-black tracking-tight text-gray-950 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl dark:text-white">
-            Prompt <span className="gradient-text">Library</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-gray-600 sm:mt-5 sm:text-base sm:leading-8 md:text-lg dark:text-gray-300">
-            记录我平时高频使用的 AI Prompt，方便复制、复用和持续迭代。
-          </p>
-        </div>
+    <div className="pt-8 pb-10 sm:pt-12 sm:pb-14">
+      <section className="border-b border-white/10 pb-7 sm:pb-9">
+        <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+          Prompt Library
+        </p>
+        <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+          AI Prompt 使用记录库
+        </h1>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
+          记录平时高频使用的 AI Prompt，方便复制、复用和持续迭代。
+        </p>
       </section>
 
-      <section aria-label="Prompt 分类筛选" className="space-y-4">
-        <div className="flex items-end justify-between gap-4">
+      <section aria-label="Prompt 分类筛选" className="border-b border-white/10 py-5 sm:py-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-primary-600 dark:text-primary-300">Categories</p>
-            <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-gray-950 dark:text-white">
+            <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+              Categories
+            </p>
+            <h2 className="mt-2 font-serif text-2xl font-light tracking-wide text-white">
               分类筛选
             </h2>
           </div>
-          <p className="hidden text-sm font-semibold text-gray-500 sm:block dark:text-gray-400">
+          <p className="text-sm font-light text-slate-300">
             {filteredPrompts.length} / {prompts.length} 条
           </p>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
           {categories.map((category) => {
             const isActive = category === selectedCategory
             return (
@@ -68,8 +67,8 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                 onClick={() => setSelectedCategory(category)}
                 className={
                   isActive
-                    ? 'button-primary shrink-0 text-sm'
-                    : 'button-secondary shrink-0 text-sm text-gray-700 dark:text-gray-100'
+                    ? 'font-heading shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400'
+                    : 'font-heading shrink-0 rounded-full bg-white/10 px-4 py-2 text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-white/18'
                 }
               >
                 {category}
@@ -79,50 +78,61 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
         </div>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-2">
+      <section className="space-y-1">
         {filteredPrompts.map((item, index) => (
           <article
             key={item.title}
-            className="post-card-motion scroll-reveal group flex flex-col rounded-2xl border border-white/60 bg-white/70 p-4 shadow-lg shadow-primary-100/50 backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/80 sm:rounded-3xl sm:p-6 dark:border-white/10 dark:bg-gray-900/60 dark:shadow-black/30 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30"
+            className="premium-row group border-b border-white/10 px-1 py-6 sm:px-2 sm:py-7"
             style={{ animationDelay: `${index * 55}ms` }}
           >
-            <div className="flex flex-1 flex-col gap-5">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full border border-primary-200/70 bg-primary-50/80 px-3 py-1 text-xs font-bold text-primary-700 dark:border-primary-800/70 dark:bg-primary-950/30 dark:text-primary-300">
+            <div className="space-y-4 lg:grid lg:grid-cols-[12rem_1fr] lg:gap-8 lg:space-y-0">
+              <div className="space-y-2">
+                <span className="font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
                   {item.category}
                 </span>
-                <time className="text-xs font-semibold text-gray-500 dark:text-gray-400" dateTime={item.updatedAt}>
+                <time
+                  className="font-heading block text-xs font-bold tracking-[0.18em] text-slate-300/80 uppercase"
+                  dateTime={item.updatedAt}
+                >
                   更新于 {item.updatedAt}
                 </time>
               </div>
 
-              <div>
-                <h3 className="text-xl font-bold tracking-tight text-gray-950 sm:text-2xl dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">{item.description}</p>
-              </div>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-serif text-xl leading-tight font-light tracking-wide text-white sm:text-2xl md:text-3xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed font-light text-slate-200">
+                    {item.description}
+                  </p>
+                </div>
 
-              <div className="flex flex-wrap gap-2">
-                {item.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-gray-200/70 bg-white/60 px-3 py-1 text-xs font-bold text-gray-600 dark:border-gray-700/70 dark:bg-gray-950/40 dark:text-gray-300"
+                <div className="flex flex-wrap gap-2">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-heading rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-200"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+
+                <pre className="max-h-64 overflow-auto rounded-xl bg-slate-950/35 p-4 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
+                  {item.prompt}
+                </pre>
+
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(item)}
+                    className="font-heading inline-flex min-w-32 items-center justify-center rounded-full bg-cyan-600 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400"
                   >
-                    #{tag}
-                  </span>
-                ))}
+                    {copiedTitle === item.title ? '已复制' : '复制 Prompt'}
+                  </button>
+                </div>
               </div>
-
-              <pre className="max-h-60 overflow-auto whitespace-pre-wrap break-words rounded-xl border border-gray-200/80 bg-white/60 p-3 text-sm leading-7 text-gray-700 shadow-inner shadow-gray-100/60 backdrop-blur sm:rounded-2xl sm:p-4 dark:border-gray-800/80 dark:bg-gray-950/50 dark:text-gray-200 dark:shadow-black/20">
-                {item.prompt}
-              </pre>
-            </div>
-
-            <div className="mt-5 flex justify-end">
-              <button type="button" onClick={() => handleCopy(item)} className="button-primary min-w-32">
-                {copiedTitle === item.title ? '已复制' : '复制 Prompt'}
-              </button>
             </div>
           </article>
         ))}
