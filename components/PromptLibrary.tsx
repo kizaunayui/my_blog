@@ -32,10 +32,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
   return (
     <div className="pt-8 pb-10 sm:pt-12 sm:pb-14">
       <section className="border-b border-white/10 pb-7 sm:pb-9">
-        <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
-          Prompt Library
-        </p>
-        <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+        <h1 className="mt-2 font-serif text-3xl font-semibold tracking-wide bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent sm:text-4xl md:text-5xl">
           Prompt Library
         </h1>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
