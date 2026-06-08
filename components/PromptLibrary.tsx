@@ -36,7 +36,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
           Prompt Library
         </p>
         <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
-          AI Prompt 使用记录库
+          Prompt Library
         </h1>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
           记录平时高频使用的 AI Prompt，方便复制、复用和持续迭代。
