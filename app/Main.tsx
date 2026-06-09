@@ -155,22 +155,56 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           {featuredPost && (
             <Link
               href={`/articles/${featuredPost.slug}`}
-              className="featured-article-link animate-fade-up-delay mt-6 block border-l-2 border-transparent pl-5 sm:mt-10 sm:pl-7 md:pl-8 py-4 sm:py-6 md:py-8 transition duration-300 hover:-translate-y-0.5"
+              className="featured-spotlight group animate-fade-up-delay mt-8 block sm:mt-12 md:mt-14 transition duration-400"
             >
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between animate-fade-up">
-                <div className="space-y-2">
-                  <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-400">
-                    Featured Article · 最新推荐
-                  </p>
-                  <h2 className="font-serif text-2xl font-light tracking-wide text-gray-950 sm:text-3xl md:text-4xl dark:text-white leading-tight">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300 text-base leading-relaxed font-light">{featuredPost.summary}</p>
+              {/* Decorative gradient top line */}
+              <div className="featured-spotlight-line h-px w-full" />
+
+              <div className="px-1 pt-6 pb-2 sm:px-2 sm:pt-8 sm:pb-4 md:pt-10 md:pb-6">
+                {/* Label row with reading time */}
+                <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                  <span className="font-heading text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-500 dark:text-cyan-400">
+                    ✦ Featured
+                  </span>
+                  <span className="h-px flex-1 max-w-16 bg-gradient-to-r from-cyan-500/40 to-transparent" />
+                  {estimateReadingTime(featuredPost.body?.raw) && (
+                    <span className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                      {estimateReadingTime(featuredPost.body?.raw)}
+                    </span>
+                  )}
                 </div>
-                <span className="shrink-0 font-heading text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400 border-b border-cyan-500/20 pb-0.5 group-hover:border-cyan-500 transition duration-300">
-                  Read Article →
-                </span>
+
+                {/* Big title */}
+                <h2 className="font-serif text-3xl font-light tracking-wide leading-snug sm:text-4xl md:text-[2.75rem] md:leading-[1.15] text-white transition-colors duration-300 group-hover:text-cyan-100">
+                  {featuredPost.title}
+                </h2>
+
+                {/* Summary */}
+                <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed font-light text-white/55 sm:mt-4 group-hover:text-white/70 transition-colors duration-300">
+                  {featuredPost.summary}
+                </p>
+
+                {/* Tags + CTA row */}
+                <div className="mt-5 flex items-center justify-between sm:mt-6">
+                  <div className="flex flex-wrap gap-2">
+                    {featuredPost.tags?.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white/45 font-heading"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="flex items-center gap-1.5 font-heading text-xs font-bold uppercase tracking-[0.2em] text-cyan-400/80 transition-all duration-300 group-hover:text-cyan-300 group-hover:gap-2.5">
+                    Read
+                    <span className="text-sm leading-none transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
               </div>
+
+              {/* Bottom fade line */}
+              <div className="h-px w-full bg-gradient-to-r from-white/8 via-white/5 to-transparent" />
             </Link>
           )}
         </section>

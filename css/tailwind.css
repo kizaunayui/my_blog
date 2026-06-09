@@ -539,27 +539,51 @@ header button, header svg {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   FEATURED ARTICLE LINK — Transparent with gradient left accent
+   FEATURED SPOTLIGHT — Distinctive hero-level featured post
    ═══════════════════════════════════════════════════════════════════════════ */
-.featured-article-link {
+.featured-spotlight {
   position: relative;
-  border-left-color: transparent;
-  border-image: linear-gradient(180deg, rgba(34, 211, 238, 0.6), rgba(192, 132, 252, 0.4)) 1;
-  border-image-slice: 1;
 }
 
-.featured-article-link:hover {
-  border-image: linear-gradient(180deg, rgba(34, 211, 238, 0.9), rgba(192, 132, 252, 0.7)) 1;
+/* Gradient top line */
+.featured-spotlight-line {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.5) 15%,
+    rgba(192, 132, 252, 0.45) 50%,
+    rgba(236, 72, 153, 0.35) 85%,
+    transparent 100%
+  );
+  transition: opacity 0.4s ease;
 }
 
-.featured-article-link h2 {
-  color: white;
-  text-shadow: 0 8px 24px rgba(0,0,0,0.45);
+/* Subtle radial glow on hover */
+.featured-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  background: radial-gradient(ellipse at 20% 50%, rgba(34, 211, 238, 0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
-.featured-article-link p {
-  color: rgba(226,232,240,0.88);
-  text-shadow: 0 4px 16px rgba(0,0,0,0.35);
+.featured-spotlight:hover::before {
+  opacity: 1;
+}
+
+.featured-spotlight:hover .featured-spotlight-line {
+  opacity: 0.85;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.7) 15%,
+    rgba(192, 132, 252, 0.6) 50%,
+    rgba(236, 72, 153, 0.5) 85%,
+    transparent 100%
+  );
 }
 
 .home-hero + section {
