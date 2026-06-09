@@ -24,9 +24,9 @@
   }
 
   /* ── Header mobile ───────────────────────────────────────────────────── */
-  header {
+  .header-elegant {
     width: calc(100% + 1.5rem);
-    margin-top: 0.35rem;
+    margin-top: 0;
     margin-left: -0.75rem;
     margin-right: -0.75rem;
     padding-left: 0.85rem;
@@ -35,13 +35,7 @@
     padding-bottom: 0.6rem;
   }
 
-  header > a > div > div:first-child {
-    margin-right: 0.5rem;
-    padding: 0.3rem;
-    border-radius: 1rem;
-  }
-
-  header > a > div > div:first-child img {
+  .header-avatar-ring img {
     width: 2.25rem;
     height: 2.25rem;
   }

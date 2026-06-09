@@ -25,7 +25,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
       <div className="items-start gap-8 pt-7 sm:pt-9 xl:grid xl:grid-cols-[18rem_1fr]">
         <div className="author-profile-card space-y-5">
-          <aside className="bg-white/10 p-5 text-center sm:p-6">
+          <aside className="author-profile-aside text-center">
             <div className="relative mx-auto h-40 w-40 sm:h-44 sm:w-44">
               {avatar && (
                 <Image
@@ -57,13 +57,13 @@ export default function AuthorLayout({ children, content }: Props) {
           <Link
             href="/about/me"
             aria-label="reflexion"
-            className="font-heading inline-flex w-full items-center justify-center rounded-full bg-white/10 px-5 py-3 text-xs font-bold tracking-[0.2em] text-cyan-200 uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-white/18"
+            className="font-heading inline-flex w-full items-center justify-center rounded-full border border-white/15 px-5 py-3 text-xs font-bold tracking-[0.2em] text-cyan-200 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:text-cyan-100"
           >
             reflexion
           </Link>
         </div>
 
-        <div className="author-content-card prose dark:prose-invert mt-8 max-w-none bg-white/10 p-5 sm:p-6 xl:mt-0">
+        <div className="author-content-area prose dark:prose-invert mt-8 max-w-none p-5 sm:p-6 xl:mt-0">
           {children}
         </div>
       </div>

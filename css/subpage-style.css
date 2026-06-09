@@ -56,26 +56,72 @@ main > div:not(.site-fixed-bg) {
   z-index: 2;
 }
 
+/* ── Author profile aside — borderless with gradient accent ───────────── */
+.author-profile-aside {
+  position: relative;
+  padding: 1.5rem 1.25rem;
+}
+
+.author-profile-aside::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.6), rgba(192, 132, 252, 0.4), transparent);
+  pointer-events: none;
+}
+
+/* ── Author content area — top gradient separator ─────────────────────── */
+.author-content-area {
+  position: relative;
+}
+
+.author-content-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.5), rgba(148, 163, 184, 0.2) 50%, transparent);
+  pointer-events: none;
+}
+
+@media (min-width: 1280px) {
+  .author-content-area::before {
+    top: 0;
+    left: -1rem;
+    right: auto;
+    bottom: 0;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, rgba(34, 211, 238, 0.5), rgba(148, 163, 184, 0.15) 60%, transparent);
+  }
+}
+
 /* ── Author content text — light mode ─────────────────────────────────── */
-.author-content-card,
-.author-content-card p,
-.author-content-card li,
-.author-content-card h1,
-.author-content-card h2,
-.author-content-card h3,
-.author-content-card h4 {
+.author-content-area,
+.author-content-area p,
+.author-content-area li,
+.author-content-area h1,
+.author-content-area h2,
+.author-content-area h3,
+.author-content-area h4 {
   color: rgb(248, 250, 252);
   text-shadow: none;
 }
 
 /* ── Author content text — dark mode ──────────────────────────────────── */
-.dark .author-content-card,
-.dark .author-content-card p,
-.dark .author-content-card li,
-.dark .author-content-card h1,
-.dark .author-content-card h2,
-.dark .author-content-card h3,
-.dark .author-content-card h4 {
+.dark .author-content-area,
+.dark .author-content-area p,
+.dark .author-content-area li,
+.dark .author-content-area h1,
+.dark .author-content-area h2,
+.dark .author-content-area h3,
+.dark .author-content-area h4 {
   color: rgb(241, 245, 249);
 }
 
@@ -90,5 +136,9 @@ main > div:not(.site-fixed-bg) {
   .list-post-card,
   .tags-page-card {
     padding: 1.25rem;
+  }
+
+  .author-profile-aside::before {
+    display: none;
   }
 }
