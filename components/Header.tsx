@@ -7,10 +7,10 @@ const Header = () => {
   const basePath = process.env.BASE_PATH || ''
 
   return (
-    <header className="relative z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between bg-transparent px-4 py-4 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6">
+    <header className="header-elegant relative z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between bg-transparent px-4 py-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6">
       <Link href="/" aria-label={siteMetadata.headerTitle}>
-        <div className="flex items-center justify-between transition duration-300 hover:scale-[1.02]">
-          <div className="mr-3.5 rounded-full p-0.5 border border-white/20 bg-white/10 shadow-sm backdrop-blur-sm">
+        <div className="group/logo flex items-center gap-3.5 transition-all duration-400">
+          <div className="header-avatar-ring relative">
             <img
               src={`${basePath}/static/images/kieran-icon.jpg`}
               alt="Kieran"
@@ -19,7 +19,7 @@ const Header = () => {
             />
           </div>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="hidden text-lg font-light tracking-[0.22em] text-white sm:block uppercase font-display">
+            <div className="hidden text-lg font-light tracking-[0.22em] text-white/90 sm:block uppercase font-display transition-colors duration-300 group-hover/logo:text-white">
               {siteMetadata.headerTitle}
             </div>
           ) : (
@@ -27,27 +27,27 @@ const Header = () => {
           )}
         </div>
       </Link>
-      <div className="flex items-center space-x-3 leading-5 sm:-mr-2 sm:space-x-4">
-        <nav className="no-scrollbar hidden items-center gap-x-1 overflow-visible rounded-full border p-1 shadow-md backdrop-blur-2xl sm:flex">
+      <div className="flex items-center leading-5 sm:-mr-2">
+        <nav className="header-nav hidden items-center gap-x-1 sm:flex">
           {headerNavLinks.map((link) =>
             link.children ? (
               <div key={link.title} className="group relative">
                 <Link
                   href={link.href}
-                  className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] font-heading opacity-100 transition hover:bg-white/15 hover:text-pink-100"
+                  className="header-nav-link inline-flex items-center gap-1 px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.2em] font-heading"
                 >
                   {link.title}
-                  <span aria-hidden="true" className="text-[10px] leading-none opacity-80">
+                  <span aria-hidden="true" className="text-[10px] leading-none opacity-60 transition-transform duration-300 group-hover:rotate-180">
                     ▾
                   </span>
                 </Link>
-                <div className="invisible absolute left-1/2 top-full min-w-56 -translate-x-1/2 pt-3 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                  <div className="rounded-xl border border-white/20 bg-gray-900/90 p-1.5 shadow-xl backdrop-blur-xl">
+                <div className="invisible absolute left-1/2 top-full min-w-56 -translate-x-1/2 pt-3 opacity-0 transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div className="header-dropdown rounded-xl border border-white/15 bg-gray-900/85 p-1.5 shadow-2xl backdrop-blur-2xl">
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block rounded-lg px-3.5 py-2.5 text-xs font-semibold uppercase tracking-wider font-heading text-gray-200 transition hover:bg-white/10 hover:text-white"
+                        className="block rounded-lg px-3.5 py-2.5 text-xs font-semibold uppercase tracking-wider font-heading text-gray-300 transition-all duration-200 hover:bg-white/10 hover:text-white hover:pl-4.5"
                       >
                         {child.title}
                       </Link>
@@ -59,7 +59,7 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
-                className="rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] font-heading opacity-100 transition hover:bg-white/15 hover:text-pink-100"
+                className="header-nav-link px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.2em] font-heading"
               >
                 {link.title}
               </Link>
