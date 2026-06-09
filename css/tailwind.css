@@ -539,24 +539,27 @@ header button, header svg {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   HOME PAGE CARD STYLES  —  High opacity for readability
+   FEATURED ARTICLE LINK — Transparent with gradient left accent
    ═══════════════════════════════════════════════════════════════════════════ */
-.home-featured-card {
-  border-color: rgba(255,255,255,0.2);
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
-  box-shadow: var(--glass-shadow-lg);
+.featured-article-link {
+  position: relative;
+  border-left-color: transparent;
+  border-image: linear-gradient(180deg, rgba(34, 211, 238, 0.6), rgba(192, 132, 252, 0.4)) 1;
+  border-image-slice: 1;
 }
 
-.home-featured-card h2, .home-featured-card p, .home-featured-card div {
-  color: rgb(15,23,42);
-  text-shadow: none;
+.featured-article-link:hover {
+  border-image: linear-gradient(180deg, rgba(34, 211, 238, 0.9), rgba(192, 132, 252, 0.7)) 1;
 }
 
-.home-featured-card > div > div > p:first-child,
-.home-featured-card span {
-  color: var(--accent-pink);
+.featured-article-link h2 {
+  color: white;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+.featured-article-link p {
+  color: rgba(226,232,240,0.88);
+  text-shadow: 0 4px 16px rgba(0,0,0,0.35);
 }
 
 .home-hero + section {

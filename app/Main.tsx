@@ -155,7 +155,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           {featuredPost && (
             <Link
               href={`/articles/${featuredPost.slug}`}
-              className="featured-card animate-fade-up-delay mt-6 block rounded-2xl border border-white/15 bg-white/40 dark:bg-slate-950/30 p-4 sm:mt-10 sm:rounded-3xl sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)]"
+              className="featured-article-link animate-fade-up-delay mt-6 block border-l-2 border-transparent pl-5 sm:mt-10 sm:pl-7 md:pl-8 py-4 sm:py-6 md:py-8 transition duration-300 hover:-translate-y-0.5"
             >
               <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between animate-fade-up">
                 <div className="space-y-2">
