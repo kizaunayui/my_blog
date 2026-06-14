@@ -24,7 +24,7 @@ export default function FloatingMusicPlayer() {
           aria-hidden="true"
         />
         <span
-          className={`relative flex h-8 w-8 items-center justify-center transition duration-300 ${
+          className={`music-note-icon relative flex h-8 w-8 items-center justify-center transition duration-300 ${
             isPlaying ? 'scale-105 text-cyan-400' : 'text-white/70 group-hover:text-cyan-400'
           }`}
           aria-hidden="true"
@@ -138,10 +138,24 @@ export default function FloatingMusicPlayer() {
             pulse-glow-playing 2.2s ease-in-out infinite;
         }
 
+        .breathing-ring-playing .music-note-icon {
+          animation: slow-rotate 8s linear infinite;
+        }
+
+        @keyframes slow-rotate {
+          from {
+            transform: rotate(0deg) scale(1.05);
+          }
+          to {
+            transform: rotate(360deg) scale(1.05);
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .music-trigger,
           .breathing-ring-idle,
-          .breathing-ring-playing {
+          .breathing-ring-playing,
+          .breathing-ring-playing .music-note-icon {
             animation: none;
           }
         }
