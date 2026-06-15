@@ -15,7 +15,6 @@ const MobileNav = () => {
       if (status) {
         enableBodyScroll(navRef.current)
       } else {
-        // Prevent scrolling
         disableBodyScroll(navRef.current)
       }
       return !status
@@ -28,12 +27,17 @@ const MobileNav = () => {
 
   return (
     <>
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
+      <button
+        aria-label="打开导航菜单"
+        aria-expanded={navShow}
+        onClick={onToggleNav}
+        className="rounded-full border border-white/10 bg-slate-950/35 p-2 text-white shadow-lg shadow-slate-950/20 backdrop-blur-xl transition hover:border-cyan-300/30 hover:text-cyan-200 sm:hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="hover:text-primary-500 dark:hover:text-primary-400 h-8 w-8 text-gray-900 dark:text-gray-100"
+          className="h-6 w-6"
         >
           <path
             fillRule="evenodd"
@@ -54,40 +58,43 @@ const MobileNav = () => {
             leaveTo="opacity-0"
             unmount={false}
           >
-            <div className="fixed inset-0 z-60 bg-black/25" />
+            <div className="fixed inset-0 z-60 bg-slate-950/55 backdrop-blur-sm" />
           </TransitionChild>
 
           <TransitionChild
             as={Fragment}
             enter="transition ease-in-out duration-300 transform"
             enterFrom="translate-x-full opacity-0"
-            enterTo="translate-x-0 opacity-95"
+            enterTo="translate-x-0 opacity-100"
             leave="transition ease-in duration-200 transform"
-            leaveFrom="translate-x-0 opacity-95"
+            leaveFrom="translate-x-0 opacity-100"
             leaveTo="translate-x-full opacity-0"
             unmount={false}
           >
-            <DialogPanel className="fixed top-0 left-0 z-70 h-full w-full bg-white/95 duration-300 dark:bg-gray-950/98">
+            <DialogPanel className="fixed top-0 right-0 z-70 h-full w-full max-w-sm border-l border-white/12 bg-slate-950/88 shadow-2xl shadow-slate-950/50 backdrop-blur-2xl duration-300">
               <nav
                 ref={navRef}
-                className="mt-6 flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-2 text-left sm:pl-12 sm:pr-8"
+                className="flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-18 pb-8 text-left"
               >
+                <p className="mb-6 font-heading text-[10px] font-bold tracking-[0.28em] text-cyan-300 uppercase">
+                  Kieran Space
+                </p>
                 {headerNavLinks.map((link) => (
-                  <div key={link.title} className="mb-2 w-full">
+                  <div key={link.title} className="mb-3 w-full">
                     <Link
                       href={link.href}
-                      className="hover:text-primary-500 dark:hover:text-primary-400 flex min-h-[44px] items-center pr-4 text-xl font-bold tracking-widest text-gray-900 outline outline-0 sm:text-2xl dark:text-gray-100"
+                      className="flex min-h-[46px] items-center rounded-2xl px-3 text-xl font-light tracking-[0.18em] text-white outline outline-0 transition hover:bg-white/8 hover:text-cyan-100 sm:text-2xl"
                       onClick={onToggleNav}
                     >
                       {link.title}
                     </Link>
                     {link.children && (
-                      <div className="mt-0.5 space-y-0.5 border-l border-gray-300 pl-4 dark:border-gray-700">
+                      <div className="mt-1 space-y-1 border-l border-white/12 pl-4">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="hover:text-primary-500 dark:hover:text-primary-400 flex min-h-[44px] items-center text-base font-bold tracking-wide text-gray-700 dark:text-gray-300"
+                            className="flex min-h-[42px] items-center rounded-xl px-3 text-sm font-bold tracking-[0.14em] text-slate-300 transition hover:bg-white/7 hover:text-cyan-100"
                             onClick={onToggleNav}
                           >
                             {child.title}
@@ -100,11 +107,11 @@ const MobileNav = () => {
               </nav>
 
               <button
-                className="hover:text-primary-500 dark:hover:text-primary-400 fixed top-4 right-3 z-80 flex h-11 w-11 items-center justify-center rounded-full text-gray-900 dark:text-gray-100"
-                aria-label="Toggle Menu"
+                className="fixed top-4 right-4 z-80 flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white/80 backdrop-blur-xl transition hover:bg-white/12 hover:text-cyan-100"
+                aria-label="关闭导航菜单"
                 onClick={onToggleNav}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                   <path
                     fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
