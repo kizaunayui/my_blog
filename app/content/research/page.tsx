@@ -5,7 +5,10 @@ import ContentPostList from '@/components/ContentPostList'
 
 const category = '项目研究'
 
-export const metadata = genPageMetadata({ title: category })
+export const metadata = genPageMetadata({
+  title: category,
+  description: '记录医院物流机器人、多智能体协同调度、MARL、任务分配和协作优化方向的研究笔记。',
+})
 
 export default async function ResearchContentPage() {
   const posts = allCoreContent(sortPosts(allBlogs)).filter((post) => post.category === category)
@@ -14,8 +17,8 @@ export default async function ResearchContentPage() {
     <ContentPostList
       posts={posts}
       title={category}
-      description="这里用于记录项目研究内容和阶段性研究笔记，样式保持接近文章列表。"
-      emptyText="暂无项目研究内容。后续添加 category 为“项目研究”的 MDX 文章后会显示在这里。"
+      description="这里记录医院院内物流机器人、多智能体协同调度、MARL、任务分配和协作优化方向的研究笔记。重点不是堆资料，而是沉淀问题建模、技术路线和阶段性结论。"
+      emptyText="暂无项目研究内容。添加 category 为“项目研究”的 MDX 文章后，会自动显示在这里。"
     />
   )
 }
