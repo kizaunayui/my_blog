@@ -6,7 +6,7 @@ import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { notFound } from 'next/navigation'
 
 const reflexionContentClassName =
-  'prose max-w-none dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-800 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-primary-300 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-slate-950 dark:prose-h2:border-primary-400/60 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-primary-700 dark:prose-strong:text-primary-200 prose-blockquote:rounded-2xl prose-blockquote:border-l-4 prose-blockquote:border-primary-300 prose-blockquote:bg-primary-50/70 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-primary-400/60 dark:prose-blockquote:bg-primary-400/10 prose-hr:my-14 prose-hr:border-primary-200/70 dark:prose-hr:border-primary-400/20'
+  'prose max-w-none dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-100 prose-p:tracking-normal prose-h2:mt-14 prose-h2:mb-7 prose-h2:border-l-4 prose-h2:border-cyan-300/45 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-cyan-100 prose-blockquote:rounded-2xl prose-blockquote:border-l-4 prose-blockquote:border-cyan-300/30 prose-blockquote:bg-slate-950/35 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-serif prose-blockquote:text-slate-100 prose-blockquote:not-italic prose-hr:my-14 prose-hr:border-white/10 prose-a:text-cyan-300 prose-a:no-underline hover:prose-a:text-cyan-100'
 
 export const metadata = genPageMetadata({ title: 'Reflexion' })
 
@@ -18,46 +18,50 @@ export default function PersonalAboutPage() {
   }
 
   return (
-    <section className="author-page py-10 sm:py-14">
-      <div className="author-heading animate-fade-up pb-10">
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-200 drop-shadow-[0_10px_26px_rgba(0,0,0,0.55)]">
+    <section className="author-page py-8 sm:py-12 md:py-14">
+      <div className="author-heading animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
+        <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
           About Me
         </p>
-        <h1 className="mt-3 text-4xl leading-tight font-black tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
+        <h1 className="mt-3 font-serif text-4xl font-light leading-tight tracking-wide text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
           Reflexion
         </h1>
+        <p className="mt-4 max-w-2xl text-sm leading-7 font-light text-slate-300 sm:text-base sm:leading-8">
+          一页更私人的自我介绍。保留一点夜晚感，也保留一点还在路上的痕迹。
+        </p>
       </div>
 
-      <article className="overflow-hidden rounded-[2rem] border border-white/28 bg-white/78 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/66">
-        <header className="relative border-b border-slate-200/70 bg-gradient-to-br from-white/88 via-primary-50/45 to-cyan-50/55 px-7 py-8 dark:border-slate-700/70 dark:from-slate-950/88 dark:via-primary-950/30 dark:to-cyan-950/25 sm:px-10 sm:py-10">
-          <p className="text-xs font-black uppercase tracking-[0.28em] text-primary-600 dark:text-primary-300 sm:text-sm">
+      <article className="mt-8 overflow-hidden rounded-[2rem] border border-white/12 bg-slate-950/46 shadow-2xl shadow-slate-950/25 backdrop-blur-2xl sm:mt-10 dark:border-slate-400/20 dark:bg-slate-950/52">
+        <header className="relative border-b border-white/10 bg-gradient-to-br from-slate-950/72 via-slate-900/44 to-cyan-950/20 px-6 py-7 sm:px-9 sm:py-9 md:px-10 md:py-10">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/45 to-transparent" />
+          <p className="font-heading text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-300 sm:text-xs">
             Personal Notes
           </p>
-          <h2 className="mt-4 text-4xl font-black leading-tight tracking-normal text-slate-950 dark:text-white sm:text-5xl">
+          <h2 className="mt-4 font-serif text-3xl font-light leading-tight tracking-wide text-white sm:text-4xl md:text-5xl">
             {reflexion.title}
           </h2>
           {reflexion.summary && (
-            <p className="mt-5 max-w-3xl font-serif text-base leading-8 text-slate-700 dark:text-slate-200 sm:text-lg sm:leading-9">
+            <p className="mt-5 max-w-3xl font-serif text-base leading-8 text-slate-200 sm:text-lg sm:leading-9">
               {reflexion.summary}
             </p>
           )}
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/about"
-              className="inline-flex rounded-full border border-primary-200/70 bg-primary-50/80 px-5 py-3 text-sm font-bold text-primary-700 transition hover:bg-primary-100 dark:border-primary-400/20 dark:bg-primary-400/10 dark:text-primary-200 dark:hover:bg-primary-400/20"
+              className="font-heading inline-flex rounded-full border border-white/15 bg-white/8 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-300/35 hover:bg-white/12 hover:text-white"
             >
               返回关于页
             </Link>
             <Link
               href="/articles/reflexion"
-              className="inline-flex rounded-full border border-white/65 bg-white/70 px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-white dark:border-slate-400/20 dark:bg-slate-900/55 dark:text-slate-100 dark:hover:bg-slate-900/80"
+              className="font-heading inline-flex rounded-full border border-cyan-300/25 bg-cyan-400/10 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-300/45 hover:bg-cyan-400/15 hover:text-white"
             >
               查看文章页
             </Link>
           </div>
         </header>
 
-        <div className="px-7 py-8 sm:px-10 sm:py-10">
+        <div className="px-6 py-8 sm:px-9 sm:py-10 md:px-10">
           <div className={reflexionContentClassName}>
             <MDXLayoutRenderer code={reflexion.body.code} components={components} toc={reflexion.toc} />
           </div>
