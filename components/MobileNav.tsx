@@ -74,7 +74,7 @@ const MobileNav = () => {
             <DialogPanel className="fixed top-0 right-0 z-70 h-full w-full max-w-sm border-l border-white/12 bg-slate-950/88 shadow-2xl shadow-slate-950/50 backdrop-blur-2xl duration-300">
               <nav
                 ref={navRef}
-                className="flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-18 pb-8 text-left"
+                className="flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-20 pb-8 text-left"
               >
                 <p className="mb-6 font-heading text-[10px] font-bold tracking-[0.28em] text-cyan-300 uppercase">
                   Kieran Space
@@ -83,7 +83,7 @@ const MobileNav = () => {
                   <div key={link.title} className="mb-3 w-full">
                     <Link
                       href={link.href}
-                      className="flex min-h-[46px] items-center rounded-2xl px-3 text-xl font-light tracking-[0.18em] text-white outline outline-0 transition hover:bg-white/8 hover:text-cyan-100 sm:text-2xl"
+                      className="flex min-h-[46px] items-center rounded-2xl px-3 text-xl font-light tracking-[0.18em] text-white outline outline-0 transition hover:bg-white/10 hover:text-cyan-100 sm:text-2xl"
                       onClick={onToggleNav}
                     >
                       {link.title}
@@ -94,7 +94,7 @@ const MobileNav = () => {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="flex min-h-[42px] items-center rounded-xl px-3 text-sm font-bold tracking-[0.14em] text-slate-300 transition hover:bg-white/7 hover:text-cyan-100"
+                            className="flex min-h-[42px] items-center rounded-xl px-3 text-sm font-bold tracking-[0.14em] text-slate-300 transition hover:bg-white/10 hover:text-cyan-100"
                             onClick={onToggleNav}
                           >
                             {child.title}
@@ -107,7 +107,7 @@ const MobileNav = () => {
               </nav>
 
               <button
-                className="fixed top-4 right-4 z-80 flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/8 text-white/80 backdrop-blur-xl transition hover:bg-white/12 hover:text-cyan-100"
+                className="fixed top-4 right-4 z-80 flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/10 text-white/80 backdrop-blur-xl transition hover:bg-white/15 hover:text-cyan-100"
                 aria-label="关闭导航菜单"
                 onClick={onToggleNav}
               >
