@@ -3,7 +3,6 @@ import headerNavLinks from '@/data/headerNavLinks'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import Magnetic from './Magnetic'
-import TextScramble from './TextScramble'
 
 const Header = () => {
   const basePath = process.env.BASE_PATH || ''
@@ -24,7 +23,7 @@ const Header = () => {
           </Magnetic>
           {typeof siteMetadata.headerTitle === 'string' ? (
             <div className="font-display hidden text-lg font-light tracking-[0.22em] text-white/90 uppercase transition-colors duration-300 group-hover/logo:text-white sm:block">
-              <TextScramble text={siteMetadata.headerTitle} triggerOn="hover" />
+              {siteMetadata.headerTitle}
             </div>
           ) : (
             siteMetadata.headerTitle
@@ -41,7 +40,7 @@ const Header = () => {
                     href={link.href}
                     className="header-nav-link font-heading inline-flex items-center gap-1 px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
                   >
-                    <TextScramble text={link.title} triggerOn="hover" />
+                    {link.title}
                     <span
                       aria-hidden="true"
                       className="text-[10px] leading-none opacity-60 transition-transform duration-300 group-hover:rotate-180"
@@ -58,7 +57,7 @@ const Header = () => {
                         href={child.href}
                         className="font-heading block rounded-lg px-3.5 py-2.5 text-xs font-semibold tracking-wider text-gray-300 uppercase transition-all duration-200 hover:bg-white/10 hover:pl-4.5 hover:text-white"
                       >
-                        <TextScramble text={child.title} triggerOn="hover" />
+                        {child.title}
                       </Link>
                     ))}
                   </div>
@@ -70,7 +69,7 @@ const Header = () => {
                   href={link.href}
                   className="header-nav-link font-heading px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
                 >
-                  <TextScramble text={link.title} triggerOn="hover" />
+                  {link.title}
                 </Link>
               </Magnetic>
             )

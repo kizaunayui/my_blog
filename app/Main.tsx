@@ -5,7 +5,6 @@ import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import Magnetic from '@/components/Magnetic'
-import TextScramble from '@/components/TextScramble'
 
 const POSTS_PER_PAGE = 5
 const CHINESE_CHARS_PER_MINUTE = 400
@@ -185,7 +184,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                 {/* Label row with reading time */}
                 <div className="mb-4 flex items-center gap-3 sm:mb-5">
                   <span className="font-heading text-[10px] font-bold tracking-[0.3em] text-cyan-500 uppercase dark:text-cyan-400">
-                    <TextScramble text="✦ Featured" triggerOn="hover" />
+                    ✦ Featured
                   </span>
                   <span className="h-px max-w-16 flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent" />
                   {estimateReadingTime(featuredPost.body?.raw) && (
@@ -197,7 +196,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
 
                 {/* Big title */}
                 <h2 className="font-serif text-3xl leading-snug font-light tracking-wide text-white transition-colors duration-300 group-hover:text-cyan-100 sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
-                  <TextScramble text={featuredPost.title} triggerOn="hover" />
+                  {featuredPost.title}
                 </h2>
 
                 {/* Summary */}

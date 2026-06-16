@@ -79,11 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           sizes="76x76"
           href={`${basePath}/static/images/kieran-icon.jpg`}
         />
-        <link
-          rel="icon"
-          type="image/jpeg"
-          href={`${basePath}/static/images/kieran-icon.jpg`}
-        />
+        <link rel="icon" type="image/jpeg" href={`${basePath}/static/images/kieran-icon.jpg`} />
         <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
         <link
           rel="mask-icon"

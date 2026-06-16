@@ -28,10 +28,10 @@ export default function PersonalAboutPage() {
   return (
     <section className="author-page py-8 sm:py-12 md:py-14">
       <div className="author-heading animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
-        <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
+        <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-400 uppercase">
           About Me
         </p>
-        <h1 className="mt-3 font-serif text-4xl font-light leading-tight tracking-wide text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
+        <h1 className="mt-3 font-serif text-4xl leading-tight font-light tracking-wide text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
           Reflexion
         </h1>
         <p className="mt-4 max-w-2xl text-sm leading-7 font-light text-slate-300 sm:text-base sm:leading-8">
@@ -40,9 +40,9 @@ export default function PersonalAboutPage() {
       </div>
 
       <div className="grid gap-10 pt-8 sm:pt-10 lg:grid-cols-[16rem_1fr] lg:gap-12">
-        <aside className="space-y-8 border-t border-white/10 pt-6 lg:border-t-0 lg:border-r lg:border-white/10 lg:pr-8 lg:pt-0">
+        <aside className="space-y-8 border-t border-white/10 pt-6 lg:border-t-0 lg:border-r lg:border-white/10 lg:pt-0 lg:pr-8">
           <section>
-            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-300">
+            <p className="font-heading text-[10px] font-bold tracking-[0.28em] text-cyan-300 uppercase">
               Profile
             </p>
             <h2 className="mt-4 font-serif text-3xl font-light tracking-wide text-white">Kieran</h2>
@@ -55,7 +55,7 @@ export default function PersonalAboutPage() {
             <dl className="space-y-5">
               {profileItems.map(([label, value]) => (
                 <div key={label}>
-                  <dt className="font-heading text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                  <dt className="font-heading text-[10px] font-bold tracking-[0.22em] text-slate-500 uppercase">
                     {label}
                   </dt>
                   <dd className="mt-1 text-sm text-slate-100">{value}</dd>
@@ -65,7 +65,7 @@ export default function PersonalAboutPage() {
           </section>
 
           <section className="border-t border-white/10 pt-6">
-            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-300">
+            <p className="font-heading text-[10px] font-bold tracking-[0.24em] text-cyan-300 uppercase">
               Keywords
             </p>
             <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
@@ -80,13 +80,13 @@ export default function PersonalAboutPage() {
           <nav className="flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row lg:flex-col">
             <Link
               href="/about"
-              className="font-heading inline-flex items-center text-xs font-bold uppercase tracking-[0.16em] text-cyan-200 transition hover:text-white"
+              className="font-heading inline-flex items-center text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase transition hover:text-white"
             >
               ← 返回关于页
             </Link>
             <Link
               href="/articles/reflexion"
-              className="font-heading inline-flex items-center text-xs font-bold uppercase tracking-[0.16em] text-cyan-200 transition hover:text-white"
+              className="font-heading inline-flex items-center text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase transition hover:text-white"
             >
               查看文章页 →
             </Link>
@@ -95,10 +95,10 @@ export default function PersonalAboutPage() {
 
         <main className="min-w-0">
           <header className="border-b border-white/10 pb-8">
-            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-300 sm:text-xs">
+            <p className="font-heading text-[10px] font-bold tracking-[0.28em] text-cyan-300 uppercase sm:text-xs">
               Personal Notes
             </p>
-            <h2 className="mt-4 font-serif text-3xl font-light leading-tight tracking-wide text-white sm:text-4xl md:text-5xl">
+            <h2 className="mt-4 font-serif text-3xl leading-tight font-light tracking-wide text-white sm:text-4xl md:text-5xl">
               {reflexion.title}
             </h2>
             {reflexion.summary && (
@@ -110,7 +110,11 @@ export default function PersonalAboutPage() {
 
           <div className="pt-8 sm:pt-10">
             <div className={reflexionContentClassName}>
-              <MDXLayoutRenderer code={reflexion.body.code} components={components} toc={reflexion.toc} />
+              <MDXLayoutRenderer
+                code={reflexion.body.code}
+                components={components}
+                toc={reflexion.toc}
+              />
             </div>
           </div>
         </main>

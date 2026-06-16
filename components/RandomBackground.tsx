@@ -98,7 +98,6 @@ export default function RandomBackground({ basePath = '' }: RandomBackgroundProp
           } as React.CSSProperties
         }
       />
-
     </>
   )
 }
