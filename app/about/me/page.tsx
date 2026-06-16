@@ -6,7 +6,15 @@ import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { notFound } from 'next/navigation'
 
 const reflexionContentClassName =
-  'prose max-w-none dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-800 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-primary-300 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-slate-950 dark:prose-h2:border-primary-400/60 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-primary-700 dark:prose-strong:text-primary-200 prose-blockquote:rounded-2xl prose-blockquote:border-l-4 prose-blockquote:border-primary-300 prose-blockquote:bg-primary-50/70 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-primary-400/60 dark:prose-blockquote:bg-primary-400/10 prose-hr:my-14 prose-hr:border-primary-200/70 dark:prose-hr:border-primary-400/20'
+  'prose max-w-none dark:prose-invert prose-p:font-serif prose-p:text-[1.05rem] prose-p:leading-9 prose-p:text-slate-100 prose-p:tracking-normal prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-l-4 prose-h2:border-cyan-300/45 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-cyan-100 prose-blockquote:border-l-4 prose-blockquote:border-cyan-300/35 prose-blockquote:bg-transparent prose-blockquote:px-6 prose-blockquote:py-2 prose-blockquote:font-serif prose-blockquote:text-slate-100 prose-blockquote:not-italic prose-hr:my-12 prose-hr:border-white/10 prose-a:text-cyan-300 prose-a:no-underline hover:prose-a:text-cyan-100'
+
+const profileItems = [
+  ['Identity', 'Kieran'],
+  ['State', '18 / Night'],
+  ['Signal', 'Music · Game · 24fps'],
+]
+
+const keywords = ['Reflexion', '个人博客', '音乐', '游戏', '电影', '学习记录']
 
 export const metadata = genPageMetadata({ title: 'Reflexion' })
 
@@ -18,55 +26,95 @@ export default function PersonalAboutPage() {
   }
 
   return (
-    <section className="author-page py-10 sm:py-14">
-      <div className="author-heading animate-fade-up pb-10">
-        <p className="text-sm font-black tracking-[0.22em] text-pink-200 uppercase drop-shadow-[0_10px_26px_rgba(0,0,0,0.55)]">
+    <section className="author-page py-8 sm:py-12 md:py-14">
+      <div className="author-heading animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
+        <p className="font-heading text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
           About Me
         </p>
-        <h1 className="mt-3 text-4xl leading-tight font-black tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
+        <h1 className="mt-3 font-serif text-4xl font-light leading-tight tracking-wide text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
           Reflexion
         </h1>
+        <p className="mt-4 max-w-2xl text-sm leading-7 font-light text-slate-300 sm:text-base sm:leading-8">
+          一页更私人的自我介绍。它不太像简历，也不太像说明书，更像是给这个博客留下的一段自白。
+        </p>
       </div>
 
-      <article className="overflow-hidden rounded-[2rem] border border-white/28 bg-white/78 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/66">
-        <header className="via-primary-50/45 dark:via-primary-950/30 relative border-b border-slate-200/70 bg-gradient-to-br from-white/88 to-cyan-50/55 px-7 py-8 sm:px-10 sm:py-10 dark:border-slate-700/70 dark:from-slate-950/88 dark:to-cyan-950/25">
-          <p className="text-primary-600 dark:text-primary-300 text-xs font-black tracking-[0.28em] uppercase sm:text-sm">
-            Personal Notes
-          </p>
-          <h2 className="mt-4 text-4xl leading-tight font-black tracking-normal text-slate-950 sm:text-5xl dark:text-white">
-            {reflexion.title}
-          </h2>
-          {reflexion.summary && (
-            <p className="mt-5 max-w-3xl font-serif text-base leading-8 text-slate-700 sm:text-lg sm:leading-9 dark:text-slate-200">
-              {reflexion.summary}
+      <div className="grid gap-10 pt-8 sm:pt-10 lg:grid-cols-[16rem_1fr] lg:gap-12">
+        <aside className="space-y-8 border-t border-white/10 pt-6 lg:border-t-0 lg:border-r lg:border-white/10 lg:pr-8 lg:pt-0">
+          <section>
+            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-300">
+              Profile
             </p>
-          )}
-          <div className="mt-7 flex flex-wrap gap-3">
+            <h2 className="mt-4 font-serif text-3xl font-light tracking-wide text-white">Kieran</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-300">
+              写一点技术，也写一点生活。这里比首页更私人，比文章页更松弛。
+            </p>
+          </section>
+
+          <section className="border-t border-white/10 pt-6">
+            <dl className="space-y-5">
+              {profileItems.map(([label, value]) => (
+                <div key={label}>
+                  <dt className="font-heading text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                    {label}
+                  </dt>
+                  <dd className="mt-1 text-sm text-slate-100">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <section className="border-t border-white/10 pt-6">
+            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-300">
+              Keywords
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
+              {keywords.map((keyword) => (
+                <span key={keyword} className="text-xs text-slate-300">
+                  #{keyword}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          <nav className="flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row lg:flex-col">
             <Link
               href="/about"
-              className="border-primary-200/70 bg-primary-50/80 text-primary-700 hover:bg-primary-100 dark:border-primary-400/20 dark:bg-primary-400/10 dark:text-primary-200 dark:hover:bg-primary-400/20 inline-flex rounded-full border px-5 py-3 text-sm font-bold transition"
+              className="font-heading inline-flex items-center text-xs font-bold uppercase tracking-[0.16em] text-cyan-200 transition hover:text-white"
             >
-              返回关于页
+              ← 返回关于页
             </Link>
             <Link
               href="/articles/reflexion"
-              className="inline-flex rounded-full border border-white/65 bg-white/70 px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-white dark:border-slate-400/20 dark:bg-slate-900/55 dark:text-slate-100 dark:hover:bg-slate-900/80"
+              className="font-heading inline-flex items-center text-xs font-bold uppercase tracking-[0.16em] text-cyan-200 transition hover:text-white"
             >
-              查看文章页
+              查看文章页 →
             </Link>
-          </div>
-        </header>
+          </nav>
+        </aside>
 
-        <div className="px-7 py-8 sm:px-10 sm:py-10">
-          <div className={reflexionContentClassName}>
-            <MDXLayoutRenderer
-              code={reflexion.body.code}
-              components={components}
-              toc={reflexion.toc}
-            />
+        <main className="min-w-0">
+          <header className="border-b border-white/10 pb-8">
+            <p className="font-heading text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-300 sm:text-xs">
+              Personal Notes
+            </p>
+            <h2 className="mt-4 font-serif text-3xl font-light leading-tight tracking-wide text-white sm:text-4xl md:text-5xl">
+              {reflexion.title}
+            </h2>
+            {reflexion.summary && (
+              <p className="mt-5 max-w-3xl font-serif text-base leading-8 text-slate-200 sm:text-lg sm:leading-9">
+                {reflexion.summary}
+              </p>
+            )}
+          </header>
+
+          <div className="pt-8 sm:pt-10">
+            <div className={reflexionContentClassName}>
+              <MDXLayoutRenderer code={reflexion.body.code} components={components} toc={reflexion.toc} />
+            </div>
           </div>
-        </div>
-      </article>
+        </main>
+      </div>
     </section>
   )
 }

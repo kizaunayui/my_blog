@@ -93,6 +93,11 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
     setActiveIndex((index) => (index + step + SONGS.length) % SONGS.length)
   }
 
+  const handleEnded = () => {
+    setIsPlaying(true)
+    switchSong(1)
+  }
+
   const togglePlay = async () => {
     const audio = audioRef.current
     if (!audio) return
@@ -358,7 +363,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
         preload="metadata"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        onEnded={() => switchSong(1)}
+        onEnded={handleEnded}
         onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
         onLoadedMetadata={(event) => setAudioDuration(event.currentTarget.duration)}
         onError={() => {

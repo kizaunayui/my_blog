@@ -40,62 +40,67 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
         </p>
       </section>
 
-      <section aria-label="Prompt 分类筛选" className="border-b border-white/10 py-5 sm:py-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
-              Categories
-            </p>
-            <h2 className="mt-2 font-serif text-2xl font-light tracking-wide text-white">
-              分类筛选
-            </h2>
-          </div>
-          <p className="text-sm font-light text-slate-300">
-            {filteredPrompts.length} / {prompts.length} 条
-          </p>
-        </div>
-        <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
-          {categories.map((category) => {
-            const isActive = category === selectedCategory
-            return (
-              <button
-                key={category}
-                type="button"
-                onClick={() => setSelectedCategory(category)}
-                className={
-                  isActive
-                    ? 'font-heading shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400'
-                    : 'font-heading shrink-0 rounded-full bg-white/10 px-4 py-2 text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-white/18'
-                }
-              >
-                {category}
-              </button>
-            )
-          })}
-        </div>
-      </section>
-
-      <section className="space-y-1">
-        {filteredPrompts.map((item, index) => (
-          <article
-            key={item.title}
-            className="premium-row group border-b border-white/10 px-1 py-6 sm:px-2 sm:py-7"
-            style={{ animationDelay: `${index * 55}ms` }}
-          >
-            <div className="space-y-4 lg:grid lg:grid-cols-[12rem_1fr] lg:gap-8 lg:space-y-0">
-              <div className="space-y-2">
-                <span className="font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
-                  {item.category}
-                </span>
-                <time
-                  className="font-heading block text-xs font-bold tracking-[0.18em] text-slate-300/80 uppercase"
-                  dateTime={item.updatedAt}
-                >
-                  更新于 {item.updatedAt}
-                </time>
+      <div className="gap-8 lg:grid lg:grid-cols-[12rem_minmax(0,1fr)]">
+        <aside
+          aria-label="Prompt 分类筛选"
+          className="border-b border-white/10 py-5 sm:py-6 lg:border-b-0 lg:pr-2"
+        >
+          <div className="lg:sticky lg:top-24">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:block">
+              <div>
+                <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+                  Categories
+                </p>
+                <h2 className="mt-2 font-serif text-2xl font-light tracking-wide text-white">
+                  分类筛选
+                </h2>
               </div>
+              <p className="text-sm font-light text-slate-300 lg:mt-5">
+                {filteredPrompts.length} / {prompts.length} 条
+              </p>
+            </div>
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:border-l lg:border-white/10 lg:pb-0">
+              {categories.map((category) => {
+                const isActive = category === selectedCategory
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setSelectedCategory(category)}
+                    className={
+                      isActive
+                        ? 'font-heading shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 hover:bg-cyan-500 lg:w-full lg:rounded-none lg:border-l-2 lg:border-cyan-300 lg:bg-transparent lg:py-2 lg:pl-4 lg:text-cyan-200 dark:bg-cyan-500 dark:hover:bg-cyan-400 dark:lg:bg-transparent dark:lg:hover:bg-white/5'
+                        : 'font-heading shrink-0 rounded-full bg-white/10 px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 hover:bg-white/18 lg:w-full lg:rounded-none lg:border-l-2 lg:border-transparent lg:bg-transparent lg:py-2 lg:pl-4 lg:text-slate-300 lg:hover:border-white/20 lg:hover:bg-white/5 lg:hover:text-white'
+                    }
+                  >
+                    {category}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </aside>
 
+        <section className="space-y-1 lg:min-w-0">
+          {filteredPrompts.map((item, index) => (
+            <article
+              key={item.title}
+              className="premium-row group border-b border-white/10 px-1 py-6 sm:px-2 sm:py-7"
+              style={{ animationDelay: `${index * 55}ms` }}
+            >
               <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
+                    {item.category}
+                  </span>
+                  <time
+                    className="font-heading text-xs font-bold tracking-[0.18em] text-slate-300/80 uppercase"
+                    dateTime={item.updatedAt}
+                  >
+                    更新于 {item.updatedAt}
+                  </time>
+                </div>
+
                 <div>
                   <h3 className="font-serif text-xl leading-tight font-light tracking-wide text-white sm:text-2xl md:text-3xl">
                     {item.title}
@@ -130,10 +135,10 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   </button>
                 </div>
               </div>
-            </div>
-          </article>
-        ))}
-      </section>
+            </article>
+          ))}
+        </section>
+      </div>
     </div>
   )
 }

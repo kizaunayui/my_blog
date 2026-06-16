@@ -98,12 +98,7 @@ export default function RandomBackground({ basePath = '' }: RandomBackgroundProp
           } as React.CSSProperties
         }
       />
-      {/* Floating fluid aurora mesh gradient blobs */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="animate-blob absolute -top-[10%] -left-[10%] h-[50vw] w-[50vw] rounded-full bg-cyan-500/10 blur-[80px] md:blur-[125px] dark:bg-cyan-500/15" />
-        <div className="animate-blob animation-delay-2000 absolute -right-[10%] -bottom-[10%] h-[50vw] w-[50vw] rounded-full bg-pink-500/10 blur-[80px] md:blur-[125px] dark:bg-pink-500/15" />
-        <div className="animate-blob animation-delay-4000 absolute top-[30%] left-[30%] h-[40vw] w-[40vw] rounded-full bg-indigo-500/8 blur-[80px] md:blur-[125px] dark:bg-indigo-500/12" />
-      </div>
+
     </>
   )
 }
