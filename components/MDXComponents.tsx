@@ -126,7 +126,8 @@ function hasFigcaption(children: ReactNode): boolean {
 function Figure({ children, ...props }: HTMLAttributes<HTMLElement> & { children?: ReactNode }) {
   const { alt, src } = getImageInfo(children)
   const caption = getCaptionFromSrc(src) ?? alt
-  const shouldShowCaption = typeof caption === 'string' && caption.trim() && !hasFigcaption(children)
+  const shouldShowCaption =
+    typeof caption === 'string' && caption.trim() && !hasFigcaption(children)
 
   return (
     <figure {...props}>

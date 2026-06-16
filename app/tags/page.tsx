@@ -34,11 +34,15 @@ export default async function Page() {
           <div className="grid grid-cols-2 gap-3 text-center sm:flex sm:items-center">
             <div className="rounded-2xl border border-white/20 bg-white/16 px-5 py-4 backdrop-blur-xl">
               <div className="text-3xl font-black text-white">{sortedTags.length}</div>
-              <div className="mt-1 text-xs font-bold uppercase tracking-wide text-slate-300">Tags</div>
+              <div className="mt-1 text-xs font-bold tracking-wide text-slate-300 uppercase">
+                Tags
+              </div>
             </div>
             <div className="rounded-2xl border border-white/20 bg-white/16 px-5 py-4 backdrop-blur-xl">
               <div className="text-3xl font-black text-white">{totalTagUses}</div>
-              <div className="mt-1 text-xs font-bold uppercase tracking-wide text-slate-300">Posts</div>
+              <div className="mt-1 text-xs font-bold tracking-wide text-slate-300 uppercase">
+                Posts
+              </div>
             </div>
           </div>
         </div>
@@ -61,7 +65,7 @@ export default async function Page() {
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(236,72,153,0.18),rgba(14,165,233,0.14),transparent_72%)] opacity-70 transition group-hover:opacity-100" />
             <div className="relative flex items-center justify-between gap-4">
               <div>
-                <div className="text-xs font-black uppercase tracking-[0.22em] text-pink-600 dark:text-pink-300">
+                <div className="text-xs font-black tracking-[0.22em] text-pink-600 uppercase dark:text-pink-300">
                   Tag
                 </div>
                 <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white">

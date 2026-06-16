@@ -16,6 +16,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
 import Script from 'next/script'
+import MouseTracker from '@/components/MouseTracker'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -77,11 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         sizes="76x76"
         href={`${basePath}/static/images/kieran-icon.jpg`}
       />
-      <link
-        rel="icon"
-        type="image/jpeg"
-        href={`${basePath}/static/images/kieran-icon.jpg`}
-      />
+      <link rel="icon" type="image/jpeg" href={`${basePath}/static/images/kieran-icon.jpg`} />
       <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
       <link
         rel="mask-icon"
@@ -94,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       <body className="overflow-x-hidden bg-transparent text-black antialiased dark:text-white">
         <ThemeProviders>
+          <MouseTracker />
           <RandomBackground basePath={basePath} />
           <ScrollProgress />
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
@@ -104,9 +102,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </SectionContainer>
           <FloatingMusicPlayer />
         </ThemeProviders>
-        <Script id="baidu-push" strategy="afterInteractive">{
-          `(function(){var bp=document.createElement("script");var curProtocol=window.location.protocol.split(":")[0];if(curProtocol==="https"){bp.src="https://zz.bdstatic.com/linksubmit/push.js"}else{bp.src="http://push.zhanzhang.baidu.com/push.js"}var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(bp,s)})()`
-        }</Script>
+        <Script
+          id="baidu-push"
+          strategy="afterInteractive"
+        >{`(function(){var bp=document.createElement("script");var curProtocol=window.location.protocol.split(":")[0];if(curProtocol==="https"){bp.src="https://zz.bdstatic.com/linksubmit/push.js"}else{bp.src="http://push.zhanzhang.baidu.com/push.js"}var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(bp,s)})()`}</Script>
         <Script src={`${basePath}/scroll-reveal.js`} strategy="afterInteractive" />
       </body>
     </html>

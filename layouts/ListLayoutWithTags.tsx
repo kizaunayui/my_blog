@@ -56,7 +56,11 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           </button>
         )}
         {nextPage && (
-          <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next" className="dark:text-cyan-100 dark:hover:text-white">
+          <Link
+            href={`/${basePath}/page/${currentPage + 1}`}
+            rel="next"
+            className="dark:text-cyan-100 dark:hover:text-white"
+          >
             Next
           </Link>
         )}
@@ -80,23 +84,25 @@ export default function ListLayoutWithTags({
 
   return (
     <div className="list-layout-page py-6 sm:py-10 md:py-14">
-      <div className="list-layout-heading mb-6 rounded-2xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 px-4 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:mb-8 sm:rounded-3xl sm:px-6 sm:py-8 md:px-8">
-        <p className="mb-3 font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
+      <div className="list-layout-heading mb-6 rounded-2xl border border-white/10 bg-white/40 px-4 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:mb-8 sm:rounded-3xl sm:px-6 sm:py-8 md:px-8 dark:border-white/10 dark:bg-slate-950/35">
+        <p className="font-heading mb-3 text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
           Blog Archive · 文章归档
         </p>
-        <h1 className="font-serif text-2xl font-light tracking-wide text-gray-900 dark:text-white sm:text-3xl md:text-4xl lg:text-5xl">
+        <h1 className="font-serif text-2xl font-light tracking-wide text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl dark:text-white">
           {title}
         </h1>
       </div>
 
       <div className="list-layout-grid flex gap-6 sm:gap-8 md:gap-10">
-        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-3xl border border-white/10 dark:border-white/10 bg-white/40 dark:bg-slate-950/35 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:block">
+        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-3xl border border-white/10 bg-white/40 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:block dark:border-white/10 dark:bg-slate-950/35">
           {pathname.startsWith('/articles') ? (
-            <h3 className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 dark:text-cyan-100">All Posts · 所有文章</h3>
+            <h3 className="font-heading text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-100">
+              All Posts · 所有文章
+            </h3>
           ) : (
             <Link
               href={`/articles`}
-              className="font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-600 hover:text-cyan-500 dark:text-cyan-100 dark:hover:text-white"
+              className="font-heading text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase hover:text-cyan-500 dark:text-cyan-100 dark:hover:text-white"
             >
               All Posts · 所有文章
             </Link>
@@ -107,13 +113,13 @@ export default function ListLayoutWithTags({
               return (
                 <li key={t}>
                   {isActive ? (
-                    <h3 className="inline-flex rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 px-3 py-1.5 font-heading text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
+                    <h3 className="font-heading inline-flex rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 px-3 py-1.5 text-[10px] font-bold tracking-wider text-white uppercase shadow-sm">
                       {`${t} (${tagCounts[t]})`}
                     </h3>
                   ) : (
                     <Link
                       href={`/tags/${slug(t)}`}
-                      className="inline-flex rounded-full px-3 py-1.5 font-heading text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-100 transition"
+                      className="font-heading inline-flex rounded-full px-3 py-1.5 text-[10px] font-bold tracking-wider text-slate-600 uppercase transition hover:text-cyan-600 dark:text-slate-200 dark:hover:text-cyan-100"
                       aria-label={`View posts tagged ${t}`}
                     >
                       {`${t} (${tagCounts[t]})`}
@@ -131,10 +137,10 @@ export default function ListLayoutWithTags({
               const { path, date, title, summary, tags } = post
               return (
                 <li key={path}>
-                  <article className="premium-row group border-b border-slate-200/50 dark:border-white/10 py-5 px-1 sm:py-7 sm:px-2">
+                  <article className="premium-row group border-b border-slate-200/50 px-1 py-5 sm:px-2 sm:py-7 dark:border-white/10">
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-3 py-1 font-heading text-[11px] font-black uppercase tracking-[0.16em] text-cyan-800 shadow-sm dark:border-cyan-300/50 dark:bg-cyan-950/75 dark:text-white dark:shadow-[0_0_18px_rgba(34,211,238,0.22)]">
+                      <dd className="font-heading inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-3 py-1 text-[11px] font-black tracking-[0.16em] text-cyan-800 uppercase shadow-sm dark:border-cyan-300/50 dark:bg-cyan-950/75 dark:text-white dark:shadow-[0_0_18px_rgba(34,211,238,0.22)]">
                         <time dateTime={date} suppressHydrationWarning>
                           {formatDate(date, siteMetadata.locale)}
                         </time>
@@ -142,13 +148,18 @@ export default function ListLayoutWithTags({
                     </dl>
                     <div className="mt-3.5 space-y-3">
                       <div>
-                        <h2 className="font-serif text-xl font-light tracking-wide text-gray-950 dark:text-white sm:text-2xl leading-tight">
-                          <Link href={`/${path}`} className="premium-row-link text-slate-950 hover:text-cyan-600 dark:text-white dark:hover:text-cyan-100">
+                        <h2 className="font-serif text-xl leading-tight font-light tracking-wide text-gray-950 sm:text-2xl dark:text-white">
+                          <Link
+                            href={`/${path}`}
+                            className="premium-row-link text-slate-950 hover:text-cyan-600 dark:text-white dark:hover:text-cyan-100"
+                          >
                             {title}
                           </Link>
                         </h2>
                         <div className="mt-3 flex flex-wrap gap-2.5">
-                          {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                          {tags?.map((tag) => (
+                            <Tag key={tag} text={tag} />
+                          ))}
                         </div>
                       </div>
                       <p className="max-w-none text-[13.5px] leading-relaxed font-light text-slate-700 dark:text-slate-100">

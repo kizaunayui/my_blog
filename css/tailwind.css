@@ -296,7 +296,9 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 72% 38%, rgba(96, 165, 250, 0.08), transparent 30rem),
+    radial-gradient(circle 35rem at var(--mouse-x, 72%) var(--mouse-y, 38%), rgba(6, 182, 212, 0.14), transparent 80%),
+    radial-gradient(circle 25rem at var(--mouse-x, 72%) var(--mouse-y, 38%), rgba(236, 72, 153, 0.08), transparent 80%),
+    radial-gradient(circle at 72% 38%, rgba(96, 165, 250, 0.06), transparent 30rem),
     linear-gradient(90deg, rgba(2, 6, 23, 0.62) 0%, rgba(2, 6, 23, 0.48) 34%, rgba(2, 6, 23, 0.16) 66%, rgba(2, 6, 23, 0.36) 100%),
     linear-gradient(180deg, rgba(2, 6, 23, 0.04) 0%, rgba(2, 6, 23, 0.16) 52%, rgba(2, 6, 23, 0.42) 100%);
   animation: overlay-glow 18s ease-in-out infinite alternate;
@@ -811,6 +813,22 @@ footer, footer a, footer div, footer svg {
     linear-gradient(to right, color-mix(in oklch, var(--color-gray-700) 42%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in oklch, var(--color-gray-700) 42%, transparent) 1px, transparent 1px);
   opacity: 0.25;
+}
+
+.hero-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-size: inherit;
+  mask-image: radial-gradient(380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 10%, transparent 80%);
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.dark .hero-grid::after {
+  opacity: 0.55;
 }
 
 .decorative-aurora {

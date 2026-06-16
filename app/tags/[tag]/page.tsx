@@ -20,9 +20,7 @@ function normalizeTagParam(tag: string) {
 function getPostsByTag(tagParam: string) {
   const { tagSlug } = normalizeTagParam(tagParam)
   return allCoreContent(
-    sortPosts(
-      allBlogs.filter((post) => post.tags?.some((postTag) => slug(postTag) === tagSlug))
-    )
+    sortPosts(allBlogs.filter((post) => post.tags?.some((postTag) => slug(postTag) === tagSlug)))
   )
 }
 

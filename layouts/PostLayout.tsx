@@ -73,7 +73,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         <header className="post-header animate-fade-up mb-6 px-1 py-6 text-center sm:mb-8 sm:px-2 sm:py-8 md:py-10">
           <dl>
             <dt className="sr-only">Published on</dt>
-            <dd className="inline-flex items-center gap-2 font-heading text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-400">
+            <dd className="font-heading inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.25em] text-cyan-500 uppercase dark:text-cyan-400">
               <span className="h-px w-6 bg-gradient-to-r from-cyan-500/50 to-transparent" />
               <time dateTime={date}>
                 {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
@@ -104,9 +104,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                     />
                   )}
                   <div className="text-xs font-bold whitespace-nowrap">
-                    <p className="text-white font-serif">{author.name}</p>
+                    <p className="font-serif text-white">{author.name}</p>
                     {author.twitter && (
-                      <Link href={author.twitter} className="text-cyan-400/70 hover:text-cyan-300 font-heading text-[10px] uppercase tracking-wider">
+                      <Link
+                        href={author.twitter}
+                        className="font-heading text-[10px] tracking-wider text-cyan-400/70 uppercase hover:text-cyan-300"
+                      >
                         {author.twitter
                           .replace('https://twitter.com/', '@')
                           .replace('https://x.com/', '@')}
@@ -118,7 +121,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
               {record && (record.location || record.weather) && (
                 <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-300">
-                  <span className="font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">
+                  <span className="font-heading text-[10px] font-bold tracking-[0.18em] text-white/40 uppercase">
                     记于
                   </span>
                   {record.location && <span>{record.location}</span>}
@@ -129,14 +132,16 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
             {tags && tags.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-white/35">Tags</span>
+                <span className="font-heading text-[10px] font-bold tracking-[0.18em] text-white/35 uppercase">
+                  Tags
+                </span>
                 {tags.map((tag) => (
                   <Tag key={tag} text={tag} />
                 ))}
               </div>
             )}
 
-            <div className="flex flex-wrap items-center gap-3 text-xs font-bold xl:justify-end font-heading uppercase tracking-wider">
+            <div className="font-heading flex flex-wrap items-center gap-3 text-xs font-bold tracking-wider uppercase xl:justify-end">
               {prev && (prev.slug || prev.path) && (
                 <Link href={articleHref(prev)} className="text-cyan-400/70 hover:text-cyan-300">
                   ← Previous
@@ -187,7 +192,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
           <div className="post-footer-links px-1 py-4 text-sm font-bold text-white/60 sm:px-2">
             <div className="mb-4 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
-            <Link href={discussUrl(slug)} rel="nofollow" className="text-cyan-400/70 hover:text-cyan-300">
+            <Link
+              href={discussUrl(slug)}
+              rel="nofollow"
+              className="text-cyan-400/70 hover:text-cyan-300"
+            >
               Discuss on Twitter
             </Link>
             {` • `}

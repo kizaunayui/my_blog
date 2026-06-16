@@ -20,7 +20,7 @@ export default function PersonalAboutPage() {
   return (
     <section className="author-page py-10 sm:py-14">
       <div className="author-heading animate-fade-up pb-10">
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-200 drop-shadow-[0_10px_26px_rgba(0,0,0,0.55)]">
+        <p className="text-sm font-black tracking-[0.22em] text-pink-200 uppercase drop-shadow-[0_10px_26px_rgba(0,0,0,0.55)]">
           About Me
         </p>
         <h1 className="mt-3 text-4xl leading-tight font-black tracking-tight text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
@@ -29,22 +29,22 @@ export default function PersonalAboutPage() {
       </div>
 
       <article className="overflow-hidden rounded-[2rem] border border-white/28 bg-white/78 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl dark:border-slate-400/20 dark:bg-slate-950/66">
-        <header className="relative border-b border-slate-200/70 bg-gradient-to-br from-white/88 via-primary-50/45 to-cyan-50/55 px-7 py-8 dark:border-slate-700/70 dark:from-slate-950/88 dark:via-primary-950/30 dark:to-cyan-950/25 sm:px-10 sm:py-10">
-          <p className="text-xs font-black uppercase tracking-[0.28em] text-primary-600 dark:text-primary-300 sm:text-sm">
+        <header className="via-primary-50/45 dark:via-primary-950/30 relative border-b border-slate-200/70 bg-gradient-to-br from-white/88 to-cyan-50/55 px-7 py-8 sm:px-10 sm:py-10 dark:border-slate-700/70 dark:from-slate-950/88 dark:to-cyan-950/25">
+          <p className="text-primary-600 dark:text-primary-300 text-xs font-black tracking-[0.28em] uppercase sm:text-sm">
             Personal Notes
           </p>
-          <h2 className="mt-4 text-4xl font-black leading-tight tracking-normal text-slate-950 dark:text-white sm:text-5xl">
+          <h2 className="mt-4 text-4xl leading-tight font-black tracking-normal text-slate-950 sm:text-5xl dark:text-white">
             {reflexion.title}
           </h2>
           {reflexion.summary && (
-            <p className="mt-5 max-w-3xl font-serif text-base leading-8 text-slate-700 dark:text-slate-200 sm:text-lg sm:leading-9">
+            <p className="mt-5 max-w-3xl font-serif text-base leading-8 text-slate-700 sm:text-lg sm:leading-9 dark:text-slate-200">
               {reflexion.summary}
             </p>
           )}
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/about"
-              className="inline-flex rounded-full border border-primary-200/70 bg-primary-50/80 px-5 py-3 text-sm font-bold text-primary-700 transition hover:bg-primary-100 dark:border-primary-400/20 dark:bg-primary-400/10 dark:text-primary-200 dark:hover:bg-primary-400/20"
+              className="border-primary-200/70 bg-primary-50/80 text-primary-700 hover:bg-primary-100 dark:border-primary-400/20 dark:bg-primary-400/10 dark:text-primary-200 dark:hover:bg-primary-400/20 inline-flex rounded-full border px-5 py-3 text-sm font-bold transition"
             >
               返回关于页
             </Link>
@@ -59,7 +59,11 @@ export default function PersonalAboutPage() {
 
         <div className="px-7 py-8 sm:px-10 sm:py-10">
           <div className={reflexionContentClassName}>
-            <MDXLayoutRenderer code={reflexion.body.code} components={components} toc={reflexion.toc} />
+            <MDXLayoutRenderer
+              code={reflexion.body.code}
+              components={components}
+              toc={reflexion.toc}
+            />
           </div>
         </div>
       </article>

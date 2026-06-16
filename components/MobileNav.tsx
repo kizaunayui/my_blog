@@ -70,7 +70,7 @@ const MobileNav = () => {
             <DialogPanel className="fixed top-0 left-0 z-70 h-full w-full bg-white/95 duration-300 dark:bg-gray-950/98">
               <nav
                 ref={navRef}
-                className="mt-6 flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-2 text-left sm:pl-12 sm:pr-8"
+                className="mt-6 flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-2 text-left sm:pr-8 sm:pl-12"
               >
                 {headerNavLinks.map((link) => (
                   <div key={link.title} className="mb-2 w-full">
