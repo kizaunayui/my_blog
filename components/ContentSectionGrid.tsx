@@ -4,13 +4,21 @@ import SpotlightCard from '@/components/SpotlightCard'
 
 type ContentSectionGridProps = {
   showIntro?: boolean
+  reveal?: boolean
 }
 
-export default function ContentSectionGrid({ showIntro = false }: ContentSectionGridProps) {
+export default function ContentSectionGrid({
+  showIntro = false,
+  reveal = true,
+}: ContentSectionGridProps) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
       {contentSections.map((section) => (
-        <Link key={section.href} href={section.href} className="scroll-reveal block">
+        <Link
+          key={section.href}
+          href={section.href}
+          className={reveal ? 'scroll-reveal block' : 'block'}
+        >
           <SpotlightCard
             variant="transparent"
             className="p-5 sm:p-6"
