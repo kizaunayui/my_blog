@@ -1,7 +1,9 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from '@/components/Link'
 import type { PromptItem } from '@/data/promptsData'
+import { getPromptSlug } from '@/data/promptSlugs'
 
 const allCategory = '全部'
 
@@ -103,7 +105,9 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
 
                 <div>
                   <h3 className="font-serif text-xl leading-tight font-light tracking-wide text-white sm:text-2xl md:text-3xl">
-                    {item.title}
+                    <Link href={`/content/${getPromptSlug(item)}`} className="hover:text-cyan-200">
+                      {item.title}
+                    </Link>
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed font-light text-slate-200">
                     {item.description}
@@ -125,7 +129,13 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   {item.prompt}
                 </pre>
 
-                <div className="flex justify-end">
+                <div className="flex flex-wrap justify-end gap-3">
+                  <Link
+                    href={`/content/${getPromptSlug(item)}`}
+                    className="font-heading inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/50 hover:text-cyan-100"
+                  >
+                    查看详情
+                  </Link>
                   <button
                     type="button"
                     onClick={() => handleCopy(item)}
