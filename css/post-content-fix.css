@@ -129,13 +129,16 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   POST META / SIDE / TITLE CARDS — Glass backdrop
+   POST META / SIDE / TITLE — transparent editorial surfaces
    ═══════════════════════════════════════════════════════════════════════════ */
 .post-meta-card,
 .post-side-card,
 .post-title-card {
-  -webkit-backdrop-filter: blur(20px) saturate(1.1);
-  backdrop-filter: blur(20px) saturate(1.1);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

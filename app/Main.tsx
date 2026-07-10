@@ -1,6 +1,5 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
-import SpotlightCard from '@/components/SpotlightCard'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -71,7 +70,7 @@ function HomePagination({ currentPage, totalPages }: Pagination) {
   }
 
   return (
-    <nav className="mx-auto mt-7 flex w-fit items-center gap-1 rounded-full border border-gray-200/70 bg-white/65 p-1 text-xs font-bold shadow-lg shadow-slate-950/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
+    <nav className="home-pagination mx-auto mt-7 flex w-fit items-center gap-1 border-y border-white/10 px-2 py-1 text-xs font-bold">
       {prevPage ? (
         <Link
           href={previousHref}
@@ -83,7 +82,7 @@ function HomePagination({ currentPage, totalPages }: Pagination) {
       ) : (
         <span className="rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">上一页</span>
       )}
-      <span className="min-w-[3.75rem] rounded-full border border-slate-200/70 bg-white/65 px-3 py-2 text-center text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
+      <span className="min-w-[3.75rem] px-3 py-2 text-center text-slate-300">
         {currentPage} / {totalPages}
       </span>
       {nextPage ? (
@@ -345,7 +344,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               About Author
             </p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
-              <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
+              <div className="h-12 w-12 shrink-0 rounded-full border border-white/15 bg-transparent p-0.5">
                 <Image
                   src="/static/images/kieran-icon.jpg"
                   alt={siteMetadata.author}

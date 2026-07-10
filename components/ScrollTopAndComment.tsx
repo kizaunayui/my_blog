@@ -50,7 +50,7 @@ const ScrollTopAndComment = () => {
         <button
           aria-label="Scroll To Comment"
           onClick={handleScrollToComment}
-          className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/50 bg-white/70 text-slate-500 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:text-cyan-600 active:scale-95 dark:border-slate-800/50 dark:bg-slate-900/70 dark:text-slate-400 dark:hover:text-cyan-400"
+          className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-slate-950 text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:border-cyan-300/30 hover:text-cyan-400 active:scale-95"
         >
           <svg
             className="z-10 h-5 w-5 transition-transform group-hover:scale-105"
@@ -68,7 +68,7 @@ const ScrollTopAndComment = () => {
       <button
         aria-label="Scroll To Top"
         onClick={handleScrollTop}
-        className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/50 bg-white/70 text-slate-500 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:text-cyan-600 active:scale-95 dark:border-slate-800/50 dark:bg-slate-900/70 dark:text-slate-400 dark:hover:text-cyan-400"
+        className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-slate-950 text-slate-400 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:border-cyan-300/30 hover:text-cyan-400 active:scale-95"
       >
         {/* Progress Circular Stroke */}
         <svg className="absolute inset-0 h-10 w-10 -rotate-90" viewBox="0 0 40 40">

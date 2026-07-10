@@ -30,7 +30,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   return (
     <div className="space-y-2 pt-8 pb-8 md:space-y-5">
-      <nav className="flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/70 p-4 text-sm font-semibold shadow-sm backdrop-blur dark:border-gray-800/80 dark:bg-gray-900/60">
+      <nav className="flex items-center justify-between border-y border-white/10 px-1 py-4 text-sm font-semibold">
         {!prevPage && (
           <button className="cursor-auto text-gray-400 disabled:opacity-50" disabled={!prevPage}>
             上一页
@@ -96,7 +96,7 @@ export default function ListLayout({
                 className="post-card-motion"
                 style={{ animationDelay: `${index * 60}ms` }}
               >
-                <article className="group hover:border-primary-200 hover:shadow-primary-100/70 dark:hover:border-primary-800 dark:hover:shadow-primary-950/30 rounded-xl border border-gray-200/80 bg-white/75 p-4 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:rounded-2xl sm:p-6 md:grid md:grid-cols-4 md:gap-8 dark:border-gray-800/80 dark:bg-gray-900/60">
+                <article className="premium-row group border-b border-white/10 px-1 py-5 transition duration-300 sm:px-2 sm:py-7 md:grid md:grid-cols-4 md:gap-8">
                   <dl>
                     <dt className="sr-only">发布时间</dt>
                     <dd className="text-sm font-semibold text-gray-500 dark:text-gray-400">

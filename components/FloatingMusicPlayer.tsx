@@ -20,7 +20,7 @@ export default function FloatingMusicPlayer() {
         }`}
       >
         <span
-          className="absolute inset-0 rounded-full border border-white/10 bg-slate-900/60 backdrop-blur-md transition duration-300 group-hover:bg-slate-900/80"
+          className="absolute inset-0 rounded-full border border-white/12 bg-slate-950 transition duration-300 group-hover:border-cyan-300/30"
           aria-hidden="true"
         />
         <span

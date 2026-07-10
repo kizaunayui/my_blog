@@ -38,7 +38,7 @@ const MobileNav = () => {
         aria-label="打开导航菜单"
         aria-expanded={navShow}
         onClick={onToggleNav}
-        className="rounded-full border border-white/10 bg-slate-950/35 p-2 text-white shadow-lg shadow-slate-950/20 backdrop-blur-xl transition hover:border-cyan-300/30 hover:text-cyan-200 sm:hidden"
+        className="rounded-full border border-white/15 bg-slate-950 p-2 text-white transition hover:border-cyan-300/35 hover:text-cyan-200 sm:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ const MobileNav = () => {
               leaveTo="opacity-0"
               unmount={false}
             >
-              <div className="fixed inset-0 z-60 bg-slate-950/55 backdrop-blur-sm" />
+              <div className="fixed inset-0 z-60 bg-slate-950/80" />
             </TransitionChild>
 
             <TransitionChild
@@ -79,7 +79,7 @@ const MobileNav = () => {
               leaveTo="translate-x-full opacity-0"
               unmount={false}
             >
-              <DialogPanel className="fixed top-0 right-0 z-70 h-full w-full max-w-sm border-l border-white/12 bg-slate-950/88 shadow-2xl shadow-slate-950/50 backdrop-blur-2xl duration-300">
+              <DialogPanel className="fixed top-0 right-0 z-70 h-full w-full max-w-sm border-l border-white/12 bg-slate-950 shadow-2xl shadow-slate-950/50 duration-300">
                 <nav
                   ref={navRef}
                   className="flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-20 pb-8 text-left"
@@ -115,7 +115,7 @@ const MobileNav = () => {
                 </nav>
 
                 <button
-                  className="fixed top-4 right-4 z-80 flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/10 text-white/80 backdrop-blur-xl transition hover:bg-white/15 hover:text-cyan-100"
+                  className="fixed top-4 right-4 z-80 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-transparent text-white/80 transition hover:border-cyan-300/35 hover:text-cyan-100"
                   aria-label="关闭导航菜单"
                   onClick={onToggleNav}
                 >

@@ -56,12 +56,12 @@ const Header = () => {
                   </Link>
                 </Magnetic>
                 <div className="invisible absolute top-full left-1/2 min-w-56 -translate-x-1/2 pt-3 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <div className="header-dropdown rounded-xl border border-white/15 bg-gray-900/85 p-1.5 shadow-2xl backdrop-blur-2xl">
+                  <div className="header-dropdown border-y border-white/10 bg-slate-950 p-1.5 shadow-[0_18px_42px_rgba(2,6,23,0.35)]">
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="font-heading block rounded-lg px-3.5 py-2.5 text-xs font-semibold tracking-wider text-gray-300 uppercase transition-all duration-200 hover:bg-white/10 hover:pl-4.5 hover:text-white"
+                        className="font-heading block border-l border-transparent px-3.5 py-2.5 text-xs font-semibold tracking-wider text-gray-300 uppercase transition-all duration-200 hover:border-cyan-300/40 hover:pl-4.5 hover:text-white"
                       >
                         {child.title}
                       </Link>

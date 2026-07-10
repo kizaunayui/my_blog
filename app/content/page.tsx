@@ -41,7 +41,7 @@ export default function ContentPage() {
 
   return (
     <section className="py-10 sm:py-14">
-      <div className="mb-6 rounded-2xl border border-white/25 bg-white/28 p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-2xl sm:mb-8 sm:rounded-[2rem] sm:p-7 md:p-9 dark:border-slate-400/20 dark:bg-slate-950/45">
+      <div className="content-page-heading mb-8 border-b border-white/10 px-1 py-7 sm:mb-10 sm:py-9">
         <p className="mb-3 text-sm font-black tracking-[0.2em] text-pink-600 uppercase dark:text-pink-200">
           Content Center
         </p>
@@ -77,10 +77,10 @@ export default function ContentPage() {
           {recentItems.map((item) => (
             <article
               key={`${item.type}-${item.title}`}
-              className="rounded-[1.75rem] border border-white/28 bg-white/55 p-5 shadow-xl shadow-slate-950/15 backdrop-blur-2xl transition duration-300 hover:-translate-y-0.5 hover:bg-white/65 hover:shadow-2xl hover:shadow-pink-950/20 sm:p-6 dark:border-slate-400/20 dark:bg-slate-950/45 dark:hover:bg-slate-900/60"
+              className="content-update-row premium-row group border-t border-white/10 px-1 py-6 transition duration-300 sm:px-2 sm:py-7"
             >
               <div className="flex flex-wrap items-center gap-3">
-                <span className="border-primary-200/70 bg-primary-50/80 text-primary-700 dark:border-primary-800/70 dark:bg-primary-950/30 dark:text-primary-300 rounded-full border px-3 py-1 text-xs font-bold">
+                <span className="font-heading border-primary-300/25 text-primary-200 rounded-full border px-3 py-1 text-[10px] font-bold tracking-[0.14em] uppercase">
                   {item.type}
                 </span>
                 <time

@@ -72,7 +72,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                     className={
                       isActive
                         ? 'font-heading shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 hover:bg-cyan-500 lg:w-full lg:rounded-none lg:border-l-2 lg:border-cyan-300 lg:bg-transparent lg:py-2 lg:pl-4 lg:text-cyan-200 dark:bg-cyan-500 dark:hover:bg-cyan-400 dark:lg:bg-transparent dark:lg:hover:bg-white/5'
-                        : 'font-heading shrink-0 rounded-full bg-white/10 px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 hover:bg-white/18 lg:w-full lg:rounded-none lg:border-l-2 lg:border-transparent lg:bg-transparent lg:py-2 lg:pl-4 lg:text-slate-300 lg:hover:border-white/20 lg:hover:bg-white/5 lg:hover:text-white'
+                        : 'font-heading shrink-0 rounded-full border border-white/15 bg-transparent px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 hover:border-cyan-200/35 lg:w-full lg:rounded-none lg:border-y-0 lg:border-r-0 lg:border-l-2 lg:border-transparent lg:py-2 lg:pl-4 lg:text-slate-300 lg:hover:border-white/20 lg:hover:text-white'
                     }
                   >
                     {category}
@@ -118,14 +118,14 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="font-heading rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-200"
+                      className="font-heading rounded-full border border-white/15 bg-transparent px-3 py-1 text-xs font-bold text-slate-200"
                     >
                       #{tag}
                     </span>
                   ))}
                 </div>
 
-                <pre className="max-h-64 overflow-auto rounded-xl bg-slate-950/35 p-4 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
+                <pre className="max-h-64 overflow-auto border-y border-white/10 bg-slate-950/90 p-4 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
                   {item.prompt}
                 </pre>
 

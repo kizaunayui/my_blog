@@ -303,7 +303,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
 
       {/* Floating Playlist Drawer (Appears right over the layout) */}
       <div
-        className={`absolute inset-0 z-20 flex flex-col rounded-xl border border-cyan-500/25 bg-slate-950/94 p-3 shadow-[0_0_24px_rgba(6,182,212,0.18)] backdrop-blur-xl transition-all duration-300 ${
+        className={`absolute inset-0 z-20 flex flex-col border-y border-cyan-500/25 bg-slate-950 p-3 shadow-[0_0_24px_rgba(6,182,212,0.14)] transition-all duration-300 ${
           showPlaylist
             ? 'pointer-events-auto visible translate-y-0 opacity-100'
             : 'pointer-events-none invisible translate-y-4 opacity-0'

@@ -19,12 +19,7 @@ export default function ContentSectionGrid({
           href={section.href}
           className={reveal ? 'scroll-reveal block' : 'block'}
         >
-          <SpotlightCard
-            variant="transparent"
-            className="p-5 sm:p-6"
-            glowColor="rgba(6, 182, 212, 0.15)"
-            glowSize={300}
-          >
+          <SpotlightCard className="p-5 sm:p-6" glowColor="rgba(6, 182, 212, 0.15)" glowSize={300}>
             <div className={`mb-5 h-1.5 w-24 rounded-full bg-gradient-to-r ${section.accent}`} />
             <h3 className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl dark:text-white">
               {section.title}
