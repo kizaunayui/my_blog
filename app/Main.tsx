@@ -134,7 +134,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             <span>DIGITAL GARDEN</span>
           </div>
 
-          <div className="home-hero-content animate-fade-up max-w-3xl">
+          <div className="home-hero-content animate-fade-up">
             <p className="hero-kicker mb-5 inline-flex items-center gap-3 text-xs font-bold tracking-[0.22em] text-cyan-300 uppercase">
               <span className="hero-kicker-dot" aria-hidden="true" />
               随笔 · 学习 · 项目实践
@@ -149,7 +149,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               {siteMetadata.description}
               这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3.5">
+            <div className="hero-actions">
               <Magnetic range={60} actionStrength={0.25}>
                 <Link
                   href="/articles"
@@ -158,24 +158,32 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                   浏览文章 <span aria-hidden="true">↗</span>
                 </Link>
               </Magnetic>
-              {contentSections.map((section) => (
-                <Magnetic key={section.href} range={60} actionStrength={0.25}>
+              <nav className="hero-secondary-links" aria-label="首页快捷入口">
+                {contentSections.map((section, index) => (
+                  <Magnetic key={section.href} range={60} actionStrength={0.25}>
+                    <Link
+                      href={section.href}
+                      className="hero-secondary-action inline-flex items-center justify-center text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300"
+                    >
+                      <span className="hero-action-index" aria-hidden="true">
+                        {String(index + 2).padStart(2, '0')}
+                      </span>
+                      {section.title}
+                    </Link>
+                  </Magnetic>
+                ))}
+                <Magnetic range={60} actionStrength={0.25}>
                   <Link
-                    href={section.href}
-                    className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
+                    href="/about"
+                    className="hero-secondary-action inline-flex items-center justify-center text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300"
                   >
-                    {section.title}
+                    <span className="hero-action-index" aria-hidden="true">
+                      05
+                    </span>
+                    关于我
                   </Link>
                 </Magnetic>
-              ))}
-              <Magnetic range={60} actionStrength={0.25}>
-                <Link
-                  href="/about"
-                  className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
-                >
-                  关于我
-                </Link>
-              </Magnetic>
+              </nav>
             </div>
           </div>
 
@@ -285,7 +293,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                   <span className="journal-entry-index" aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
+                  <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[8rem_1fr] md:gap-10 md:space-y-0">
                     <dl className="space-y-1.5">
                       <dt className="sr-only">发布时间</dt>
                       <dd className="font-heading text-xs font-bold tracking-[0.2em] text-gray-500 uppercase dark:text-gray-300">

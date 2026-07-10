@@ -99,8 +99,8 @@ export default function ListLayoutWithTags({
         </p>
       </div>
 
-      <div className="list-layout-grid flex gap-6 sm:gap-8 md:gap-10">
-        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[250px] min-w-[250px] overflow-auto px-1 py-2 sm:block">
+      <div className="list-layout-grid flex gap-6 sm:gap-10 lg:gap-20">
+        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[210px] min-w-[210px] overflow-auto px-1 py-2 sm:block">
           {pathname.startsWith('/articles') ? (
             <h3 className="font-heading text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-100">
               All Posts · 所有文章
@@ -158,7 +158,7 @@ export default function ListLayoutWithTags({
                         </time>
                       </dd>
                     </dl>
-                    <div className="mt-3.5 space-y-3">
+                    <div className="archive-row-body mt-3.5 space-y-3 md:mt-0">
                       <div>
                         <h2 className="font-serif text-xl leading-tight font-light tracking-wide text-gray-950 sm:text-2xl dark:text-white">
                           <Link
