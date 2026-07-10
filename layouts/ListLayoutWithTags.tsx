@@ -32,7 +32,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   return (
     <div className="list-pagination space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="flex justify-between rounded-3xl border border-white/25 bg-white/30 px-5 py-4 text-sm font-bold shadow-xl shadow-slate-950/20 backdrop-blur-2xl dark:bg-slate-950/45 dark:text-slate-100">
+      <nav className="archive-pagination flex justify-between px-1 py-5 text-sm font-bold dark:text-slate-100">
         {!prevPage && (
           <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
             Previous
@@ -84,17 +84,23 @@ export default function ListLayoutWithTags({
 
   return (
     <div className="list-layout-page py-6 sm:py-10 md:py-14">
-      <div className="list-layout-heading mb-6 rounded-2xl border border-white/10 bg-white/40 px-4 py-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:mb-8 sm:rounded-3xl sm:px-6 sm:py-8 md:px-8 dark:border-white/10 dark:bg-slate-950/35">
-        <p className="font-heading mb-3 text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-100 dark:drop-shadow-[0_0_10px_rgba(103,232,249,0.32)]">
-          Blog Archive · 文章归档
+      <div className="list-layout-heading subpage-masthead mb-8 px-1 py-8 sm:mb-12 sm:py-12">
+        <div>
+          <p className="font-heading mb-3 flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] text-cyan-300 uppercase">
+            <span className="masthead-kicker-line" aria-hidden="true" />
+            Blog Archive · 文章归档
+          </p>
+          <h1 className="font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+            {title}
+          </h1>
+        </div>
+        <p className="masthead-edition font-heading text-[9px] font-semibold tracking-[0.3em] text-white/35 uppercase">
+          Curated notes / 2026
         </p>
-        <h1 className="font-serif text-2xl font-light tracking-wide text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl dark:text-white">
-          {title}
-        </h1>
       </div>
 
       <div className="list-layout-grid flex gap-6 sm:gap-8 md:gap-10">
-        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[280px] min-w-[280px] overflow-auto rounded-3xl border border-white/10 bg-white/40 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] backdrop-blur-md sm:block dark:border-white/10 dark:bg-slate-950/35">
+        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[250px] min-w-[250px] overflow-auto px-1 py-2 sm:block">
           {pathname.startsWith('/articles') ? (
             <h3 className="font-heading text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-100">
               All Posts · 所有文章
@@ -107,22 +113,24 @@ export default function ListLayoutWithTags({
               All Posts · 所有文章
             </Link>
           )}
-          <ul className="mt-5 space-y-2">
-            {sortedTags.map((t) => {
+          <ul className="mt-6 space-y-1">
+            {sortedTags.map((t, index) => {
               const isActive = decodeURIComponent(pathname.split('/tags/')[1] || '') === slug(t)
               return (
                 <li key={t}>
                   {isActive ? (
-                    <h3 className="font-heading inline-flex rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 px-3 py-1.5 text-[10px] font-bold tracking-wider text-white uppercase shadow-sm">
-                      {`${t} (${tagCounts[t]})`}
+                    <h3 className="archive-filter-link is-active font-heading flex items-center justify-between py-2 text-[10px] font-bold tracking-wider text-white uppercase">
+                      <span>{`${String(index + 1).padStart(2, '0')} · ${t}`}</span>
+                      <span>{tagCounts[t]}</span>
                     </h3>
                   ) : (
                     <Link
                       href={`/tags/${slug(t)}`}
-                      className="font-heading inline-flex rounded-full px-3 py-1.5 text-[10px] font-bold tracking-wider text-slate-600 uppercase transition hover:text-cyan-600 dark:text-slate-200 dark:hover:text-cyan-100"
+                      className="archive-filter-link font-heading flex items-center justify-between py-2 text-[10px] font-bold tracking-wider text-slate-200 uppercase transition hover:text-cyan-100"
                       aria-label={`View posts tagged ${t}`}
                     >
-                      {`${t} (${tagCounts[t]})`}
+                      <span>{`${String(index + 1).padStart(2, '0')} · ${t}`}</span>
+                      <span>{tagCounts[t]}</span>
                     </Link>
                   )}
                 </li>
@@ -133,14 +141,18 @@ export default function ListLayoutWithTags({
 
         <div className="list-content min-w-0 flex-1">
           <ul className="space-y-2">
-            {displayPosts.map((post) => {
+            {displayPosts.map((post, index) => {
               const { path, date, title, summary, tags } = post
               return (
                 <li key={path}>
-                  <article className="premium-row group border-b border-slate-200/50 px-1 py-5 sm:px-2 sm:py-7 dark:border-white/10">
+                  <article className="archive-row premium-row group border-b border-white/10 px-1 py-6 sm:px-2 sm:py-8">
+                    <span className="archive-row-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="font-heading inline-flex items-center rounded-full border border-cyan-200/70 bg-cyan-50/80 px-3 py-1 text-[11px] font-black tracking-[0.16em] text-cyan-800 uppercase shadow-sm dark:border-cyan-300/50 dark:bg-cyan-950/75 dark:text-white dark:shadow-[0_0_18px_rgba(34,211,238,0.22)]">
+                      <dd className="archive-date font-heading inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-cyan-300 uppercase">
+                        <span className="h-px w-5 bg-cyan-300/50" aria-hidden="true" />
                         <time dateTime={date} suppressHydrationWarning>
                           {formatDate(date, siteMetadata.locale)}
                         </time>
@@ -162,7 +174,7 @@ export default function ListLayoutWithTags({
                           ))}
                         </div>
                       </div>
-                      <p className="max-w-none text-[13.5px] leading-relaxed font-light text-slate-700 dark:text-slate-100">
+                      <p className="max-w-3xl text-[13.5px] leading-relaxed font-light text-slate-200">
                         {summary}
                       </p>
                     </div>

@@ -5,6 +5,7 @@ import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import Magnetic from '@/components/Magnetic'
+import Image from '@/components/Image'
 
 const POSTS_PER_PAGE = 5
 const CHINESE_CHARS_PER_MINUTE = 400
@@ -105,7 +106,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
   const featuredPost = currentPage === 1 ? posts[0] : null
   const recentPosts = initialDisplayPosts || posts.slice(0, POSTS_PER_PAGE)
   const isFirstPage = currentPage === 1
-  const basePath = process.env.BASE_PATH || ''
 
   // Calculate trending tags from all posts dynamically
   const tagCounts = {}
@@ -128,12 +128,19 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             <div className="hero-grid" />
           </div>
 
+          <div className="hero-edition-mark" aria-hidden="true">
+            <span>VOL. 01</span>
+            <span className="hero-edition-line" />
+            <span>DIGITAL GARDEN</span>
+          </div>
+
           <div className="home-hero-content animate-fade-up max-w-3xl">
-            <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4.5 py-1.5 text-xs font-bold tracking-[0.22em] text-cyan-600 uppercase shadow-sm backdrop-blur dark:text-cyan-400">
+            <p className="hero-kicker mb-5 inline-flex items-center gap-3 text-xs font-bold tracking-[0.22em] text-cyan-300 uppercase">
+              <span className="hero-kicker-dot" aria-hidden="true" />
               随笔 · 学习 · 项目实践
             </p>
-            <h1 className="animate-fade-in-up font-serif text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.05] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white">
-              欢迎来到{' '}
+            <h1 className="hero-title animate-fade-in-up font-serif text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.05] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white">
+              <span className="hero-title-intro">欢迎来到</span>{' '}
               <span className="gradient-text animate-pulse-glow mt-1 block font-serif font-light break-words italic sm:mt-0 sm:inline">
                 {siteMetadata.title}
               </span>
@@ -146,16 +153,16 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               <Magnetic range={60} actionStrength={0.25}>
                 <Link
                   href="/articles"
-                  className="btn-shimmer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-600 to-sky-500 px-6 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase shadow-lg shadow-cyan-500/20 transition duration-300 hover:-translate-y-0.5 hover:from-cyan-500 hover:to-sky-400 hover:shadow-cyan-500/30 sm:px-6.5"
+                  className="hero-primary-action btn-shimmer inline-flex items-center justify-center gap-3 rounded-full px-6 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-6.5"
                 >
-                  浏览文章
+                  浏览文章 <span aria-hidden="true">↗</span>
                 </Link>
               </Magnetic>
               {contentSections.map((section) => (
                 <Magnetic key={section.href} range={60} actionStrength={0.25}>
                   <Link
                     href={section.href}
-                    className="btn-shimmer inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/20 sm:px-5.5 dark:bg-slate-900/30"
+                    className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
                   >
                     {section.title}
                   </Link>
@@ -164,7 +171,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               <Magnetic range={60} actionStrength={0.25}>
                 <Link
                   href="/about"
-                  className="btn-shimmer inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/20 sm:px-5.5 dark:bg-slate-900/30"
+                  className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
                 >
                   关于我
                 </Link>
@@ -180,48 +187,53 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               {/* Decorative gradient top line */}
               <div className="featured-spotlight-line h-px w-full" />
 
-              <div className="px-1 pt-6 pb-2 sm:px-2 sm:pt-8 sm:pb-4 md:pt-10 md:pb-6">
-                {/* Label row with reading time */}
-                <div className="mb-4 flex items-center gap-3 sm:mb-5">
-                  <span className="font-heading text-[10px] font-bold tracking-[0.3em] text-cyan-500 uppercase dark:text-cyan-400">
-                    ✦ Featured
-                  </span>
-                  <span className="h-px max-w-16 flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent" />
-                  {estimateReadingTime(featuredPost.body?.raw) && (
-                    <span className="font-heading text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
-                      {estimateReadingTime(featuredPost.body?.raw)}
+              <div className="featured-spotlight-inner px-1 pt-6 pb-2 sm:px-2 sm:pt-8 sm:pb-4 md:pt-10 md:pb-6">
+                <span className="featured-index" aria-hidden="true">
+                  01
+                </span>
+                <div>
+                  {/* Label row with reading time */}
+                  <div className="mb-4 flex items-center gap-3 sm:mb-5">
+                    <span className="font-heading text-[10px] font-bold tracking-[0.3em] text-cyan-500 uppercase dark:text-cyan-400">
+                      ✦ Featured
                     </span>
-                  )}
-                </div>
-
-                {/* Big title */}
-                <h2 className="font-serif text-3xl leading-snug font-light tracking-wide text-white transition-colors duration-300 group-hover:text-cyan-100 sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
-                  {featuredPost.title}
-                </h2>
-
-                {/* Summary */}
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed font-light text-white/55 transition-colors duration-300 group-hover:text-white/70 sm:mt-4 sm:text-base">
-                  {featuredPost.summary}
-                </p>
-
-                {/* Tags + CTA row */}
-                <div className="mt-5 flex items-center justify-between sm:mt-6">
-                  <div className="flex flex-wrap gap-2">
-                    {featuredPost.tags?.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-heading rounded-full border border-white/10 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white/45 uppercase"
-                      >
-                        {tag}
+                    <span className="h-px max-w-16 flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent" />
+                    {estimateReadingTime(featuredPost.body?.raw) && (
+                      <span className="font-heading text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
+                        {estimateReadingTime(featuredPost.body?.raw)}
                       </span>
-                    ))}
+                    )}
                   </div>
-                  <span className="font-heading flex items-center gap-1.5 text-xs font-bold tracking-[0.2em] text-cyan-400/80 uppercase transition-all duration-300 group-hover:gap-2.5 group-hover:text-cyan-300">
-                    Read
-                    <span className="text-sm leading-none transition-transform duration-300 group-hover:translate-x-1">
-                      →
+
+                  {/* Big title */}
+                  <h2 className="font-serif text-3xl leading-snug font-light tracking-wide text-white transition-colors duration-300 group-hover:text-cyan-100 sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
+                    {featuredPost.title}
+                  </h2>
+
+                  {/* Summary */}
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed font-light text-white/55 transition-colors duration-300 group-hover:text-white/70 sm:mt-4 sm:text-base">
+                    {featuredPost.summary}
+                  </p>
+
+                  {/* Tags + CTA row */}
+                  <div className="mt-5 flex items-center justify-between sm:mt-6">
+                    <div className="flex flex-wrap gap-2">
+                      {featuredPost.tags?.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-heading rounded-full border border-white/10 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white/45 uppercase"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="font-heading flex items-center gap-1.5 text-xs font-bold tracking-[0.2em] text-cyan-400/80 uppercase transition-all duration-300 group-hover:gap-2.5 group-hover:text-cyan-300">
+                      Read
+                      <span className="text-sm leading-none transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
 
@@ -233,10 +245,10 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
       )}
 
       {/* Main Content Layout with Sticky Sidebar */}
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
+      <div className="home-journal-grid grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
         {/* Left Column: Recent Posts */}
         <section className={`lg:col-span-1 ${isFirstPage ? 'pb-8' : 'pt-12 pb-8 sm:pt-16'}`}>
-          <div className="mb-6 flex items-end justify-between border-b border-slate-200/50 pb-4 sm:mb-8 dark:border-white/5">
+          <div className="journal-heading mb-6 flex items-end justify-between border-b border-slate-200/50 pb-4 sm:mb-8 dark:border-white/5">
             <div>
               <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
                 Journal Archive
@@ -270,6 +282,9 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                   className="post-card-motion scroll-reveal premium-row group border-b border-slate-200/50 px-1 py-5 sm:px-2 sm:py-7 dark:border-white/5"
                   style={{ animationDelay: `${index * 70}ms` }}
                 >
+                  <span className="journal-entry-index" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                   <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
                     <dl className="space-y-1.5">
                       <dt className="sr-only">发布时间</dt>
@@ -323,7 +338,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         </section>
 
         {/* Right Column: Sticky Sidebar */}
-        <aside className="space-y-4 pt-4 sm:space-y-6 sm:pt-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16">
+        <aside className="home-index-aside space-y-4 pt-4 sm:space-y-6 sm:pt-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16">
           {/* About Me Card */}
           <Link href="/about" className="home-side-panel block p-4 sm:p-6">
             <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
@@ -331,9 +346,11 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             </p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/20 bg-white/10 p-0.5 shadow-sm backdrop-blur-sm">
-                <img
-                  src={`${basePath}/static/images/kieran-icon.jpg`}
+                <Image
+                  src="/static/images/kieran-icon.jpg"
                   alt={siteMetadata.author}
+                  width={48}
+                  height={48}
                   className="h-full w-full rounded-full object-cover"
                 />
               </div>

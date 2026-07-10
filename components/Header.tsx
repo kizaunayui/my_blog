@@ -3,27 +3,33 @@ import headerNavLinks from '@/data/headerNavLinks'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import Magnetic from './Magnetic'
+import Image from './Image'
 
 const Header = () => {
-  const basePath = process.env.BASE_PATH || ''
-
   return (
     <header className="header-elegant relative z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between bg-transparent px-4 py-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6">
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="group/logo flex items-center gap-3.5 transition-all duration-400">
           <Magnetic range={50} actionStrength={0.25}>
             <div className="header-avatar-ring relative cursor-pointer">
-              <img
-                src={`${basePath}/static/images/kieran-icon.jpg`}
-                alt="Kieran"
+              <Image
+                src="/static/images/kieran-icon.jpg"
+                alt=""
                 aria-hidden="true"
+                width={40}
+                height={40}
                 className="h-10 w-10 rounded-full object-cover"
               />
             </div>
           </Magnetic>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="font-display hidden text-lg font-light tracking-[0.22em] text-white/90 uppercase transition-colors duration-300 group-hover/logo:text-white sm:block">
-              {siteMetadata.headerTitle}
+            <div className="hidden sm:block">
+              <div className="font-display text-lg font-light tracking-[0.22em] text-white/90 uppercase transition-colors duration-300 group-hover/logo:text-white">
+                {siteMetadata.headerTitle}
+              </div>
+              <div className="header-brand-note font-heading mt-0.5 text-[8px] font-semibold tracking-[0.32em] text-white/35 uppercase">
+                Notes · Research · Works
+              </div>
             </div>
           ) : (
             siteMetadata.headerTitle
