@@ -19,7 +19,10 @@ main > div:not(.site-fixed-bg) {
   z-index: 2;
 }
 
-.list-post-card {
+.list-sidebar,
+.list-post-card,
+.list-layout-heading,
+.list-pagination nav {
   -webkit-backdrop-filter: blur(20px) saturate(1.16);
   backdrop-filter: blur(20px) saturate(1.16);
 }
@@ -42,12 +45,9 @@ main > div:not(.site-fixed-bg) {
 }
 
 .tags-page-card,
-.tags-page-hero,
-.list-sidebar,
-.list-layout-heading,
-.list-pagination nav {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+.tags-page-hero {
+  -webkit-backdrop-filter: blur(22px) saturate(1.16);
+  backdrop-filter: blur(22px) saturate(1.16);
 }
 
 /* ── About page / author layout ───────────────────────────────────────── */
@@ -70,13 +70,7 @@ main > div:not(.site-fixed-bg) {
   bottom: 1.5rem;
   width: 2px;
   border-radius: 1px;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(34, 211, 238, 0.6),
-    rgba(192, 132, 252, 0.4),
-    transparent
-  );
+  background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.6), rgba(192, 132, 252, 0.4), transparent);
   pointer-events: none;
 }
 
@@ -92,12 +86,7 @@ main > div:not(.site-fixed-bg) {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(34, 211, 238, 0.5),
-    rgba(148, 163, 184, 0.2) 50%,
-    transparent
-  );
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.5), rgba(148, 163, 184, 0.2) 50%, transparent);
   pointer-events: none;
 }
 
@@ -109,12 +98,7 @@ main > div:not(.site-fixed-bg) {
     bottom: 0;
     width: 1px;
     height: auto;
-    background: linear-gradient(
-      180deg,
-      rgba(34, 211, 238, 0.5),
-      rgba(148, 163, 184, 0.15) 60%,
-      transparent
-    );
+    background: linear-gradient(180deg, rgba(34, 211, 238, 0.5), rgba(148, 163, 184, 0.15) 60%, transparent);
   }
 }
 

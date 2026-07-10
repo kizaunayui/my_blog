@@ -48,7 +48,7 @@ export default async function Page() {
         </div>
       </div>
 
-      <div className="tag-index-grid mt-10 grid sm:grid-cols-2">
+      <div className="tag-index-grid mt-8 grid sm:grid-cols-2 lg:grid-cols-3">
         {tagKeys.length === 0 && (
           <div className="tags-page-card border-t border-white/15 p-6 text-white/70">
             No tags found.
