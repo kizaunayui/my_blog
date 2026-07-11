@@ -17,13 +17,12 @@ export default function Magnetic({ children, range = 75, actionStrength = 0.35 }
     const child = childRef.current
     if (!container || !child) return
 
-    // Avoid running animations if users prefer reduced motion
+    // Avoid pointer-driven motion for reduced-motion and touch users.
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) return
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
+    if (prefersReducedMotion || isTouchDevice) return
 
-    let isHovered = false
-
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect()
       const centerX = rect.left + rect.width / 2
       const centerY = rect.top + rect.height / 2
@@ -33,31 +32,25 @@ export default function Magnetic({ children, range = 75, actionStrength = 0.35 }
       const distance = Math.hypot(distanceX, distanceY)
 
       if (distance < range) {
-        isHovered = true
-        // Apply magnetic translation relative to cursor distance
         const targetX = distanceX * actionStrength
         const targetY = distanceY * actionStrength
 
         child.style.transition = 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)'
         child.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`
-      } else if (isHovered) {
-        // Smoothly reset when mouse moves outside the active range
-        handleMouseLeave()
       }
     }
 
-    const handleMouseLeave = () => {
-      isHovered = false
+    const handlePointerLeave = () => {
       child.style.transition = 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)'
       child.style.transform = 'translate3d(0px, 0px, 0px)'
     }
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    container.addEventListener('mouseleave', handleMouseLeave)
+    container.addEventListener('pointermove', handlePointerMove, { passive: true })
+    container.addEventListener('pointerleave', handlePointerLeave)
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      container.removeEventListener('mouseleave', handleMouseLeave)
+      container.removeEventListener('pointermove', handlePointerMove)
+      container.removeEventListener('pointerleave', handlePointerLeave)
     }
   }, [range, actionStrength])
 

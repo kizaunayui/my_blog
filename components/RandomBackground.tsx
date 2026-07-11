@@ -7,6 +7,7 @@ type BackgroundOption = {
   position?: string
   mobilePosition?: string
   size?: string
+  tone: 'dark' | 'balanced' | 'bright'
 }
 
 const backgroundPool: BackgroundOption[] = [
@@ -15,30 +16,35 @@ const backgroundPool: BackgroundOption[] = [
     position: 'center center',
     mobilePosition: 'center center',
     size: 'cover',
+    tone: 'dark',
   },
   {
     src: '/static/images/taeyeon_gravity.webp',
     position: '72% center',
     mobilePosition: '66% center',
     size: 'cover',
+    tone: 'dark',
   },
   {
     src: '/static/images/若叶睦background.webp',
     position: '72% center',
     mobilePosition: '66% center',
     size: 'cover',
+    tone: 'balanced',
   },
   {
     src: '/static/images/若叶睦background 2.webp',
     position: '72% center',
     mobilePosition: '66% center',
     size: 'cover',
+    tone: 'bright',
   },
   {
     src: '/static/images/anmi_ukai.webp',
     position: 'center center',
     mobilePosition: 'center center',
     size: 'cover',
+    tone: 'balanced',
   },
 
   {
@@ -46,24 +52,28 @@ const backgroundPool: BackgroundOption[] = [
     position: 'center center',
     mobilePosition: 'center center',
     size: 'cover',
+    tone: 'bright',
   },
   {
     src: '/static/images/mint_hair_beach.webp',
     position: 'center center',
     mobilePosition: 'center center',
     size: 'cover',
+    tone: 'bright',
   },
   {
     src: '/static/images/niko_m0nesy_yacht.webp',
     position: 'center center',
     mobilePosition: 'center center',
     size: 'cover',
+    tone: 'dark',
   },
   {
     src: '/static/images/taeyeon_concert_purple.webp',
     position: 'center center',
     mobilePosition: 'center center',
     size: 'cover',
+    tone: 'dark',
   },
 ]
 
@@ -88,6 +98,7 @@ export default function RandomBackground({ basePath = '' }: RandomBackgroundProp
       <div
         aria-hidden="true"
         className="site-fixed-bg hero-aurora-one pointer-events-none fixed inset-0"
+        data-background-tone={background.tone}
         style={
           {
             backgroundImage: toBackgroundImage(basePath, background.src),

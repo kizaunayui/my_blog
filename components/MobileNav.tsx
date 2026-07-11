@@ -38,7 +38,7 @@ const MobileNav = () => {
         aria-label="打开导航菜单"
         aria-expanded={navShow}
         onClick={onToggleNav}
-        className="rounded-full border border-white/15 bg-slate-950 p-2 text-white transition hover:border-cyan-300/35 hover:text-cyan-200 sm:hidden"
+        className="nav-trigger rounded-full border border-white/15 bg-slate-950 p-2 text-white transition hover:border-cyan-300/35 hover:text-cyan-200 sm:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ const MobileNav = () => {
               leaveTo="opacity-0"
               unmount={false}
             >
-              <div className="fixed inset-0 z-60 bg-slate-950/80" />
+              <div className="fixed inset-0 z-60 bg-slate-950/88" />
             </TransitionChild>
 
             <TransitionChild
@@ -79,7 +79,7 @@ const MobileNav = () => {
               leaveTo="translate-x-full opacity-0"
               unmount={false}
             >
-              <DialogPanel className="fixed top-0 right-0 z-70 h-full w-full max-w-sm border-l border-white/12 bg-slate-950 shadow-2xl shadow-slate-950/50 duration-300">
+              <DialogPanel className="mobile-nav-panel fixed top-0 right-0 z-70 h-full w-full max-w-sm border-l border-white/12 bg-slate-950 shadow-2xl shadow-slate-950/50 duration-300">
                 <nav
                   ref={navRef}
                   className="flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-20 pb-8 text-left"
@@ -91,7 +91,7 @@ const MobileNav = () => {
                     <div key={link.title} className="mb-3 w-full">
                       <Link
                         href={link.href}
-                        className="flex min-h-[46px] items-center rounded-2xl px-3 text-xl font-light tracking-[0.18em] text-white outline outline-0 transition hover:bg-white/10 hover:text-cyan-100 sm:text-2xl"
+                        className="mobile-nav-link flex min-h-[46px] items-center border-l border-transparent px-3 text-xl font-light tracking-[0.18em] text-white outline outline-0 transition hover:border-cyan-300/45 hover:text-cyan-100 sm:text-2xl"
                         onClick={onToggleNav}
                       >
                         {link.title}
@@ -102,7 +102,7 @@ const MobileNav = () => {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="flex min-h-[42px] items-center rounded-xl px-3 text-sm font-bold tracking-[0.14em] text-slate-300 transition hover:bg-white/10 hover:text-cyan-100"
+                              className="mobile-nav-child flex min-h-[42px] items-center border-l border-transparent px-3 text-sm font-bold tracking-[0.14em] text-slate-300 transition hover:border-white/20 hover:text-cyan-100"
                               onClick={onToggleNav}
                             >
                               {child.title}

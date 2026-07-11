@@ -14,11 +14,11 @@ export default function AuthorLayout({ children, content }: Props) {
 
   return (
     <section className="author-page py-8 sm:py-12 md:py-14">
-      <div className="author-heading animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
-        <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+      <div className="author-heading editorial-masthead animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
+        <p className="editorial-kicker font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
           About Author
         </p>
-        <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+        <h1 className="editorial-title mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
           关于我
         </h1>
       </div>
@@ -57,7 +57,7 @@ export default function AuthorLayout({ children, content }: Props) {
           <Link
             href="/about/me"
             aria-label="reflexion"
-            className="font-heading inline-flex w-full items-center justify-center rounded-full border border-white/15 px-5 py-3 text-xs font-bold tracking-[0.2em] text-cyan-200 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:text-cyan-100"
+            className="editorial-action editorial-action--quiet font-heading inline-flex w-full items-center justify-center rounded-full border border-white/15 px-5 py-3 text-xs font-bold tracking-[0.2em] text-cyan-200 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:text-cyan-100"
           >
             reflexion
           </Link>

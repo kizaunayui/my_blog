@@ -16,17 +16,17 @@ export default async function Page() {
       <div className="tags-page-hero subpage-masthead relative px-1 py-8 sm:py-12">
         <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-heading mb-4 flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] text-pink-300 uppercase">
+            <p className="editorial-kicker editorial-kicker--pink font-heading mb-4 flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] text-pink-300 uppercase">
               <span className="masthead-kicker-line is-pink" aria-hidden="true" />
               分类索引 · 快速检索
             </p>
-            <h1 className="font-serif text-4xl font-light tracking-wide text-white sm:text-5xl md:text-6xl">
+            <h1 className="editorial-title font-serif text-4xl font-light tracking-wide text-white sm:text-5xl md:text-6xl">
               标签
               <span className="ml-4 bg-gradient-to-r from-pink-300 via-violet-200 to-cyan-200 bg-clip-text font-light text-transparent italic">
                 Tags
               </span>
             </h1>
-            <p className="mt-5 max-w-2xl text-sm leading-7 font-light text-slate-200 sm:text-base">
+            <p className="editorial-summary mt-5 max-w-2xl text-sm leading-7 font-light text-slate-200 sm:text-base">
               按主题查看文章，把学习笔记、项目实践和随笔内容整理成更清晰的入口。
             </p>
           </div>

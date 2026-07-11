@@ -33,11 +33,12 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
 
   return (
     <div className="pt-8 pb-10 sm:pt-12 sm:pb-14">
-      <section className="border-b border-white/10 pb-7 sm:pb-9">
-        <h1 className="mt-2 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text font-serif text-3xl font-semibold tracking-wide text-transparent sm:text-4xl md:text-5xl">
+      <section className="editorial-masthead border-b border-white/10 pb-7 sm:pb-9">
+        <p className="editorial-kicker">Prompt Archive · 提示词档案</p>
+        <h1 className="editorial-title prompt-page-title mt-2 font-serif text-3xl font-semibold tracking-wide text-white sm:text-4xl md:text-5xl">
           Prompt Library
         </h1>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
+        <p className="editorial-summary mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
           记录平时高频使用的 AI Prompt，方便复制、复用和持续迭代。
         </p>
       </section>
@@ -61,7 +62,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                 {filteredPrompts.length} / {prompts.length} 条
               </p>
             </div>
-            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:border-l lg:border-white/10 lg:pb-0">
+            <div className="prompt-filter-strip no-scrollbar mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:border-l lg:border-white/10 lg:pb-0">
               {categories.map((category) => {
                 const isActive = category === selectedCategory
                 return (
@@ -71,8 +72,8 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                     onClick={() => setSelectedCategory(category)}
                     className={
                       isActive
-                        ? 'font-heading shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 hover:bg-cyan-500 lg:w-full lg:rounded-none lg:border-l-2 lg:border-cyan-300 lg:bg-transparent lg:py-2 lg:pl-4 lg:text-cyan-200 dark:bg-cyan-500 dark:hover:bg-cyan-400 dark:lg:bg-transparent dark:lg:hover:bg-white/5'
-                        : 'font-heading shrink-0 rounded-full border border-white/15 bg-transparent px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 hover:border-cyan-200/35 lg:w-full lg:rounded-none lg:border-y-0 lg:border-r-0 lg:border-l-2 lg:border-transparent lg:py-2 lg:pl-4 lg:text-slate-300 lg:hover:border-white/20 lg:hover:text-white'
+                        ? 'prompt-filter is-active font-heading shrink-0 rounded-full px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 lg:w-full lg:rounded-none lg:py-2 lg:pl-4 lg:text-cyan-200'
+                        : 'prompt-filter font-heading shrink-0 rounded-full px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 lg:w-full lg:rounded-none lg:py-2 lg:pl-4 lg:text-slate-300'
                     }
                   >
                     {category}
@@ -92,7 +93,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
             >
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
+                  <span className="editorial-chip editorial-chip--accent font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
                     {item.category}
                   </span>
                   <time
@@ -118,7 +119,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="font-heading rounded-full border border-white/15 bg-transparent px-3 py-1 text-xs font-bold text-slate-200"
+                      className="editorial-chip font-heading rounded-full border border-white/15 bg-transparent px-3 py-1 text-xs font-bold text-slate-200"
                     >
                       #{tag}
                     </span>
@@ -134,14 +135,14 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                 <div className="flex flex-wrap justify-end gap-3">
                   <Link
                     href={`/content/${getPromptSlug(item)}`}
-                    className="font-heading inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/50 hover:text-cyan-100"
+                    className="editorial-action editorial-action--quiet font-heading inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/50 hover:text-cyan-100"
                   >
                     查看详情
                   </Link>
                   <button
                     type="button"
                     onClick={() => handleCopy(item)}
-                    className="font-heading inline-flex min-w-32 items-center justify-center rounded-full bg-cyan-600 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400"
+                    className="editorial-action editorial-action--primary font-heading inline-flex min-w-32 items-center justify-center rounded-full bg-cyan-600 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400"
                   >
                     {copiedTitle === item.title ? '已复制' : '复制 Prompt'}
                   </button>

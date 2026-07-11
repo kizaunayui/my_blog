@@ -32,9 +32,9 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   return (
     <div className="list-pagination space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="archive-pagination flex justify-between px-1 py-5 text-sm font-bold dark:text-slate-100">
+      <nav className="archive-pagination editorial-pagination flex justify-between px-1 py-5 text-sm font-bold dark:text-slate-100">
         {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
+          <button className="pagination-link is-disabled cursor-auto" disabled={!prevPage}>
             Previous
           </button>
         )}
@@ -42,16 +42,16 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           <Link
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel="prev"
-            className="dark:text-cyan-100 dark:hover:text-white"
+            className="pagination-link dark:text-cyan-100"
           >
             Previous
           </Link>
         )}
-        <span>
+        <span className="pagination-status">
           {currentPage} of {totalPages}
         </span>
         {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
+          <button className="pagination-link is-disabled cursor-auto" disabled={!nextPage}>
             Next
           </button>
         )}
@@ -59,7 +59,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           <Link
             href={`/${basePath}/page/${currentPage + 1}`}
             rel="next"
-            className="dark:text-cyan-100 dark:hover:text-white"
+            className="pagination-link dark:text-cyan-100"
           >
             Next
           </Link>
@@ -86,11 +86,11 @@ export default function ListLayoutWithTags({
     <div className="list-layout-page py-6 sm:py-10 md:py-14">
       <div className="list-layout-heading subpage-masthead mb-8 px-1 py-8 sm:mb-12 sm:py-12">
         <div>
-          <p className="font-heading mb-3 flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] text-cyan-300 uppercase">
+          <p className="editorial-kicker font-heading mb-3 flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] text-cyan-300 uppercase">
             <span className="masthead-kicker-line" aria-hidden="true" />
             Blog Archive · 文章归档
           </p>
-          <h1 className="font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+          <h1 className="editorial-title font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
             {title}
           </h1>
         </div>

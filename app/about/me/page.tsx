@@ -27,14 +27,14 @@ export default function PersonalAboutPage() {
 
   return (
     <section className="author-page py-8 sm:py-12 md:py-14">
-      <div className="author-heading animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
-        <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-400 uppercase">
+      <div className="author-heading editorial-masthead animate-fade-up border-b border-white/10 pb-7 sm:pb-9">
+        <p className="editorial-kicker font-heading text-xs font-bold tracking-[0.25em] text-cyan-400 uppercase">
           About Me
         </p>
-        <h1 className="mt-3 font-serif text-4xl leading-tight font-light tracking-wide text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
+        <h1 className="editorial-title mt-3 font-serif text-4xl leading-tight font-light tracking-wide text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.72)] sm:text-5xl md:text-6xl">
           Reflexion
         </h1>
-        <p className="mt-4 max-w-2xl text-sm leading-7 font-light text-slate-300 sm:text-base sm:leading-8">
+        <p className="editorial-summary mt-4 max-w-2xl text-sm leading-7 font-light text-slate-300 sm:text-base sm:leading-8">
           一页更私人的自我介绍。它不太像简历，也不太像说明书，更像是给这个博客留下的一段自白。
         </p>
       </div>

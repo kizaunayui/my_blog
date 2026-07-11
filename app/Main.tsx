@@ -70,31 +70,35 @@ function HomePagination({ currentPage, totalPages }: Pagination) {
   }
 
   return (
-    <nav className="home-pagination mx-auto mt-7 flex w-fit items-center gap-1 border-y border-white/10 px-2 py-1 text-xs font-bold">
+    <nav className="editorial-pagination home-pagination mx-auto mt-7 flex w-fit items-center gap-1 border-y border-white/10 px-2 py-1 text-xs font-bold">
       {prevPage ? (
         <Link
           href={previousHref}
           rel="prev"
-          className="rounded-full px-3.5 py-2 text-cyan-700 transition hover:bg-cyan-50 hover:text-cyan-800 dark:text-cyan-100 dark:hover:bg-white/10 dark:hover:text-white"
+          className="pagination-link rounded-full px-3.5 py-2 text-cyan-700 transition dark:text-cyan-100"
         >
           上一页
         </Link>
       ) : (
-        <span className="rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">上一页</span>
+        <span className="pagination-link is-disabled rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">
+          上一页
+        </span>
       )}
-      <span className="min-w-[3.75rem] px-3 py-2 text-center text-slate-300">
+      <span className="pagination-status min-w-[3.75rem] px-3 py-2 text-center text-slate-300">
         {currentPage} / {totalPages}
       </span>
       {nextPage ? (
         <Link
           href={nextHref}
           rel="next"
-          className="rounded-full px-3.5 py-2 text-cyan-700 transition hover:bg-cyan-50 hover:text-cyan-800 dark:text-cyan-100 dark:hover:bg-white/10 dark:hover:text-white"
+          className="pagination-link rounded-full px-3.5 py-2 text-cyan-700 transition dark:text-cyan-100"
         >
           下一页
         </Link>
       ) : (
-        <span className="rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">下一页</span>
+        <span className="pagination-link is-disabled rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">
+          下一页
+        </span>
       )}
     </nav>
   )
@@ -140,7 +144,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             </p>
             <h1 className="hero-title animate-fade-in-up font-serif text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.05] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white">
               <span className="hero-title-intro">欢迎来到</span>{' '}
-              <span className="gradient-text animate-pulse-glow mt-1 block font-serif font-light break-words italic sm:mt-0 sm:inline">
+              <span className="gradient-text mt-1 block font-serif font-light break-words italic sm:mt-0 sm:inline">
                 {siteMetadata.title}
               </span>
             </h1>

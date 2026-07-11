@@ -65,7 +65,7 @@ const ThemeSwitch = () => {
     <div className="flex items-center">
       <Menu as="div" className="relative inline-block text-left">
         <div className="hover:text-primary-500 dark:hover:text-primary-400 flex items-center justify-center">
-          <MenuButton aria-label="Theme switcher">
+          <MenuButton className="theme-switch-trigger" aria-label="Theme switcher">
             {mounted ? resolvedTheme === 'dark' ? <Moon /> : <Sun /> : <Blank />}
           </MenuButton>
         </div>
@@ -78,14 +78,14 @@ const ThemeSwitch = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute right-0 z-50 mt-2 w-32 origin-top-right divide-y divide-white/10 border-y border-white/10 bg-slate-950 shadow-[0_18px_42px_rgba(2,6,23,0.35)] focus:outline-hidden">
+          <MenuItems className="theme-menu-panel absolute right-0 z-50 mt-2 w-36 origin-top-right border-y border-white/10 bg-slate-950 p-1.5 shadow-[0_18px_42px_rgba(2,6,23,0.35)] focus:outline-hidden">
             <RadioGroup value={theme} onChange={setTheme}>
               <div className="p-1">
                 <Radio value="light">
                   <MenuItem>
                     {({ focus }) => (
                       <button
-                        className={`${focus ? 'bg-primary-600 text-white' : ''} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        className={`${focus ? 'is-focused' : ''} theme-menu-item group flex w-full items-center border-l border-transparent px-2.5 py-2 text-sm`}
                       >
                         <div className="mr-2">
                           <Sun />
@@ -99,9 +99,7 @@ const ThemeSwitch = () => {
                   <MenuItem>
                     {({ focus }) => (
                       <button
-                        className={`${
-                          focus ? 'bg-primary-600 text-white' : ''
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        className={`${focus ? 'is-focused' : ''} theme-menu-item group flex w-full items-center border-l border-transparent px-2.5 py-2 text-sm`}
                       >
                         <div className="mr-2">
                           <Moon />
@@ -115,9 +113,7 @@ const ThemeSwitch = () => {
                   <MenuItem>
                     {({ focus }) => (
                       <button
-                        className={`${
-                          focus ? 'bg-primary-600 text-white' : ''
-                        } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        className={`${focus ? 'is-focused' : ''} theme-menu-item group flex w-full items-center border-l border-transparent px-2.5 py-2 text-sm`}
                       >
                         <div className="mr-2">
                           <Monitor />

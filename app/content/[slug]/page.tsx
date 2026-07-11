@@ -47,9 +47,9 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
 
   return (
     <article className="py-10 sm:py-14">
-      <header className="border-b border-white/10 pb-7 sm:pb-9">
+      <header className="editorial-masthead border-b border-white/10 pb-7 sm:pb-9">
         <div className="mb-5 flex flex-wrap items-center gap-3">
-          <span className="font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
+          <span className="editorial-chip editorial-chip--accent font-heading inline-flex rounded-full bg-cyan-400/15 px-3 py-1 text-xs font-bold tracking-[0.16em] text-cyan-200 uppercase">
             {prompt.category}
           </span>
           <time
@@ -59,10 +59,10 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
             更新于 {prompt.updatedAt}
           </time>
         </div>
-        <h1 className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text font-serif text-3xl font-semibold tracking-wide text-transparent sm:text-4xl md:text-5xl">
+        <h1 className="editorial-title prompt-page-title font-serif text-3xl font-semibold tracking-wide text-white sm:text-4xl md:text-5xl">
           {prompt.title}
         </h1>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
+        <p className="editorial-summary mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
           {prompt.description}
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
@@ -83,13 +83,13 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
       <div className="mt-8 flex flex-wrap gap-3">
         <Link
           href="/content/prompts"
-          className="font-heading inline-flex items-center justify-center rounded-full bg-cyan-600 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400"
+          className="editorial-action editorial-action--primary font-heading inline-flex items-center justify-center rounded-full bg-cyan-600 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400"
         >
           返回 Prompt Library
         </Link>
         <Link
           href="/content"
-          className="font-heading inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/50 hover:text-cyan-100"
+          className="editorial-action editorial-action--quiet font-heading inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-slate-100 uppercase transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/50 hover:text-cyan-100"
         >
           内容中心
         </Link>

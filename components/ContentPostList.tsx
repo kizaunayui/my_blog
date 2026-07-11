@@ -20,14 +20,14 @@ export default function ContentPostList({
 }: ContentPostListProps) {
   return (
     <section className="py-10 sm:py-14">
-      <div className="mb-8 border-b border-white/10 pb-5 sm:mb-10 sm:pb-6">
-        <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+      <div className="editorial-masthead mb-8 border-b border-white/10 pb-5 sm:mb-10 sm:pb-6">
+        <p className="editorial-kicker font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
           Content Center
         </p>
-        <h1 className="mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
+        <h1 className="editorial-title mt-2 font-serif text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
           {title}
         </h1>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
+        <p className="editorial-summary mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
           {description}
         </p>
       </div>

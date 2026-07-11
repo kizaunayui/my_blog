@@ -2,24 +2,35 @@ import Link from '@/components/Link'
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6">
-      <div className="space-x-2 pt-6 pb-8 md:space-y-5">
-        <h1 className="text-6xl leading-9 font-extrabold tracking-tight text-gray-900 md:border-r-2 md:px-6 md:text-8xl md:leading-14 dark:text-gray-100">
-          404
-        </h1>
+    <section className="not-found-page flex min-h-[calc(100vh-12rem)] items-center py-12 sm:py-16">
+      <div className="editorial-masthead w-full border-b border-white/10 px-1 py-10 sm:py-14">
+        <div className="grid items-end gap-8 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-12">
+          <div className="not-found-index font-display text-7xl font-light tracking-[0.08em] text-white/18 sm:text-8xl">
+            404
+          </div>
+          <div>
+            <p className="editorial-kicker editorial-kicker--pink">Lost Signal · 页面未找到</p>
+            <h1 className="editorial-title mt-3">这一页暂时走丢了</h1>
+            <p className="editorial-summary mt-5">
+              可能是链接已经更新，也可能这段内容还没有被写进档案。你可以返回首页，或者继续浏览文章。
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href="/"
+                className="editorial-action editorial-action--primary px-6 py-3 text-xs"
+              >
+                返回首页
+              </Link>
+              <Link
+                href="/articles"
+                className="editorial-action editorial-action--quiet px-6 py-3 text-xs"
+              >
+                浏览文章
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="max-w-md">
-        <p className="mb-4 text-xl leading-normal font-bold md:text-2xl">
-          Sorry we couldn't find this page.
-        </p>
-        <p className="mb-8">But dont worry, you can find plenty of other things on our homepage.</p>
-        <Link
-          href="/"
-          className="focus:shadow-outline-blue inline rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm leading-5 font-medium text-white shadow-xs transition-colors duration-150 hover:bg-blue-700 focus:outline-hidden dark:hover:bg-blue-500"
-        >
-          Back to homepage
-        </Link>
-      </div>
-    </div>
+    </section>
   )
 }

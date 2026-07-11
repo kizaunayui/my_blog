@@ -27,13 +27,13 @@ export default function ContentSectionGrid({
             <div
               className={`content-section-accent mb-5 h-1.5 w-24 rounded-full bg-gradient-to-r ${section.accent}`}
             />
-            <h3 className="content-section-title text-xl font-black tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+            <h3 className="content-section-title font-serif text-xl font-light tracking-wide text-slate-900 sm:text-2xl dark:text-white">
               {section.title}
             </h3>
-            <p className="content-section-description mt-4 text-sm leading-7 font-semibold text-slate-700 dark:text-slate-200">
+            <p className="content-section-description mt-4 text-sm leading-7 font-normal text-slate-700 dark:text-slate-200">
               {section.description}
             </p>
-            <div className="content-section-cta mt-6 text-sm font-black text-pink-600 transition duration-300 group-hover:translate-x-1.5 dark:text-pink-200">
+            <div className="content-section-cta mt-6 text-sm font-bold text-pink-600 transition duration-300 group-hover:translate-x-1.5 dark:text-pink-200">
               {showIntro ? '进入栏目 →' : '查看内容 →'}
             </div>
           </SpotlightCard>
