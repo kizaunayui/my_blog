@@ -40,7 +40,7 @@ const ScrollTopAndComment = () => {
 
   return (
     <div
-      className={`fixed right-6 bottom-6 z-50 flex transform flex-col gap-3.5 transition-all duration-500 ${
+      className={`scroll-actions fixed right-6 bottom-6 z-50 flex transform flex-col gap-3.5 transition-all duration-500 ${
         show
           ? 'translate-y-0 scale-100 opacity-100'
           : 'pointer-events-none translate-y-10 scale-90 opacity-0'

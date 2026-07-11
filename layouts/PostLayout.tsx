@@ -21,10 +21,10 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 }
 
 const defaultPostContentClassName =
-  'post-content-card prose max-w-none p-1 sm:p-2 dark:prose-invert'
+  'post-content-card prose mx-auto w-full max-w-[46rem] p-1 sm:p-2 dark:prose-invert'
 
 const reflexionPostContentClassName =
-  'post-content-card prose max-w-none p-1 sm:p-2 dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-200 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-cyan-300/50 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-white dark:prose-h2:border-cyan-300/40 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-cyan-200 dark:prose-strong:text-cyan-100 prose-blockquote:border-l-4 prose-blockquote:border-cyan-400/30 prose-blockquote:pl-5 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-cyan-300/25 prose-hr:my-14 prose-hr:border-white/10 dark:prose-hr:border-white/8'
+  'post-content-card prose mx-auto w-full max-w-[46rem] p-1 sm:p-2 dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-200 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-cyan-300/50 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-white dark:prose-h2:border-cyan-300/40 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-cyan-200 dark:prose-strong:text-cyan-100 prose-blockquote:border-l-4 prose-blockquote:border-cyan-400/30 prose-blockquote:pl-5 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-cyan-300/25 prose-hr:my-14 prose-hr:border-white/10 dark:prose-hr:border-white/8'
 
 type RecordedAt = {
   location?: string
@@ -68,7 +68,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   return (
     <>
       <ScrollTopAndComment />
-      <article className="py-6 sm:py-10 md:py-12">
+      <article className="post-article py-6 sm:py-10 md:py-12">
         {/* Title header — transparent */}
         <header className="post-header animate-fade-up mb-6 px-1 py-6 text-center sm:mb-8 sm:px-2 sm:py-8 md:py-10">
           <dl>

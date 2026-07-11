@@ -4,8 +4,41 @@
 
 /* ── Base text ─────────────────────────────────────────────────────────── */
 .post-content-card {
+  width: 100%;
+  max-width: 46rem;
+  margin-right: auto;
+  margin-left: auto;
   color: rgb(15, 23, 42);
   line-height: 1.9;
+}
+
+.post-article {
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+.post-header {
+  margin-bottom: 1.25rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.post-header > div:last-of-type {
+  margin-top: 1.25rem;
+}
+
+.post-meta-bar {
+  margin-bottom: 1.5rem;
+  padding-top: 0.9rem;
+  padding-bottom: 1rem;
+}
+
+.post-footer-links,
+.post-comments {
+  width: 100%;
+  max-width: 46rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* ── Headings ──────────────────────────────────────────────────────────── */
@@ -183,9 +216,38 @@
    MOBILE
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
+  .post-article {
+    padding-top: 0.75rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .post-header {
+    margin-bottom: 0.75rem;
+    padding-top: 0.85rem;
+    padding-bottom: 1rem;
+  }
+
+  .post-header > div:first-of-type {
+    margin-top: 0.75rem;
+  }
+
+  .post-header > div:last-of-type {
+    margin-top: 0.9rem;
+  }
+
+  .post-meta-bar {
+    margin-bottom: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .post-meta-bar > div:first-child {
+    gap: 0.75rem;
+  }
+
   .post-content-card {
-    border-radius: 1.25rem;
-    padding: 1rem;
+    border-radius: 0;
+    padding: 0.2rem;
     font-size: 1rem;
   }
 

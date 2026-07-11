@@ -1,19 +1,51 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MusicPlayer from '@/components/MusicPlayer'
 
 export default function FloatingMusicPlayer() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isPageScrolling, setIsPageScrolling] = useState(false)
+  const scrollEndTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleTogglePlayer = () => {
+    setIsExpanded((value) => !value)
+    setIsPageScrolling(false)
+  }
+
+  const handleClosePlayer = () => {
+    setIsExpanded(false)
+    setIsPageScrolling(false)
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isExpanded) return
+
+      setIsPageScrolling(true)
+      if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current)
+      scrollEndTimer.current = setTimeout(() => setIsPageScrolling(false), 550)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current)
+    }
+  }, [isExpanded])
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
+    <div
+      className={`music-floating-shell fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6 ${
+        isPageScrolling && !isExpanded ? 'music-floating-shell--quiet' : ''
+      }`}
+    >
       {/* Floating Music Note Trigger Button (Bigger & Easy to click) */}
       <button
         type="button"
-        onClick={() => setIsExpanded((value) => !value)}
-        aria-label={isExpanded ? 'Toggle music player' : 'Open music player'}
+        onClick={handleTogglePlayer}
+        aria-label={isExpanded ? 'Close music player' : 'Open music player'}
         aria-expanded={isExpanded}
         className={`music-trigger group relative flex h-12 w-12 items-center justify-center rounded-full text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] transition duration-300 hover:-translate-y-0.5 active:scale-95 ${
           isPlaying ? 'breathing-ring-playing' : 'breathing-ring-idle'
@@ -62,7 +94,7 @@ export default function FloatingMusicPlayer() {
           {/* Floating close Button on top right */}
           <button
             type="button"
-            onClick={() => setIsExpanded(false)}
+            onClick={handleClosePlayer}
             aria-label="Close music player"
             className="absolute top-[-8px] right-[-8px] z-30 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/5 text-[12px] leading-none text-white/40 transition duration-300 hover:bg-white/10 hover:text-white"
           >
@@ -74,6 +106,12 @@ export default function FloatingMusicPlayer() {
       <style jsx>{`
         .music-float-strip {
           transform-origin: bottom right;
+        }
+
+        .music-floating-shell {
+          transition:
+            transform 240ms cubic-bezier(0.19, 1, 0.22, 1),
+            opacity 240ms ease;
         }
 
         .music-trigger {
@@ -157,6 +195,29 @@ export default function FloatingMusicPlayer() {
           .breathing-ring-playing,
           .breathing-ring-playing .music-note-icon {
             animation: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .music-floating-shell {
+            right: max(0.55rem, env(safe-area-inset-right));
+            bottom: max(0.7rem, env(safe-area-inset-bottom));
+          }
+
+          .music-floating-shell--quiet {
+            transform: translateX(1.85rem);
+            opacity: 0.38;
+            pointer-events: none;
+          }
+
+          .music-trigger {
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+
+          .music-note-icon {
+            width: 1.75rem;
+            height: 1.75rem;
           }
         }
       `}</style>

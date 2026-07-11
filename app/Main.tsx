@@ -148,7 +148,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               {siteMetadata.description}
               这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3.5">
+            <div className="home-hero-actions mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3.5">
               <Magnetic range={60} actionStrength={0.25}>
                 <Link
                   href="/articles"

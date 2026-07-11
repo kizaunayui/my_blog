@@ -40,7 +40,7 @@ export default function ContentPage() {
     .slice(0, 6)
 
   return (
-    <section className="py-10 sm:py-14">
+    <section className="content-page py-10 sm:py-14">
       <div className="content-page-heading mb-8 border-b border-white/10 px-1 py-7 sm:mb-10 sm:py-9">
         <p className="mb-3 text-sm font-black tracking-[0.2em] text-pink-600 uppercase dark:text-pink-200">
           Content Center
@@ -48,7 +48,7 @@ export default function ContentPage() {
         <h1 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl md:text-4xl lg:text-5xl dark:text-white">
           内容中心
         </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-7 font-semibold text-slate-700 sm:mt-4 sm:text-base sm:leading-8 dark:text-slate-200">
+        <p className="content-page-summary mt-3 max-w-3xl text-sm leading-7 font-semibold text-slate-700 sm:mt-4 sm:text-base sm:leading-8 dark:text-slate-200">
           这里集中整理 Prompt
           模板、作品展示和项目研究内容，用于长期沉淀实践经验、创作成果和研究过程。
         </p>
@@ -56,8 +56,8 @@ export default function ContentPage() {
 
       <ContentSectionGrid showIntro reveal={false} />
 
-      <section className="mt-10 sm:mt-12">
-        <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+      <section className="content-latest-section mt-10 sm:mt-12">
+        <div className="content-latest-heading mb-5 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-black tracking-[0.2em] text-pink-600 uppercase dark:text-pink-200">
               Latest Updates
@@ -90,15 +90,15 @@ export default function ContentPage() {
                   {formatDate(item.date, siteMetadata.locale)}
                 </time>
               </div>
-              <h3 className="mt-4 text-xl font-black tracking-tight text-slate-950 dark:text-white">
+              <h3 className="content-update-title mt-4 text-xl font-black tracking-tight text-slate-950 dark:text-white">
                 <Link href={item.href} className="hover:text-pink-600 dark:hover:text-pink-200">
                   {item.title}
                 </Link>
               </h3>
-              <p className="mt-3 text-sm leading-7 font-semibold text-slate-700 dark:text-slate-200">
+              <p className="content-update-description mt-3 text-sm leading-7 font-semibold text-slate-700 dark:text-slate-200">
                 {item.description}
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="content-update-tags mt-4 flex flex-wrap gap-2">
                 {item.tags.slice(0, 4).map((tag) => (
                   <Tag key={`${item.title}-${tag}`} text={tag} />
                 ))}
