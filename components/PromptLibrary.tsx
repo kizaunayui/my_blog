@@ -125,9 +125,11 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   ))}
                 </div>
 
-                <pre className="max-h-64 overflow-auto border-y border-white/10 bg-slate-950/90 p-4 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
-                  {item.prompt}
-                </pre>
+                <div className="prompt-reading-surface">
+                  <pre className="max-h-64 overflow-auto bg-transparent p-0 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
+                    {item.prompt}
+                  </pre>
+                </div>
 
                 <div className="flex flex-wrap justify-end gap-3">
                   <Link

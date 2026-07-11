@@ -73,9 +73,11 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
       </header>
 
       <section className="mt-8">
-        <pre className="overflow-auto border-y border-white/10 bg-slate-950/90 p-5 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100 sm:p-6">
-          {prompt.prompt}
-        </pre>
+        <div className="prompt-reading-surface prompt-reading-surface--detail">
+          <pre className="overflow-auto bg-transparent p-0 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
+            {prompt.prompt}
+          </pre>
+        </div>
       </section>
 
       <div className="mt-8 flex flex-wrap gap-3">

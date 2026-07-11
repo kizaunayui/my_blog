@@ -1842,6 +1842,50 @@ a[href^='/tags/'] {
   }
 }
 
+.prompt-reading-surface {
+  position: relative;
+  overflow: hidden;
+  padding: 1.15rem 1.25rem 1.15rem 1.5rem;
+  background: linear-gradient(
+    90deg,
+    rgb(2 6 23 / 64%) 0%,
+    rgb(2 6 23 / 38%) 48%,
+    rgb(2 6 23 / 10%) 82%,
+    transparent 100%
+  );
+}
+
+.prompt-reading-surface::before {
+  position: absolute;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  left: 0;
+  width: 1px;
+  content: '';
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(103 232 249 / 85%) 30%,
+    rgb(249 168 212 / 58%) 72%,
+    transparent
+  );
+}
+
+.prompt-reading-surface::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 68%;
+  height: 1px;
+  pointer-events: none;
+  content: '';
+  background: linear-gradient(90deg, rgb(103 232 249 / 20%), transparent);
+}
+
+.prompt-reading-surface--detail {
+  padding: 1.35rem 1.5rem 1.35rem 1.75rem;
+}
+
 @keyframes status-breathe {
   0%,
   100% {
@@ -1885,6 +1929,17 @@ a[href^='/tags/'] {
 }
 
 @media (max-width: 640px) {
+  .prompt-reading-surface,
+  .prompt-reading-surface--detail {
+    padding: 1rem 1rem 1rem 1.25rem;
+    background: linear-gradient(
+      90deg,
+      rgb(2 6 23 / 68%) 0%,
+      rgb(2 6 23 / 34%) 70%,
+      transparent 100%
+    );
+  }
+
   .home-hero {
     min-height: auto;
     padding-top: 4.5rem;
