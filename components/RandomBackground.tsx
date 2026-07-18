@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 type BackgroundOption = {
   src: string
@@ -77,6 +78,23 @@ const backgroundPool: BackgroundOption[] = [
   },
 ]
 
+const fixedBackgrounds: Record<string, BackgroundOption> = {
+  '/blog/niko-2016-2026': {
+    src: '/static/images/niko-cologne-major-2026.jpg',
+    position: 'center center',
+    mobilePosition: '62% center',
+    size: 'cover',
+    tone: 'dark',
+  },
+  '/articles/niko-2016-2026': {
+    src: '/static/images/niko-cologne-major-2026.jpg',
+    position: 'center center',
+    mobilePosition: '62% center',
+    size: 'cover',
+    tone: 'dark',
+  },
+}
+
 type RandomBackgroundProps = {
   basePath?: string
 }
@@ -86,6 +104,7 @@ function toBackgroundImage(basePath: string, imagePath: string) {
 }
 
 export default function RandomBackground({ basePath = '' }: RandomBackgroundProps) {
+  const pathname = usePathname()
   const [background, setBackground] = useState(backgroundPool[0])
 
   useEffect(() => {
@@ -93,19 +112,22 @@ export default function RandomBackground({ basePath = '' }: RandomBackgroundProp
     setBackground(backgroundPool[index] || backgroundPool[0])
   }, [])
 
+  const normalizedPathname = pathname.replace(/\/+$/, '') || '/'
+  const activeBackground = fixedBackgrounds[normalizedPathname] || background
+
   return (
     <>
       <div
         aria-hidden="true"
         className="site-fixed-bg hero-aurora-one pointer-events-none fixed inset-0"
-        data-background-tone={background.tone}
+        data-background-tone={activeBackground.tone}
         style={
           {
-            backgroundImage: toBackgroundImage(basePath, background.src),
-            '--site-bg-position': background.position || '72% center',
+            backgroundImage: toBackgroundImage(basePath, activeBackground.src),
+            '--site-bg-position': activeBackground.position || '72% center',
             '--site-bg-mobile-position':
-              background.mobilePosition || background.position || '66% center',
-            '--site-bg-size': background.size || 'cover',
+              activeBackground.mobilePosition || activeBackground.position || '66% center',
+            '--site-bg-size': activeBackground.size || 'cover',
           } as React.CSSProperties
         }
       />
