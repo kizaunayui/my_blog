@@ -327,16 +327,6 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(
-      circle 35rem at var(--mouse-x, 72%) var(--mouse-y, 38%),
-      rgba(6, 182, 212, 0.14),
-      transparent 80%
-    ),
-    radial-gradient(
-      circle 25rem at var(--mouse-x, 72%) var(--mouse-y, 38%),
-      rgba(236, 72, 153, 0.08),
-      transparent 80%
-    ),
     radial-gradient(circle at 72% 38%, rgba(96, 165, 250, 0.06), transparent 30rem),
     linear-gradient(
       90deg,
@@ -1589,16 +1579,6 @@ input:-webkit-autofill:focus {
 
 .site-fixed-bg::before {
   background:
-    radial-gradient(
-      circle 32rem at var(--mouse-x, 72%) var(--mouse-y, 38%),
-      rgba(34, 211, 238, 0.12),
-      transparent 76%
-    ),
-    radial-gradient(
-      circle 21rem at var(--mouse-x, 72%) var(--mouse-y, 38%),
-      rgba(244, 114, 182, 0.07),
-      transparent 78%
-    ),
     linear-gradient(
       100deg,
       rgba(2, 6, 23, var(--site-overlay-left)) 0%,
