@@ -29,7 +29,7 @@ export default function SpotlightCard({
 
   return (
     <div
-      className="group relative border-t border-white/10 bg-transparent transition-all duration-500 ease-out hover:-translate-y-1 hover:border-cyan-200/30"
+      className="group relative border-t border-[color:var(--hairline)] bg-transparent transition-all duration-500 ease-out hover:-translate-y-1 hover:border-cyan-200/30"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

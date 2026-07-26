@@ -7,6 +7,7 @@ import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
+import EditorialPagination from '@/components/EditorialPagination'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 
@@ -27,44 +28,22 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
     .replace(/^\//, '')
     .replace(/\/page\/\d+\/?$/, '')
     .replace(/\/$/, '')
-  const prevPage = currentPage - 1 > 0
-  const nextPage = currentPage + 1 <= totalPages
+  const prevHref =
+    currentPage - 1 > 0
+      ? currentPage - 1 === 1
+        ? `/${basePath}/`
+        : `/${basePath}/page/${currentPage - 1}`
+      : undefined
+  const nextHref = currentPage + 1 <= totalPages ? `/${basePath}/page/${currentPage + 1}` : undefined
 
   return (
-    <div className="list-pagination space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="archive-pagination editorial-pagination flex justify-between px-1 py-5 text-sm font-bold dark:text-slate-100">
-        {!prevPage && (
-          <button className="pagination-link is-disabled cursor-auto" disabled={!prevPage}>
-            Previous
-          </button>
-        )}
-        {prevPage && (
-          <Link
-            href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
-            rel="prev"
-            className="pagination-link dark:text-cyan-100"
-          >
-            Previous
-          </Link>
-        )}
-        <span className="pagination-status">
-          {currentPage} of {totalPages}
-        </span>
-        {!nextPage && (
-          <button className="pagination-link is-disabled cursor-auto" disabled={!nextPage}>
-            Next
-          </button>
-        )}
-        {nextPage && (
-          <Link
-            href={`/${basePath}/page/${currentPage + 1}`}
-            rel="next"
-            className="pagination-link dark:text-cyan-100"
-          >
-            Next
-          </Link>
-        )}
-      </nav>
+    <div className="list-pagination pt-4 pb-8">
+      <EditorialPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        prevHref={prevHref}
+        nextHref={nextHref}
+      />
     </div>
   )
 }
@@ -100,7 +79,7 @@ export default function ListLayoutWithTags({
       </div>
 
       <div className="list-layout-grid flex gap-6 sm:gap-8 md:gap-10">
-        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[250px] min-w-[250px] overflow-auto px-1 py-2 sm:block">
+        <aside className="list-sidebar hidden h-fit max-h-[calc(100vh-3rem)] max-w-[250px] min-w-[250px] overflow-auto px-1 py-2 md:block">
           {pathname.startsWith('/articles') ? (
             <h3 className="font-heading text-[10px] font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-100">
               All Posts · 所有文章

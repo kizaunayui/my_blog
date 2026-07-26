@@ -2,7 +2,8 @@
    MOBILE POLISH — Essential responsive rules only, zero !important
    ═══════════════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 768px) {
+/* 767.98px:与 Tailwind md:(min-width 768px)错开,避免恰好 768px 时两套布局同时生效 */
+@media (max-width: 767.98px) {
   /* ── Body overflow & iOS fixes ────────────────────────────────────────── */
   body {
     overflow-x: hidden;
@@ -63,7 +64,7 @@
 
   .home-hero-content h1 {
     font-size: clamp(1.85rem, 9vw, 2.85rem);
-    line-height: 1.1;
+    line-height: 1.2;
   }
 
   .home-hero-content > .hero-kicker:first-child {
@@ -137,8 +138,7 @@
   }
 
   /* ── Card border-radius & padding ────────────────────────────────────── */
-  .post-content-card,
-  .footer-glass-panel {
+  .post-content-card {
     border-radius: 1.45rem;
   }
 
@@ -168,7 +168,8 @@
   .author-heading h1,
   .post-title-card h1 {
     font-size: clamp(2.15rem, 10vw, 3.25rem);
-    line-height: 1.05;
+    /* 中文两行标题需要 >=1.2 的行距,1.05 是拉丁展示字体的取值 */
+    line-height: 1.2;
   }
 
   .home-hero + section .post-card-motion h3,
@@ -257,10 +258,6 @@
   }
 
   /* ── Footer mobile ──────────────────────────────────────────────────── */
-  .footer-glass-panel {
-    padding: 1rem;
-  }
-
   .site-footer {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -422,23 +419,6 @@ a[href^='/tags/']:hover {
     border-color 0.56s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* ── Stagger delay for post list ───────────────────────────────────────── */
-.post-card-motion:nth-child(1) {
-  transition-delay: 0s;
-}
-.post-card-motion:nth-child(2) {
-  transition-delay: 0.05s;
-}
-.post-card-motion:nth-child(3) {
-  transition-delay: 0.1s;
-}
-.post-card-motion:nth-child(4) {
-  transition-delay: 0.15s;
-}
-.post-card-motion:nth-child(5) {
-  transition-delay: 0.2s;
-}
-
 /* ═══════════════════════════════════════════════════════════════════════════
    EXTRA SMALL (≤ 480px)
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -457,10 +437,6 @@ a[href^='/tags/']:hover {
     font-size: 0.85rem;
     line-height: 1.6;
     padding: 0.85rem;
-  }
-
-  .footer-glass-panel > div:first-child {
-    gap: 0.75rem;
   }
 
   .post-content-card {

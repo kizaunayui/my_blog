@@ -20,7 +20,9 @@
   --font-heading: 'Outfit', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
   --font-serif:
     'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
-  --font-display: 'Cinzel', 'Noto Serif SC', 'Songti SC', serif;
+  /* 展示字体:Cormorant Garamond 大写 + 宽字距承担刊头/编号。
+     (Cinzel 从未成功自托管过,此前一直在用回退渲染;2026-07 起正式移除) */
+  --font-display: 'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', serif;
 
   /* Colors */
   /* Copied from https://tailwindcss.com/docs/theme#default-theme-variable-reference */
@@ -115,7 +117,8 @@
   h5,
   h6 {
     font-family: var(--font-serif), var(--font-sans);
-    letter-spacing: -0.01em;
+    /* 中文标题不收字距:负字距是拉丁字体的优化,汉字本已占满字身框 */
+    letter-spacing: 0;
   }
 
   a,
@@ -146,8 +149,9 @@
       }
     }
     & :where(h1, h2) {
-      font-weight: 700;
-      letter-spacing: var(--tracking-tight);
+      /* Noto Serif SC 字重轴上限 600,再高会触发伪加粗 */
+      font-weight: 600;
+      letter-spacing: 0;
     }
     & h3 {
       font-weight: 600;
@@ -414,19 +418,25 @@ footer {
   border-radius: 9999px;
   background: linear-gradient(
     135deg,
-    rgba(96, 165, 250, 0.5),
-    rgba(192, 132, 252, 0.5),
-    rgba(236, 72, 153, 0.4)
+    rgba(103, 232, 249, 0.5),
+    rgba(249, 168, 212, 0.45)
   );
   background-size: 200% 200%;
+  /* 光环流动只作为 hover 奖励,默认静止(design.md §7.5) */
   animation: avatar-ring-glow 6s ease-in-out infinite;
+  animation-play-state: paused;
   transition: box-shadow 0.4s ease;
+}
+
+.header-avatar-ring:hover,
+.group\/logo:hover .header-avatar-ring {
+  animation-play-state: running;
 }
 
 .header-avatar-ring:hover {
   box-shadow:
-    0 0 18px rgba(96, 165, 250, 0.35),
-    0 0 32px rgba(192, 132, 252, 0.2);
+    0 0 0 1px rgba(103, 232, 249, 0.3),
+    0 8px 22px rgba(2, 6, 23, 0.45);
 }
 
 @keyframes avatar-ring-glow {
@@ -450,12 +460,11 @@ footer {
 .header-nav-link::after {
   content: '';
   position: absolute;
-  left: 0.75rem;
-  right: 0.75rem;
+  left: 0.85rem;
+  right: 0.85rem;
   bottom: 0;
-  height: 2px;
-  border-radius: 1px;
-  background: linear-gradient(90deg, #60a5fa, #c084fc, #ec4899);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #67e8f9 30%, #f9a8d4 68%, transparent);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -472,7 +481,7 @@ footer {
 
 /* Dropdown refinement */
 .header-dropdown {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--hairline);
   box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
@@ -489,9 +498,9 @@ header svg {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(148, 163, 184, 0.15) 20%,
-    rgba(96, 165, 250, 0.2) 50%,
-    rgba(148, 163, 184, 0.15) 80%,
+    var(--hairline) 16%,
+    rgba(103, 232, 249, 0.22) 50%,
+    var(--hairline) 84%,
     transparent
   );
 }
@@ -529,8 +538,8 @@ header svg {
   margin-right: calc(50% - 50vw);
   padding-top: clamp(4.5rem, 9vh, 6.5rem);
   padding-bottom: clamp(3.5rem, 7vh, 5.5rem);
-  padding-left: max(2rem, calc((100vw - 76rem) / 2));
-  padding-right: max(2rem, calc((100vw - 76rem) / 2));
+  padding-left: max(2rem, calc((100vw - var(--frame-width)) / 2));
+  padding-right: max(2rem, calc((100vw - var(--frame-width)) / 2));
   display: flex;
   flex-direction: column;
   overflow: visible;
@@ -598,7 +607,9 @@ header svg {
 }
 
 .home-hero .button-primary {
-  box-shadow: 0 14px 32px rgba(236, 72, 153, 0.22);
+  box-shadow:
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 14px 32px rgba(2, 6, 23, 0.4);
 }
 
 .home-hero .button-secondary {
@@ -622,7 +633,7 @@ header svg {
     90deg,
     transparent 0%,
     rgba(34, 211, 238, 0.5) 15%,
-    rgba(192, 132, 252, 0.45) 50%,
+    rgba(249, 168, 212, 0.42) 50%,
     rgba(236, 72, 153, 0.35) 85%,
     transparent 100%
   );
@@ -651,7 +662,7 @@ header svg {
     90deg,
     transparent 0%,
     rgba(34, 211, 238, 0.7) 15%,
-    rgba(192, 132, 252, 0.6) 50%,
+    rgba(249, 168, 212, 0.58) 50%,
     rgba(236, 72, 153, 0.5) 85%,
     transparent 100%
   );
@@ -671,7 +682,7 @@ header svg {
 
 .home-hero + section .post-card-motion {
   position: relative;
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: var(--hairline);
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -749,7 +760,7 @@ header svg {
 }
 
 .home-side-panel p:not(:last-child) {
-  color: rgb(34, 211, 238);
+  color: rgba(165, 243, 252, 0.88);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -760,8 +771,8 @@ header svg {
   z-index: 3;
   margin: 2rem auto 0.5rem;
   max-width: 42rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
   border-radius: 0;
   background: transparent;
   padding: 1.5rem;
@@ -830,14 +841,36 @@ header svg {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   FOOTER TEXT  —  On dark background
+   FOOTER — editorial colophon,与页头细线呼应,收拢整本"杂志"
    ═══════════════════════════════════════════════════════════════════════════ */
-footer,
-footer a,
-footer div,
 footer svg {
-  color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 240ms ease;
+}
+
+footer a:hover svg {
+  color: white;
+}
+
+.footer-colophon {
+  position: relative;
+}
+
+.footer-colophon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--hairline) 16%,
+    rgba(103, 232, 249, 0.22) 50%,
+    var(--hairline) 84%,
+    transparent
+  );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -846,7 +879,7 @@ footer svg {
 .dark .home-featured-card,
 .dark .home-hero + section .post-card-motion,
 .dark .home-newsletter-panel {
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: var(--hairline);
   background: transparent;
 }
 
@@ -888,7 +921,6 @@ footer svg {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gradient-pan 8s ease infinite;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -983,7 +1015,8 @@ footer svg {
   border-radius: 999px;
   padding: 0 1.15rem;
   font-size: 0.95rem;
-  font-weight: 800;
+  /* Inter 自托管轴上限 700 */
+  font-weight: 700;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
@@ -994,7 +1027,9 @@ footer svg {
 .button-primary {
   background: linear-gradient(135deg, var(--color-primary-600), oklch(0.58 0.16 190));
   color: white;
-  box-shadow: 0 18px 34px color-mix(in oklch, var(--color-primary-400) 32%, transparent);
+  box-shadow:
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 18px 34px rgba(2, 6, 23, 0.38);
 }
 
 .button-primary:hover,
@@ -1003,7 +1038,9 @@ footer svg {
 }
 
 .button-primary:hover {
-  box-shadow: 0 24px 42px color-mix(in oklch, var(--color-primary-400) 42%, transparent);
+  box-shadow:
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 24px 42px rgba(2, 6, 23, 0.44);
 }
 
 .button-secondary {
@@ -1130,16 +1167,6 @@ footer svg {
   }
   50% {
     transform: translate3d(-1.5rem, 1.1rem, 0) scale(1.06);
-  }
-}
-
-@keyframes gradient-pan {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
   }
 }
 
@@ -1323,12 +1350,25 @@ input:-webkit-autofill:focus {
 :root {
   --hairline: rgba(255, 255, 255, 0.13);
   --hairline-strong: rgba(255, 255, 255, 0.22);
+  --hairline-faint: rgba(255, 255, 255, 0.08);
+  --frame-width: 72rem;
   --ink-muted: rgba(226, 232, 240, 0.68);
   --editorial-cyan: rgb(103, 232, 249);
   --editorial-pink: rgb(249, 168, 212);
   --editorial-reading-width: 46rem;
   --editorial-control-height: 2.65rem;
   --editorial-section-gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+/* 统一数字声线:日期、编号、页码全部使用等宽正体数字,列向对齐 */
+.editorial-kicker,
+.pagination-status,
+.archive-date,
+.featured-index,
+.journal-entry-index,
+.archive-row-index,
+time {
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .editorial-masthead {
@@ -1368,7 +1408,7 @@ input:-webkit-autofill:focus {
   font-family: var(--font-serif), Georgia, serif;
   font-size: clamp(2.35rem, 4.4vw, 3.65rem);
   font-weight: 300;
-  line-height: 1.04;
+  line-height: 1.18;
   letter-spacing: 0.018em;
   color: white;
   text-wrap: balance;
@@ -1387,7 +1427,7 @@ input:-webkit-autofill:focus {
 .editorial-section-title {
   font-family: var(--font-serif), Georgia, serif;
   font-weight: 300;
-  line-height: 1.08;
+  line-height: 1.18;
   letter-spacing: 0.02em;
   color: white;
 }
@@ -1409,7 +1449,7 @@ input:-webkit-autofill:focus {
 
 .editorial-chip {
   min-height: 1.75rem;
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: var(--hairline);
   background: transparent;
   color: rgba(226, 232, 240, 0.76);
   box-shadow: none;
@@ -1451,17 +1491,21 @@ input:-webkit-autofill:focus {
   border: 1px solid rgba(165, 243, 252, 0.34);
   background: linear-gradient(115deg, rgba(8, 145, 178, 0.9), rgba(14, 116, 144, 0.8));
   color: white;
-  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.16);
+  box-shadow:
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 10px 30px rgba(2, 6, 23, 0.38);
 }
 
 .editorial-action--primary:hover {
   border-color: rgba(207, 250, 254, 0.58);
   background: linear-gradient(115deg, rgba(6, 182, 212, 0.92), rgba(8, 145, 178, 0.84));
-  box-shadow: 0 14px 38px rgba(6, 182, 212, 0.22);
+  box-shadow:
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 14px 38px rgba(2, 6, 23, 0.44);
 }
 
 .editorial-action--quiet {
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--hairline);
   background: transparent;
   color: rgba(241, 245, 249, 0.86);
 }
@@ -1507,7 +1551,7 @@ input:-webkit-autofill:focus {
 
 .prompt-filter {
   min-height: 2.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--hairline);
   background: transparent;
   color: rgba(226, 232, 240, 0.72);
 }
@@ -1556,8 +1600,55 @@ input:-webkit-autofill:focus {
   text-shadow: 0 0 36px rgba(103, 232, 249, 0.12);
 }
 
+/* 签名过渡:背景舞台与页头保持静止,只有编辑层内容淡入上升 */
 @view-transition {
   navigation: auto;
+}
+
+.site-fixed-bg {
+  view-transition-name: site-bg;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: var(--ease-fluid);
+}
+
+::view-transition-old(root) {
+  animation-name: vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: vt-rise-in;
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(site-bg),
+  ::view-transition-new(site-bg),
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) {
+    animation: none !important;
+  }
 }
 
 ::selection {
@@ -1573,8 +1664,8 @@ input:-webkit-autofill:focus {
   pointer-events: none;
   opacity: 0.032;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  /* 静态颗粒:它的职责是给长渐变做抖色(防色带),不需要肉眼可见的运动 */
   mix-blend-mode: soft-light;
-  animation: grain-wander 0.85s steps(2) infinite;
 }
 
 .site-fixed-bg::before {
@@ -1629,13 +1720,6 @@ input:-webkit-autofill:focus {
   letter-spacing: 0.22em;
 }
 
-.header-nav-link::after {
-  left: 0.85rem;
-  right: 0.85rem;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #67e8f9 30%, #c4b5fd 68%, transparent);
-}
-
 .home-hero {
   min-height: auto;
   justify-content: center;
@@ -1646,11 +1730,11 @@ input:-webkit-autofill:focus {
 .home-hero::before {
   content: '';
   position: absolute;
-  inset: 1.75rem max(1.25rem, calc((100vw - 80rem) / 2));
+  inset: 1.75rem max(1.25rem, calc((100vw - var(--frame-width)) / 2));
   z-index: 1;
   pointer-events: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid var(--hairline-faint);
+  border-bottom: 1px solid var(--hairline-faint);
   mask-image: linear-gradient(90deg, transparent, black 16%, black 84%, transparent);
 }
 
@@ -1663,7 +1747,7 @@ input:-webkit-autofill:focus {
 .hero-edition-mark {
   position: absolute;
   top: 6rem;
-  right: max(2rem, calc((100vw - 76rem) / 2));
+  right: max(2rem, calc((100vw - var(--frame-width)) / 2));
   z-index: 4;
   display: flex;
   align-items: center;
@@ -1733,7 +1817,8 @@ input:-webkit-autofill:focus {
   border: 1px solid rgba(165, 243, 252, 0.42);
   background: linear-gradient(115deg, rgba(8, 145, 178, 0.92), rgba(14, 116, 144, 0.78));
   box-shadow:
-    0 12px 42px rgba(6, 182, 212, 0.2),
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 12px 36px rgba(2, 6, 23, 0.42),
     inset 0 1px rgba(255, 255, 255, 0.22);
 }
 
@@ -1754,13 +1839,14 @@ input:-webkit-autofill:focus {
   transform: translateY(-2px);
   border-color: rgba(207, 250, 254, 0.7);
   box-shadow:
-    0 18px 56px rgba(6, 182, 212, 0.3),
+    0 1px 2px rgba(2, 6, 23, 0.5),
+    0 18px 48px rgba(2, 6, 23, 0.5),
     inset 0 1px rgba(255, 255, 255, 0.28);
 }
 
 .hero-secondary-action {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--hairline);
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
@@ -1825,7 +1911,7 @@ input:-webkit-autofill:focus {
   position: absolute;
   top: 0;
   left: 50%;
-  width: min(90vw, 76rem);
+  width: min(90vw, var(--frame-width));
   height: 1px;
   transform: translateX(-50%);
   background: linear-gradient(
@@ -2052,7 +2138,7 @@ a[href^='/tags/'] {
   background: linear-gradient(
     100deg,
     rgba(103, 232, 249, 0.07),
-    rgba(196, 181, 253, 0.045),
+    rgba(249, 168, 212, 0.045),
     transparent 76%
   );
 }
@@ -2070,24 +2156,6 @@ a[href^='/tags/'] {
     animation: editorial-reveal linear both;
     animation-timeline: view();
     animation-range: entry 4% cover 24%;
-  }
-}
-
-@keyframes grain-wander {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  25% {
-    transform: translate3d(2%, -3%, 0);
-  }
-  50% {
-    transform: translate3d(-3%, 2%, 0);
-  }
-  75% {
-    transform: translate3d(3%, 4%, 0);
-  }
-  100% {
-    transform: translate3d(-2%, -2%, 0);
   }
 }
 
@@ -2197,7 +2265,7 @@ a[href^='/tags/'] {
 @media (max-width: 640px) {
   .editorial-title {
     font-size: clamp(2.15rem, 10vw, 3rem);
-    line-height: 1.06;
+    line-height: 1.2;
   }
 
   .editorial-summary {

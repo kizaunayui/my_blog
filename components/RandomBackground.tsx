@@ -108,7 +108,29 @@ export default function RandomBackground({ basePath = '' }: RandomBackgroundProp
   const [background, setBackground] = useState(backgroundPool[0])
 
   useEffect(() => {
-    const index = Math.floor(Math.random() * backgroundPool.length)
+    // 同一次访问(会话)内保持同一张背景,硬导航/刷新不再突然换片
+    let index: number | null = null
+    try {
+      const stored = window.sessionStorage.getItem('site-bg-index')
+      if (stored !== null) {
+        const parsed = Number.parseInt(stored, 10)
+        if (Number.isInteger(parsed) && parsed >= 0 && parsed < backgroundPool.length) {
+          index = parsed
+        }
+      }
+    } catch {
+      /* sessionStorage 不可用时退回每次随机 */
+    }
+
+    if (index === null) {
+      index = Math.floor(Math.random() * backgroundPool.length)
+      try {
+        window.sessionStorage.setItem('site-bg-index', String(index))
+      } catch {
+        /* ignore */
+      }
+    }
+
     setBackground(backgroundPool[index] || backgroundPool[0])
   }, [])
 

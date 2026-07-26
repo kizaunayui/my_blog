@@ -35,7 +35,7 @@ export default function Magnetic({ children, range = 75, actionStrength = 0.35 }
         const targetX = distanceX * actionStrength
         const targetY = distanceY * actionStrength
 
-        child.style.transition = 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)'
+        child.style.transition = 'transform 0.15s cubic-bezier(0.19, 1, 0.22, 1)'
         child.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`
       }
     }

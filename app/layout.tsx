@@ -9,7 +9,6 @@ import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import RandomBackground from '@/components/RandomBackground'
-import ScrollProgress from '@/components/ScrollProgress'
 import FloatingMusicPlayer from '@/components/FloatingMusicPlayer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
@@ -84,7 +83,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviders>
           <MouseTracker />
           <RandomBackground basePath={basePath} />
-          <ScrollProgress />
           <Analytics />
           <SectionContainer>
             <Header />

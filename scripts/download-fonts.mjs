@@ -20,7 +20,6 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const FAMILIES = [
-  'family=Cinzel:wght@300..800',
   'family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700',
   'family=Outfit:wght@200..800',
   'family=Inter:wght@300..700',

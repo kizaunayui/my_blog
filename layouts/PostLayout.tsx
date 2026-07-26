@@ -8,23 +8,26 @@ import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import ScrollProgress from '@/components/ScrollProgress'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (slug) =>
   `https://x.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/articles/${slug}`)}`
 
-const postDateTemplate: Intl.DateTimeFormatOptions = {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+/* 2026.07.26 · 星期日 —— 数字走 Outfit 的等宽数字,星期保持正常字距,
+   避免旧版"2026年7月26日星期日"在 10px + 0.25em 字距下的可读性问题 */
+function formatPostDate(date: string) {
+  const d = new Date(date)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const weekday = new Intl.DateTimeFormat('zh-CN', { weekday: 'long' }).format(d)
+  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} · ${weekday}`
 }
 
 const defaultPostContentClassName =
   'post-content-card prose mx-auto w-full max-w-[46rem] p-1 sm:p-2 dark:prose-invert'
 
 const reflexionPostContentClassName =
-  'post-content-card prose mx-auto w-full max-w-[46rem] p-1 sm:p-2 dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-200 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-cyan-300/50 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-white dark:prose-h2:border-cyan-300/40 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-bold prose-strong:leading-10 prose-strong:text-cyan-200 dark:prose-strong:text-cyan-100 prose-blockquote:border-l-4 prose-blockquote:border-cyan-400/30 prose-blockquote:pl-5 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-cyan-300/25 prose-hr:my-14 prose-hr:border-white/10 dark:prose-hr:border-white/8'
+  'post-content-card prose mx-auto w-full max-w-[46rem] p-1 sm:p-2 dark:prose-invert prose-p:font-serif prose-p:text-[1.08rem] prose-p:leading-9 prose-p:text-slate-200 prose-p:tracking-normal dark:prose-p:text-slate-100 prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-4 prose-h2:border-cyan-300/50 prose-h2:pl-5 prose-h2:font-sans prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-normal prose-h2:text-white dark:prose-h2:border-cyan-300/40 dark:prose-h2:text-white prose-strong:block prose-strong:my-8 prose-strong:font-serif prose-strong:text-xl prose-strong:font-semibold prose-strong:leading-10 prose-strong:text-cyan-200 dark:prose-strong:text-cyan-100 prose-blockquote:border-l-4 prose-blockquote:border-cyan-400/30 prose-blockquote:pl-5 prose-blockquote:font-serif prose-blockquote:not-italic dark:prose-blockquote:border-cyan-300/25 prose-hr:my-14 prose-hr:border-white/10 dark:prose-hr:border-white/8'
 
 type RecordedAt = {
   location?: string
@@ -67,17 +70,16 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
 
   return (
     <>
+      <ScrollProgress />
       <ScrollTopAndComment />
       <article className="post-article py-6 sm:py-10 md:py-12">
         {/* Title header — transparent */}
         <header className="post-header animate-fade-up mb-6 px-1 py-6 text-center sm:mb-8 sm:px-2 sm:py-8 md:py-10">
           <dl>
             <dt className="sr-only">Published on</dt>
-            <dd className="font-heading inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.25em] text-cyan-500 uppercase dark:text-cyan-400">
+            <dd className="font-heading inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] text-cyan-500 dark:text-cyan-400">
               <span className="h-px w-6 bg-gradient-to-r from-cyan-500/50 to-transparent" />
-              <time dateTime={date}>
-                {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-              </time>
+              <time dateTime={date}>{formatPostDate(date)}</time>
               <span className="h-px w-6 bg-gradient-to-l from-cyan-500/50 to-transparent" />
             </dd>
           </dl>
@@ -170,14 +172,14 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <section className="post-pdf-section px-1 py-5 sm:px-2">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h2 className="text-lg font-black text-white">PDF 资料</h2>
+                  <h2 className="text-lg font-semibold text-white">PDF 资料</h2>
                   <p className="mt-1 text-sm font-semibold text-white/60">
                     这篇文章绑定了 PDF 文件，可下载或在桌面端在线预览。
                   </p>
                 </div>
                 <Link
                   href={pdf}
-                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-black text-white transition hover:border-white/25 hover:text-cyan-200"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:text-cyan-200"
                 >
                   下载 PDF
                 </Link>

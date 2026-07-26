@@ -130,23 +130,6 @@ export default function FloatingMusicPlayer() {
           }
         }
 
-        /* Breathing Ring Idle Animation (Cyan slow glow) */
-        @keyframes pulse-glow-idle {
-          0%,
-          100% {
-            box-shadow:
-              0 0 10px rgba(6, 182, 212, 0.2),
-              inset 0 0 4px rgba(6, 182, 212, 0.1);
-            border-color: rgba(6, 182, 212, 0.25);
-          }
-          50% {
-            box-shadow:
-              0 0 18px rgba(6, 182, 212, 0.45),
-              inset 0 0 8px rgba(6, 182, 212, 0.25);
-            border-color: rgba(6, 182, 212, 0.45);
-          }
-        }
-
         /* Breathing Ring Playing Animation (Cyan/Pink rhythmic pulse) */
         @keyframes pulse-glow-playing {
           0%,
@@ -164,10 +147,13 @@ export default function FloatingMusicPlayer() {
           }
         }
 
+        /* 待机态是静止的:脉冲只属于播放状态(design.md §7.5) */
         .breathing-ring-idle {
-          animation:
-            chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both,
-            pulse-glow-idle 3.5s ease-in-out infinite;
+          animation: chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both;
+          border-color: rgba(6, 182, 212, 0.25);
+          box-shadow:
+            0 0 10px rgba(6, 182, 212, 0.2),
+            inset 0 0 4px rgba(6, 182, 212, 0.1);
         }
 
         .breathing-ring-playing {

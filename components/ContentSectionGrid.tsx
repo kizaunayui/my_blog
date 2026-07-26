@@ -25,7 +25,7 @@ export default function ContentSectionGrid({
             glowSize={300}
           >
             <div
-              className={`content-section-accent mb-5 h-1.5 w-24 rounded-full bg-gradient-to-r ${section.accent}`}
+              className={`content-section-accent mb-5 h-0.5 w-24 rounded-full bg-gradient-to-r ${section.accent}`}
             />
             <h3 className="content-section-title font-serif text-xl font-light tracking-wide text-slate-900 sm:text-2xl dark:text-white">
               {section.title}

@@ -3,8 +3,8 @@ import Tag from '@/components/Tag'
 import { contentSections } from '@/data/contentSections'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import Magnetic from '@/components/Magnetic'
 import Image from '@/components/Image'
+import EditorialPagination from '@/components/EditorialPagination'
 
 const POSTS_PER_PAGE = 5
 const CHINESE_CHARS_PER_MINUTE = 400
@@ -60,47 +60,17 @@ type Pagination = {
 }
 
 function HomePagination({ currentPage, totalPages }: Pagination) {
-  const prevPage = currentPage > 1
-  const nextPage = currentPage < totalPages
-  const previousHref = currentPage === 2 ? '/' : `/page/${currentPage - 1}`
-  const nextHref = `/page/${currentPage + 1}`
-
-  if (totalPages <= 1) {
-    return null
-  }
+  const prevHref =
+    currentPage > 1 ? (currentPage === 2 ? '/' : `/page/${currentPage - 1}`) : undefined
+  const nextHref = currentPage < totalPages ? `/page/${currentPage + 1}` : undefined
 
   return (
-    <nav className="editorial-pagination home-pagination mx-auto mt-7 flex w-fit items-center gap-1 border-y border-white/10 px-2 py-1 text-xs font-bold">
-      {prevPage ? (
-        <Link
-          href={previousHref}
-          rel="prev"
-          className="pagination-link rounded-full px-3.5 py-2 text-cyan-700 transition dark:text-cyan-100"
-        >
-          上一页
-        </Link>
-      ) : (
-        <span className="pagination-link is-disabled rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">
-          上一页
-        </span>
-      )}
-      <span className="pagination-status min-w-[3.75rem] px-3 py-2 text-center text-slate-300">
-        {currentPage} / {totalPages}
-      </span>
-      {nextPage ? (
-        <Link
-          href={nextHref}
-          rel="next"
-          className="pagination-link rounded-full px-3.5 py-2 text-cyan-700 transition dark:text-cyan-100"
-        >
-          下一页
-        </Link>
-      ) : (
-        <span className="pagination-link is-disabled rounded-full px-3.5 py-2 text-gray-400 dark:text-slate-500">
-          下一页
-        </span>
-      )}
-    </nav>
+    <EditorialPagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      prevHref={prevHref}
+      nextHref={nextHref}
+    />
   )
 }
 
@@ -142,7 +112,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               <span className="hero-kicker-dot" aria-hidden="true" />
               随笔 · 学习 · 项目实践
             </p>
-            <h1 className="hero-title animate-fade-in-up font-serif text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.05] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white">
+            <h1 className="hero-title animate-fade-in-up font-serif text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.15] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white">
               <span className="hero-title-intro">欢迎来到</span>{' '}
               <span className="gradient-text mt-1 block font-serif font-light break-words italic sm:mt-0 sm:inline">
                 {siteMetadata.title}
@@ -153,32 +123,27 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
             </p>
             <div className="home-hero-actions mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3.5">
-              <Magnetic range={60} actionStrength={0.25}>
-                <Link
-                  href="/articles"
-                  className="hero-primary-action btn-shimmer inline-flex items-center justify-center gap-3 rounded-full px-6 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-6.5"
-                >
-                  浏览文章 <span aria-hidden="true">↗</span>
-                </Link>
-              </Magnetic>
+              <Link
+                href="/articles"
+                className="hero-primary-action btn-shimmer inline-flex items-center justify-center gap-3 rounded-full px-6 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-6.5"
+              >
+                浏览文章 <span aria-hidden="true">↗</span>
+              </Link>
               {contentSections.map((section) => (
-                <Magnetic key={section.href} range={60} actionStrength={0.25}>
-                  <Link
-                    href={section.href}
-                    className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
-                  >
-                    {section.title}
-                  </Link>
-                </Magnetic>
-              ))}
-              <Magnetic range={60} actionStrength={0.25}>
                 <Link
-                  href="/about"
+                  key={section.href}
+                  href={section.href}
                   className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
                 >
-                  关于我
+                  {section.title}
                 </Link>
-              </Magnetic>
+              ))}
+              <Link
+                href="/about"
+                className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
+              >
+                关于我
+              </Link>
             </div>
           </div>
 

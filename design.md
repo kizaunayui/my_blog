@@ -62,7 +62,7 @@
 | **Sans (无衬线)**  | `Inter`              | 正文、标准 UI 文本           | `font-sans font-light`                     |
 | **Heading (标题)** | `Outfit`             | 分类标签、元数据、英文标签   | `font-heading uppercase tracking-wider`    |
 | **Serif (衬线)**   | `Cormorant Garamond` | 文章大标题、关键引言、Slogan | `font-serif font-light tracking-wide`      |
-| **Display (展示)** | `Cinzel`             | Logo、网站标题               | `font-display tracking-[0.22em] uppercase` |
+| **Display (展示)** | `Cormorant Garamond` | Logo、网站标题、两位数编号   | `font-display tracking-[0.22em] uppercase` |
 
 ### 3.0 中文字形配对(2026-07 起)
 

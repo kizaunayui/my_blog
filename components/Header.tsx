@@ -41,20 +41,18 @@ const Header = () => {
           {headerNavLinks.map((link) =>
             link.children ? (
               <div key={link.title} className="group relative">
-                <Magnetic range={40} actionStrength={0.3}>
-                  <Link
-                    href={link.href}
-                    className="header-nav-link font-heading inline-flex items-center gap-1 px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
+                <Link
+                  href={link.href}
+                  className="header-nav-link font-heading inline-flex items-center gap-1 px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
+                >
+                  {link.title}
+                  <span
+                    aria-hidden="true"
+                    className="text-[10px] leading-none opacity-60 transition-transform duration-300 group-hover:rotate-180"
                   >
-                    {link.title}
-                    <span
-                      aria-hidden="true"
-                      className="text-[10px] leading-none opacity-60 transition-transform duration-300 group-hover:rotate-180"
-                    >
-                      ▾
-                    </span>
-                  </Link>
-                </Magnetic>
+                    ▾
+                  </span>
+                </Link>
                 <div className="invisible absolute top-full left-1/2 min-w-56 -translate-x-1/2 pt-3 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                   <div className="header-dropdown border-y border-white/10 bg-slate-950 p-1.5 shadow-[0_18px_42px_rgba(2,6,23,0.35)]">
                     {link.children.map((child) => (
@@ -70,14 +68,13 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <Magnetic key={link.title} range={40} actionStrength={0.3}>
-                <Link
-                  href={link.href}
-                  className="header-nav-link font-heading px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
-                >
-                  {link.title}
-                </Link>
-              </Magnetic>
+              <Link
+                key={link.title}
+                href={link.href}
+                className="header-nav-link font-heading px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
+              >
+                {link.title}
+              </Link>
             )
           )}
         </nav>

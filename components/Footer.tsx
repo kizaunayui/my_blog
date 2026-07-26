@@ -4,29 +4,24 @@ import SocialIcon from '@/components/social-icons'
 
 export default function Footer() {
   return (
-    <footer className="site-footer mt-10 mb-6 sm:mt-16 sm:mb-8">
-      <div className="footer-glass-panel mx-auto flex max-w-4xl flex-col items-center px-4 py-5 sm:px-6 sm:py-6 md:px-8">
-        <div className="mb-4 flex flex-wrap justify-center gap-4">
-          <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
-          <SocialIcon kind="github" href={siteMetadata.github} size={6} />
-          <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />
-          <SocialIcon kind="youtube" href={siteMetadata.youtube} size={6} />
-          <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={6} />
-          <SocialIcon kind="twitter" href={siteMetadata.twitter} size={6} />
-          <SocialIcon kind="bluesky" href={siteMetadata.bluesky} size={6} />
-          <SocialIcon kind="x" href={siteMetadata.x} size={6} />
-          <SocialIcon kind="instagram" href={siteMetadata.instagram} size={6} />
-          <SocialIcon kind="threads" href={siteMetadata.threads} size={6} />
-          <SocialIcon kind="medium" href={siteMetadata.medium} size={6} />
+    <footer className="site-footer mt-12 mb-8 sm:mt-20 sm:mb-10">
+      <div className="footer-colophon flex flex-col gap-6 pt-7 sm:flex-row sm:items-end sm:justify-between sm:pt-8">
+        <div>
+          <div className="font-display text-sm font-light tracking-[0.22em] text-white/85 uppercase">
+            {siteMetadata.headerTitle}
+          </div>
+          <div className="font-heading mt-2 text-[9px] font-semibold tracking-[0.3em] text-white/35 uppercase">
+            VOL. 01 / DIGITAL GARDEN
+          </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm font-medium text-white/80">
-          <div>{siteMetadata.author}</div>
-          <div>{` • `}</div>
-          <div>{`© ${new Date().getFullYear()}`}</div>
-          <div>{` • `}</div>
-          <Link href="/" className="text-pink-100 hover:text-white">
-            {siteMetadata.title}
+        <div className="font-heading flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-semibold tracking-[0.22em] text-white/55 uppercase">
+          <SocialIcon kind="github" href={siteMetadata.github} size={5} />
+          <Link href="/feed.xml" className="transition-colors hover:text-white">
+            RSS
           </Link>
+          <span className="text-white/40">
+            © {new Date().getFullYear()} {siteMetadata.author}
+          </span>
         </div>
       </div>
     </footer>
