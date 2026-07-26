@@ -224,7 +224,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                       {featuredPost.tags?.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="font-heading rounded-full border border-white/10 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white/45 uppercase"
+                          className="font-heading rounded-full border border-white/25 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white/75 uppercase"
                         >
                           {tag}
                         </span>

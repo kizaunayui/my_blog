@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@300..800&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Outfit:wght@200..800&family=Inter:wght@300..700&family=Plus+Jakarta+Sans:wght@300..700&display=swap');
+/* 自托管字体(含中文衬线 Noto Serif SC)。字体文件由 `node scripts/download-fonts.mjs` 生成到 public/fonts/,
+   并同步重写 css/fonts.css。不再依赖 fonts.googleapis.com(大陆访问不稳定且阻塞渲染)。 */
+@import './fonts.css';
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
@@ -9,11 +11,16 @@
    THEME TOKENS
    ═══════════════════════════════════════════════════════════════════════════ */
 @theme {
-  /* Font families */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-heading: 'Outfit', sans-serif;
-  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-display: 'Cinzel', serif;
+  /* Font families — 每一族都补齐中文回退:
+     衬线/展示类中文统一走 Noto Serif SC(自托管),避免回退到系统宋体;
+     正文与标签类中文走现代系统黑体栈,保证正文可读性。 */
+  --font-sans:
+    'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', ui-sans-serif,
+    system-ui, sans-serif;
+  --font-heading: 'Outfit', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-serif:
+    'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  --font-display: 'Cinzel', 'Noto Serif SC', 'Songti SC', serif;
 
   /* Colors */
   /* Copied from https://tailwindcss.com/docs/theme#default-theme-variable-reference */
@@ -293,22 +300,24 @@
   will-change: transform;
 }
 
+/* balanced/bright 两档遮罩:按 design.md 7.5 要求加强内容列(左/中)与底部遮罩,
+   保证摘要、标签等次级文字在夕阳/水面高光等亮区上仍有足够对比度。 */
 .site-fixed-bg[data-background-tone='balanced'] {
-  --site-overlay-left: 0.82;
-  --site-overlay-mid: 0.62;
-  --site-overlay-focus: 0.27;
-  --site-overlay-right: 0.5;
-  --site-overlay-top: 0.17;
-  --site-overlay-bottom: 0.64;
+  --site-overlay-left: 0.86;
+  --site-overlay-mid: 0.7;
+  --site-overlay-focus: 0.38;
+  --site-overlay-right: 0.56;
+  --site-overlay-top: 0.22;
+  --site-overlay-bottom: 0.7;
 }
 
 .site-fixed-bg[data-background-tone='bright'] {
-  --site-overlay-left: 0.88;
-  --site-overlay-mid: 0.72;
-  --site-overlay-focus: 0.38;
-  --site-overlay-right: 0.62;
-  --site-overlay-top: 0.26;
-  --site-overlay-bottom: 0.72;
+  --site-overlay-left: 0.92;
+  --site-overlay-mid: 0.8;
+  --site-overlay-focus: 0.52;
+  --site-overlay-right: 0.7;
+  --site-overlay-top: 0.34;
+  --site-overlay-bottom: 0.8;
 }
 
 .site-fixed-bg::before {
@@ -2106,12 +2115,13 @@ a[href^='/tags/'] {
   position: relative;
   overflow: hidden;
   padding: 1.15rem 1.25rem 1.15rem 1.5rem;
+  /* 渐变尾部保留足够底色,避免长行行尾落在亮背景上失去对比 */
   background: linear-gradient(
     90deg,
-    rgb(2 6 23 / 64%) 0%,
-    rgb(2 6 23 / 38%) 48%,
-    rgb(2 6 23 / 10%) 82%,
-    transparent 100%
+    rgb(2 6 23 / 70%) 0%,
+    rgb(2 6 23 / 52%) 55%,
+    rgb(2 6 23 / 30%) 85%,
+    rgb(2 6 23 / 14%) 100%
   );
 }
 

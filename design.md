@@ -64,6 +64,14 @@
 | **Serif (衬线)**   | `Cormorant Garamond` | 文章大标题、关键引言、Slogan | `font-serif font-light tracking-wide`      |
 | **Display (展示)** | `Cinzel`             | Logo、网站标题               | `font-display tracking-[0.22em] uppercase` |
 
+### 3.0 中文字形配对(2026-07 起)
+
+上表四族均为纯拉丁字体,**不含中文字形**。中文回退规则必须显式声明,严禁依赖浏览器默认(否则 Windows 上标题会退化为系统宋体):
+
+- **衬线/展示类中文** → `Noto Serif SC`(思源宋体,自托管,变量字重 300–600)。标题、文章大标题、Reflexion 正文等一切 `font-serif` / `font-display` 场景的中文统一由它承担。
+- **正文/标签类中文** → 现代系统黑体栈(`PingFang SC` → `HarmonyOS Sans SC` → `MiSans` → `Microsoft YaHei`)。
+- 字体全部**自托管**于 `public/fonts/`(由 `scripts/download-fonts.mjs` 生成),禁止重新引入 fonts.googleapis.com 的运行时请求(大陆访问不稳定且阻塞渲染)。
+
 ### 3.1 标题大小控制
 
 为了避免大字重破坏排版的优雅感，文章详情页的标题应控制在合理范围内：

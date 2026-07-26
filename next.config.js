@@ -5,15 +5,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 // Keep CSP aligned with the blog's current assets: giscus comments, analytics,
-// Google font imports in CSS, static audio files, and optional external images.
+// self-hosted fonts (public/fonts), static audio files, and optional external images.
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is zz.bdstatic.com push.zhanzhang.baidu.com;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'self' https: blob: data:;
   connect-src *;
-  font-src 'self' https://fonts.gstatic.com;
+  font-src 'self';
   frame-src 'self' giscus.app;
 `
 
