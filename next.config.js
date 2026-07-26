@@ -8,7 +8,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // self-hosted fonts (public/fonts), static audio files, and optional external images.
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is zz.bdstatic.com push.zhanzhang.baidu.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app zz.bdstatic.com push.zhanzhang.baidu.com;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'self' https: blob: data:;

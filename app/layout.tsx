@@ -4,7 +4,7 @@ import 'css/post-content-fix.css'
 import 'css/mobile-polish.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
+import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MouseTracker />
           <RandomBackground basePath={basePath} />
           <ScrollProgress />
-          <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
+          <Analytics />
           <SectionContainer>
             <Header />
             <main className="mb-auto">{children}</main>
