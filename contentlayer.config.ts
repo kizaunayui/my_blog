@@ -130,7 +130,7 @@ export const Authors = defineDocumentType(() => ({
     linkedin: { type: 'string' },
     github: { type: 'string' },
     steam: { type: 'string' },
-    netease: { type: 'string' },
+    spotify: { type: 'string' },
     bangumi: { type: 'string' },
     bilibili: { type: 'string' },
     layout: { type: 'string' },
