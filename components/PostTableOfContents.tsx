@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import GithubSlugger from 'github-slugger'
 import type { Toc } from 'pliny/mdx-plugins'
 
 type PostTableOfContentsProps = {
@@ -8,8 +9,26 @@ type PostTableOfContentsProps = {
 }
 
 export default function PostTableOfContents({ toc = [] }: PostTableOfContentsProps) {
-  const headings = useMemo(() => toc.filter((item) => item.depth === 2), [toc])
+  const [headings, setHeadings] = useState<Toc>(() => toc.filter((item) => item.depth === 2))
   const [activeId, setActiveId] = useState(() => headings[0]?.url.slice(1) || '')
+
+  useEffect(() => {
+    const slugger = new GithubSlugger()
+    const renderedHeadings = Array.from(
+      document.querySelectorAll<HTMLElement>('.post-content-card h2')
+    ).map((element) => {
+      const value = element.textContent?.trim() || ''
+      const generatedId = slugger.slug(value)
+      const id = element.id || generatedId
+
+      if (!element.id) element.id = id
+
+      return { value, url: `#${id}`, depth: 2 }
+    })
+
+    setHeadings(renderedHeadings)
+    setActiveId(renderedHeadings[0]?.url.slice(1) || '')
+  }, [toc])
 
   useEffect(() => {
     if (headings.length === 0) return
