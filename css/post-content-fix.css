@@ -47,6 +47,102 @@
   margin-left: auto;
 }
 
+/* ── Desktop table of contents ────────────────────────────────────────── */
+.post-reading-layout {
+  width: 100%;
+}
+
+.post-reading-main {
+  min-width: 0;
+}
+
+.post-toc {
+  display: none;
+}
+
+.post-content-card h2 {
+  scroll-margin-top: 7rem;
+}
+
+@media (min-width: 1280px) {
+  .post-reading-layout:has(.post-toc) {
+    display: grid;
+    grid-template-columns: minmax(11rem, 14rem) minmax(0, 46rem) minmax(11rem, 14rem);
+    column-gap: 2.5rem;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .post-reading-layout:has(.post-toc) .post-reading-main {
+    grid-column: 2;
+  }
+
+  .post-toc {
+    position: sticky;
+    top: 6rem;
+    grid-column: 1;
+    display: block;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding: 0.35rem 1.25rem 0.35rem 0;
+    border-right: 1px solid rgba(148, 163, 184, 0.2);
+  }
+
+  .post-toc-title {
+    margin: 0 0 0.85rem;
+    color: rgb(100, 116, 139);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .post-toc-list {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post-toc-list a {
+    display: block;
+    border-left: 2px solid transparent;
+    padding: 0.48rem 0 0.48rem 0.85rem;
+    color: rgb(100, 116, 139);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.55;
+    text-decoration: none;
+    transition:
+      color 160ms ease,
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .post-toc-list a:hover,
+  .post-toc-list a.is-active {
+    border-left-color: rgb(14, 165, 233);
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.09), transparent);
+    color: rgb(14, 116, 144);
+  }
+
+  .dark .post-toc {
+    border-right-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .post-toc-title,
+  .dark .post-toc-list a {
+    color: rgb(148, 163, 184);
+  }
+
+  .dark .post-toc-list a:hover,
+  .dark .post-toc-list a.is-active {
+    border-left-color: rgb(103, 232, 249);
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.1), transparent);
+    color: rgb(165, 243, 252);
+  }
+}
+
 /* ── Headings ──────────────────────────────────────────────────────────── */
 .post-content-card :where(h1, h2, h3, h4, h5, h6) {
   color: rgb(15, 23, 42);

@@ -9,6 +9,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import ScrollProgress from '@/components/ScrollProgress'
+import PostTableOfContents from '@/components/PostTableOfContents'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (slug) =>
@@ -167,54 +168,58 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <div className="mt-5 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
         </section>
 
-        <div className="space-y-6">
-          {pdf && (
-            <section className="post-pdf-section px-1 py-5 sm:px-2">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h2 className="text-lg font-semibold text-white">PDF 资料</h2>
-                  <p className="mt-1 text-sm font-semibold text-white/60">
-                    这篇文章绑定了 PDF 文件，可下载或在桌面端在线预览。
-                  </p>
+        <div className="post-reading-layout">
+          <PostTableOfContents toc={content.toc} />
+
+          <div className="post-reading-main space-y-6">
+            {pdf && (
+              <section className="post-pdf-section px-1 py-5 sm:px-2">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-lg font-semibold text-white">PDF 资料</h2>
+                    <p className="mt-1 text-sm font-semibold text-white/60">
+                      这篇文章绑定了 PDF 文件，可下载或在桌面端在线预览。
+                    </p>
+                  </div>
+                  <Link
+                    href={pdf}
+                    className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:text-cyan-200"
+                  >
+                    下载 PDF
+                  </Link>
                 </div>
-                <Link
-                  href={pdf}
-                  className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:text-cyan-200"
-                >
-                  下载 PDF
-                </Link>
-              </div>
-              <div className="mt-5 hidden overflow-hidden rounded-xl border border-white/10 md:block">
-                <iframe src={pdf} title={`${title} PDF 预览`} className="h-[760px] w-full" />
-              </div>
-            </section>
-          )}
+                <div className="mt-5 hidden overflow-hidden rounded-xl border border-white/10 md:block">
+                  <iframe src={pdf} title={`${title} PDF 预览`} className="h-[760px] w-full" />
+                </div>
+              </section>
+            )}
 
-          <div className={postContentClassName}>{children}</div>
+            <div className={postContentClassName}>{children}</div>
 
-          <div className="post-footer-links px-1 py-4 text-sm font-bold text-white/60 sm:px-2">
-            <div className="mb-4 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
-            <Link
-              href={discussUrl(slug)}
-              rel="nofollow"
-              className="text-cyan-400/70 hover:text-cyan-300"
-            >
-              Discuss on Twitter
-            </Link>
-            {` • `}
-            <Link href={editUrl(filePath)} className="text-cyan-400/70 hover:text-cyan-300">
-              View on GitHub
-            </Link>
-          </div>
-
-          {siteMetadata.comments && (
-            <div
-              className="post-comments px-1 py-4 text-center font-bold text-white sm:px-2 sm:py-6"
-              id="comment"
-            >
-              <Comments slug={slug} />
+            <div className="post-footer-links px-1 py-4 text-sm font-bold text-white/60 sm:px-2">
+              <div className="mb-4 h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
+              <Link
+                href={discussUrl(slug)}
+                rel="nofollow"
+                className="text-cyan-400/70 hover:text-cyan-300"
+              >
+                Discuss on Twitter
+              </Link>
+              {` • `}
+              <Link href={editUrl(filePath)} className="text-cyan-400/70 hover:text-cyan-300">
+                View on GitHub
+              </Link>
             </div>
-          )}
+
+            {siteMetadata.comments && (
+              <div
+                className="post-comments px-1 py-4 text-center font-bold text-white sm:px-2 sm:py-6"
+                id="comment"
+              >
+                <Comments slug={slug} />
+              </div>
+            )}
+          </div>
         </div>
       </article>
     </>
