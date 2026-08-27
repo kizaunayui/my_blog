@@ -417,3 +417,32 @@
   outline: none;
   user-select: text;
 }
+
+/* Compact profile shortcut used inside an article. */
+.post-content-card a.bangumi-avatar-link {
+  display: inline-flex;
+  border: 0;
+  border-radius: 0.7rem;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.post-content-card .bangumi-avatar-link img {
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  border-radius: 0.7rem;
+  object-fit: cover;
+  box-shadow: 0 8px 22px rgba(2, 6, 23, 0.2);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.post-content-card .bangumi-avatar-link:hover img,
+.post-content-card .bangumi-avatar-link:focus-visible img {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 26px rgba(2, 6, 23, 0.24),
+    0 0 0 2px rgba(236, 72, 153, 0.5);
+}
