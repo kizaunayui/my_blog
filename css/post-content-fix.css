@@ -402,3 +402,18 @@
     padding: 0.75rem;
   }
 }
+
+/* Inline spoiler: blurred until hovered or focused. */
+.post-content-card .spoiler-blur {
+  filter: blur(4px);
+  cursor: help;
+  transition: filter 180ms ease;
+  user-select: none;
+}
+
+.post-content-card .spoiler-blur:hover,
+.post-content-card .spoiler-blur:focus {
+  filter: blur(0);
+  outline: none;
+  user-select: text;
+}
