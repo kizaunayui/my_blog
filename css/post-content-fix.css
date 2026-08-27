@@ -420,11 +420,23 @@
 
 /* Compact profile shortcut used inside an article. */
 .post-content-card a.bangumi-avatar-link {
-  display: inline-flex;
-  border: 0;
-  border-radius: 0.7rem;
-  line-height: 0;
+  display: inline-grid;
+  grid-template-columns: 3rem minmax(7.5rem, auto) 1.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 14rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.1);
+  color: rgb(30, 41, 59);
+  line-height: 1.25;
   text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .post-content-card .bangumi-avatar-link img {
@@ -433,16 +445,61 @@
   margin: 0;
   border-radius: 0.7rem;
   object-fit: cover;
-  box-shadow: 0 8px 22px rgba(2, 6, 23, 0.2);
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+  box-shadow: 0 6px 16px rgba(2, 6, 23, 0.18);
 }
 
-.post-content-card .bangumi-avatar-link:hover img,
-.post-content-card .bangumi-avatar-link:focus-visible img {
+.post-content-card .bangumi-avatar-link:hover,
+.post-content-card .bangumi-avatar-link:focus-visible {
   transform: translateY(-2px);
+  border-color: rgba(236, 72, 153, 0.55);
   box-shadow:
-    0 10px 26px rgba(2, 6, 23, 0.24),
-    0 0 0 2px rgba(236, 72, 153, 0.5);
+    0 14px 32px rgba(2, 6, 23, 0.14),
+    0 0 0 1px rgba(236, 72, 153, 0.12);
+  outline: none;
+}
+
+.post-content-card .bangumi-card-copy {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.post-content-card .bangumi-card-title {
+  color: rgb(219, 39, 119);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.post-content-card .bangumi-card-subtitle {
+  color: rgb(100, 116, 139);
+  font-size: 0.75rem;
+}
+
+.post-content-card .bangumi-card-arrow {
+  color: rgb(148, 163, 184);
+  font-size: 1rem;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.post-content-card .bangumi-avatar-link:hover .bangumi-card-arrow,
+.post-content-card .bangumi-avatar-link:focus-visible .bangumi-card-arrow {
+  color: rgb(219, 39, 119);
+  transform: translate(1px, -1px);
+}
+
+.dark .post-content-card a.bangumi-avatar-link {
+  border-color: rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.72);
+  color: rgb(226, 232, 240);
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.26);
+}
+
+.dark .post-content-card .bangumi-card-title {
+  color: rgb(244, 114, 182);
+}
+
+.dark .post-content-card .bangumi-card-subtitle {
+  color: rgb(148, 163, 184);
 }
