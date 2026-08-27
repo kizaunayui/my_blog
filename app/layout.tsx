@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
         <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       </head>
-      <body className="overflow-x-hidden bg-transparent text-black antialiased dark:text-white">
+      <body className="overflow-x-clip bg-transparent text-black antialiased dark:text-white">
         <ThemeProviders>
           <MouseTracker />
           <RandomBackground basePath={basePath} />
