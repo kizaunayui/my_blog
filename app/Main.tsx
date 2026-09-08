@@ -1,6 +1,6 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
-import { contentSections } from '@/data/contentSections'
+
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import Image from '@/components/Image'
@@ -76,7 +76,7 @@ function HomePagination({ currentPage, totalPages }: Pagination) {
 
 export default function Home({ posts, initialDisplayPosts, pagination }) {
   const currentPage = pagination?.currentPage || 1
-  const featuredPost = currentPage === 1 ? posts[0] : null
+
   const recentPosts = initialDisplayPosts || posts.slice(0, POSTS_PER_PAGE)
   const isFirstPage = currentPage === 1
 
@@ -94,126 +94,28 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
     .slice(0, 10)
 
   return (
-    <>
+    <div className="quiet-home">
       {isFirstPage && (
-        <section className="home-hero relative overflow-hidden pt-6 pb-8 sm:pt-10 sm:pb-12 md:pt-16 md:pb-16">
-          <div className="home-hero-bg pointer-events-none absolute inset-0">
-            <div className="hero-grid" />
-          </div>
-
-          <div className="hero-edition-mark" aria-hidden="true">
-            <span>VOL. 01</span>
-            <span className="hero-edition-line" />
-            <span>DIGITAL GARDEN</span>
-          </div>
-
-          <div className="home-hero-content animate-fade-up max-w-3xl">
-            <p className="hero-kicker mb-5 inline-flex items-center gap-3 text-xs font-bold tracking-[0.22em] text-cyan-300 uppercase">
-              <span className="hero-kicker-dot" aria-hidden="true" />
-              随笔 · 学习 · 项目实践
-            </p>
-            <h1 className="hero-title animate-fade-in-up font-serif text-[2rem] leading-tight font-light tracking-wide text-gray-950 sm:text-[2.5rem] sm:leading-[1.15] md:text-[3.5rem] lg:text-[4.5rem] dark:text-white">
-              <span className="hero-title-intro">欢迎来到</span>{' '}
-              <span className="gradient-text mt-1 block font-serif font-light break-words italic sm:mt-0 sm:inline">
-                {siteMetadata.title}
-              </span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed font-light text-slate-700 md:text-lg dark:text-slate-300">
-              {siteMetadata.description}
-              这里会持续整理正在学习的内容、遇到的问题，以及一些值得回看的想法。
-            </p>
-            <div className="home-hero-actions mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3.5">
-              <Link
-                href="/articles"
-                className="hero-primary-action btn-shimmer inline-flex items-center justify-center gap-3 rounded-full px-6 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-6.5"
-              >
-                浏览文章 <span aria-hidden="true">↗</span>
-              </Link>
-              {contentSections.map((section) => (
-                <Link
-                  key={section.href}
-                  href={section.href}
-                  className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
-                >
-                  {section.title}
-                </Link>
-              ))}
-              <Link
-                href="/about"
-                className="hero-secondary-action inline-flex items-center justify-center rounded-full px-5 py-3 text-xs font-bold tracking-[0.18em] text-white uppercase transition duration-300 sm:px-5.5"
-              >
-                关于我
-              </Link>
+        <section className="quiet-intro" aria-labelledby="space-title">
+          <p className="quiet-kicker">随笔 · 学习 · 项目实践</p>
+          <div className="quiet-intro-line">
+            <div className="quiet-brand">
+              <p className="quiet-welcome">欢迎来到</p>
+              <h1 id="space-title">{siteMetadata.title}</h1>
             </div>
+            <p className="quiet-description">
+              记录技术学习、项目实践与日常灵感。
+              <br />
+              把探索的过程写下来，让值得回看的想法有迹可循。
+            </p>
           </div>
-
-          {featuredPost && (
-            <Link
-              href={`/articles/${featuredPost.slug}`}
-              className="featured-spotlight group animate-fade-up-delay mt-8 block transition duration-400 sm:mt-12 md:mt-14"
-            >
-              {/* Decorative gradient top line */}
-              <div className="featured-spotlight-line h-px w-full" />
-
-              <div className="featured-spotlight-inner px-1 pt-6 pb-2 sm:px-2 sm:pt-8 sm:pb-4 md:pt-10 md:pb-6">
-                <span className="featured-index" aria-hidden="true">
-                  01
-                </span>
-                <div>
-                  {/* Label row with reading time */}
-                  <div className="mb-4 flex items-center gap-3 sm:mb-5">
-                    <span className="font-heading text-[10px] font-bold tracking-[0.3em] text-cyan-500 uppercase dark:text-cyan-400">
-                      ✦ Featured
-                    </span>
-                    <span className="h-px max-w-16 flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent" />
-                    {estimateReadingTime(featuredPost.body?.raw) && (
-                      <span className="font-heading text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
-                        {estimateReadingTime(featuredPost.body?.raw)}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Big title */}
-                  <h2 className="font-serif text-3xl leading-snug font-light tracking-wide text-white transition-colors duration-300 group-hover:text-cyan-100 sm:text-4xl md:text-[2.75rem] md:leading-[1.15]">
-                    {featuredPost.title}
-                  </h2>
-
-                  {/* Summary */}
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed font-light text-white/55 transition-colors duration-300 group-hover:text-white/70 sm:mt-4 sm:text-base">
-                    {featuredPost.summary}
-                  </p>
-
-                  {/* Tags + CTA row */}
-                  <div className="mt-5 flex items-center justify-between sm:mt-6">
-                    <div className="flex flex-wrap gap-2">
-                      {featuredPost.tags?.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="font-heading rounded-full border border-white/25 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white/75 uppercase"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="font-heading flex items-center gap-1.5 text-xs font-bold tracking-[0.2em] text-cyan-400/80 uppercase transition-all duration-300 group-hover:gap-2.5 group-hover:text-cyan-300">
-                      Read
-                      <span className="text-sm leading-none transition-transform duration-300 group-hover:translate-x-1">
-                        →
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom fade line */}
-              <div className="h-px w-full bg-gradient-to-r from-white/8 via-white/5 to-transparent" />
-            </Link>
-          )}
         </section>
       )}
-
       {/* Main Content Layout with Sticky Sidebar */}
-      <div className="home-journal-grid grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
+      <div
+        id="journal"
+        className="space-journal home-journal-grid grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:items-start"
+      >
         {/* Left Column: Recent Posts */}
         <section className={`lg:col-span-1 ${isFirstPage ? 'pb-8' : 'pt-12 pb-8 sm:pt-16'}`}>
           <div className="journal-heading mb-6 flex items-end justify-between border-b border-slate-200/50 pb-4 sm:mb-8 dark:border-white/5">
@@ -228,9 +130,9 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
             {posts.length > POSTS_PER_PAGE && (
               <Link
                 href="/articles"
-                className="font-heading link-underline-flow hidden pb-0.5 text-sm font-bold tracking-[0.18em] text-cyan-600 uppercase hover:text-cyan-500 sm:block dark:text-cyan-400 dark:hover:text-white"
+                className="font-heading link-underline-flow pb-0.5 text-sm font-bold tracking-[0.18em] text-cyan-600 uppercase hover:text-cyan-500 sm:block dark:text-cyan-400 dark:hover:text-white"
               >
-                All Articles →
+                全部文章 →
               </Link>
             )}
           </div>
@@ -279,7 +181,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                           {title}
                         </Link>
                       </h3>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="quiet-post-tags flex flex-wrap gap-2">
                         {tags.map((tag) => (
                           <Tag key={tag} text={tag} />
                         ))}
@@ -287,12 +189,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                       <p className="text-sm leading-relaxed font-light text-slate-700 dark:text-slate-300">
                         {summary}
                       </p>
-                      <Link
-                        href={`/articles/${slug}`}
-                        className="font-heading inline-flex items-center gap-1 pt-1 text-xs font-bold tracking-[0.2em] text-cyan-600 uppercase transition duration-300 group-hover:translate-x-1 dark:text-cyan-400"
-                      >
-                        Read Full Post <span className="text-[12px] leading-none">→</span>
-                      </Link>
                     </div>
                   </div>
                 </article>
@@ -352,6 +248,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
           )}
         </aside>
       </div>
-    </>
+    </div>
   )
 }

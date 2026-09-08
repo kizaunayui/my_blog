@@ -2,6 +2,7 @@ import 'css/tailwind.css'
 import 'css/subpage-style.css'
 import 'css/post-content-fix.css'
 import 'css/mobile-polish.css'
+import 'css/editorial-polish.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 import { Analytics } from '@vercel/analytics/next'
@@ -81,12 +82,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="overflow-x-clip bg-transparent text-black antialiased dark:text-white">
         <ThemeProviders>
+          <a className="skip-to-content" href="#main-content">
+            跳转到正文
+          </a>
           <MouseTracker />
           <RandomBackground basePath={basePath} />
           <Analytics />
           <SectionContainer>
             <Header />
-            <main className="mb-auto">{children}</main>
+            <main id="main-content" tabIndex={-1} className="mb-auto">
+              {children}
+            </main>
             <Footer />
           </SectionContainer>
           <FloatingMusicPlayer />

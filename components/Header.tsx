@@ -1,3 +1,6 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Link from './Link'
@@ -6,6 +9,9 @@ import Magnetic from './Magnetic'
 import Image from './Image'
 
 const Header = () => {
+  const pathname = usePathname().replace(/\/+$/, '') || '/'
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
   return (
     <header className="header-elegant relative z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between bg-transparent px-4 py-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6">
       <Link href="/" aria-label={siteMetadata.headerTitle}>
@@ -23,7 +29,7 @@ const Header = () => {
             </div>
           </Magnetic>
           {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="hidden sm:block">
+            <div className="header-brand">
               <div className="font-display text-lg font-light tracking-[0.22em] text-white/90 uppercase transition-colors duration-300 group-hover/logo:text-white">
                 {siteMetadata.headerTitle}
               </div>
@@ -37,12 +43,13 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex items-center leading-5 sm:-mr-2">
-        <nav className="header-nav hidden items-center gap-x-1 sm:flex">
+        <nav aria-label="主导航" className="header-nav hidden items-center gap-x-1 sm:flex">
           {headerNavLinks.map((link) =>
             link.children ? (
               <div key={link.title} className="group relative">
                 <Link
                   href={link.href}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
                   className="header-nav-link font-heading inline-flex items-center gap-1 px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
                 >
                   {link.title}
@@ -59,6 +66,7 @@ const Header = () => {
                       <Link
                         key={child.href}
                         href={child.href}
+                        aria-current={pathname === child.href ? 'page' : undefined}
                         className="font-heading block border-l border-transparent px-3.5 py-2.5 text-xs font-semibold tracking-wider text-gray-300 uppercase transition-all duration-200 hover:border-cyan-300/40 hover:pl-4.5 hover:text-white"
                       >
                         {child.title}
@@ -71,6 +79,7 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
                 className="header-nav-link font-heading px-3.5 py-2 text-[11px] font-bold tracking-[0.2em] uppercase"
               >
                 {link.title}
