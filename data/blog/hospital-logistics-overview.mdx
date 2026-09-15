@@ -1,0 +1,38 @@
+---
+title: '医院物流机器人：项目总览'
+date: '2026-09-15'
+category: '项目研究'
+tags: ['项目研究', '软件著作权', '强化学习']
+draft: false
+summary: '从路径规划到协同调度，串联两套软件演示、研究笔记与当前验证边界。'
+---
+
+## 项目背景
+
+面向医院院内物资运输场景，整理多机器人任务分配、路径冲突检测与协同调度的实现过程。当前材料包括两套已登记软件著作权的软件原型，以及路径规划和强化学习研究笔记。
+
+## 软件与在线演示
+
+### 路径规划与调度软件
+
+支持地图编辑、多策略路径规划、交通规则配置与沙盒仿真演练。
+
+[阅读软件介绍](/articles/hospital-smart-logistics-path-planning-dispatch-software) · [打开路径规划演示](https://kizaunayui.github.io/robot-path-planning/#/pathplan)
+
+### 多机器人协同调度平台
+
+展示多机器人任务分配、路径冲突检测与统计分析。
+
+[阅读平台介绍](/articles/hospital-internal-logistics-robot-coordination-platform) · [打开协同调度演示](https://kizaunayui.github.io/robot-scheduling-platform/#/)
+
+## 研究笔记
+
+- [多智能体路径规划与强化学习术语整理](/articles/marl-mapf-terminology-notes)：从 MAPF 到 MARL，建立技术概念之间的联系。
+- [强化学习笔记](/articles/reinforcement-learning-note)：补充强化学习基础。
+- [Prompt 模板库](/content/prompts)：查找医院物流机器人 MARL 技术路线模板。
+
+## 当前进展与边界
+
+两套软件目前均为离线验证原型，没有接入真实机器人或医院业务系统。协同调度平台中的 CTDE-DQN 用于算法结构演示，尚未完成模型训练与实体部署；路径规划软件的动态重算与协调策略用于功能验证。
+
+后续验证需要分别记录任务完成率、冲突次数、运输耗时，以及不同场景和算法基线的比较结果。此处不将演示功能等同于真实医院运行效果。

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -34,7 +35,8 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         ? `/${basePath}/`
         : `/${basePath}/page/${currentPage - 1}`
       : undefined
-  const nextHref = currentPage + 1 <= totalPages ? `/${basePath}/page/${currentPage + 1}` : undefined
+  const nextHref =
+    currentPage + 1 <= totalPages ? `/${basePath}/page/${currentPage + 1}` : undefined
 
   return (
     <div className="list-pagination pt-4 pb-8">
@@ -59,7 +61,24 @@ export default function ListLayoutWithTags({
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
-  const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('全部')
+  const [topic, setTopic] = useState('全部')
+  const categories = Array.from(new Set(posts.map((post) => post.category || '文章')))
+  const topics = Array.from(new Set(posts.flatMap((post) => post.tags || [])))
+  const filtering = Boolean(query.trim()) || category !== '全部' || topic !== '全部'
+  const displayPosts = filtering
+    ? posts.filter(
+        (post) =>
+          (category === '全部' || (post.category || '文章') === category) &&
+          (topic === '全部' || post.tags?.includes(topic)) &&
+          `${post.title} ${post.summary || ''} ${(post.tags || []).join(' ')}`
+            .toLocaleLowerCase()
+            .includes(query.trim().toLocaleLowerCase())
+      )
+    : initialDisplayPosts.length > 0
+      ? initialDisplayPosts
+      : posts
 
   return (
     <div className="list-layout-page py-6 sm:py-10 md:py-14">
@@ -119,6 +138,62 @@ export default function ListLayoutWithTags({
         </aside>
 
         <div className="list-content min-w-0 flex-1">
+          <div className="archive-controls mb-6 grid gap-4 sm:grid-cols-2">
+            <label className="sm:col-span-2">
+              搜索文章
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="搜索标题、摘要或主题"
+                className="mt-2 w-full"
+              />
+            </label>
+            <label>
+              内容类型
+              <select
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                className="mt-2 w-full"
+              >
+                <option>全部</option>
+                {categories.map((value) => (
+                  <option key={value}>{value}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              主题标签
+              <select
+                value={topic}
+                onChange={(event) => setTopic(event.target.value)}
+                className="mt-2 w-full"
+              >
+                <option>全部</option>
+                {topics.map((value) => (
+                  <option key={value}>{value}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          {filtering && (
+            <p role="status" className="mb-4 text-slate-200">
+              找到 {displayPosts.length} 篇文章{' '}
+              <button
+                className="ml-3 text-cyan-200 underline"
+                onClick={() => {
+                  setQuery('')
+                  setCategory('全部')
+                  setTopic('全部')
+                }}
+              >
+                清除筛选
+              </button>
+            </p>
+          )}
+          {displayPosts.length === 0 && (
+            <p className="py-8 text-slate-200">没有匹配的文章，请尝试其他关键词或筛选条件。</p>
+          )}
           <ul className="space-y-2">
             {displayPosts.map((post, index) => {
               const { path, date, title, summary, tags } = post
@@ -148,6 +223,7 @@ export default function ListLayoutWithTags({
                           </Link>
                         </h2>
                         <div className="mt-3 flex flex-wrap gap-2.5">
+                          <span className="text-xs text-slate-300">{post.category || '文章'}</span>
                           {tags?.map((tag) => (
                             <Tag key={tag} text={tag} />
                           ))}
@@ -162,7 +238,7 @@ export default function ListLayoutWithTags({
               )
             })}
           </ul>
-          {pagination && pagination.totalPages > 1 && (
+          {!filtering && pagination && pagination.totalPages > 1 && (
             <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
           )}
         </div>

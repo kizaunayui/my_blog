@@ -9,13 +9,15 @@ type PostTableOfContentsProps = {
 }
 
 export default function PostTableOfContents({ toc = [] }: PostTableOfContentsProps) {
-  const [headings, setHeadings] = useState<Toc>(() => toc.filter((item) => item.depth === 2))
+  const [headings, setHeadings] = useState<Toc>(() =>
+    toc.filter((item) => item.depth >= 2 && item.depth <= 3)
+  )
   const [activeId, setActiveId] = useState(() => headings[0]?.url.slice(1) || '')
 
   useEffect(() => {
     const slugger = new GithubSlugger()
     const renderedHeadings = Array.from(
-      document.querySelectorAll<HTMLElement>('.post-content-card h2')
+      document.querySelectorAll<HTMLElement>('.post-content-card h2, .post-content-card h3')
     ).map((element) => {
       const value = element.textContent?.trim() || ''
       const generatedId = slugger.slug(value)
@@ -23,7 +25,7 @@ export default function PostTableOfContents({ toc = [] }: PostTableOfContentsPro
 
       if (!element.id) element.id = id
 
-      return { value, url: `#${id}`, depth: 2 }
+      return { value, url: `#${id}`, depth: Number(element.tagName.slice(1)) }
     })
 
     setHeadings(renderedHeadings)
@@ -68,7 +70,7 @@ export default function PostTableOfContents({ toc = [] }: PostTableOfContentsPro
             const id = heading.url.slice(1)
 
             return (
-              <li key={heading.url}>
+              <li key={heading.url} className={heading.depth === 3 ? 'post-toc-child' : undefined}>
                 <a
                   href={heading.url}
                   className={activeId === id ? 'is-active' : undefined}

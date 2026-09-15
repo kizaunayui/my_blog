@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog, Authors } from 'contentlayer/generated'
+import { allBlogs, type Blog, type Authors } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
@@ -74,13 +74,26 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       : slug === 'about-anime'
         ? animePostContentClassName
         : defaultPostContentClassName
+  const related = allBlogs
+    .filter((post) => !post.draft && post.slug !== slug)
+    .map((post) => ({
+      post,
+      score:
+        (post.tags || []).filter((tag) => tags?.includes(tag)).length +
+        (post.category !== '文章' && post.category === content.category ? 1 : 0),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || b.post.date.localeCompare(a.post.date))
+    .slice(0, 3)
   const record = normalizeRecordedAt(recordedAt as RecordedAt | string | null)
 
   return (
     <>
       <ScrollProgress />
       <ScrollTopAndComment />
-      <article className="post-article py-6 sm:py-10 md:py-12">
+      <article
+        className={`post-article py-6 sm:py-10 md:py-12 ${slug.includes('hospital') || slug.includes('marl') || slug.includes('reinforcement') ? 'post-technical' : ''}`}
+      >
         {/* Title header — transparent */}
         <header className="post-header animate-fade-up mb-6 px-1 py-6 text-center sm:mb-8 sm:px-2 sm:py-8 md:py-10">
           <dl>
@@ -154,12 +167,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <div className="font-heading flex flex-wrap items-center gap-3 text-xs font-bold tracking-wider uppercase xl:justify-end">
               {prev && (prev.slug || prev.path) && (
                 <Link href={articleHref(prev)} className="text-cyan-400/70 hover:text-cyan-300">
-                  ← Previous
+                  ← 上一篇：{prev.title}
                 </Link>
               )}
               {next && (next.slug || next.path) && (
                 <Link href={articleHref(next)} className="text-cyan-400/70 hover:text-cyan-300">
-                  Next →
+                  下一篇：{next.title} →
                 </Link>
               )}
               <Link
@@ -218,6 +231,23 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </Link>
             </div>
 
+            {related.length > 0 && (
+              <section className="related-posts" aria-label="相关文章">
+                <h2 className="mb-4 text-lg font-semibold text-white">相关文章</h2>
+                <ul className="space-y-3">
+                  {related.map(({ post }) => (
+                    <li key={post.slug}>
+                      <Link
+                        href={`/articles/${post.slug}`}
+                        className="text-cyan-200 hover:text-white"
+                      >
+                        {post.title} →
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
             {siteMetadata.comments && (
               <div
                 className="post-comments px-1 py-4 text-center font-bold text-white sm:px-2 sm:py-6"

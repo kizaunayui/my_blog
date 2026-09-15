@@ -15,8 +15,10 @@ export const metadata = genPageMetadata({ title: '内容中心' })
 export default function ContentPage() {
   const promptItems = [...promptsData].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
   const posts = allCoreContent(sortPosts(allBlogs)).filter((post) => !post.draft)
-  const contentPosts = posts.filter((post) =>
-    contentSections.some((section) => section.category === post.category)
+  const contentPosts = posts.filter(
+    (post) =>
+      post.category === '项目研究' ||
+      contentSections.some((section) => section.category === post.category)
   )
   const recentItems = [
     ...promptItems.slice(0, 5).map((prompt) => ({

@@ -140,9 +140,6 @@
   /* ── Card border-radius & padding ────────────────────────────────────── */
   .post-content-card {
     border-radius: 1.45rem;
-  }
-
-  .post-content-card {
     padding: 1.2rem;
   }
 

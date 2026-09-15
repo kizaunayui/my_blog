@@ -27,8 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'tags',
     'about',
     'content/prompts',
-    'content/works',
-    'content/research',
+    'content',
+    'content/projects',
   ].map((route) => ({
     url: route ? `${siteUrl}/${route}/` : `${siteUrl}/`,
     lastModified: new Date().toISOString().split('T')[0],

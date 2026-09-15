@@ -60,7 +60,7 @@
   display: none;
 }
 
-.post-content-card h2 {
+.post-content-card :is(h2, h3) {
   scroll-margin-top: 7rem;
 }
 
@@ -507,4 +507,72 @@
 
 .dark .post-content-card .bangumi-card-subtitle {
   color: rgb(148, 163, 184);
+}
+
+/* Technical pages dim the existing artwork without adding a content panel. */
+body:has(.post-technical) .site-fixed-bg {
+  --site-overlay-left: 0.94;
+  --site-overlay-mid: 0.9;
+  --site-overlay-focus: 0.84;
+  --site-overlay-right: 0.9;
+}
+.post-technical .post-content-card {
+  color: #e2e8f0;
+  --tw-prose-body: #e2e8f0;
+  --tw-prose-headings: #f8fafc;
+}
+.post-toc-child {
+  padding-left: 0.85rem;
+  font-size: 0.85em;
+}
+.related-posts {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-block: 1.5rem;
+  border-top: 1px solid #ffffff1a;
+}
+.archive-controls {
+  color: #e2e8f0;
+  font-size: 0.875rem;
+}
+.archive-controls :is(input, select) {
+  min-height: 44px;
+  border: 1px solid #64748b;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 0.65rem 0.8rem;
+}
+.archive-controls :is(input, select):focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+@media (max-width: 1279px) {
+  .post-toc {
+    display: block;
+    max-height: 15rem;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ffffff1a;
+  }
+  .post-toc-title {
+    color: #e2e8f0;
+    margin-bottom: 0.75rem;
+  }
+  .post-toc-list a {
+    display: block;
+    padding-block: 0.4rem;
+    color: #cbd5e1;
+  }
+  .post-toc-list a.is-active {
+    color: #67e8f9;
+  }
+}
+
+.post-technical .post-content-card a {
+  color: #f9a8d4;
+}
+.post-technical .post-content-card a:hover {
+  color: #a5f3fc;
 }
