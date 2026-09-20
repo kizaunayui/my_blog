@@ -1,4 +1,4 @@
-/* Shared controls and the personal magazine cover. Article styles stay untouched. */
+/* Shared controls, magazine cover and page-level editorial hierarchy. */
 :root {
   --reading-white: #f1f3f4;
   --reading-muted: #c2ccd7;
@@ -140,7 +140,7 @@
   position: static;
   align-self: start;
   padding-top: 0.05rem;
-  color: #94aeb9;
+  color: #91a0ad;
   font-size: 0.7rem;
   line-height: 1.4;
   letter-spacing: 0.08em;
@@ -178,7 +178,7 @@
   font-size: 0.85rem;
   line-height: 1.95;
   font-weight: 400;
-  color: #c4d0d9;
+  color: #bcc6d0;
 }
 .space-journal .quiet-post-tags a {
   border: 0;
@@ -358,7 +358,7 @@
   font-size: 0.8rem;
 }
 .space-journal .premium-row {
-  padding-block: 1.5rem;
+  padding-block: 2rem;
   gap: 0.8rem;
 }
 .space-journal .premium-row > div {
@@ -444,7 +444,7 @@
     font-size: 1.5rem;
   }
   .space-journal .premium-row {
-    padding-block: 1.25rem;
+    padding-block: 1.65rem;
     gap: 0.65rem;
   }
   .space-journal .premium-row h3 {
@@ -456,4 +456,244 @@
   .space-journal .premium-row p {
     font-size: 0.875rem;
   }
+}
+
+/* Magazine v1.1: consistent page rhythm, muted chrome and clear reading surfaces. */
+:root {
+  --editorial-rule: rgb(196 211 224 / 16%);
+}
+.site-fixed-bg {
+  --site-overlay-left: 0.82;
+  --site-overlay-mid: 0.65;
+  --site-overlay-focus: 0.38;
+  --site-overlay-right: 0.56;
+}
+.site-fixed-bg[data-background-tone='balanced'] {
+  --site-overlay-left: 0.89;
+  --site-overlay-mid: 0.78;
+  --site-overlay-focus: 0.54;
+  --site-overlay-right: 0.69;
+}
+.site-fixed-bg[data-background-tone='bright'] {
+  --site-overlay-left: 0.94;
+  --site-overlay-mid: 0.85;
+  --site-overlay-focus: 0.65;
+  --site-overlay-right: 0.78;
+}
+.header-nav-link {
+  font-weight: 500;
+  letter-spacing: 0.065em;
+}
+.header-brand-note {
+  font-weight: 400;
+}
+.editorial-kicker,
+.editorial-kicker--pink {
+  color: var(--reading-accent);
+  font-weight: 500;
+  letter-spacing: 0.17em;
+}
+.editorial-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--reading-white);
+  text-shadow: none;
+}
+.editorial-summary {
+  max-width: 42rem;
+  font-weight: 400;
+  line-height: 1.9;
+  color: var(--reading-muted);
+}
+.editorial-masthead,
+.subpage-masthead {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-color: var(--editorial-rule);
+}
+.editorial-masthead::after,
+.subpage-masthead::after,
+.content-page-heading::after {
+  opacity: 0.35;
+  width: 20%;
+}
+.premium-row {
+  border-color: var(--editorial-rule);
+  padding-block: 2rem;
+}
+.premium-row :is(h2, h3) {
+  font-size: clamp(1.3rem, 2.1vw, 1.7rem);
+  line-height: 1.6;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+.premium-row p {
+  color: var(--reading-muted);
+  font-weight: 400;
+  line-height: 1.9;
+}
+.premium-row time,
+.archive-date {
+  color: #acbcc9;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+.premium-row-link:hover {
+  color: var(--reading-accent);
+}
+.editorial-chip {
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.035em;
+  line-height: 1.6;
+  padding: 0.25rem 0.65rem;
+  border-color: rgb(196 211 224 / 18%);
+  color: #b5c4d0;
+  background: transparent;
+}
+.editorial-chip--accent {
+  color: var(--reading-accent);
+  border-color: rgb(185 230 229 / 25%);
+}
+.archive-row-index {
+  color: #8e9fac;
+  font-size: 0.65rem;
+}
+.archive-filter-link {
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-size: 0.75rem;
+}
+.archive-controls {
+  font-weight: 400;
+  font-size: 0.8rem;
+  gap: 1rem;
+}
+.archive-controls :is(input, select) {
+  border-color: rgb(196 211 224 / 25%);
+  background: rgb(10 19 32 / 75%);
+  border-radius: 0.35rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.editorial-action {
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  min-height: 44px;
+  box-shadow: none;
+}
+.editorial-action--primary {
+  background: #245762;
+  border: 1px solid #6fa6ac;
+  color: #ecf6f5;
+}
+.editorial-action--primary:hover {
+  background: #306b76;
+}
+.prompt-reading-surface {
+  border-color: var(--editorial-rule);
+  background: linear-gradient(110deg, rgb(9 18 31 / 85%), rgb(9 18 31 / 45%));
+  box-shadow: none;
+}
+.prompt-guide {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  font-weight: 400;
+}
+.post-article {
+  padding-top: 1.5rem;
+}
+.post-header {
+  padding-block: 1.5rem;
+  margin-bottom: 1rem;
+}
+.post-header .editorial-article-title {
+  font-size: clamp(1.65rem, 2.7vw, 2.35rem);
+  line-height: 1.55;
+  letter-spacing: 0.015em;
+  color: var(--reading-white);
+}
+.post-header time {
+  font-weight: 400;
+  color: #b4cccf;
+  letter-spacing: 0.08em;
+}
+.post-meta-bar {
+  padding-block: 0.75rem;
+  margin-bottom: 2rem;
+}
+.post-meta-bar :is(p, a, span) {
+  font-weight: 400;
+}
+.post-meta-bar a:not(.editorial-chip) {
+  color: var(--reading-accent);
+  line-height: 1.7;
+  letter-spacing: 0.025em;
+}
+.post-toc-title {
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+.post-toc-list a {
+  font-weight: 400;
+  line-height: 1.7;
+}
+.post-toc-list a.is-active {
+  color: var(--reading-accent);
+}
+.post-footer-links {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+.related-posts {
+  border-color: var(--editorial-rule);
+}
+.related-posts a {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--reading-accent);
+}
+@media (max-width: 639px) {
+  .editorial-masthead,
+  .subpage-masthead {
+    padding-block: 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .editorial-title {
+    font-size: 2rem;
+    line-height: 1.45;
+  }
+  .premium-row {
+    padding-block: 1.6rem;
+  }
+  .premium-row :is(h2, h3) {
+    font-size: 1.3rem;
+    line-height: 1.65;
+  }
+  .post-article {
+    padding-top: 0.5rem;
+  }
+  .post-header {
+    padding-block: 1.25rem;
+  }
+  .post-header .editorial-article-title {
+    font-size: 1.6rem;
+    line-height: 1.6;
+  }
+  .post-meta-bar {
+    margin-bottom: 1.5rem;
+  }
+  .post-toc {
+    max-height: 12rem;
+    font-size: 0.8rem;
+  }
+}
+
+.premium-row a.font-heading:not(.editorial-chip):not(.editorial-action) {
+  color: var(--reading-accent);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
 }
