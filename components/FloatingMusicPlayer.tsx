@@ -45,7 +45,8 @@ export default function FloatingMusicPlayer() {
       <button
         type="button"
         onClick={handleTogglePlayer}
-        aria-label={isExpanded ? 'Close music player' : 'Open music player'}
+        aria-label={isExpanded ? '关闭音乐播放器' : '打开音乐播放器'}
+        aria-controls="floating-music-panel"
         aria-expanded={isExpanded}
         className={`music-trigger group relative flex h-12 w-12 items-center justify-center rounded-full text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] transition duration-300 hover:-translate-y-0.5 active:scale-95 ${
           isPlaying ? 'breathing-ring-playing' : 'breathing-ring-idle'
@@ -80,6 +81,7 @@ export default function FloatingMusicPlayer() {
 
       {/* Holographic Cardless Oscilloscope Player */}
       <div
+        id="floating-music-panel"
         aria-hidden={!isExpanded}
         style={{ width: 'calc(100vw - 2.5rem)', maxWidth: '17rem' }}
         className={`music-float-strip absolute right-0 bottom-15 transform transition-all duration-300 ${
@@ -95,7 +97,7 @@ export default function FloatingMusicPlayer() {
           <button
             type="button"
             onClick={handleClosePlayer}
-            aria-label="Close music player"
+            aria-label="关闭音乐播放器"
             className="absolute top-[-8px] right-[-8px] z-30 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/5 text-[12px] leading-none text-white/40 transition duration-300 hover:bg-white/10 hover:text-white"
           >
             ×
@@ -130,36 +132,30 @@ export default function FloatingMusicPlayer() {
           }
         }
 
-        /* Breathing Ring Playing Animation (Cyan/Pink rhythmic pulse) */
+        /* A quiet pulse signals playback without lighting up the reading area. */
         @keyframes pulse-glow-playing {
           0%,
           100% {
-            box-shadow:
-              0 0 12px rgba(6, 182, 212, 0.35),
-              inset 0 0 5px rgba(6, 182, 212, 0.15);
-            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 0 0 rgb(192 211 204 / 12%);
+            border-color: rgb(192 211 204 / 40%);
           }
           50% {
-            box-shadow:
-              0 0 24px rgba(236, 72, 153, 0.65),
-              inset 0 0 10px rgba(236, 72, 153, 0.35);
-            border-color: rgba(236, 72, 153, 0.55);
+            box-shadow: 0 0 0 5px rgb(192 211 204 / 0%);
+            border-color: rgb(192 211 204 / 65%);
           }
         }
 
         /* 待机态是静止的:脉冲只属于播放状态(design.md §7.5) */
         .breathing-ring-idle {
           animation: chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both;
-          border-color: rgba(6, 182, 212, 0.25);
-          box-shadow:
-            0 0 10px rgba(6, 182, 212, 0.2),
-            inset 0 0 4px rgba(6, 182, 212, 0.1);
+          border-color: rgb(192 211 204 / 22%);
+          box-shadow: none;
         }
 
         .breathing-ring-playing {
           animation:
             chip-in 300ms cubic-bezier(0.19, 1, 0.22, 1) both,
-            pulse-glow-playing 2.2s ease-in-out infinite;
+            pulse-glow-playing 3s ease-in-out infinite;
         }
 
         .breathing-ring-playing .music-note-icon {
@@ -197,8 +193,8 @@ export default function FloatingMusicPlayer() {
           }
 
           .music-trigger {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 2.75rem;
+            height: 2.75rem;
           }
 
           .music-note-icon {

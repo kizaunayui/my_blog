@@ -2,7 +2,6 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 
 import siteMetadata from '@/data/siteMetadata'
-import { formatDate } from 'pliny/utils/formatDate'
 import Image from '@/components/Image'
 import EditorialPagination from '@/components/EditorialPagination'
 
@@ -150,29 +149,32 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                 <article
                   key={slug}
                   className="post-card-motion scroll-reveal premium-row group border-b border-slate-200/50 px-1 py-5 sm:px-2 sm:py-7 dark:border-white/5"
-                  style={{ animationDelay: `${index * 70}ms` }}
                 >
                   <span className="journal-entry-index" aria-hidden="true">
-                    {String(index + 1).padStart(2, '0')}
+                    {String((currentPage - 1) * POSTS_PER_PAGE + index + 1).padStart(2, '0')}
                   </span>
-                  <div className="space-y-2 sm:space-y-3 md:grid md:grid-cols-[10rem_1fr] md:gap-8 md:space-y-0">
-                    <dl className="space-y-1.5">
-                      <dt className="sr-only">发布时间</dt>
-                      <dd className="font-heading text-xs font-bold tracking-[0.2em] text-gray-500 uppercase dark:text-gray-300">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                      </dd>
-                      {readingTimeText && (
-                        <dd className="font-heading text-xs font-bold tracking-[0.18em] text-cyan-600/80 uppercase dark:text-cyan-400/80">
-                          {readingTimeText}
+                  <div className="journal-entry-body">
+                    <dl className="journal-entry-meta">
+                      <div>
+                        <dt className="sr-only">发布时间</dt>
+                        <dd>
+                          <time dateTime={date}>{date.slice(0, 10).replaceAll('-', '.')}</time>
                         </dd>
+                      </div>
+                      {readingTimeText && (
+                        <div>
+                          <dt className="sr-only">预计阅读时间</dt>
+                          <dd>{readingTimeText}</dd>
+                        </div>
                       )}
                       {recordedText && (
-                        <dd className="font-heading text-xs font-bold tracking-[0.18em] text-gray-500 uppercase dark:text-gray-300">
-                          {recordedText}
-                        </dd>
+                        <div>
+                          <dt className="sr-only">写作地点与天气</dt>
+                          <dd>{recordedText}</dd>
+                        </div>
                       )}
                     </dl>
-                    <div className="flex-1 space-y-3">
+                    <div className="journal-entry-copy">
                       <h3 className="font-serif text-xl leading-tight font-light tracking-wide text-gray-950 sm:text-2xl md:text-3xl dark:text-white">
                         <Link
                           href={`/articles/${slug}`}
@@ -181,14 +183,14 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                           {title}
                         </Link>
                       </h3>
+                      <p className="text-sm leading-relaxed font-light text-slate-700 dark:text-slate-300">
+                        {summary}
+                      </p>
                       <div className="quiet-post-tags flex flex-wrap gap-2">
                         {tags.map((tag) => (
                           <Tag key={tag} text={tag} />
                         ))}
                       </div>
-                      <p className="text-sm leading-relaxed font-light text-slate-700 dark:text-slate-300">
-                        {summary}
-                      </p>
                     </div>
                   </div>
                 </article>
@@ -205,8 +207,11 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
         <aside className="home-index-aside space-y-4 pt-4 sm:space-y-6 sm:pt-6 lg:sticky lg:top-8 lg:h-fit lg:pt-16">
           {/* About Me Card */}
           <Link href="/about" className="home-side-panel block p-4 sm:p-6">
-            <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+            <p className="home-side-label font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
               About Author
+              <span className="home-side-arrow" aria-hidden="true">
+                ↗
+              </span>
             </p>
             <div className="mt-4 flex items-center gap-3 sm:mt-5 sm:gap-4.5">
               <div className="h-12 w-12 shrink-0 rounded-full border border-white/15 bg-transparent p-0.5">
@@ -222,7 +227,7 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                 <h4 className="font-serif text-xl font-light tracking-wide text-gray-900 dark:text-white">
                   {siteMetadata.author}
                 </h4>
-                <p className="font-heading mt-0.5 text-xs font-bold tracking-wider text-gray-400 uppercase dark:text-gray-400">
+                <p className="home-author-role font-heading mt-0.5 text-xs text-gray-400">
                   Developer / Writer
                 </p>
               </div>

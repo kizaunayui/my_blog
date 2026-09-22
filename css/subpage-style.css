@@ -8,7 +8,7 @@ main {
   z-index: 1;
 }
 
-main > div:not(.site-fixed-bg) {
+main > div:not(.site-fixed-bg, .fixed) {
   position: relative;
   z-index: 2;
 }

@@ -13,7 +13,7 @@ const Header = () => {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`)
   return (
-    <header className="header-elegant relative z-50 -mx-4 flex w-[calc(100%+2rem)] items-center justify-between bg-transparent px-4 py-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6">
+    <header className="header-elegant relative z-50 flex items-center justify-between bg-transparent py-5">
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="group/logo flex items-center gap-3.5 transition-all duration-400">
           <Magnetic range={50} actionStrength={0.25}>
