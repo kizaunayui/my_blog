@@ -55,7 +55,7 @@
 }
 .header-brand-note {
   color: var(--reading-secondary);
-  font-size: 0.5rem;
+  font-size: 0.62rem;
   font-weight: 400;
   letter-spacing: 0.16em;
 }
@@ -142,8 +142,8 @@
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 4.7vw, 3.65rem);
   line-height: 1.1;
-  font-weight: 400;
-  letter-spacing: -0.025em;
+  font-weight: 300;
+  letter-spacing: 0.035em;
   color: var(--reading-white);
   text-wrap: balance;
 }
@@ -174,7 +174,7 @@
 .space-journal .home-side-panel > p:first-child {
   color: var(--reading-secondary);
   font-family: var(--font-heading);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.17em;
@@ -332,7 +332,7 @@
 }
 .home-author-role {
   color: var(--reading-secondary);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.04em;
 }
@@ -389,6 +389,7 @@ a[href^='/tags/']:hover {
   padding-top: 1.5rem;
 }
 .footer-colophon .font-heading {
+  font-size: 0.65rem;
   font-weight: 400;
   letter-spacing: 0.12em;
   color: var(--reading-secondary);
@@ -450,7 +451,7 @@ a[href^='/tags/']:hover {
     letter-spacing: 0.12em;
   }
   .header-brand-note {
-    font-size: 0.45rem;
+    font-size: 0.55rem;
     letter-spacing: 0.13em;
   }
   .nav-trigger {
@@ -549,7 +550,7 @@ a[href^='/tags/']:hover {
     letter-spacing: 0.08em;
   }
   .header-brand-note {
-    font-size: 0.4rem;
+    font-size: 0.5rem;
     letter-spacing: 0.06em;
   }
 }

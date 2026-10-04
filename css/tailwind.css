@@ -11,15 +11,15 @@
    THEME TOKENS
    ═══════════════════════════════════════════════════════════════════════════ */
 @theme {
-  /* Font families — 每一族都补齐中文回退:
-     衬线/展示类中文统一走 Noto Serif SC(自托管),避免回退到系统宋体;
-     正文与标签类中文走现代系统黑体栈,保证正文可读性。 */
+  /* 英文统一使用自托管 Cormorant Garamond;中文保留各场景原有回退。
+     衬线/展示类中文走 Noto Serif SC,正文与标签类中文走系统黑体栈。 */
   --font-sans:
-    'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', ui-sans-serif,
-    system-ui, sans-serif;
-  --font-heading: 'Outfit', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
-  --font-serif:
-    'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+    'Cormorant Garamond', 'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei',
+    ui-sans-serif, system-ui, sans-serif;
+  --font-heading:
+    'Cormorant Garamond', 'Outfit', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei',
+    sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
   /* 展示字体:Cormorant Garamond 大写 + 宽字距承担刊头/编号。
      (Cinzel 从未成功自托管过,此前一直在用回退渲染;2026-07 起正式移除) */
   --font-display: 'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', serif;
@@ -416,11 +416,7 @@ footer {
 .header-avatar-ring {
   padding: 2px;
   border-radius: 9999px;
-  background: linear-gradient(
-    135deg,
-    rgba(103, 232, 249, 0.5),
-    rgba(249, 168, 212, 0.45)
-  );
+  background: linear-gradient(135deg, rgba(103, 232, 249, 0.5), rgba(249, 168, 212, 0.45));
   background-size: 200% 200%;
   /* 光环流动只作为 hover 奖励,默认静止(design.md §7.5) */
   animation: avatar-ring-glow 6s ease-in-out infinite;
