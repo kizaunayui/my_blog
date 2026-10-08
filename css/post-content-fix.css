@@ -576,3 +576,25 @@ body:has(.post-technical) .site-fixed-bg {
 .post-technical .post-content-card a:hover {
   color: #a5f3fc;
 }
+
+/* Shared learning-series links stay legible over the existing dark artwork. */
+.post-content-card:has(.topology-learning-links) a {
+  color: #a5f3fc;
+  border-bottom-color: rgba(165, 243, 252, 0.65);
+}
+
+.post-content-card:has(.topology-learning-links) a:is(:hover, :focus-visible) {
+  color: #ecfeff;
+  border-bottom-color: #ecfeff;
+}
+
+.post-content-card:has(.topology-learning-links) a:focus-visible {
+  outline: 2px solid #a5f3fc;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.post-content-card .topology-learning-module {
+  margin-top: 3rem;
+  border-top: 1px solid rgb(34 211 238 / 25%);
+  padding-top: 1.5rem;
+}

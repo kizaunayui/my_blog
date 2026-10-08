@@ -1,0 +1,265 @@
+{
+  "id": "topology-optimization",
+  "version": "v(0.4)",
+  "core": {
+    "title": "工艺拓扑驱动的分布式协同优化：学习记录",
+    "href": "/articles/topology-driven-distributed-optimization",
+    "status": "published"
+  },
+  "steps": [
+    {
+      "id": "structure",
+      "label": "工艺结构",
+      "anchor": "step-structure",
+      "requires": []
+    },
+    {
+      "id": "model",
+      "label": "优化建模",
+      "anchor": "step-model",
+      "requires": ["structure"]
+    },
+    {
+      "id": "partition",
+      "label": "子问题划分",
+      "anchor": "step-partition",
+      "requires": ["model"]
+    },
+    {
+      "id": "copies",
+      "label": "变量副本配置",
+      "anchor": "step-copies",
+      "requires": ["partition"]
+    },
+    {
+      "id": "coordination",
+      "label": "信息协调",
+      "anchor": "step-coordination",
+      "requires": ["copies"]
+    },
+    {
+      "id": "execution",
+      "label": "结果执行",
+      "anchor": "step-execution",
+      "requires": ["coordination"]
+    }
+  ],
+  "topics": [
+    {
+      "id": "01",
+      "title": "从工艺图到优化图，再到通信图",
+      "href": "/articles/topology-driven-distributed-optimization#topic-01",
+      "status": "published",
+      "provisional": false,
+      "step": "structure",
+      "returnAnchor": "question-01",
+      "requiresTopics": [],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-01",
+          "label": "三图怎样对应"
+        },
+        {
+          "anchor": "question-04",
+          "label": "信息路径与中继"
+        }
+      ],
+      "continueAnchor": "step-model",
+      "continueLabel": "继续主线：优化建模",
+      "legacyHref": "/articles/topology-topic-01-graphs",
+      "anchor": "topic-01"
+    },
+    {
+      "id": "02",
+      "title": "分布式优化到底在“分”什么？",
+      "href": "/articles/topology-driven-distributed-optimization#topic-02",
+      "status": "published",
+      "provisional": false,
+      "step": "model",
+      "returnAnchor": "question-02",
+      "requiresTopics": ["01"],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-02",
+          "label": "模型改写与分解"
+        },
+        {
+          "anchor": "step-partition",
+          "label": "计算责任怎样划分"
+        }
+      ],
+      "continueAnchor": "step-partition",
+      "continueLabel": "继续主线：划分子问题",
+      "legacyHref": "/articles/topology-topic-02-partition-decomposition",
+      "anchor": "topic-02"
+    },
+    {
+      "id": "03",
+      "title": "分组依据与分组代价",
+      "href": "/articles/topology-driven-distributed-optimization#topic-03",
+      "status": "published",
+      "provisional": false,
+      "step": "partition",
+      "returnAnchor": "question-03",
+      "requiresTopics": ["02"],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-03",
+          "label": "分组依据与代价"
+        }
+      ],
+      "continueAnchor": "step-copies",
+      "continueLabel": "继续主线：配置变量副本",
+      "legacyHref": "/articles/topology-topic-03-partition-criteria",
+      "anchor": "topic-03"
+    },
+    {
+      "id": "04",
+      "title": "区域之间交换什么信息，为什么交换这些信息？",
+      "href": "/articles/topology-driven-distributed-optimization#topic-04",
+      "status": "published",
+      "provisional": false,
+      "step": "copies",
+      "returnAnchor": "question-04",
+      "requiresTopics": ["02"],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-04",
+          "label": "副本与信息配置"
+        },
+        {
+          "anchor": "question-05",
+          "label": "消息分别用来判断什么"
+        }
+      ],
+      "continueAnchor": "step-coordination",
+      "continueLabel": "继续主线：信息协调",
+      "legacyHref": "/articles/topology-topic-04-coordination-information",
+      "anchor": "topic-04"
+    },
+    {
+      "id": "05",
+      "title": "局部可行，为什么不等于整体可行？",
+      "href": "/articles/topology-driven-distributed-optimization#topic-05",
+      "status": "published",
+      "provisional": false,
+      "step": "coordination",
+      "returnAnchor": "question-06",
+      "requiresTopics": ["02", "04"],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-05",
+          "label": "ADMM中间候选"
+        },
+        {
+          "anchor": "question-06",
+          "label": "可行性与等价性"
+        }
+      ],
+      "continueAnchor": "step-execution",
+      "continueLabel": "继续主线：结果执行",
+      "legacyHref": "/articles/topology-topic-05-local-global-feasibility",
+      "anchor": "topic-05"
+    },
+    {
+      "id": "06",
+      "title": "优化计算怎样接到实际执行？",
+      "href": "/articles/topology-driven-distributed-optimization#topic-06",
+      "status": "published",
+      "provisional": false,
+      "step": "execution",
+      "returnAnchor": "question-07",
+      "requiresTopics": ["05"],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-07",
+          "label": "截止输出与实施条件"
+        }
+      ],
+      "continueAnchor": "series-evaluation",
+      "continueLabel": "继续主线：综合判断",
+      "legacyHref": "/articles/topology-topic-06-optimization-execution",
+      "anchor": "topic-06"
+    },
+    {
+      "id": "07",
+      "title": "怎样比较一种分布式方案是否合适？",
+      "href": "/articles/topology-driven-distributed-optimization#topic-07",
+      "status": "published",
+      "provisional": false,
+      "step": "execution",
+      "returnAnchor": "series-evaluation",
+      "requiresTopics": ["03", "04", "05", "06"],
+      "learningStatus": "first-pass-organized",
+      "returnLinks": [
+        {
+          "anchor": "question-03",
+          "label": "分组评价"
+        },
+        {
+          "anchor": "series-evaluation",
+          "label": "整套方案怎样比较"
+        }
+      ],
+      "continueAnchor": "series-evaluation",
+      "continueLabel": "回到主线：综合判断与后续学习",
+      "legacyHref": "/articles/topology-topic-07-scheme-evaluation",
+      "anchor": "topic-07"
+    }
+  ],
+  "shared": {
+    "models": {
+      "two-pump": {
+        "variables": ["q", "y"],
+        "flowUnit": "L/s",
+        "objective": "q^2+2y^2",
+        "constraints": ["q+y=6", "0<=q,y<=6"],
+        "optimum": {
+          "q": 4,
+          "y": 2,
+          "score": 24
+        }
+      },
+      "four-tank": {
+        "flowUnit": "cm^3/s",
+        "voltageUnit": "V",
+        "heightUnit": "cm",
+        "split": [0.7, 0.6],
+        "scope": "P028物理模型上的自定义稳态学习任务"
+      },
+      "four-pump-extension": {
+        "variables": ["q_1", "y_1", "q_2", "y_2"],
+        "flowUnit": "L/s",
+        "objective": "q_1^2+2y_1^2+q_2^2+2y_2^2",
+        "constraints": ["q_1+y_1=6", "q_2+y_2=6", "q_1+q_2<=8", "0<=q_m,y_m<=6"],
+        "scope": "两个供水模块的四泵教学扩展，下标表示模块，与四水箱出口符号的语境不同"
+      }
+    },
+    "symbols": {
+      "q_A,q_B": "两泵同一接口q的本地副本",
+      "z": "共同接口估计",
+      "u_A,u_B": "缩放对偶量",
+      "lambda": "两泵对偶分解的共同价格",
+      "theta": "两泵兼容任务改写的教学辅助量",
+      "k": "优化轮次",
+      "Q_j": "四水箱泵总流量",
+      "q_i": "四水箱出口流量",
+      "v_j": "四水箱泵输入电压"
+    },
+    "figures": {
+      "process": "/static/topology-learning/pump-process.svg",
+      "dependency": "/static/topology-learning/pump-dependency.svg",
+      "communication": "/static/topology-learning/pump-communication.svg",
+      "admm": "/static/topology-learning/admm-cycle.svg",
+      "tanks": "/static/topology-learning/four-tank.png",
+      "fourPump": "/static/topology-learning/four-pump-network.svg"
+    }
+  },
+  "presentation": "single-learning-block"
+}

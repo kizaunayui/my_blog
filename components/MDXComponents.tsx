@@ -7,6 +7,7 @@ import type { MDXComponents } from 'mdx/types'
 import Image from './Image'
 import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
+import TopologyLearningLinks from './TopologyLearningLinks'
 
 const figureCaptions: Record<string, string> = {
   'rl-note-01.png': '图 1 回报与状态价值的关系',
@@ -142,6 +143,7 @@ function Figure({ children, ...props }: HTMLAttributes<HTMLElement> & { children
 }
 
 export const components: MDXComponents = {
+  TopologyLearningLinks,
   Image,
   TOCInline,
   a: CustomLink,

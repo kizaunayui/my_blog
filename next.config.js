@@ -1,4 +1,5 @@
 const { withContentlayer } = require('next-contentlayer2')
+const topologyLearning = require('./lib/learningSeries/topology-optimization.json')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -98,6 +99,11 @@ module.exports = () => {
       }
 
       return [
+        ...topologyLearning.topics.map((topic) => ({
+          source: topic.legacyHref,
+          destination: topologyLearning.core.href + '/#' + topic.anchor,
+          permanent: false,
+        })),
         {
           source: '/blog',
           destination: '/articles',
