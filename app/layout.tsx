@@ -3,6 +3,7 @@ import 'css/subpage-style.css'
 import 'css/post-content-fix.css'
 import 'css/mobile-polish.css'
 import 'css/editorial-polish.css'
+import 'css/study-notes.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 import { Analytics } from '@vercel/analytics/next'

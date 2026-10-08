@@ -68,6 +68,7 @@ interface LayoutProps {
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
   const { filePath, slug, date, title, tags, recordedAt, pdf } = content
+  const isStudyNote = content.category === '学习笔记' || tags?.includes('学习笔记')
   const postContentClassName =
     slug === 'reflexion'
       ? reflexionPostContentClassName
@@ -92,7 +93,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       <ScrollProgress />
       <ScrollTopAndComment />
       <article
-        className={`post-article py-6 sm:py-10 md:py-12 ${slug.includes('hospital') || slug.includes('marl') || slug.includes('reinforcement') ? 'post-technical' : ''}`}
+        className={`post-article py-6 sm:py-10 md:py-12 ${slug.includes('hospital') || slug.includes('marl') || slug.includes('reinforcement') ? 'post-technical' : ''} ${isStudyNote ? 'post-study' : ''}`}
       >
         {/* Title header — transparent */}
         <header className="post-header animate-fade-up mb-6 px-1 py-6 text-center sm:mb-8 sm:px-2 sm:py-8 md:py-10">

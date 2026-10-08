@@ -1,0 +1,188 @@
+/* Study notes use text faces; KaTeX and code retain their own font families. */
+.post-study {
+  --study-font:
+    'Inter', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans SC', system-ui,
+    sans-serif;
+  font-family: var(--study-font);
+}
+
+body:has(.post-study) .site-fixed-bg {
+  --site-overlay-left: 0.96;
+  --site-overlay-mid: 0.94;
+  --site-overlay-focus: 0.92;
+  --site-overlay-right: 0.94;
+}
+
+.post-study .post-header .editorial-article-title {
+  max-width: 48rem;
+  margin-inline: auto;
+  font-family: var(--study-font);
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.post-study .post-content-card {
+  max-width: 44rem;
+  font-family: var(--study-font);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0;
+  color: #e2e8f0;
+  overflow-wrap: break-word;
+  --tw-prose-body: #e2e8f0;
+  --tw-prose-headings: #f1f5f9;
+  --tw-prose-bold: #f1f5f9;
+}
+
+.post-study .post-content-card :where(p, li, td, th) {
+  color: #e2e8f0;
+  line-height: 1.9;
+}
+
+.post-study .post-content-card p {
+  margin-block: 1.1em;
+}
+
+.post-study .post-content-card :where(ul, ol) {
+  margin-block: 1.1em;
+  padding-inline-start: 1.6em;
+}
+
+.post-study .post-content-card li {
+  margin-block: 0.45em;
+  padding-inline-start: 0.2em;
+}
+
+.post-study .post-content-card :where(h2, h3, h4, h5, h6) {
+  font-family: var(--study-font);
+  font-weight: 600;
+  color: #f1f5f9;
+  line-height: 1.55;
+  letter-spacing: 0;
+  scroll-margin-top: 7rem;
+}
+
+.post-study .post-content-card h2 {
+  margin-block: 2.75em 0.9em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgb(148 163 184 / 24%);
+  font-size: 1.5rem;
+}
+
+.post-study .post-content-card h3 {
+  margin-block: 2em 0.8em;
+  font-size: 1.25rem;
+}
+
+.post-study .post-content-card h4 {
+  margin-block: 1.8em 0.65em;
+  font-size: 1.1rem;
+}
+
+.post-study .post-content-card strong {
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.post-study .post-content-card a {
+  color: #a5f3fc;
+  border-bottom-color: rgb(165 243 252 / 55%);
+  font-weight: 500;
+}
+
+.post-study .post-content-card a:is(:hover, :focus-visible) {
+  color: #ecfeff;
+  border-bottom-color: #ecfeff;
+}
+
+.post-study .post-content-card blockquote {
+  margin-block: 1.5em;
+  padding: 0.9rem 1.2rem;
+  background: rgb(15 23 42 / 72%);
+  border-left: 3px solid #67e8f9;
+  border-radius: 0.35rem;
+  box-shadow: none;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.post-study .post-content-card blockquote p {
+  margin-block: 0.45em;
+  font-weight: 400;
+}
+
+.post-study .post-content-card table {
+  margin-block: 1.5em;
+  background: rgb(15 23 42 / 80%);
+  border: 1px solid rgb(148 163 184 / 24%);
+  border-radius: 0.4rem;
+  box-shadow: none;
+  font-size: 0.95em;
+}
+
+.post-study .post-content-card thead {
+  background: rgb(148 163 184 / 10%);
+}
+
+.post-study .post-content-card :where(td, th) {
+  padding: 0.8em 1em;
+  line-height: 1.75;
+  vertical-align: top;
+  border-color: rgb(148 163 184 / 24%);
+}
+
+/* Never override KaTeX's family, internal line heights or glyph positioning. */
+.post-study .post-content-card .katex {
+  font-size: 1.18em;
+}
+
+.post-study .post-content-card .katex-display {
+  max-width: 100%;
+  margin-block: 1.5em;
+  padding: 1.1rem 1.25rem;
+  overflow: auto hidden;
+  background: rgb(2 6 23 / 65%);
+  border: 1px solid rgb(148 163 184 / 24%);
+  border-radius: 0.4rem;
+  color: #f1f5f9;
+  overflow-wrap: normal;
+  overscroll-behavior-inline: contain;
+}
+
+.post-study .post-content-card .katex-display > .katex {
+  font-size: 1.24em;
+  text-align: left;
+}
+
+.post-study .post-toc-list a {
+  font-family: var(--study-font);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .post-study .post-content-card {
+    font-size: 1rem;
+    padding-inline: 0.15rem;
+  }
+
+  .post-study .post-content-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .post-study .post-content-card h3 {
+    font-size: 1.15rem;
+  }
+
+  .post-study .post-content-card h4 {
+    font-size: 1.05rem;
+  }
+
+  .post-study .post-content-card .katex-display {
+    padding: 1rem 0.8rem;
+  }
+}
