@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from '@/components/Link'
+import PromptCopyButton from '@/components/PromptCopyButton'
 import type { PromptItem } from '@/data/promptsData'
 import { getPromptSlug } from '@/data/promptSlugs'
 
@@ -13,7 +14,6 @@ type PromptLibraryProps = {
 
 export default function PromptLibrary({ prompts }: PromptLibraryProps) {
   const [selectedCategory, setSelectedCategory] = useState(allCategory)
-  const [copiedTitle, setCopiedTitle] = useState<string | null>(null)
 
   const categories = useMemo(
     () => [allCategory, ...Array.from(new Set(prompts.map((item) => item.category)))],
@@ -25,12 +25,6 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
     return prompts.filter((item) => item.category === selectedCategory)
   }, [prompts, selectedCategory])
 
-  const handleCopy = async (item: PromptItem) => {
-    await navigator.clipboard.writeText(item.prompt)
-    setCopiedTitle(item.title)
-    window.setTimeout(() => setCopiedTitle(null), 1800)
-  }
-
   return (
     <div className="pt-8 pb-10 sm:pt-12 sm:pb-14">
       <section className="editorial-masthead border-b border-white/10 pb-7 sm:pb-9">
@@ -39,7 +33,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
           Prompt Library
         </h1>
         <p className="editorial-summary mt-4 max-w-3xl text-sm leading-relaxed font-light text-slate-200 sm:text-base">
-          记录平时高频使用的 AI Prompt，方便复制、复用和持续迭代。
+          从实际学习、科研和写作任务中整理的常用模板。补充本次材料、范围和交付要求后使用。
         </p>
       </section>
 
@@ -69,6 +63,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   <button
                     key={category}
                     type="button"
+                    aria-pressed={isActive}
                     onClick={() => setSelectedCategory(category)}
                     className={
                       isActive
@@ -87,7 +82,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
         <section className="space-y-1 lg:min-w-0">
           {filteredPrompts.map((item, index) => (
             <article
-              key={item.title}
+              key={item.slug}
               className="premium-row group border-b border-white/10 px-1 py-6 sm:px-2 sm:py-7"
               style={{ animationDelay: `${index * 55}ms` }}
             >
@@ -139,13 +134,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                   >
                     查看详情
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(item)}
-                    className="editorial-action editorial-action--primary font-heading inline-flex min-w-32 items-center justify-center rounded-full bg-cyan-600 px-5 py-2.5 text-xs font-bold tracking-[0.16em] text-white uppercase transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400"
-                  >
-                    {copiedTitle === item.title ? '已复制' : '复制 Prompt'}
-                  </button>
+                  <PromptCopyButton prompt={item.prompt} />
                 </div>
               </div>
             </article>

@@ -1,8 +1,12 @@
 import { slug } from 'github-slugger'
 import type { PromptItem } from './promptsData'
 
-export function getPromptSlug(item: Pick<PromptItem, 'title'>) {
-  return slug(item.title)
+export function getPromptSlug(item: Pick<PromptItem, 'slug'>) {
+  return item.slug
+}
+
+export function getPromptLegacySlugs(item: Pick<PromptItem, 'legacyTitles'>) {
+  return (item.legacyTitles ?? []).map((title) => slug(title))
 }
 
 export function findPromptBySlug(prompts: PromptItem[], requestedSlug: string) {
@@ -10,6 +14,11 @@ export function findPromptBySlug(prompts: PromptItem[], requestedSlug: string) {
 
   return prompts.find((item) => {
     const itemSlug = getPromptSlug(item)
-    return itemSlug === decodedSlug || item.title === decodedSlug
+    return (
+      itemSlug === decodedSlug ||
+      item.title === decodedSlug ||
+      getPromptLegacySlugs(item).includes(decodedSlug) ||
+      item.legacyTitles?.includes(decodedSlug)
+    )
   })
 }

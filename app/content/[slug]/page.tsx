@@ -1,12 +1,12 @@
 import { allBlogs } from 'contentlayer/generated'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { permanentRedirect, redirect } from 'next/navigation'
 import Link from '@/components/Link'
-import Tag from '@/components/Tag'
 import { genPageMetadata } from 'app/seo'
-import { findPromptBySlug, getPromptSlug } from '@/data/promptSlugs'
+import { findPromptBySlug, getPromptLegacySlugs, getPromptSlug } from '@/data/promptSlugs'
 import { promptsData } from '@/data/promptsData'
 import { promptExamples } from '@/data/promptGuides'
+import PromptCopyButton from '@/components/PromptCopyButton'
 
 type ContentDetailPageProps = {
   params: Promise<{ slug: string }>
@@ -29,7 +29,9 @@ export async function generateMetadata(props: ContentDetailPageProps): Promise<M
 }
 
 export function generateStaticParams() {
-  return promptsData.map((item) => ({ slug: getPromptSlug(item) }))
+  return promptsData.flatMap((item) =>
+    [getPromptSlug(item), ...getPromptLegacySlugs(item)].map((slug) => ({ slug }))
+  )
 }
 
 export default async function ContentDetailPage(props: ContentDetailPageProps) {
@@ -44,6 +46,10 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
     }
 
     redirect('/content')
+  }
+
+  if (requestedSlug !== getPromptSlug(prompt)) {
+    permanentRedirect(`/content/${getPromptSlug(prompt)}/`)
   }
 
   return (
@@ -68,7 +74,12 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {prompt.tags.map((tag) => (
-            <Tag key={tag} text={tag} />
+            <span
+              key={tag}
+              className="editorial-chip font-heading rounded-full border border-white/15 bg-transparent px-3 py-1 text-xs font-bold text-slate-200"
+            >
+              #{tag}
+            </span>
           ))}
         </div>
       </header>
@@ -76,9 +87,9 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
       <section className="prompt-guide mt-8 space-y-5 text-slate-200">
         <h2 className="text-xl font-semibold text-white">使用说明</h2>
         <ol className="list-decimal space-y-2 pl-5">
-          <li>复制下方模板，并提供相关原文、文件或场景说明。</li>
-          <li>补充目标读者、输出格式和限制条件，再发送给 AI。</li>
-          <li>检查输出中的事实、引用和计算；材料不足时先补充信息。</li>
+          <li>复制模板，填写材料、范围、模式和交付要求；未指定项按模板默认值处理。</li>
+          <li>需要生成文件、联网或访问仓库时，在具备相应能力的工具中使用。</li>
+          <li>按本次目标检查事实、计算、来源和实际交付，缺失信息保留待核对标记。</li>
         </ol>
         <h3 className="text-lg text-white">输入示例</h3>
         <p className="leading-8">{promptExamples[prompt.title]}</p>
@@ -87,6 +98,10 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
         </p>
       </section>
       <section className="mt-8">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-xl font-semibold text-white">模板正文</h2>
+          <PromptCopyButton prompt={prompt.prompt} />
+        </div>
         <div className="prompt-reading-surface prompt-reading-surface--detail">
           <pre className="overflow-auto bg-transparent p-0 text-sm leading-7 break-words whitespace-pre-wrap text-slate-100">
             {prompt.prompt}
@@ -98,12 +113,8 @@ export default async function ContentDetailPage(props: ContentDetailPageProps) {
         <h2 className="text-xl font-semibold text-white">版本记录</h2>
         <ul className="mt-4 space-y-2 text-sm leading-7">
           <li>
-            <time dateTime="2026-09-15">2026-09-15</time> · 使用指南
-            v1.0：补充操作步骤与输入示例，模板正文保持原版本。
-          </li>
-          <li>
-            <time dateTime={prompt.updatedAt}>{prompt.updatedAt}</time> ·
-            模板正文最近更新；更早的逐次修订未记录。
+            <time dateTime={prompt.updatedAt}>{prompt.updatedAt}</time> · {prompt.version}：
+            {prompt.revision}
           </li>
         </ul>
       </section>
