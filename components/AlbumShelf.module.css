@@ -377,21 +377,6 @@
   font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
-.trackToggle {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: 6px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #c0d3cc;
-  font-size: 12px;
-  cursor: pointer;
-}
-.trackToggle:hover {
-  color: #fff;
-}
 .trackEmpty {
   margin-top: 18px;
   color: #abb7bd;

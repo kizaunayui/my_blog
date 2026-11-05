@@ -32,7 +32,6 @@ function Arrow({ next = false }: { next?: boolean }) {
 export default function AlbumShelf({ albums }: { albums: Album[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [instantJump, setInstantJump] = useState(false)
-  const [tracksExpanded, setTracksExpanded] = useState(false)
   const motionLayers = useRef<(HTMLSpanElement | null)[]>([])
   const gesture = useRef<{ x: number; y: number; pointerId: number; time: number } | null>(null)
   const dragged = useRef(false)
@@ -94,7 +93,6 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
     if (!albums.length) return
     const next = ((index % albums.length) + albums.length) % albums.length
     if (next === activeIndex) return
-    setTracksExpanded(false)
     const jump = Math.abs(circularOffset(next, activeIndex, albums.length)) > 2
     setInstantJump(jump)
     if (!jump) animateSelection(next, Math.sign(index - activeIndex) || 1)
@@ -344,36 +342,24 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               <span>{tracks.length} 首</span>
             </div>
             {tracks.length ? (
-              <>
-                <ol className={styles.trackRows}>
-                  {(tracksExpanded ? tracks : tracks.slice(0, 10)).map((track, index) => (
-                    <li key={`${track.href}-${index}`}>
-                      <a
-                        href={track.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${track.title}，在 Spotify 打开`}
-                      >
-                        <span className={styles.trackNumber}>{number(index + 1)}</span>
-                        <span className={styles.trackTitle}>{track.title}</span>
-                        <span className={styles.trackDuration}>
-                          {formatDuration(track.durationMs)}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-                {tracks.length > 10 && (
-                  <button
-                    className={styles.trackToggle}
-                    type="button"
-                    aria-expanded={tracksExpanded}
-                    onClick={() => setTracksExpanded((value) => !value)}
-                  >
-                    {tracksExpanded ? '收起曲目 ↑' : `展开全部 ${tracks.length} 首 ↓`}
-                  </button>
-                )}
-              </>
+              <ol className={styles.trackRows}>
+                {tracks.map((track, index) => (
+                  <li key={`${track.href}-${index}`}>
+                    <a
+                      href={track.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${track.title}，在 Spotify 打开`}
+                    >
+                      <span className={styles.trackNumber}>{number(index + 1)}</span>
+                      <span className={styles.trackTitle}>{track.title}</span>
+                      <span className={styles.trackDuration}>
+                        {formatDuration(track.durationMs)}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
             ) : (
               <p className={styles.trackEmpty}>暂无曲目信息</p>
             )}
