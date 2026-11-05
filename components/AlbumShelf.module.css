@@ -138,7 +138,8 @@
 .album:not([aria-pressed='true']) .artwork {
   transform: rotateX(0deg) rotateY(0deg);
 }
-.stage[data-dragging='true'] .album {
+.stage[data-dragging='true'] .album,
+.stage[data-instant='true'] .album {
   transition: none;
 }
 .sleeve {

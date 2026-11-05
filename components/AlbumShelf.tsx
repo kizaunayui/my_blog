@@ -7,6 +7,13 @@ import styles from './AlbumShelf.module.css'
 
 const number = (value: number) => String(value).padStart(2, '0')
 
+function circularOffset(index: number, current: number, count: number) {
+  let offset = index - current
+  if (offset > count / 2) offset -= count
+  if (offset < -count / 2) offset += count
+  return offset
+}
+
 function Arrow({ next = false }: { next?: boolean }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -17,6 +24,7 @@ function Arrow({ next = false }: { next?: boolean }) {
 
 export default function AlbumShelf({ albums }: { albums: Album[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [instantJump, setInstantJump] = useState(false)
   const motionLayers = useRef<(HTMLSpanElement | null)[]>([])
   const gesture = useRef<{ x: number; y: number; pointerId: number; time: number } | null>(null)
   const dragged = useRef(false)
@@ -77,7 +85,9 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
     if (!albums.length) return
     const next = ((index % albums.length) + albums.length) % albums.length
     if (next === activeIndex) return
-    animateSelection(next, Math.sign(index - activeIndex) || 1)
+    const jump = Math.abs(circularOffset(next, activeIndex, albums.length)) > 2
+    setInstantJump(jump)
+    if (!jump) animateSelection(next, Math.sign(index - activeIndex) || 1)
     setActiveIndex(next)
   }
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
@@ -118,6 +128,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
             </div>
             <div
               className={styles.stage}
+              data-instant={instantJump ? 'true' : undefined}
               onPointerDown={(event) => {
                 if (!event.isPrimary || event.button !== 0) return
                 gesture.current = {
@@ -189,7 +200,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                 />
               ))}
               {albums.map((album, index) => {
-                const offset = index - activeIndex
+                const offset = circularOffset(index, activeIndex, albums.length)
                 const distance = Math.abs(offset)
                 return (
                   <button
