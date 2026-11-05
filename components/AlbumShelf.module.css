@@ -315,8 +315,101 @@
   color: #d0d9da;
   letter-spacing: 0.16em;
 }
-.index {
+.tracklist {
   margin-top: 52px;
+  border-top: 1px solid rgb(199 211 213 / 17%);
+  padding-top: 22px;
+}
+.tracklistHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+}
+.tracklistHeading p {
+  color: #abb7bd;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+}
+.tracklistHeading h2 {
+  margin-top: 7px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+.tracklistHeading > span {
+  color: #abb7bd;
+  font-size: 11px;
+}
+.trackRows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 36px;
+  margin-top: 14px;
+  list-style: none;
+}
+.trackRows li {
+  min-width: 0;
+  border-bottom: 1px solid rgb(199 211 213 / 12%);
+}
+.trackRows a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 48px;
+  color: #cbd2d1;
+  text-decoration: none;
+  transition: color 200ms;
+}
+.trackRows a:hover {
+  color: #fff;
+}
+.trackNumber {
+  flex: none;
+  width: 22px;
+  color: #a3b1b8;
+  font-family: var(--font-serif), serif;
+  font-size: 14px;
+}
+.trackTitle {
+  flex: 1;
+  min-width: 0;
+  padding-block: 11px;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.trackDuration {
+  flex: none;
+  color: #a3b1b8;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.trackToggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #c0d3cc;
+  font-size: 12px;
+  cursor: pointer;
+}
+.trackToggle:hover {
+  color: #fff;
+}
+.trackEmpty {
+  margin-top: 18px;
+  color: #abb7bd;
+  font-size: 12px;
+}
+.index {
+  margin-top: 48px;
   border-top: 1px solid rgb(199 211 213 / 17%);
   padding-top: 22px;
 }
@@ -469,6 +562,13 @@
     margin-top: 14px;
     gap: 18px;
     font-size: 9px;
+  }
+  .tracklist {
+    margin-top: 34px;
+    padding-top: 18px;
+  }
+  .trackRows {
+    grid-template-columns: 1fr;
   }
   .index {
     margin-top: 34px;
