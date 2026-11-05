@@ -333,12 +333,6 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                 <Arrow next />
               </button>
             </div>
-            <p className={styles.hint}>
-              拖动封面或使用 ← → 切换
-              <span>
-                {number(activeIndex + 1)} / {number(albums.length)}
-              </span>
-            </p>
           </section>
 
           <section className={styles.tracklist} aria-label={`${active.title} 收录曲`}>
