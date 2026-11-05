@@ -173,10 +173,16 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
       <header className={styles.masthead}>
         <div>
           <p className={styles.kicker}>THE RECORD SHELF</p>
-          <h1 className={styles.title}>
-            专辑<span>收藏的声音</span>
-          </h1>
-          <p className={styles.intro}>一些喜欢的专辑，一些反复回来的时刻。</p>
+          <h1 className={styles.title}>The Albums That Compose Me</h1>
+          <p className={styles.intro}>
+            音乐是以专辑为单位的，
+            <br />
+            在这里记录一些我现在或者曾经甚爱的专辑，
+            <br />
+            它们都曾在某个时刻、某个方面，值得我心中的“最”
+            <br />
+            这些专辑值得永远留在我的歌单中。
+          </p>
         </div>
         <p className={styles.collectionCount}>
           <span>{number(albums.length)}</span> RECORDS
