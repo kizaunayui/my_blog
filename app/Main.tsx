@@ -102,11 +102,6 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
               <p className="quiet-welcome">欢迎来到</p>
               <h1 id="space-title">{siteMetadata.title}</h1>
             </div>
-            <p className="quiet-description">
-              记录技术学习、项目实践与日常灵感。
-              <br />
-              把探索的过程写下来，让值得回看的想法有迹可循。
-            </p>
           </div>
         </section>
       )}
