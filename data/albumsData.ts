@@ -94,6 +94,15 @@ export const albums: Album[] = [
     url: 'https://open.spotify.com/album/4SZko61aMnmgvNhfhgTuD3',
   },
   {
+    id: '7gsWAHLeT0w7es6FofOXk1',
+    title: 'The Life Of Pablo',
+    artist: 'Kanye West',
+    cover: 'https://i.scdn.co/image/ab67616d0000b2732a7db835b912dc5014bd37f4',
+    accent: '#8495a1',
+    year: '2016',
+    url: 'https://open.spotify.com/album/7gsWAHLeT0w7es6FofOXk1',
+  },
+  {
     id: '6dVIqQ8qmQ5GBnJ9shOYGE',
     title: 'OK Computer',
     artist: 'Radiohead',
@@ -119,6 +128,15 @@ export const albums: Album[] = [
     accent: '#8495a1',
     year: '2018',
     url: 'https://open.spotify.com/album/5yfxJ3DGaH6T2vk47J7MyY',
+  },
+  {
+    id: '3OKADPr54NWZ4kXXauWHAV',
+    title: 'Ping Pong (Original Soundtrack)',
+    artist: 'kensuke ushio',
+    cover: 'https://i.scdn.co/image/ab67616d0000b2737e1aa17b7ea57fed57f7ad9e',
+    accent: '#8495a1',
+    year: '2014',
+    url: 'https://open.spotify.com/album/3OKADPr54NWZ4kXXauWHAV',
   },
   {
     id: '3Gt7rOjcZQoHCfnKl5AkK7',
@@ -166,15 +184,6 @@ export const albums: Album[] = [
     url: 'https://open.spotify.com/album/54hb2cgal71xCmoC9EB4IW',
   },
   {
-    id: '7gsWAHLeT0w7es6FofOXk1',
-    title: 'The Life Of Pablo',
-    artist: 'Kanye West',
-    cover: 'https://i.scdn.co/image/ab67616d0000b2732a7db835b912dc5014bd37f4',
-    accent: '#8495a1',
-    year: '2016',
-    url: 'https://open.spotify.com/album/7gsWAHLeT0w7es6FofOXk1',
-  },
-  {
     id: '3xD8m0hT7pDr7cjQyUqPyy',
     title: '放課後ティータイム Ⅱ',
     artist: 'Ho - Kago Tea Time',
@@ -182,5 +191,14 @@ export const albums: Album[] = [
     accent: '#8495a1',
     year: '2010',
     url: 'https://open.spotify.com/album/3xD8m0hT7pDr7cjQyUqPyy',
+  },
+  {
+    id: '4EX1fAypgQC9wDjGI5QzbZ',
+    title: 'LONG SEASON',
+    artist: 'Fishmans',
+    cover: 'https://i.scdn.co/image/ab67616d0000b273f9f1de08fccfce6067fbd225',
+    accent: '#8495a1',
+    year: '1996',
+    url: 'https://open.spotify.com/album/4EX1fAypgQC9wDjGI5QzbZ',
   },
 ]

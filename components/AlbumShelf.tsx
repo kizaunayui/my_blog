@@ -1,6 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+  type PointerEvent,
+} from 'react'
 import Image from '@/components/Image'
 import type { Album } from '@/data/albumsData'
 import albumTracks from '../lib/albumTracks.json'
@@ -15,9 +23,9 @@ const formatDuration = (milliseconds: number) => {
 }
 
 function circularOffset(index: number, current: number, count: number) {
-  let offset = index - current
+  if (!count) return 0
+  let offset = (((index - current) % count) + count) % count
   if (offset > count / 2) offset -= count
-  if (offset < -count / 2) offset += count
   return offset
 }
 
@@ -31,79 +39,130 @@ function Arrow({ next = false }: { next?: boolean }) {
 
 export default function AlbumShelf({ albums }: { albums: Album[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [instantJump, setInstantJump] = useState(false)
-  const motionLayers = useRef<(HTMLSpanElement | null)[]>([])
-  const gesture = useRef<{ x: number; y: number; pointerId: number; time: number } | null>(null)
+  const cards = useRef<(HTMLButtonElement | null)[]>([])
+  const stageRef = useRef<HTMLDivElement>(null)
+  const position = useRef(0)
+  const target = useRef(0)
+  const selected = useRef(0)
+  const frame = useRef<number | null>(null)
+  const coverWidth = useRef(440)
+  const reduced = useRef(false)
+  const gesture = useRef<{
+    x: number
+    y: number
+    pointerId: number
+    start: number
+    lastX: number
+    lastTime: number
+    velocity: number
+    step: number
+    previousTarget: number
+  } | null>(null)
   const dragged = useRef(false)
   const active = albums[activeIndex]
   const tracks = active ? tracksByAlbum[active.id] || [] : []
 
-  useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const layers = motionLayers.current
-    const cancelMotion = () => {
-      if (preference.matches)
-        layers.forEach((layer) =>
-          layer?.getAnimations({ subtree: true }).forEach((animation) => animation.cancel())
-        )
-    }
-    preference.addEventListener('change', cancelMotion)
-    return () => {
-      preference.removeEventListener('change', cancelMotion)
-      layers.forEach((layer) =>
-        layer?.getAnimations({ subtree: true }).forEach((animation) => animation.cancel())
-      )
-    }
-  }, [])
+  const paint = useCallback(
+    (value: number) => {
+      const width = coverWidth.current
+      cards.current.forEach((card, index) => {
+        if (!card) return
+        const offset = circularOffset(index, value, albums.length)
+        const distance = Math.abs(offset)
+        card.style.visibility = distance > 3 ? 'hidden' : 'visible'
+        card.style.transform = `translate3d(${offset * width * 0.78}px, ${Math.min(distance, 3) * 5}px, ${-distance * 135}px) rotateY(${-Math.max(-1, Math.min(1, offset)) * 48}deg)`
+        card.style.opacity = String(Math.max(0.25, 1 - distance * 0.17))
+        card.style.zIndex = String(Math.round(100 - distance * 10))
+      })
+    },
+    [albums.length]
+  )
 
-  const animateSelection = (next: number, direction: number) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    motionLayers.current.forEach((layer, index) => {
-      if (!layer || (Math.abs(index - activeIndex) > 2 && Math.abs(index - next) > 2)) return
-      // Capture an interrupted transition before replacing it, so rapid input stays continuous.
-      const start = getComputedStyle(layer).transform
-      layer.getAnimations().forEach((animation) => animation.cancel())
-      const incoming = index === next
-      const frames: Keyframe[] = [
-        { transform: start, offset: 0 },
-        {
-          transform: `translate3d(${direction * (incoming ? -16 : 12)}px, ${incoming ? -12 : 8}px, ${incoming ? 72 : -65}px) rotateX(${incoming ? -4 : 3}deg) rotateY(${-direction * (incoming ? 26 : 12)}deg) rotateZ(${direction * 1.2}deg)`,
-          offset: 0.28,
-        },
-        {
-          transform: `translate3d(${direction * (incoming ? 3 : -3)}px, -3px, ${incoming ? 22 : -14}px) rotateX(-1deg) rotateY(${-direction * 7}deg)`,
-          offset: 0.58,
-        },
-        {
-          transform: `translateZ(${incoming ? -5 : 3}px) rotateY(${direction * 2}deg)`,
-          offset: 0.8,
-        },
-        { transform: 'none', offset: 1 },
-      ]
-      layer.animate(
-        frames.map((frame) => ({ ...frame, easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)' })),
-        {
-          duration: 1000,
-          easing: 'linear',
-        }
-      )
-    })
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const resize = () => {
+      coverWidth.current = cards.current[0]?.offsetWidth || 440
+      paint(position.current)
+    }
+    const changeMotion = () => {
+      reduced.current = media.matches
+      if (media.matches) {
+        if (frame.current !== null) cancelAnimationFrame(frame.current)
+        frame.current = null
+        position.current = target.current
+        paint(position.current)
+      }
+    }
+    changeMotion()
+    resize()
+    const observer = new ResizeObserver(resize)
+    if (stageRef.current) observer.observe(stageRef.current)
+    media.addEventListener('change', changeMotion)
+    return () => {
+      observer.disconnect()
+      media.removeEventListener('change', changeMotion)
+      if (frame.current !== null) cancelAnimationFrame(frame.current)
+    }
+  }, [paint])
+
+  const settle = (destination: number) => {
+    if (frame.current !== null) cancelAnimationFrame(frame.current)
+    target.current = destination
+    if (reduced.current) {
+      position.current = destination
+      paint(destination)
+      frame.current = null
+      return
+    }
+    let last = performance.now()
+    const tick = (now: number) => {
+      const dt = Math.min(40, now - last)
+      last = now
+      position.current += (destination - position.current) * (1 - Math.exp(-dt / 90))
+      if (Math.abs(destination - position.current) < 0.001) {
+        position.current = destination
+        frame.current = null
+        paint(destination)
+      } else {
+        paint(position.current)
+        frame.current = requestAnimationFrame(tick)
+      }
+    }
+    frame.current = requestAnimationFrame(tick)
   }
+
   const select = (index: number) => {
     if (!albums.length) return
     const next = ((index % albums.length) + albums.length) % albums.length
-    if (next === activeIndex) return
-    const jump = Math.abs(circularOffset(next, activeIndex, albums.length)) > 2
-    setInstantJump(jump)
-    if (!jump) animateSelection(next, Math.sign(index - activeIndex) || 1)
+    const destination = target.current + circularOffset(next, selected.current, albums.length)
+    selected.current = next
     setActiveIndex(next)
+    settle(destination)
+  }
+
+  const finishDrag = (event: PointerEvent<HTMLDivElement>, cancelled = false) => {
+    const start = gesture.current
+    if (!start || start.pointerId !== event.pointerId) return
+    gesture.current = null
+    const dx = event.clientX - start.x
+    const horizontal = Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(event.clientY - start.y)
+    if (!cancelled && horizontal) {
+      const velocity = performance.now() - start.lastTime > 100 ? 0 : start.velocity
+      const inertia = Math.max(-4, Math.min(4, (-velocity * 150) / start.step))
+      const destination = Math.round(position.current + inertia)
+      selected.current = ((destination % albums.length) + albums.length) % albums.length
+      setActiveIndex(selected.current)
+      settle(destination)
+    } else {
+      settle(start.previousTarget)
+    }
   }
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
     event.preventDefault()
     if (event.key === 'Home') select(0)
     else if (event.key === 'End') select(albums.length - 1)
-    else select(activeIndex + (event.key === 'ArrowRight' ? 1 : -1))
+    else select(selected.current + (event.key === 'ArrowRight' ? 1 : -1))
   }
 
   return (
@@ -136,14 +195,21 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
             </div>
             <div
               className={styles.stage}
-              data-instant={instantJump ? 'true' : undefined}
+              ref={stageRef}
               onPointerDown={(event) => {
                 if (!event.isPrimary || event.button !== 0) return
+                if (frame.current !== null) cancelAnimationFrame(frame.current)
+                frame.current = null
                 gesture.current = {
                   x: event.clientX,
                   y: event.clientY,
                   pointerId: event.pointerId,
-                  time: performance.now(),
+                  start: position.current,
+                  lastX: event.clientX,
+                  lastTime: performance.now(),
+                  velocity: 0,
+                  step: Math.max(90, coverWidth.current * 0.48),
+                  previousTarget: target.current,
                 }
                 dragged.current = false
               }}
@@ -151,41 +217,30 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                 const start = gesture.current
                 if (!start || start.pointerId !== event.pointerId) return
                 const dx = event.clientX - start.x
-                if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(event.clientY - start.y)) {
-                  dragged.current = true
-                  event.currentTarget.setPointerCapture(event.pointerId)
-                  event.currentTarget.dataset.dragging = 'true'
-                  event.currentTarget.style.setProperty(
-                    '--drag-x',
-                    `${Math.max(-120, Math.min(120, dx * 0.8))}px`
-                  )
-                }
-              }}
-              onPointerUp={(event) => {
-                const start = gesture.current
-                if (!start || start.pointerId !== event.pointerId) return
-                const dx = event.clientX - start.x
-                const velocity = Math.abs(dx) / Math.max(1, performance.now() - start.time)
-                delete event.currentTarget.dataset.dragging
-                event.currentTarget.style.setProperty('--drag-x', '0px')
                 if (
-                  (Math.abs(dx) > 40 || (Math.abs(dx) > 18 && velocity > 0.35)) &&
-                  Math.abs(dx) > Math.abs(event.clientY - start.y)
-                ) {
-                  select(activeIndex + (dx < 0 ? 1 : -1))
+                  !dragged.current &&
+                  (Math.abs(dx) <= 8 || Math.abs(dx) <= Math.abs(event.clientY - start.y))
+                )
+                  return
+                dragged.current = true
+                event.currentTarget.setPointerCapture(event.pointerId)
+                const now = performance.now()
+                start.velocity =
+                  start.velocity * 0.6 +
+                  ((event.clientX - start.lastX) / Math.max(1, now - start.lastTime)) * 0.4
+                start.lastX = event.clientX
+                start.lastTime = now
+                position.current = start.start - dx / start.step
+                if (frame.current === null) {
+                  frame.current = requestAnimationFrame(() => {
+                    frame.current = null
+                    paint(position.current)
+                  })
                 }
-                gesture.current = null
               }}
-              onPointerCancel={(event) => {
-                gesture.current = null
-                delete event.currentTarget.dataset.dragging
-                event.currentTarget.style.setProperty('--drag-x', '0px')
-              }}
-              onLostPointerCapture={(event) => {
-                gesture.current = null
-                delete event.currentTarget.dataset.dragging
-                event.currentTarget.style.setProperty('--drag-x', '0px')
-              }}
+              onPointerUp={(event) => finishDrag(event)}
+              onPointerCancel={(event) => finishDrag(event, true)}
+              onLostPointerCapture={(event) => finishDrag(event, true)}
               onClickCapture={(event) => {
                 if (dragged.current) {
                   event.preventDefault()
@@ -215,24 +270,14 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                     key={album.id}
                     type="button"
                     className={styles.album}
+                    ref={(node) => {
+                      cards.current[index] = node
+                    }}
                     aria-label={`查看专辑 ${album.title}，${album.artist}`}
                     aria-pressed={index === activeIndex}
                     tabIndex={distance > 2 ? -1 : 0}
                     onClick={() => select(index)}
                     onKeyDown={onKeyDown}
-                    onPointerMove={(event) => {
-                      if (index !== activeIndex || gesture.current || event.pointerType !== 'mouse')
-                        return
-                      const bounds = event.currentTarget.getBoundingClientRect()
-                      const x = (event.clientX - bounds.left) / bounds.width - 0.5
-                      const y = (event.clientY - bounds.top) / bounds.height - 0.5
-                      event.currentTarget.style.setProperty('--tilt-x', `${-y * 7}deg`)
-                      event.currentTarget.style.setProperty('--tilt-y', `${x * 9}deg`)
-                    }}
-                    onPointerLeave={(event) => {
-                      event.currentTarget.style.setProperty('--tilt-x', '0deg')
-                      event.currentTarget.style.setProperty('--tilt-y', '0deg')
-                    }}
                     style={
                       {
                         '--offset': offset,
@@ -243,20 +288,16 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                       } as CSSProperties
                     }
                   >
-                    <span
-                      className={styles.motionLayer}
-                      ref={(node) => {
-                        motionLayers.current[index] = node
-                      }}
-                    >
+                    <span className={styles.motionLayer}>
                       <span className={styles.artwork}>
                         <span className={styles.sleeve}>
                           <Image
                             src={album.cover}
                             alt={`${album.title}${album.demo ? ' 临时示意封面' : ' 专辑封面'}`}
+                            loading="eager"
                             width={640}
                             height={640}
-                            sizes="(max-width: 640px) 68vw, 380px"
+                            sizes="(max-width: 767px) 76vw, 440px"
                             priority={index === 0}
                             draggable={false}
                             style={{ objectPosition: album.coverPosition }}
@@ -275,7 +316,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                             alt=""
                             width={640}
                             height={640}
-                            sizes="(max-width: 640px) 68vw, 380px"
+                            sizes="(max-width: 767px) 76vw, 440px"
                             priority={index === 0}
                             draggable={false}
                             style={{ objectPosition: album.coverPosition }}
@@ -288,17 +329,27 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               })}
             </div>
 
+            <button
+              type="button"
+              className={`${styles.arrow} ${styles.previous}`}
+              disabled={albums.length < 2}
+              onClick={() => select(selected.current - 1)}
+              aria-label="上一张专辑"
+              onKeyDown={onKeyDown}
+            >
+              <Arrow />
+            </button>
+            <button
+              type="button"
+              className={`${styles.arrow} ${styles.next}`}
+              disabled={albums.length < 2}
+              onClick={() => select(selected.current + 1)}
+              aria-label="下一张专辑"
+              onKeyDown={onKeyDown}
+            >
+              <Arrow next />
+            </button>
             <div className={styles.details}>
-              <button
-                type="button"
-                className={styles.arrow}
-                disabled={albums.length < 2}
-                onClick={() => select(activeIndex - 1)}
-                aria-label="上一张专辑"
-                onKeyDown={onKeyDown}
-              >
-                <Arrow />
-              </button>
               <div className={styles.albumInfo} aria-live="polite" aria-atomic="true">
                 <div key={active.id} className={styles.infoContent}>
                   <p className={styles.albumTag}>
@@ -320,16 +371,6 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                   )}
                 </div>
               </div>
-              <button
-                type="button"
-                className={styles.arrow}
-                disabled={albums.length < 2}
-                onClick={() => select(activeIndex + 1)}
-                aria-label="下一张专辑"
-                onKeyDown={onKeyDown}
-              >
-                <Arrow next />
-              </button>
             </div>
           </section>
 
