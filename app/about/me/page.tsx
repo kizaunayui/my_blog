@@ -70,7 +70,7 @@ export default function PersonalAboutPage() {
             </p>
             <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
               {keywords.map((keyword) => (
-                <span key={keyword} className="text-xs text-slate-300">
+                <span key={keyword} className="text-sm text-slate-200">
                   #{keyword}
                 </span>
               ))}

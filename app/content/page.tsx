@@ -82,7 +82,7 @@ export default function ContentPage() {
               className="content-update-row premium-row group border-t border-white/10 px-1 py-6 transition duration-300 sm:px-2 sm:py-7"
             >
               <div className="flex flex-wrap items-center gap-3">
-                <span className="font-heading border-primary-300/25 text-primary-200 rounded-full border px-3 py-1 text-[10px] font-bold tracking-[0.14em] uppercase">
+                <span className="editorial-chip editorial-chip--accent font-heading rounded-full border">
                   {item.type}
                 </span>
                 <time

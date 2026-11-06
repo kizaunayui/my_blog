@@ -223,7 +223,9 @@ export default function ListLayoutWithTags({
                           </Link>
                         </h2>
                         <div className="mt-3 flex flex-wrap gap-2.5">
-                          <span className="text-xs text-slate-300">{post.category || '文章'}</span>
+                          <span className="archive-category inline-flex items-center">
+                            {post.category || '文章'}
+                          </span>
                           {tags?.map((tag) => (
                             <Tag key={tag} text={tag} />
                           ))}

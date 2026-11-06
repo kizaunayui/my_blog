@@ -84,7 +84,7 @@ const MobileNav = () => {
                   ref={navRef}
                   className="flex h-full basis-0 flex-col items-start overflow-y-auto px-6 pt-20 pb-8 text-left"
                 >
-                  <p className="font-heading mb-6 text-[10px] font-bold tracking-[0.28em] text-cyan-300 uppercase">
+                  <p className="font-heading mb-6 text-sm font-medium tracking-wide text-slate-200 uppercase">
                     Kieran Space
                   </p>
                   {headerNavLinks.map((link) => (

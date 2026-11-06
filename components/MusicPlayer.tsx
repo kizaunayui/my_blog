@@ -130,20 +130,20 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
   }
 
   return (
-    <section className="relative flex w-56 flex-col items-center justify-center p-3 text-white select-none">
+    <section className="relative flex w-full flex-col items-center justify-center p-3 font-sans text-white select-none">
       {/* 100% Cardless Layout - Elements float directly over background */}
 
       {/* Top Metadata Area */}
       <div className="pointer-events-none z-10 mb-1.5 min-h-[2.4rem] w-full text-center">
         <p
           key={activeIndex}
-          className={`song-title truncate text-[13px] font-semibold tracking-[0.18em] text-cyan-400 uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] ${direction === 'next' ? 'from-next' : 'from-prev'}`}
+          className={`song-title text-sm font-semibold break-words text-cyan-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] ${direction === 'next' ? 'from-next' : 'from-prev'}`}
         >
           {activeSong.title}
         </p>
         <p
           key={`artist-${activeIndex}`}
-          className={`song-artist mt-0.5 truncate text-[10px] font-medium tracking-wider text-white/50 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] ${direction === 'next' ? 'from-next' : 'from-prev'}`}
+          className={`song-artist mt-0.5 text-xs font-medium break-words text-slate-200 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] ${direction === 'next' ? 'from-next' : 'from-prev'}`}
         >
           {activeSong.artist}
         </p>
@@ -191,7 +191,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
 
       {/* Progress slider bar */}
       <div className="z-10 mb-3.5 flex w-full items-center gap-2">
-        <span className="text-[9px] font-semibold text-white/40 tabular-nums drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+        <span className="text-xs font-medium text-slate-200 tabular-nums drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
           {formatTime(currentTime)}
         </span>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
@@ -209,7 +209,7 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
             style={{ left: `calc(${playProgress}% - 5px)` }}
           />
         </div>
-        <span className="text-[9px] font-semibold text-white/40 tabular-nums drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+        <span className="text-xs font-medium text-slate-200 tabular-nums drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
           {formatTime(realDuration)}
         </span>
       </div>
@@ -310,13 +310,11 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
         }`}
       >
         <div className="mb-2.5 flex items-center justify-between border-b border-white/10 pb-1.5">
-          <h4 className="text-[10px] font-bold tracking-[0.2em] text-cyan-400 uppercase">
-            PLAYLIST
-          </h4>
+          <h4 className="font-sans text-xs font-semibold tracking-wide text-cyan-200">PLAYLIST</h4>
           <button
             type="button"
             onClick={() => setShowPlaylist(false)}
-            className="rounded-full bg-white/5 px-2 py-0.5 text-[9px] font-semibold text-white/50 transition hover:bg-white/10 hover:text-white"
+            className="min-h-8 rounded-full bg-white/5 px-3 text-xs font-medium text-slate-200 transition hover:bg-white/10 hover:text-white"
           >
             CLOSE
           </button>
@@ -335,25 +333,21 @@ export default function MusicPlayer({ onPlayStateChange }: MusicPlayerProps) {
               className={`flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-left transition ${
                 idx === activeIndex
                   ? 'border border-cyan-500/20 bg-cyan-500/15 font-medium text-cyan-400'
-                  : 'border border-transparent text-white/60 hover:bg-white/5 hover:text-white'
+                  : 'border border-transparent text-slate-200 hover:bg-white/5 hover:text-white'
               }`}
             >
-              <div className="truncate pr-4">
-                <p className="truncate text-[11px] tracking-wide">{song.title}</p>
-                <p className="mt-0.5 truncate text-[9px] tracking-wide text-white/35">
-                  {song.artist}
-                </p>
+              <div className="min-w-0 pr-3">
+                <p className="text-sm break-words">{song.title}</p>
+                <p className="mt-0.5 text-xs break-words text-slate-300">{song.artist}</p>
               </div>
-              <span className="text-[9px] text-white/40 tabular-nums">{song.duration}</span>
+              <span className="shrink-0 text-xs text-slate-300 tabular-nums">{song.duration}</span>
             </button>
           ))}
         </div>
       </div>
 
       {error && (
-        <p className="absolute bottom-1 text-center text-[9px] font-bold tracking-wider text-rose-400/90">
-          {error}
-        </p>
+        <p className="absolute bottom-1 text-center text-xs font-medium text-rose-200">{error}</p>
       )}
 
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}

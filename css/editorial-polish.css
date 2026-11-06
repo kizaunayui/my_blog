@@ -1,9 +1,9 @@
 /* Editorial v1.2: one reading axis, quiet surfaces and consistent type. */
 :root {
   --reading-white: #eeede7;
-  --reading-muted: #b8c1c5;
+  --reading-muted: #e0e6ea;
   --reading-accent: #c0d3cc;
-  --reading-secondary: #a3b1b8;
+  --reading-secondary: #ced7de;
   --editorial-rule: rgb(199 211 213 / 17%);
 }
 ::selection {
@@ -55,9 +55,9 @@
 }
 .header-brand-note {
   color: var(--reading-secondary);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.06em;
 }
 .group\/logo:hover .header-brand-note {
   color: var(--reading-accent);
@@ -74,8 +74,8 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-weight: 400;
-  font-size: 0.75rem;
+  font-weight: 500;
+  font-size: 0.8125rem;
   letter-spacing: 0.03em;
   color: var(--reading-muted);
   text-shadow: none;
@@ -94,6 +94,10 @@
 .header-dropdown a[aria-current='page'] {
   color: var(--reading-accent);
   border-left-color: var(--reading-accent);
+}
+.header-dropdown a {
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
 }
 
 /* A brief introduction leads straight into the journal. */
@@ -406,9 +410,9 @@ a[href^='/tags/']:hover {
   padding-top: 1.5rem;
 }
 .footer-colophon .font-heading {
-  font-size: 0.65rem;
+  font-size: 0.8125rem;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.03em;
   color: var(--reading-secondary);
 }
 .footer-colophon a {
@@ -453,7 +457,6 @@ a[href^='/tags/']:hover {
   }
   .header-nav-link {
     padding-inline: 0.55rem;
-    font-size: 0.68rem;
   }
 }
 @media (max-width: 639px) {
@@ -468,8 +471,7 @@ a[href^='/tags/']:hover {
     letter-spacing: 0.12em;
   }
   .header-brand-note {
-    font-size: 0.55rem;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.04em;
   }
   .nav-trigger {
     min-width: 44px;
@@ -558,10 +560,6 @@ a[href^='/tags/']:hover {
     font-size: 0.8rem;
     letter-spacing: 0.08em;
   }
-  .header-brand-note {
-    font-size: 0.5rem;
-    letter-spacing: 0.06em;
-  }
 }
 /* Shared archive, article and author proportions. */
 .site-fixed-bg {
@@ -601,8 +599,10 @@ a[href^='/tags/']:hover {
 .editorial-kicker,
 .editorial-kicker--pink {
   color: var(--reading-accent);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.08em;
 }
 .editorial-title {
   font-size: clamp(2rem, 3.5vw, 3rem);
@@ -613,6 +613,7 @@ a[href^='/tags/']:hover {
 }
 .editorial-summary {
   max-width: 42rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.9;
   color: var(--reading-muted);
@@ -635,29 +636,35 @@ a[href^='/tags/']:hover {
   padding-block: 2rem;
 }
 .premium-row :is(h2, h3) {
+  font-family: var(--font-sans);
   font-size: clamp(1.3rem, 2.1vw, 1.7rem);
-  line-height: 1.6;
+  line-height: 1.5;
   letter-spacing: 0;
-  font-weight: 400;
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 .premium-row p {
   color: var(--reading-muted);
+  font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.9;
 }
-.premium-row time,
-.archive-date {
+:is(.premium-row, .editorial-masthead, .post-header) time,
+.archive-date,
+.masthead-edition {
   color: var(--reading-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
   font-weight: 400;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
 }
 .premium-row-link:hover {
   color: var(--reading-accent);
 }
 .editorial-chip {
   font-weight: 400;
-  font-size: 0.7rem;
-  letter-spacing: 0.035em;
+  font-size: 0.8125rem;
+  letter-spacing: 0;
   line-height: 1.6;
   padding: 0.25rem 0.65rem;
   border-color: var(--editorial-rule);
@@ -669,17 +676,30 @@ a[href^='/tags/']:hover {
   border-color: rgb(192 211 204 / 25%);
 }
 .archive-row-index {
-  color: #8e9fac;
-  font-size: 0.65rem;
+  color: var(--reading-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
 }
-.archive-filter-link {
+.list-sidebar .font-heading,
+.archive-row .archive-category {
   font-weight: 400;
-  letter-spacing: 0.03em;
-  font-size: 0.75rem;
+  letter-spacing: 0.015em;
+  font-size: 0.875rem;
+  color: var(--reading-secondary);
+}
+.list-sidebar .archive-filter-link:is(:hover, :focus-visible, .is-active) {
+  color: var(--reading-white);
+}
+.tag-metrics .font-heading,
+.tags-page-card .font-heading {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--reading-secondary);
 }
 .archive-controls {
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   gap: 1rem;
 }
 .archive-controls :is(input, select) {
@@ -689,7 +709,13 @@ a[href^='/tags/']:hover {
   font-size: 1rem;
   font-weight: 400;
 }
+.archive-controls input::placeholder {
+  color: #aab9c5;
+  opacity: 1;
+}
 .editorial-action {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.055em;
   min-height: 44px;
@@ -707,6 +733,14 @@ a[href^='/tags/']:hover {
   border-color: var(--editorial-rule);
   background: linear-gradient(110deg, rgb(9 18 31 / 85%), rgb(9 18 31 / 45%));
   box-shadow: none;
+}
+.prompt-filter,
+.prompt-category-label {
+  font-size: 0.8125rem;
+  letter-spacing: 0.035em;
+}
+.content-section-cta {
+  font-size: 0.875rem;
 }
 .prompt-guide {
   font-size: 0.95rem;
@@ -732,16 +766,18 @@ a[href^='/tags/']:hover {
   color: var(--reading-white);
 }
 .post-header time {
-  font-weight: 400;
-  color: #b4cccf;
-  letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 .post-meta-bar {
   padding-block: 0.75rem;
   margin-bottom: 2rem;
 }
 .post-meta-bar :is(p, a, span) {
+  font-size: 0.8125rem;
   font-weight: 400;
+}
+.post-meta-bar span {
+  color: var(--reading-secondary);
 }
 .post-meta-bar a:not(.editorial-chip) {
   color: var(--reading-accent);
@@ -749,10 +785,15 @@ a[href^='/tags/']:hover {
   letter-spacing: 0.025em;
 }
 .post-toc-title {
+  color: var(--reading-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.1em;
 }
 .post-toc-list a {
+  color: var(--reading-secondary);
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.7;
 }
@@ -761,7 +802,7 @@ a[href^='/tags/']:hover {
 }
 .post-footer-links {
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .related-posts {
   border-color: var(--editorial-rule);
@@ -810,8 +851,8 @@ a[href^='/tags/']:hover {
 .premium-row a.font-heading:not(.editorial-chip):not(.editorial-action) {
   color: var(--reading-accent);
   font-weight: 500;
-  letter-spacing: 0.08em;
-  font-size: 0.7rem;
+  letter-spacing: 0.025em;
+  font-size: 0.8125rem;
 }
 
 /* About: one page title, a compact profile and an unboxed introduction. */
@@ -843,9 +884,15 @@ a[href^='/tags/']:hover {
   padding: 0;
 }
 .author-profile-aside .font-heading {
+  font-size: 0.875rem;
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: #b5c4d0;
+  color: var(--reading-secondary);
+}
+.author-page :is(aside, header, nav) .font-heading {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--reading-secondary);
 }
 .author-page .author-content-area {
   margin: 0;
@@ -891,7 +938,7 @@ a[href^='/tags/']:hover {
   padding-block: 0.4rem;
   border-bottom: 1px solid var(--editorial-rule);
   color: var(--reading-muted);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 400;
   text-decoration: none;
   transition:
@@ -945,7 +992,6 @@ a[href^='/tags/']:hover {
     width: auto;
     margin-top: 0;
     padding-inline: 0.85rem;
-    font-size: 0.65rem;
   }
   .author-page .author-bio-copy p {
     font-size: 0.9rem;

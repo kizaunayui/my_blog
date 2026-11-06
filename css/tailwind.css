@@ -11,13 +11,12 @@
    THEME TOKENS
    ═══════════════════════════════════════════════════════════════════════════ */
 @theme {
-  /* 英文统一使用自托管 Cormorant Garamond;中文保留各场景原有回退。
-     衬线/展示类中文走 Noto Serif SC,正文与标签类中文走系统黑体栈。 */
+  /* 正文和界面文字用无衬线字体，标题与刊头使用下方的衬线字体。 */
   --font-sans:
-    'Cormorant Garamond', 'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei',
-    ui-sans-serif, system-ui, sans-serif;
+    'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', ui-sans-serif,
+    system-ui, sans-serif;
   --font-heading:
-    'Cormorant Garamond', 'Outfit', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei',
+    'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', ui-sans-serif, system-ui,
     sans-serif;
   --font-serif: 'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
   /* 展示字体:Cormorant Garamond 大写 + 宽字距承担刊头/编号。
@@ -1512,14 +1511,17 @@ time {
 }
 
 .editorial-pagination {
-  font-family: var(--font-heading), sans-serif;
-  letter-spacing: 0.1em;
-  color: rgba(226, 232, 240, 0.76);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  color: #ced7de;
+  max-width: 100%;
 }
 
 .pagination-link {
   min-height: 2.6rem;
-  color: rgba(207, 250, 254, 0.8);
+  color: #d7e5e4;
+  text-align: center;
   transition:
     color 240ms ease,
     background-color 240ms ease,
@@ -1533,15 +1535,16 @@ time {
 }
 
 .pagination-link.is-disabled {
-  color: rgba(148, 163, 184, 0.42);
+  color: #a3b1b8;
   transform: none;
 }
 
 .pagination-status {
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: rgba(226, 232, 240, 0.58);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: inherit;
+  white-space: nowrap;
   text-transform: uppercase;
 }
 

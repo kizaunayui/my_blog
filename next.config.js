@@ -114,6 +114,11 @@ module.exports = () => {
           permanent: true,
         },
         {
+          source: '/blog/page/1',
+          destination: '/articles',
+          permanent: true,
+        },
+        {
           source: '/blog/:slug*',
           destination: '/articles/:slug*',
           permanent: true,

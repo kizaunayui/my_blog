@@ -1,4 +1,5 @@
 .page {
+  --album-secondary: #ced7de;
   --ease-album: cubic-bezier(0.22, 1, 0.36, 1);
   --rule: rgb(199 211 213 / 14%);
   padding-block: 24px 48px;
@@ -22,10 +23,10 @@
 .albumTag,
 .indexHeading h2 span {
   font-family: inherit;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0.16em;
-  color: #abb7bd;
+  letter-spacing: 0.08em;
+  color: var(--album-secondary);
 }
 
 .title {
@@ -59,7 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 10px;
+  font-size: 13px;
   min-height: 30px;
   font-variant-numeric: tabular-nums;
 }
@@ -220,8 +221,7 @@
   }
 }
 .albumTag {
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.07em;
 }
 .albumInfo h2 {
   margin-top: 12px;
@@ -240,8 +240,8 @@
 }
 .note {
   margin-top: 16px;
-  font-size: 12px;
-  color: #abb7bd;
+  font-size: 14px;
+  color: var(--album-secondary);
   line-height: 1.8;
 }
 .arrow {
@@ -302,7 +302,7 @@
   min-height: 44px;
   margin-top: 10px;
   color: #c0d3cc;
-  font-size: 12px;
+  font-size: 14px;
   position: relative;
   text-decoration: none;
 }
@@ -342,11 +342,11 @@
   gap: 16px;
 }
 .tracklistHeading p {
-  color: #abb7bd;
+  color: var(--album-secondary);
   font-family: inherit;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
 }
 .tracklistHeading h2 {
   margin-top: 7px;
@@ -355,15 +355,14 @@
   letter-spacing: 0.06em;
 }
 .tracklistHeading > span {
-  color: #abb7bd;
-  font-size: 12px;
+  color: var(--album-secondary);
+  font-size: 14px;
   font-variant-numeric: tabular-nums;
 }
 .trackTotal {
   margin-left: 6px;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: #8d9ba5;
+  font-size: 13px;
+  letter-spacing: 0.04em;
 }
 .trackRows {
   display: grid;
@@ -383,7 +382,7 @@
   align-items: center;
   gap: 15px;
   min-height: 52px;
-  color: #cbd2d1;
+  color: #e0e6ea;
   text-decoration: none;
   transition:
     color 250ms,
@@ -396,7 +395,7 @@
 .trackNumber {
   flex: none;
   width: 22px;
-  color: #94a2ab;
+  color: var(--album-secondary);
   font-family: inherit;
   font-size: 13px;
   font-variant-numeric: tabular-nums;
@@ -416,7 +415,7 @@
 }
 .trackDuration {
   flex: none;
-  color: #a7b3ba;
+  color: var(--album-secondary);
   font-family: inherit;
   font-size: 13px;
   font-variant-numeric: tabular-nums;
@@ -444,11 +443,10 @@
 }
 .indexHeading h2 span {
   margin-left: 14px;
-  font-size: 9px;
 }
 .indexHeading p {
-  font-size: 10px;
-  color: #abb7bd;
+  font-size: 13px;
+  color: var(--album-secondary);
 }
 .indexList {
   display: grid;
@@ -466,7 +464,7 @@
   background: transparent;
   border: 0;
   border-bottom: 1px solid rgb(199 211 213 / 12%);
-  color: #abb7bd;
+  color: var(--album-secondary);
   cursor: pointer;
   position: relative;
   transition: color 300ms;
@@ -509,7 +507,6 @@
 .indexNumber {
   font-family: inherit;
   font-size: 13px;
-  opacity: 0.8;
   font-variant-numeric: tabular-nums;
 }
 .indexItem img {
@@ -535,11 +532,11 @@
   overflow-wrap: anywhere;
 }
 .indexText > span {
-  font-size: 12px;
-  color: #abb7bd;
+  font-size: 13px;
+  color: var(--album-secondary);
 }
 .indexIndicator {
-  font-size: 10px;
+  font-size: 13px;
   color: #c0d3cc;
   transition: transform 450ms var(--ease-album);
 }
@@ -561,8 +558,7 @@
     font-size: 23px;
   }
   .collectionCount {
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
   }
   .collectionCount span {
     display: block;
@@ -603,8 +599,7 @@
     font-size: 6px;
   }
   .stageHeading {
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
   }
   .details {
     gap: 12px;
@@ -615,9 +610,6 @@
   }
   .albumInfo h2 {
     font-size: 23px;
-  }
-  .note {
-    font-size: 11px;
   }
   .tracklist {
     margin-top: 22px;

@@ -45,7 +45,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
           <div className="lg:sticky lg:top-24">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:block">
               <div>
-                <p className="font-heading text-xs font-bold tracking-[0.25em] text-cyan-600 uppercase dark:text-cyan-400">
+                <p className="prompt-category-label font-heading font-medium text-slate-200 uppercase">
                   Categories
                 </p>
                 <h2 className="mt-2 font-serif text-2xl font-light tracking-wide text-white">
@@ -56,7 +56,7 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                 {filteredPrompts.length} / {prompts.length} 条
               </p>
             </div>
-            <div className="prompt-filter-strip no-scrollbar mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:border-l lg:border-white/10 lg:pb-0">
+            <div className="prompt-filter-strip mt-4 flex flex-wrap gap-2 lg:flex-col lg:gap-1.5 lg:border-l lg:border-white/10">
               {categories.map((category) => {
                 const isActive = category === selectedCategory
                 return (
@@ -67,8 +67,8 @@ export default function PromptLibrary({ prompts }: PromptLibraryProps) {
                     onClick={() => setSelectedCategory(category)}
                     className={
                       isActive
-                        ? 'prompt-filter is-active font-heading shrink-0 rounded-full px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-white uppercase transition duration-300 lg:w-full lg:rounded-none lg:py-2 lg:pl-4 lg:text-cyan-200'
-                        : 'prompt-filter font-heading shrink-0 rounded-full px-4 py-2 text-left text-xs font-bold tracking-[0.14em] text-slate-100 uppercase transition duration-300 lg:w-full lg:rounded-none lg:py-2 lg:pl-4 lg:text-slate-300'
+                        ? 'prompt-filter is-active font-heading rounded-full px-4 py-2 text-left font-medium text-white transition duration-300 lg:w-full lg:rounded-none lg:pl-4 lg:text-cyan-200'
+                        : 'prompt-filter font-heading rounded-full px-4 py-2 text-left font-medium text-slate-200 transition duration-300 lg:w-full lg:rounded-none lg:pl-4'
                     }
                   >
                     {category}
