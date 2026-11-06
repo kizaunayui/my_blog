@@ -85,7 +85,8 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
         card.style.visibility = 'visible'
         card.style.willChange = 'transform, opacity'
         card.style.transform = `translate3d(${offset * width * 0.8}px, ${10 * (1 - Math.exp(-distance * distance))}px, ${-depth * width * 0.65}px) rotateY(${-Math.tanh(offset * 1.25) * 52}deg)`
-        card.style.opacity = String((1 - Math.min(distance / 3.6, 1) * 0.45) * fade)
+        card.style.opacity = String(fade)
+        card.style.setProperty('--shade', String(Math.min(distance * 0.17, 0.5)))
         card.style.zIndex = String(Math.round(100 - distance * 10))
       })
     },

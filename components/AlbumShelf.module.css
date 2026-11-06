@@ -131,7 +131,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  border: 1px solid rgb(255 255 255 / 16%);
+  background: #050c13;
+  opacity: var(--shade, 0);
   pointer-events: none;
 }
 .sleeve::before {
