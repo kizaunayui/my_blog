@@ -76,6 +76,15 @@ export const albums: Album[] = [
     url: 'https://open.spotify.com/album/5duyQokC4FMcWPYTV9Gpf9',
   },
   {
+    id: '4Uv86qWpGTxf7fU7lG5X6F',
+    title: 'The College Dropout',
+    artist: 'Kanye West',
+    cover: 'https://i.scdn.co/image/ab67616d0000b27325b055377757b3cdd6f26b78',
+    accent: '#8495a1',
+    year: '2004',
+    url: 'https://open.spotify.com/album/4Uv86qWpGTxf7fU7lG5X6F',
+  },
+  {
     id: '20r762YmB5HeofjMCiPMLv',
     title: 'My Beautiful Dark Twisted Fantasy',
     artist: 'Kanye West',
