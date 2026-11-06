@@ -47,10 +47,10 @@ function estimateReadingTime(raw?: string) {
   const seconds = totalSeconds % 60
 
   if (minutes <= 0) {
-    return `${seconds}秒`
+    return `${seconds} 秒`
   }
 
-  return `${minutes}分钟${seconds}秒`
+  return seconds ? `${minutes} 分 ${seconds} 秒` : `${minutes} 分钟`
 }
 
 type Pagination = {
@@ -159,7 +159,10 @@ export default function Home({ posts, initialDisplayPosts, pagination }) {
                       {readingTimeText && (
                         <div>
                           <dt className="sr-only">预计阅读时间</dt>
-                          <dd>{readingTimeText}</dd>
+                          <dd>
+                            <span aria-hidden="true">阅读约 </span>
+                            {readingTimeText}
+                          </dd>
                         </div>
                       )}
                       {recordedText && (
