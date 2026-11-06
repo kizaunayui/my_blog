@@ -1,3 +1,7 @@
+const { readdirSync, readFileSync } = require('node:fs')
+const { join } = require('node:path')
+const matter = require('gray-matter')
+const { PHASE_PRODUCTION_BUILD } = require('next/constants')
 const { withContentlayer } = require('next-contentlayer2')
 const topologyLearning = require('./lib/learningSeries/topology-optimization.json')
 
@@ -53,10 +57,30 @@ const output = process.env.EXPORT ? 'export' : undefined
 const basePath = process.env.BASE_PATH || undefined
 const unoptimized = process.env.UNOPTIMIZED ? true : undefined
 
+function validatePostRecords() {
+  const blogDir = join(__dirname, 'data', 'blog')
+  const missing = []
+  for (const file of readdirSync(blogDir, { recursive: true })) {
+    if (!file.endsWith('.mdx')) continue
+    const { data } = matter(readFileSync(join(blogDir, file), 'utf8'))
+    if (data.draft === true) continue
+    const { location, weather } = data.recordedAt ?? {}
+    if (![location, weather].every((value) => typeof value === 'string' && value.trim())) {
+      missing.push(file)
+    }
+  }
+  if (missing.length) {
+    throw new Error(
+      `正式发布的文章必须填写 recordedAt.location 和 recordedAt.weather：${missing.join('、')}`
+    )
+  }
+}
+
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
-module.exports = () => {
+module.exports = (phase) => {
+  if (phase === PHASE_PRODUCTION_BUILD) validatePostRecords()
   const plugins = [withContentlayer, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
     output,
