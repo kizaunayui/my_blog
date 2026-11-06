@@ -139,6 +139,15 @@ export const albums: Album[] = [
     url: 'https://open.spotify.com/album/3OKADPr54NWZ4kXXauWHAV',
   },
   {
+    id: '7rqgfNzxlm0VsWpJYT0XW7',
+    title: 'Paprika (Original Soundtrack Album)',
+    artist: 'Susumu Hirasawa',
+    cover: 'https://i.scdn.co/image/ab67616d0000b273d5959cf16de4098975b98a01',
+    accent: '#8495a1',
+    year: '2007',
+    url: 'https://open.spotify.com/album/7rqgfNzxlm0VsWpJYT0XW7',
+  },
+  {
     id: '3Gt7rOjcZQoHCfnKl5AkK7',
     title: 'Minecraft - Volume Alpha',
     artist: 'C418',
@@ -155,6 +164,14 @@ export const albums: Album[] = [
     accent: '#8495a1',
     year: '2013',
     url: 'https://open.spotify.com/album/2GFFxj8aR2XpwIMYanOPjh',
+  },
+  {
+    id: '6KDnsZnBGPZcleJdTqIfjg',
+    title: 'SILENT HILL2 （Original Soundtrack）',
+    artist: 'Akira Yamaoka',
+    cover: 'https://i.scdn.co/image/ab67616d0000b27332ec201c15de9070036cf5f2',
+    accent: '#8495a1',
+    url: 'https://open.spotify.com/album/6KDnsZnBGPZcleJdTqIfjg',
   },
   {
     id: '0tNUmClLcWptIcnoCXpPUC',
