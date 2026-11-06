@@ -166,14 +166,6 @@ export const albums: Album[] = [
     url: 'https://open.spotify.com/album/2GFFxj8aR2XpwIMYanOPjh',
   },
   {
-    id: '6KDnsZnBGPZcleJdTqIfjg',
-    title: 'SILENT HILL2 （Original Soundtrack）',
-    artist: 'Akira Yamaoka',
-    cover: 'https://i.scdn.co/image/ab67616d0000b27332ec201c15de9070036cf5f2',
-    accent: '#8495a1',
-    url: 'https://open.spotify.com/album/6KDnsZnBGPZcleJdTqIfjg',
-  },
-  {
     id: '0tNUmClLcWptIcnoCXpPUC',
     title: 'The Last of Us Part II (Original Soundtrack)',
     artist: 'Gustavo Santaolalla',
@@ -181,6 +173,14 @@ export const albums: Album[] = [
     accent: '#8495a1',
     year: '2020',
     url: 'https://open.spotify.com/album/0tNUmClLcWptIcnoCXpPUC',
+  },
+  {
+    id: '6KDnsZnBGPZcleJdTqIfjg',
+    title: 'SILENT HILL2 （Original Soundtrack）',
+    artist: 'Akira Yamaoka',
+    cover: 'https://i.scdn.co/image/ab67616d0000b27332ec201c15de9070036cf5f2',
+    accent: '#8495a1',
+    url: 'https://open.spotify.com/album/6KDnsZnBGPZcleJdTqIfjg',
   },
   {
     id: '2tUsztcpAksZZEuaXGwGyG',
