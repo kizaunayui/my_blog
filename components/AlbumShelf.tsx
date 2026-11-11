@@ -219,6 +219,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
             aria-label="专辑封面浏览，使用左右方向键切换"
             aria-roledescription="轮播"
           >
+            <div className={styles.halo} aria-hidden="true" />
             <div className={styles.stageHeading}>
               <span aria-hidden="true">SELECTED / {number(activeIndex + 1)}</span>
             </div>
@@ -286,7 +287,6 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                 }
               }}
             >
-              <div className={styles.halo} aria-hidden="true" />
               {albums.map((album, index) => {
                 const offset = circularOffset(index, activeIndex, albums.length)
                 const distance = Math.abs(offset)

@@ -1,5 +1,5 @@
 .page {
-  --album-tint: color-mix(in srgb, var(--album-accent) 35%, #eef1ee);
+  --album-tint: color-mix(in srgb, var(--album-accent) 55%, #fff);
   --album-secondary: #ced7de;
   --ease-album: cubic-bezier(0.22, 1, 0.36, 1);
   --rule: color-mix(in srgb, var(--album-accent) 42%, transparent);
@@ -17,11 +17,17 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  background-color: rgb(5 9 15 / 52%);
+}
+.atmosphere::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background-color: var(--album-accent);
-  opacity: 0.24;
+  opacity: 0.78;
   mask-image:
-    radial-gradient(ellipse at 0% 44%, #000, transparent 68%),
-    radial-gradient(ellipse at 100% 60%, #000, transparent 68%);
+    radial-gradient(ellipse 70% 76% at 0% 40%, #000, rgb(0 0 0 / 70%) 28%, transparent 75%),
+    radial-gradient(ellipse 70% 76% at 100% 60%, #000, rgb(0 0 0 / 70%) 28%, transparent 75%);
   transition: background-color var(--theme-duration) ease;
 }
 
@@ -102,13 +108,18 @@
 }
 .halo {
   position: absolute;
-  inset: 0 12%;
+  top: 0;
+  left: 50%;
+  width: min(130%, 1100px);
+  height: calc(var(--cover-size) + 190px);
+  transform: translateX(-50%);
   z-index: -1;
   color: var(--album-accent);
   background: radial-gradient(
-    ellipse at 50% 48%,
-    color-mix(in srgb, currentColor 22%, transparent),
-    transparent 68%
+    ellipse at 50% 45%,
+    color-mix(in srgb, currentColor 72%, transparent),
+    color-mix(in srgb, currentColor 35%, transparent) 42%,
+    transparent 72%
   );
   pointer-events: none;
   transition: color var(--theme-duration) ease;
