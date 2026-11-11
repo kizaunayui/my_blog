@@ -201,6 +201,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
       className={styles.page}
       style={{ '--album-accent': active?.accent || '#6576bf' } as CSSProperties}
     >
+      <div className={styles.atmosphere} aria-hidden="true" />
       <header className={styles.masthead}>
         <div>
           <h1 className={styles.title}>The Albums That Compose Me</h1>

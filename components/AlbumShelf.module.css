@@ -1,11 +1,28 @@
 .page {
+  --album-tint: color-mix(in srgb, var(--album-accent) 35%, #eef1ee);
   --album-secondary: #ced7de;
   --ease-album: cubic-bezier(0.22, 1, 0.36, 1);
-  --rule: rgb(199 211 213 / 14%);
+  --rule: color-mix(in srgb, var(--album-accent) 42%, transparent);
+  --theme-duration: 1200ms;
+  position: relative;
+  isolation: isolate;
   padding-block: 24px 48px;
   color: #eeede7;
   font-family: 'Inter', 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--album-accent);
+  opacity: 0.24;
+  mask-image:
+    radial-gradient(ellipse at 0% 44%, #000, transparent 68%),
+    radial-gradient(ellipse at 100% 60%, #000, transparent 68%);
+  transition: background-color var(--theme-duration) ease;
 }
 
 .masthead {
@@ -15,6 +32,7 @@
   gap: 20px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--rule);
+  transition: border-color var(--theme-duration) ease;
   animation: reveal 700ms var(--ease-album) both;
 }
 
@@ -63,6 +81,8 @@
   font-size: 13px;
   min-height: 30px;
   font-variant-numeric: tabular-nums;
+  color: var(--album-tint);
+  transition: color var(--theme-duration) ease;
 }
 
 .stage {
@@ -84,12 +104,14 @@
   position: absolute;
   inset: 0 12%;
   z-index: -1;
+  color: var(--album-accent);
   background: radial-gradient(
     ellipse at 50% 48%,
-    color-mix(in srgb, var(--album-accent) 14%, transparent),
+    color-mix(in srgb, currentColor 22%, transparent),
     transparent 68%
   );
   pointer-events: none;
+  transition: color var(--theme-duration) ease;
 }
 .album {
   position: absolute;
@@ -279,7 +301,7 @@
   transition: transform 400ms var(--ease-album);
 }
 .arrow:hover {
-  border-color: #c0d3cc;
+  border-color: var(--album-tint);
   background: rgb(30 39 47 / 95%);
 }
 .previous:hover svg {
@@ -301,10 +323,11 @@
   gap: 12px;
   min-height: 44px;
   margin-top: 10px;
-  color: #c0d3cc;
+  color: var(--album-tint);
   font-size: 14px;
   position: relative;
   text-decoration: none;
+  transition: color var(--theme-duration) ease;
 }
 .listen::after {
   content: '';
@@ -327,13 +350,14 @@
   transform: translate(2px, -2px);
 }
 .page :is(button, a):focus-visible {
-  outline: 2px solid #cadbd6;
+  outline: 2px solid var(--album-tint);
   outline-offset: 5px;
 }
 .tracklist {
   margin-top: 30px;
   border-top: 1px solid var(--rule);
   padding-top: 22px;
+  transition: border-color var(--theme-duration) ease;
 }
 .tracklistHeading {
   display: flex;
@@ -399,6 +423,10 @@
   font-family: inherit;
   font-size: 13px;
   font-variant-numeric: tabular-nums;
+  transition: color 250ms ease;
+}
+.trackRows a:hover .trackNumber {
+  color: var(--album-tint);
 }
 .trackTitle {
   flex: 1;
@@ -429,6 +457,7 @@
   margin-top: 60px;
   border-top: 1px solid var(--rule);
   padding-top: 22px;
+  transition: border-color var(--theme-duration) ease;
 }
 .indexHeading {
   display: flex;
@@ -476,11 +505,14 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #b1c4c5, transparent);
+  color: var(--album-tint);
+  background: linear-gradient(90deg, currentColor, transparent);
   transform: scaleX(0);
   transform-origin: left;
   opacity: 0.65;
-  transition: transform 650ms var(--ease-album);
+  transition:
+    transform 650ms var(--ease-album),
+    color var(--theme-duration) ease;
 }
 .indexItem:hover::after,
 .indexItem[aria-pressed='true']::after {
@@ -508,6 +540,7 @@
   font-family: inherit;
   font-size: 13px;
   font-variant-numeric: tabular-nums;
+  transition: color var(--theme-duration) ease;
 }
 .indexItem img {
   width: 48px;
@@ -537,8 +570,13 @@
 }
 .indexIndicator {
   font-size: 13px;
-  color: #c0d3cc;
-  transition: transform 450ms var(--ease-album);
+  color: var(--album-secondary);
+  transition:
+    transform 450ms var(--ease-album),
+    color var(--theme-duration) ease;
+}
+.indexItem[aria-pressed='true'] :is(.indexNumber, .indexIndicator) {
+  color: var(--album-tint);
 }
 .empty {
   padding-block: 100px;
