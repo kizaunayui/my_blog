@@ -1,9 +1,6 @@
 .page {
-  --paper: #ede9dc;
-  --ink: #24241f;
-  --secondary-ink: #59584e;
-  --stamp: #974026;
-  --rule: rgb(42 38 24 / 25%);
+  --muted: #d7dad7;
+  --rule: rgb(245 244 237 / 22%);
   --ease-album: cubic-bezier(0.22, 1, 0.36, 1);
   padding-block: 20px 60px;
   color: #f3efe5;
@@ -19,10 +16,10 @@
   padding-bottom: 12px;
 }
 .title {
-  font:
-    560 clamp(20px, 2.3vw, 30px)/1.13 'Outfit',
-    'Inter',
-    sans-serif;
+  font-family: inherit;
+  font-size: clamp(20px, 2.3vw, 28px);
+  font-weight: 600;
+  line-height: 1.2;
   letter-spacing: -0.035em;
   text-wrap: balance;
 }
@@ -47,7 +44,6 @@
   position: relative;
   isolation: isolate;
   scroll-margin-top: 90px;
-  background: linear-gradient(180deg, rgb(16 17 18 / 65%), #181817 96%);
 }
 .stage {
   --spread: calc(var(--cover-size) * 0.8);
@@ -81,14 +77,6 @@
   opacity: max(0, calc(1 - var(--distance) * 0.28));
   -webkit-tap-highlight-color: transparent;
   backface-visibility: hidden;
-}
-
-.artwork {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
 }
 
 .sleeve {
@@ -148,24 +136,6 @@
   letter-spacing: -0.02em;
 }
 
-.artwork::before {
-  content: '';
-  position: absolute;
-  inset: 2%;
-  border-radius: 50%;
-  border: 1px solid #5e5c55;
-  background: repeating-radial-gradient(
-    circle closest-side,
-    #272725 0 1px,
-    #373735 1.5px,
-    #20201e 2.5px 4px
-  );
-  transform: translateX(0);
-  transition: transform 540ms var(--ease-album);
-}
-.album[aria-pressed='true'] .artwork::before {
-  transform: translateX(19%);
-}
 .arrow {
   position: absolute;
   top: 50%;
@@ -174,24 +144,23 @@
   display: grid;
   place-items: center;
   width: 46px;
-  height: 60px;
+  height: 46px;
+  border-radius: 50%;
   border: 1px solid #ffffff42;
   color: #f7f4e9;
-  background: #171815ed;
+  background: rgb(12 17 24 / 82%);
   cursor: pointer;
   transition: background 0.2s;
 }
 .previous {
   left: 0;
-  border-left: 0;
 }
 .next {
   right: 0;
-  border-right: 0;
 }
 .arrow:hover {
-  color: var(--ink);
-  background: var(--paper);
+  border-color: #f3efe5;
+  background: #18202b;
 }
 .arrow svg {
   width: 21px;
@@ -202,88 +171,53 @@
 .arrow:disabled {
   opacity: 0.45;
 }
-.liner {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.55fr);
-  background: var(--paper);
-  color: var(--ink);
-  border-bottom: 4px double #777569;
-}
-.details,
-.tracklist {
-  min-width: 0;
-  padding: clamp(22px, 3.2vw, 46px);
-}
-.details {
-  border-right: 1px solid var(--rule);
-  background: linear-gradient(90deg, transparent 96%, #3c352009);
-}
 .albumInfo {
-  position: sticky;
-  top: 88px;
-}
-.albumTag,
-.trackNumber,
-.trackDuration,
-.trackTotal,
-.collectionCount span {
-  font-family: ui-monospace, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-}
-.albumTag {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: var(--stamp);
-}
-.albumTag::before {
-  content: '';
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, var(--paper) 0 1.5px, transparent 2px),
-    repeating-radial-gradient(circle, var(--stamp) 0 2px, #b96c4b 2.5px, var(--stamp) 3px);
+  margin: 0 auto;
+  max-width: 58rem;
+  text-align: center;
 }
 .albumInfo h2 {
-  margin: 20px 0 12px;
-  font-family: 'Outfit', 'Inter', 'Microsoft YaHei', sans-serif;
-  font-size: clamp(30px, 3.2vw, 48px);
-  line-height: 1.05;
-  font-weight: 560;
-  letter-spacing: -0.04em;
+  font-family: inherit;
+  font-size: clamp(22px, 2.4vw, 34px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
   overflow-wrap: anywhere;
   text-wrap: balance;
-  color: var(--ink);
 }
-.artist,
-.note {
-  font-size: 16px;
-  line-height: 1.6;
+.credits {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0 16px;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.credits p {
   overflow-wrap: anywhere;
-}
-.artist span,
-.note {
-  color: var(--secondary-ink);
-}
-.note {
-  margin-top: 12px;
 }
 .listen {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   min-height: 44px;
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 18px;
+  gap: 5px;
+  color: inherit;
+  text-underline-offset: 4px;
   text-decoration: underline;
-  text-underline-offset: 5px;
+  text-decoration-color: var(--rule);
 }
 .listen:hover {
-  color: var(--stamp);
+  color: #fff;
+  text-decoration-color: currentColor;
+}
+.note {
+  margin-top: 6px;
+  color: var(--muted);
+}
+.tracklist {
+  margin-top: clamp(24px, 3vw, 44px);
 }
 .infoContent {
   animation: reveal 320ms var(--ease-album);
@@ -303,8 +237,8 @@
   justify-content: space-between;
   align-items: baseline;
   gap: 14px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ffffff5a;
 }
 .tracklistHeading h2,
 .indexHeading h2 {
@@ -315,7 +249,7 @@
 }
 .tracklistHeading > span {
   font-size: 14px;
-  color: var(--secondary-ink);
+  color: var(--muted);
 }
 .trackRows {
   list-style: none;
@@ -326,10 +260,10 @@
   break-inside: avoid;
   border-bottom: 1px solid var(--rule);
 }
-@media (min-width: 1150px) {
-  .trackRows[data-long='true'] {
+@media (min-width: 768px) {
+  .trackRows[data-columns='true'] {
     columns: 2;
-    column-gap: 26px;
+    column-gap: clamp(32px, 5vw, 72px);
   }
 }
 .trackRows a {
@@ -339,14 +273,15 @@
   align-items: baseline;
   padding: 12px 2px;
   min-height: 46px;
-  color: var(--ink);
+  color: inherit;
   text-decoration: none;
   line-height: 1.45;
 }
 .trackNumber,
 .trackDuration {
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
-  color: var(--secondary-ink);
+  color: var(--muted);
 }
 .trackTitle {
   font-size: 16px;
@@ -356,7 +291,7 @@
 .trackRows a:hover .trackTitle {
   text-decoration: underline;
   text-underline-offset: 4px;
-  color: var(--stamp);
+  color: #fff;
 }
 .trackEmpty {
   margin-top: 16px;
@@ -416,8 +351,8 @@
   top: 6px;
   left: 6px;
   padding: 3px 7px;
-  background: var(--paper);
-  color: var(--ink);
+  background: #ede9dc;
+  color: #24241f;
   font-size: 13px;
   font-weight: 600;
 }
@@ -458,28 +393,7 @@
   }
   .arrow {
     width: 44px;
-    height: 48px;
-  }
-  .liner {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .details {
-    border-right: 0;
-    background: none;
-    padding-bottom: 0;
-  }
-  .albumInfo {
-    position: static;
-  }
-  .albumInfo h2 {
-    margin: 12px 0 6px;
-    font-size: clamp(28px, 7vw, 38px);
-  }
-  .listen {
-    margin-top: 6px;
-  }
-  .tracklist {
-    padding-top: 18px;
+    height: 44px;
   }
   .indexList {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -492,9 +406,6 @@
   }
   .title {
     max-width: 18ch;
-  }
-  .arrow {
-    background: #171815df;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -304,27 +304,25 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                       } as CSSProperties
                     }
                   >
-                    <span className={styles.artwork}>
-                      <span className={styles.sleeve}>
-                        <Image
-                          src={album.cover}
-                          alt={`${album.title}${album.demo ? ' 临时示意封面' : ' 专辑封面'}`}
-                          loading="eager"
-                          width={640}
-                          height={640}
-                          sizes="(max-width: 700px) min(76vw, 390px), clamp(440px, 36vw, 510px)"
-                          priority={index === 0}
-                          draggable={false}
-                          style={{ objectPosition: album.coverPosition }}
-                        />
-                        {album.demo && (
-                          <span className={styles.coverType} aria-hidden="true">
-                            <span>COLLECTION / {number(index + 1)}</span>
-                            <strong>{album.title}</strong>
-                            <span>ARTWORK STUDY</span>
-                          </span>
-                        )}
-                      </span>
+                    <span className={styles.sleeve}>
+                      <Image
+                        src={album.cover}
+                        alt={`${album.title}${album.demo ? ' 临时示意封面' : ' 专辑封面'}`}
+                        loading="eager"
+                        width={640}
+                        height={640}
+                        sizes="(max-width: 700px) min(76vw, 390px), clamp(440px, 36vw, 510px)"
+                        priority={index === 0}
+                        draggable={false}
+                        style={{ objectPosition: album.coverPosition }}
+                      />
+                      {album.demo && (
+                        <span className={styles.coverType} aria-hidden="true">
+                          <span>COLLECTION / {number(index + 1)}</span>
+                          <strong>{album.title}</strong>
+                          <span>ARTWORK STUDY</span>
+                        </span>
+                      )}
                     </span>
                   </button>
                 )
@@ -352,70 +350,59 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               <Arrow next />
             </button>
           </section>
-          <div className={styles.liner}>
-            <div className={styles.details}>
-              <div className={styles.albumInfo} aria-live="polite" aria-atomic="true">
-                <div key={active.id} className={styles.infoContent}>
-                  <p className={styles.albumTag}>
-                    {number(activeIndex + 1)} / {number(albums.length)}
-                  </p>
-                  <h2>{active.title}</h2>
-                  <p className={styles.artist}>
-                    {active.artist}
-                    {active.year && <span> · {active.year}</span>}
-                  </p>
-                  {active.note && <p className={styles.note}>{active.note}</p>}
-                  {active.url && (
+          <div className={styles.albumInfo} aria-live="polite" aria-atomic="true">
+            <div key={active.id} className={styles.infoContent}>
+              <h2>{active.title}</h2>
+              <div className={styles.credits}>
+                <p>
+                  {active.artist}
+                  {active.year && <span> · {active.year}</span>}
+                </p>
+                {active.url && (
+                  <a
+                    className={styles.listen}
+                    href={active.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Spotify 聆听 <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+              {active.note && <p className={styles.note}>{active.note}</p>}
+            </div>
+          </div>
+          <section className={styles.tracklist} aria-label={`${active.title} 收录曲`}>
+            <div className={styles.tracklistHeading}>
+              <h2>收录曲</h2>
+              <span>
+                {tracks.length} 首 ·{' '}
+                {Math.round(tracks.reduce((sum, track) => sum + track.durationMs, 0) / 60000)} 分钟
+              </span>
+            </div>
+            {tracks.length ? (
+              <ol key={active.id} className={styles.trackRows} data-columns={tracks.length > 6}>
+                {tracks.map((track, index) => (
+                  <li key={`${track.href}-${index}`}>
                     <a
-                      className={styles.listen}
-                      href={active.url}
+                      href={track.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${track.title}，在 Spotify 打开`}
                     >
-                      Spotify 聆听 <span aria-hidden="true">↗</span>
+                      <span className={styles.trackNumber}>{number(index + 1)}</span>
+                      <span className={styles.trackTitle}>{track.title}</span>
+                      <span className={styles.trackDuration}>
+                        {formatDuration(track.durationMs)}
+                      </span>
                     </a>
-                  )}
-                </div>
-              </div>
-            </div>
-            <section className={styles.tracklist} aria-label={`${active.title} 收录曲`}>
-              <div className={styles.tracklistHeading}>
-                <h2>收录曲</h2>
-                <span>
-                  {tracks.length} 首{' '}
-                  <span className={styles.trackTotal}>
-                    {' '}
-                    / {Math.round(
-                      tracks.reduce((sum, track) => sum + track.durationMs, 0) / 60000
-                    )}{' '}
-                    MIN
-                  </span>
-                </span>
-              </div>
-              {tracks.length ? (
-                <ol key={active.id} className={styles.trackRows} data-long={tracks.length > 12}>
-                  {tracks.map((track, index) => (
-                    <li key={`${track.href}-${index}`}>
-                      <a
-                        href={track.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${track.title}，在 Spotify 打开`}
-                      >
-                        <span className={styles.trackNumber}>{number(index + 1)}</span>
-                        <span className={styles.trackTitle}>{track.title}</span>
-                        <span className={styles.trackDuration}>
-                          {formatDuration(track.durationMs)}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <p className={styles.trackEmpty}>暂无曲目信息</p>
-              )}
-            </section>
-          </div>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className={styles.trackEmpty}>暂无曲目信息</p>
+            )}
+          </section>
           <section id="album-collection" className={styles.index} aria-label="全部专辑">
             <div className={styles.indexHeading}>
               <h2>全部收藏</h2>
