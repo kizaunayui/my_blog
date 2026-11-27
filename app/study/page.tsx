@@ -3,7 +3,7 @@ import StudyRoom from './StudyRoom'
 
 export const metadata = genPageMetadata({
   title: '自习室',
-  description: 'Kieran Space 的自习室。选一张博客背景，开始专注计时，记录今天的学习时间。',
+  description: 'Kieran Space 的自习室。背景自动轮换，开始计时就能学习。',
   alternates: { canonical: '/study/' },
 })
 
