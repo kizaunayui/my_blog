@@ -135,6 +135,9 @@ export default function RandomBackground({ basePath = '' }: RandomBackgroundProp
   }, [])
 
   const normalizedPathname = pathname.replace(/\/+$/, '') || '/'
+  // The study room owns its backdrop so the selected artwork also fills fullscreen.
+  if (normalizedPathname === '/study') return null
+
   const activeBackground = fixedBackgrounds[normalizedPathname] || background
 
   return (

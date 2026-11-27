@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'tags',
     'about',
     'albums',
+    'study',
     'content/prompts',
     'content',
     'content/projects',
