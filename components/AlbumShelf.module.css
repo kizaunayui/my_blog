@@ -46,10 +46,9 @@
   scroll-margin-top: 90px;
 }
 .stage {
-  --spread: calc(var(--cover-size) * 0.8);
   position: relative;
   height: calc(var(--cover-size) + var(--top) * 2);
-  perspective: 1500px;
+  perspective: calc(var(--cover-size) * 2.6);
   perspective-origin: 50% 48%;
   overflow: clip;
   touch-action: pan-y;
@@ -71,10 +70,6 @@
   background: transparent;
   cursor: pointer;
   transform-style: preserve-3d;
-  transform: translateX(calc(var(--offset) * var(--spread)))
-    translateZ(calc(var(--distance) * -130px)) rotateY(calc(var(--side) * -44deg));
-  transition: none;
-  opacity: max(0, calc(1 - var(--distance) * 0.28));
   -webkit-tap-highlight-color: transparent;
   backface-visibility: hidden;
 }
@@ -87,12 +82,10 @@
   background: #15202b;
   box-shadow: 0 22px 36px -18px rgb(0 0 0 / 65%);
 }
-.sleeve::after {
-  content: '';
+.shade {
   position: absolute;
   inset: 0;
   background: #050c13;
-  opacity: var(--shade, 0);
   pointer-events: none;
 }
 .sleeve::before {
@@ -387,9 +380,6 @@
   .gallery {
     --cover-size: min(76vw, 390px);
     --top: 24px;
-  }
-  .stage {
-    perspective: 1100px;
   }
   .arrow {
     width: 44px;

@@ -3,9 +3,9 @@
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
-  type CSSProperties,
   type KeyboardEvent,
   type PointerEvent,
 } from 'react'
@@ -29,6 +29,55 @@ function circularOffset(index: number, current: number, count: number) {
   return offset
 }
 
+const visibleRadius = 3.7
+
+// Express the whole rack in sleeve widths so the perspective survives resizing mid-swipe.
+function coverPose(offset: number, travel: number) {
+  const distance = Math.abs(offset)
+  const recession = Math.hypot(offset, 0.42) - 0.42
+  const wing = 1 - Math.exp(-1.35 * offset * offset)
+  const x = 0.53 * offset + 0.19 * Math.tanh(2 * offset)
+  const y = 0.055 * wing - 0.012 * travel * (1 - wing)
+  const z = -1.04 * recession - 0.12 * wing - travel * (0.14 + 0.29 * wing)
+  const angle = -59 * Math.tanh(1.42 * offset)
+  const edge = Math.max(0, Math.min(1, (visibleRadius - distance) / 0.65))
+  return {
+    transform: `translate3d(${(100 * x).toFixed(3)}%, ${(100 * y).toFixed(3)}%, calc(var(--cover-size) * ${z.toFixed(5)})) rotateY(${angle.toFixed(3)}deg)`,
+    // Neighbours exchange stacking order halfway through, when their inner edges clear.
+    layer: String(Math.ceil(visibleRadius) - Math.floor(distance + 0.5)),
+    opacity: String(Math.round(edge * edge * (3 - 2 * edge) * 1000) / 1000),
+    shade: String(Math.round(Math.min(0.48, 0.18 * wing + 0.085 * recession) * 1000) / 1000),
+  }
+}
+
+type Drag = {
+  x: number
+  y: number
+  pointerId: number
+  start: number
+  position: number
+  lastX: number
+  lastTime: number
+  speed: number
+  step: number
+}
+
+function sampleDrag(drag: Drag, x: number, time: number) {
+  if (drag.lastX === x) return
+  const elapsed = Math.max(1, time - drag.lastTime)
+  const speed = ((drag.lastX - x) * 1000) / (elapsed * drag.step)
+  // Use elapsed time so release momentum is consistent across pointer polling rates.
+  drag.speed += (Math.max(-20, Math.min(20, speed)) - drag.speed) * -Math.expm1(-elapsed / 40)
+  drag.lastX = x
+  drag.lastTime = time
+  drag.position = drag.start - (x - drag.x) / drag.step
+}
+
+function dragSpeed(drag: Drag, now: number) {
+  // Holding the sleeve still before release cancels the flick naturally.
+  return drag.speed * Math.exp(-Math.max(0, now - drag.lastTime - 20) / 48)
+}
+
 function Arrow({ next = false }: { next?: boolean }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -40,160 +89,201 @@ function Arrow({ next = false }: { next?: boolean }) {
 export default function AlbumShelf({ albums }: { albums: Album[] }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const cards = useRef<(HTMLButtonElement | null)[]>([])
+  const shades = useRef<(HTMLSpanElement | null)[]>([])
   const galleryRef = useRef<HTMLElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
-  const position = useRef(0)
-  const target = useRef(0)
-  const velocity = useRef(0)
-  const selected = useRef(0)
-  const frame = useRef<number | null>(null)
-  const coverWidth = useRef(440)
+  const motion = useRef({
+    position: 0,
+    target: 0,
+    speed: 0, // Albums per second, positive towards the next album.
+    travel: 0,
+    frequency: 14,
+    lastTime: 0,
+    frame: null as number | null,
+  })
+  const gesture = useRef<Drag | null>(null)
   const reduced = useRef(false)
-  const gesture = useRef<{
-    x: number
-    y: number
-    pointerId: number
-    start: number
-    lastX: number
-    lastTime: number
-    velocity: number
-    step: number
-    previousTarget: number
-  } | null>(null)
   const dragged = useRef(false)
+  const pendingIndex = useRef<number | null>(null)
   const active = albums[activeIndex]
   const tracks = active ? tracksByAlbum[active.id] || [] : []
+  const initialPoses = useMemo(
+    () =>
+      Array.from({ length: albums.length }, (_, index) =>
+        coverPose(circularOffset(index, 0, albums.length), 0)
+      ),
+    [albums.length]
+  )
 
   const paint = useCallback(
-    (value: number) => {
-      const width = coverWidth.current
+    (position: number, travel: number) => {
+      let focusedCoverHidden = false
       cards.current.forEach((card, index) => {
         if (!card) return
-        const offset = circularOffset(index, value, albums.length)
-        const distance = Math.abs(offset)
-        if (distance >= 3.6) {
+        const offset = circularOffset(index, position, albums.length)
+        if (Math.abs(offset) >= visibleRadius) {
           if (card.style.visibility !== 'hidden') {
+            if (document.activeElement === card) focusedCoverHidden = true
             card.style.visibility = 'hidden'
             card.style.willChange = 'auto'
           }
           return
         }
-        // A continuous curve keeps rotation and depth smooth when passing the centre.
-        const depth = Math.sqrt(offset * offset + 0.16) - 0.4
-        const edge = Math.max(0, Math.min(1, (3.6 - distance) / 0.8))
-        const fade = edge * edge * (3 - 2 * edge)
-        card.style.visibility = 'visible'
-        card.style.willChange = 'transform, opacity'
-        card.style.transform = `translate3d(${offset * width * 0.8}px, ${10 * (1 - Math.exp(-distance * distance))}px, ${-depth * width * 0.65}px) rotateY(${-Math.tanh(offset * 1.25) * 52}deg)`
-        card.style.opacity = String(fade)
-        card.style.setProperty('--shade', String(Math.min(distance * 0.17, 0.5)))
-        card.style.zIndex = String(Math.round(100 - distance * 10))
+        if (card.style.visibility !== 'visible') {
+          card.style.willChange = 'transform, opacity'
+          card.style.visibility = 'visible'
+        }
+        const pose = coverPose(offset, travel)
+        card.style.transform = pose.transform
+        if (card.style.zIndex !== pose.layer) card.style.zIndex = pose.layer
+        if (card.style.opacity !== pose.opacity) card.style.opacity = pose.opacity
+        const shade = shades.current[index]
+        if (shade && shade.style.opacity !== pose.shade) shade.style.opacity = pose.shade
       })
+      if (focusedCoverHidden) {
+        // Keep repeated arrow keys on the rack as the previously focused sleeve leaves it.
+        const nearest = ((Math.round(position) % albums.length) + albums.length) % albums.length
+        cards.current[nearest]?.focus({ preventScroll: true })
+      }
     },
     [albums.length]
   )
 
+  const commitSelection = useCallback(() => {
+    if (pendingIndex.current === null) return
+    setActiveIndex(pendingIndex.current)
+    if (stageRef.current?.contains(document.activeElement)) {
+      cards.current[pendingIndex.current]?.focus({ preventScroll: true })
+    }
+    pendingIndex.current = null
+  }, [])
+
+  const releasePointer = useCallback(() => {
+    const drag = gesture.current
+    gesture.current = null
+    const stage = stageRef.current
+    if (!stage || !drag) return
+    delete stage.dataset.dragging
+    if (stage.hasPointerCapture(drag.pointerId)) stage.releasePointerCapture(drag.pointerId)
+  }, [])
+
+  const snap = useCallback(() => {
+    const state = motion.current
+    if (state.frame !== null) cancelAnimationFrame(state.frame)
+    state.frame = null
+    state.position = state.target
+    state.speed = state.travel = 0
+    paint(state.position, 0)
+    commitSelection()
+  }, [paint, commitSelection])
+
+  const tick = useCallback(
+    function advance(now: number) {
+      const state = motion.current
+      const dt = Math.max(0, (now - state.lastTime) / 1000)
+      state.lastTime = now
+      const drag = gesture.current
+      if (drag) {
+        state.position = drag.position
+        state.speed = dragSpeed(drag, now)
+      } else {
+        // Exact critically damped spring. Retargeting keeps the current position and velocity.
+        const delta = state.position - state.target
+        const momentum = state.speed + state.frequency * delta
+        const decay = Math.exp(-state.frequency * dt)
+        state.position = state.target + (delta + momentum * dt) * decay
+        state.speed = (state.speed - state.frequency * momentum * dt) * decay
+        if (Math.abs(state.target - state.position) < 0.0008 && Math.abs(state.speed) < 0.015) {
+          state.position = state.target
+          state.speed = 0
+        }
+        // Swap the caption and full tracklist only as the destination comes into focus.
+        if (Math.abs(state.target - state.position) < 0.42) commitSelection()
+      }
+
+      const depthTarget = reduced.current ? 0 : 1 - Math.exp(-Math.abs(state.speed) / 7)
+      const response = depthTarget > state.travel ? 19 : 12
+      state.travel += (depthTarget - state.travel) * -Math.expm1(-response * dt)
+      if (state.travel < 0.001 && depthTarget < 0.001) state.travel = 0
+      paint(state.position, state.travel)
+      const moving = drag
+        ? !reduced.current && Math.abs(state.speed) > 0.01
+        : state.position !== state.target || state.speed !== 0
+      state.frame = moving || state.travel > 0 ? requestAnimationFrame(advance) : null
+    },
+    [paint, commitSelection]
+  )
+
+  const wake = () => {
+    const state = motion.current
+    if (state.frame !== null) return
+    state.lastTime = performance.now()
+    state.frame = requestAnimationFrame(tick)
+  }
+
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const resize = () => {
-      coverWidth.current = cards.current[0]?.offsetWidth || 440
-      paint(position.current)
-    }
     const changeMotion = () => {
       reduced.current = media.matches
       if (media.matches) {
-        if (frame.current !== null) cancelAnimationFrame(frame.current)
-        frame.current = null
-        position.current = target.current
-        velocity.current = 0
-        paint(position.current)
+        releasePointer()
+        snap()
       }
     }
     changeMotion()
-    resize()
-    const observer = new ResizeObserver(resize)
-    if (stageRef.current) observer.observe(stageRef.current)
     media.addEventListener('change', changeMotion)
+    const state = motion.current
     return () => {
-      observer.disconnect()
       media.removeEventListener('change', changeMotion)
-      if (frame.current !== null) cancelAnimationFrame(frame.current)
+      if (state.frame !== null) cancelAnimationFrame(state.frame)
+      state.frame = null
     }
-  }, [paint])
+  }, [releasePointer, snap])
 
   const settle = (destination: number) => {
-    if (frame.current !== null) cancelAnimationFrame(frame.current)
-    target.current = destination
-    if (reduced.current) {
-      position.current = destination
-      velocity.current = 0
-      paint(destination)
-      frame.current = null
-      return
-    }
-    let last = performance.now()
-    const tick = (now: number) => {
-      const dt = Math.min(40, now - last) / 1000
-      last = now
-      // Analytic critically damped spring: retains momentum on interrupted swipes.
-      const displacement = position.current - target.current
-      const frequency = 13
-      const decay = Math.exp(-frequency * dt)
-      const momentum = velocity.current + frequency * displacement
-      position.current = target.current + (displacement + momentum * dt) * decay
-      velocity.current = (velocity.current - frequency * momentum * dt) * decay
-      if (
-        Math.abs(target.current - position.current) < 0.001 &&
-        Math.abs(velocity.current) < 0.015
-      ) {
-        position.current = target.current
-        velocity.current = 0
-        frame.current = null
-        paint(position.current)
-      } else {
-        paint(position.current)
-        frame.current = requestAnimationFrame(tick)
-      }
-    }
-    frame.current = requestAnimationFrame(tick)
+    if (!albums.length) return
+    const state = motion.current
+    releasePointer()
+    state.target = destination
+    state.frequency = 14 - Math.min(3.5, Math.abs(destination - state.position) * 0.85)
+    pendingIndex.current = ((destination % albums.length) + albums.length) % albums.length
+    if (
+      reduced.current ||
+      (state.position === destination && state.speed === 0 && state.travel === 0)
+    )
+      snap()
+    else wake()
   }
 
   const select = (index: number) => {
-    if (!albums.length) return
-    const next = ((index % albums.length) + albums.length) % albums.length
-    const destination = target.current + circularOffset(next, selected.current, albums.length)
-    selected.current = next
-    setActiveIndex(next)
-    settle(destination)
+    const from = motion.current.position
+    settle(Math.round(from + circularOffset(index, from, albums.length)))
+  }
+
+  const step = (direction: number) => {
+    if (albums.length > 1) settle(motion.current.target + direction)
   }
 
   const finishDrag = (event: PointerEvent<HTMLDivElement>, cancelled = false) => {
-    const start = gesture.current
-    if (!start || start.pointerId !== event.pointerId) return
-    gesture.current = null
-    delete event.currentTarget.dataset.dragging
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId)
+    const drag = gesture.current
+    if (!drag || drag.pointerId !== event.pointerId) return
+    const state = motion.current
+    if (cancelled || !dragged.current) {
+      settle(state.target)
+      return
     }
-    if (!cancelled && dragged.current) {
-      const releaseVelocity = performance.now() - start.lastTime > 100 ? 0 : start.velocity
-      velocity.current = Math.max(-18, Math.min(18, (-releaseVelocity * 1000) / start.step))
-      const inertia = Math.max(-4, Math.min(4, velocity.current * 0.16))
-      const destination = Math.round(position.current + inertia)
-      selected.current = ((destination % albums.length) + albums.length) % albums.length
-      setActiveIndex(selected.current)
-      settle(destination)
-    } else {
-      velocity.current = 0
-      settle(start.previousTarget)
-    }
+    sampleDrag(drag, event.clientX, event.timeStamp)
+    state.position = drag.position
+    state.speed = dragSpeed(drag, event.timeStamp)
+    const coast = reduced.current ? 0 : Math.max(-4, Math.min(4, state.speed * 0.21))
+    settle(Math.round(state.position + coast))
   }
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
     event.preventDefault()
     if (event.key === 'Home') select(0)
     else if (event.key === 'End') select(albums.length - 1)
-    else select(selected.current + (event.key === 'ArrowRight' ? 1 : -1))
+    else step(event.key === 'ArrowRight' ? 1 : -1)
   }
 
   return (
@@ -219,20 +309,19 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               className={styles.stage}
               ref={stageRef}
               onPointerDown={(event) => {
-                if (!event.isPrimary || event.button !== 0 || gesture.current) return
-                if (frame.current !== null) cancelAnimationFrame(frame.current)
-                frame.current = null
-                velocity.current = 0
+                if (albums.length < 2 || !event.isPrimary || event.button !== 0 || gesture.current)
+                  return
+                const position = motion.current.position
                 gesture.current = {
                   x: event.clientX,
                   y: event.clientY,
                   pointerId: event.pointerId,
-                  start: position.current,
+                  start: position,
+                  position,
                   lastX: event.clientX,
-                  lastTime: performance.now(),
-                  velocity: 0,
-                  step: Math.max(90, coverWidth.current * 0.48),
-                  previousTarget: target.current,
+                  lastTime: event.timeStamp,
+                  speed: 0,
+                  step: Math.max(90, (cards.current[0]?.offsetWidth || 440) * 0.48),
                 }
                 dragged.current = false
               }}
@@ -245,22 +334,13 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                   (Math.abs(dx) <= 8 || Math.abs(dx) <= Math.abs(event.clientY - start.y))
                 )
                   return
-                dragged.current = true
-                event.currentTarget.dataset.dragging = 'true'
-                event.currentTarget.setPointerCapture(event.pointerId)
-                const now = performance.now()
-                start.velocity =
-                  start.velocity * 0.6 +
-                  ((event.clientX - start.lastX) / Math.max(1, now - start.lastTime)) * 0.4
-                start.lastX = event.clientX
-                start.lastTime = now
-                position.current = start.start - dx / start.step
-                if (frame.current === null) {
-                  frame.current = requestAnimationFrame(() => {
-                    frame.current = null
-                    paint(position.current)
-                  })
+                if (!dragged.current) {
+                  dragged.current = true
+                  event.currentTarget.dataset.dragging = 'true'
+                  event.currentTarget.setPointerCapture(event.pointerId)
                 }
+                sampleDrag(start, event.clientX, event.timeStamp)
+                wake()
               }}
               onPointerUp={(event) => finishDrag(event)}
               onPointerCancel={(event) => finishDrag(event, true)}
@@ -272,7 +352,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                 if (event.target === event.currentTarget) finishDrag(event, true)
               }}
               onClickCapture={(event) => {
-                if (dragged.current) {
+                if (dragged.current && event.detail !== 0) {
                   event.preventDefault()
                   event.stopPropagation()
                   dragged.current = false
@@ -282,6 +362,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               {albums.map((album, index) => {
                 const offset = circularOffset(index, activeIndex, albums.length)
                 const distance = Math.abs(offset)
+                const initial = initialPoses[index]
                 return (
                   <button
                     key={album.id}
@@ -295,14 +376,14 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                     tabIndex={distance > 2 ? -1 : 0}
                     onClick={() => select(index)}
                     onKeyDown={onKeyDown}
-                    style={
-                      {
-                        // Only initial SSR placement; the animation owns these styles afterwards.
-                        '--offset': circularOffset(index, 0, albums.length),
-                        '--distance': Math.abs(circularOffset(index, 0, albums.length)),
-                        '--side': Math.sign(circularOffset(index, 0, albums.length)),
-                      } as CSSProperties
-                    }
+                    style={{
+                      // React holds the initial pose; the animation owns subsequent frame writes.
+                      transform: initial.transform,
+                      zIndex: initial.layer,
+                      opacity: initial.opacity,
+                      visibility: initial.opacity === '0' ? 'hidden' : 'visible',
+                      willChange: initial.opacity === '0' ? 'auto' : 'transform, opacity',
+                    }}
                   >
                     <span className={styles.sleeve}>
                       <Image
@@ -323,6 +404,14 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
                           <span>ARTWORK STUDY</span>
                         </span>
                       )}
+                      <span
+                        aria-hidden="true"
+                        className={styles.shade}
+                        ref={(node) => {
+                          shades.current[index] = node
+                        }}
+                        style={{ opacity: initial.shade }}
+                      />
                     </span>
                   </button>
                 )
@@ -333,7 +422,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               type="button"
               className={`${styles.arrow} ${styles.previous}`}
               disabled={albums.length < 2}
-              onClick={() => select(selected.current - 1)}
+              onClick={() => step(-1)}
               aria-label="上一张专辑"
               onKeyDown={onKeyDown}
             >
@@ -343,7 +432,7 @@ export default function AlbumShelf({ albums }: { albums: Album[] }) {
               type="button"
               className={`${styles.arrow} ${styles.next}`}
               disabled={albums.length < 2}
-              onClick={() => select(selected.current + 1)}
+              onClick={() => step(1)}
               aria-label="下一张专辑"
               onKeyDown={onKeyDown}
             >
