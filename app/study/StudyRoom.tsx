@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { elapsedAt, formatClock, initialTimer, readTimer, storageKey, toggleTimer } from './timer'
 import type { Timer } from './timer'
 import styles from './study.module.css'
@@ -16,7 +16,21 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
   const [timer, setTimer] = useState(initialTimer)
   const [now, setNow] = useState(0)
   const [scene, setScene] = useState(0)
+  const [canFullscreen, setCanFullscreen] = useState(false)
+  const [fullscreen, setFullscreen] = useState(false)
+  const [fullscreenNotice, setFullscreenNotice] = useState('')
+  const room = useRef<HTMLElement>(null)
   const running = timer.startedAt !== null
+
+  useEffect(() => {
+    const target = room.current
+    setCanFullscreen(document.fullscreenEnabled && typeof target?.requestFullscreen === 'function')
+    function syncFullscreen() {
+      setFullscreen(document.fullscreenElement === target)
+    }
+    document.addEventListener('fullscreenchange', syncFullscreen)
+    return () => document.removeEventListener('fullscreenchange', syncFullscreen)
+  }, [])
 
   useEffect(() => {
     function sync(event?: StorageEvent) {
@@ -58,10 +72,22 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
     }
   }
 
+  async function toggleFullscreen() {
+    const target = room.current
+    if (!target) return
+    setFullscreenNotice('')
+    try {
+      if (document.fullscreenElement === target) await document.exitFullscreen()
+      else await target.requestFullscreen()
+    } catch {
+      setFullscreenNotice('浏览器未能切换全屏。')
+    }
+  }
+
   const elapsed = elapsedAt(timer, now)
 
   return (
-    <section className={styles.room} aria-labelledby="study-title">
+    <section ref={room} className={styles.room} aria-labelledby="study-title">
       <div className={styles.backdrop} aria-hidden="true">
         {backgrounds.map(({ file, position }, index) => (
           <div
@@ -75,6 +101,17 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
           />
         ))}
       </div>
+
+      {canFullscreen && (
+        <div className={styles.viewControls}>
+          <button type="button" className={styles.fullscreen} onClick={toggleFullscreen}>
+            {fullscreen ? '退出全屏' : '全屏'}
+          </button>
+          <span role="status" className={styles.fullscreenNotice}>
+            {fullscreenNotice}
+          </span>
+        </div>
+      )}
 
       <div className={styles.desk}>
         <h1 id="study-title">自习室</h1>
