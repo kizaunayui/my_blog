@@ -115,7 +115,7 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
 
       <div className={styles.desk}>
         <h1 id="study-title">自习室</h1>
-        <div className={styles.clock} data-long={elapsed >= 3_600_000} role="timer">
+        <div className={styles.clock} role="timer">
           {formatClock(elapsed)}
         </div>
         <div className={styles.actions}>
