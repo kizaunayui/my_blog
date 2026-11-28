@@ -11,7 +11,7 @@ const backgrounds = [
   { file: 'study-blue-hour-rooftop.webp', position: '72% center' },
   { file: 'study-birch-forest.jpg', position: 'center' },
 ]
-const rotationInterval = 60_000
+const rotationInterval = 5 * 60_000
 const localClock = new Intl.DateTimeFormat('zh-CN', {
   hour: '2-digit',
   minute: '2-digit',
