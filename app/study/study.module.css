@@ -83,10 +83,23 @@
   inset-block-start: max(0.75rem, env(safe-area-inset-top));
   inset-inline-end: max(0.9rem, env(safe-area-inset-right));
   display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 0.35rem;
   justify-items: end;
   color: var(--reading-muted);
   font-family: var(--font-sans);
   font-size: 0.875rem;
+}
+
+.localTime {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 5px #090f15;
 }
 
 .fullscreen {
@@ -102,6 +115,7 @@
 }
 
 .fullscreenNotice {
+  grid-column: 1 / -1;
   text-align: end;
 }
 

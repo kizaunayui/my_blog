@@ -11,6 +11,11 @@ const backgrounds = [
   { file: '若叶睦background.webp', position: '72% center' },
 ]
 const rotationInterval = 60_000
+const localClock = new Intl.DateTimeFormat('zh-CN', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+})
 
 export default function StudyRoom({ basePath }: { basePath: string }) {
   const [timer, setTimer] = useState(initialTimer)
@@ -52,12 +57,17 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
   }, [])
 
   useEffect(() => {
-    if (!running) return
-    const updateClock = () => setNow(Date.now())
-    const tick = window.setInterval(updateClock, 250)
+    let tick: number
+    function updateClock() {
+      window.clearTimeout(tick)
+      const time = Date.now()
+      setNow(time)
+      tick = window.setTimeout(updateClock, running ? 250 : 60_000 - (time % 60_000))
+    }
+    updateClock()
     document.addEventListener('visibilitychange', updateClock)
     return () => {
-      window.clearInterval(tick)
+      window.clearTimeout(tick)
       document.removeEventListener('visibilitychange', updateClock)
     }
   }, [running])
@@ -85,6 +95,7 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
   }
 
   const elapsed = elapsedAt(timer, now)
+  const localTime = now ? localClock.format(now) : ''
 
   return (
     <section ref={room} className={styles.room} aria-labelledby="study-title">
@@ -102,16 +113,20 @@ export default function StudyRoom({ basePath }: { basePath: string }) {
         ))}
       </div>
 
-      {canFullscreen && (
-        <div className={styles.viewControls}>
+      <div className={styles.viewControls}>
+        <time className={styles.localTime} dateTime={localTime || undefined} title="当地时间">
+          <span className="sr-only">当地时间 </span>
+          {localTime}
+        </time>
+        {canFullscreen && (
           <button type="button" className={styles.fullscreen} onClick={toggleFullscreen}>
             {fullscreen ? '退出全屏' : '全屏'}
           </button>
-          <span role="status" className={styles.fullscreenNotice}>
-            {fullscreenNotice}
-          </span>
-        </div>
-      )}
+        )}
+        <span role="status" className={styles.fullscreenNotice}>
+          {fullscreenNotice}
+        </span>
+      </div>
 
       <div className={styles.desk}>
         <h1 id="study-title">自习室</h1>
