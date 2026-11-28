@@ -9,6 +9,8 @@ const backgrounds = [
   { file: 'taeyeon_gravity.webp', position: '73% center' },
   { file: 'liz_blue_bird.webp', position: '66% center' },
   { file: '若叶睦background.webp', position: '72% center' },
+  { file: 'study-blue-hour-rooftop.webp', position: '72% center' },
+  { file: 'study-birch-forest.jpg', position: 'center' },
 ]
 const rotationInterval = 60_000
 const localClock = new Intl.DateTimeFormat('zh-CN', {
